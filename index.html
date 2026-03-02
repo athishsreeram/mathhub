@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Number Builders - Fun Math Games for Toddlers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    :root {
+        --primary-1: #FF6B6B;
+        --primary-2: #4ECDC4;
+        --primary-3: #FFE66D;
+        --primary-4: #95E1D3;
+        --primary-5: #F38181;
+        --primary-6: #AA96DA;
+        --primary-7: #FCBAD3;
+        --text-dark: #2C3E50;
+        --text-light: #FFFFFF;
+        --bg-light: #F5F7FA;
+        --bg-medium: #F0E6FF;
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    body {
+        font-family: 'Fredoka', 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-dark);
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .header {
+        text-align: center;
+        color: var(--text-light);
+        margin-bottom: 30px;
+        animation: slideDown 0.6s ease-out;
+    }
+
+    .header h1 {
+        font-size: 3em;
+        font-weight: 900;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+    }
+
+    .header p {
+        font-size: 1.2em;
+        opacity: 0.95;
+        font-weight: 600;
+    }
+
+    .menu-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        animation: fadeIn 0.8s ease-out 0.2s both;
+    }
+
+    .game-card {
+        background: var(--text-light);
+        border-radius: 25px;
+        padding: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        border: 4px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .game-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .game-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .game-card:hover::before {
+        opacity: 1;
+    }
+
+    .card-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+    }
+
+    .card-title {
+        font-size: 1.4em;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: var(--text-dark);
+    }
+
+    .card-description {
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .card-age {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    .game-screen {
+        display: none;
+        background: var(--text-light);
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: var(--shadow-lg);
+        animation: slideUp 0.5s ease-out;
+    }
+
+    .game-screen.active {
+        display: block;
+    }
+
+    .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid var(--bg-light);
+    }
+
+    .back-button {
+        background: linear-gradient(135deg, #FF6B6B, #F38181);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 15px;
+        font-size: 1em;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+
+    .back-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    }
+
+    .game-title {
+        font-size: 2em;
+        font-weight: 900;
+        color: var(--text-dark);
+        flex: 1;
+        text-align: center;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: var(--bg-light);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transition: width 0.4s ease;
+    }
+
+    .game-content {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .big-number {
+        font-size: 5em;
+        font-weight: 900;
+        color: var(--primary-1);
+        animation: bounce 0.6s ease-out;
+    }
+
+    .equation {
+        font-size: 2.5em;
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    .buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .btn {
+        padding: 20px;
+        font-size: 1.2em;
+        font-weight: 800;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.3s ease;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #FF6B6B, #F38181);
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #4ECDC4, #44B8AC);
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #FFE66D, #FDD835);
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #AA96DA, #9575CD);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #F38181, #E57373);
+    }
+
+    .answer-input {
+        width: 100%;
+        max-width: 200px;
+        padding: 20px;
+        font-size: 2em;
+        text-align: center;
+        border: 3px solid var(--primary-2);
+        border-radius: 15px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .feedback {
+        font-size: 1.8em;
+        font-weight: 800;
+        text-align: center;
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        display: none;
+    }
+
+    .feedback.show {
+        display: block;
+        animation: popUp 0.5s ease-out;
+    }
+
+    .feedback.correct {
+        background: #D4EDDA;
+        color: #155724;
+    }
+
+    .feedback.incorrect {
+        background: #F8D7DA;
+        color: #721C24;
+    }
+
+    .score-display {
+        font-size: 1.5em;
+        font-weight: 900;
+        color: var(--primary-1);
+    }
+
+    .object-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        gap: 10px;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .object {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        background: linear-gradient(135deg, #FFE66D, #FDD835);
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        animation: pop 0.4s ease-out;
+    }
+
+    .skip-count-display {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+    }
+
+    .count-box {
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-align: center;
+        border-radius: 15px;
+        font-size: 1.5em;
+        font-weight: 800;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        animation: slideRight 0.5s ease-out;
+    }
+
+    .instruction-box {
+        background: #FFF3CD;
+        border-left: 5px solid #FFC107;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #856404;
+    }
+
+    .completion-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .completion-modal.show {
+        display: flex;
+    }
+
+    .completion-content {
+        background: white;
+        padding: 40px;
+        border-radius: 30px;
+        text-align: center;
+        max-width: 500px;
+        animation: popUp 0.5s ease-out;
+    }
+
+    .completion-content h2 {
+        font-size: 2.5em;
+        color: var(--primary-1);
+        margin-bottom: 20px;
+    }
+
+    .completion-content p {
+        font-size: 1.3em;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .completion-content .score-display {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes popUp {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes pop {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes slideRight {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 2.2em;
+        }
+
+        .header p {
+            font-size: 1em;
+        }
+
+        .game-card {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2em;
+        }
+
+        .big-number {
+            font-size: 3.5em;
+        }
+
+        .equation {
+            font-size: 1.8em;
+        }
+
+        .game-title {
+            font-size: 1.5em;
+        }
+
+        .menu-container {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .game-screen {
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header h1 {
+            font-size: 1.8em;
+        }
+
+        .big-number {
+            font-size: 2.5em;
+        }
+
+        .equation {
+            font-size: 1.4em;
+        }
+
+        .btn {
+            padding: 15px;
+            font-size: 1em;
+        }
+
+        .buttons-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Hide scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg-light);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-2);
+        border-radius: 10px;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <!-- Menu Screen -->
+        <div id="menuScreen" class="menu-container">
+            <div class="header">
+                <h1>🎨 Number Builders</h1>
+                <p>Fun Math Games for Young Learners! 🚀</p>
+            </div>
+
+```
+        <div class="game-card" onclick="startGame('numberBonds5')">
+            <div class="card-icon">🎯</div>
+            <div class="card-title">Number Bonds to 5</div>
+            <div class="card-description">Learn all the ways to make 5! (5=1+4, 5=2+3, etc.)</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('numberBonds10')">
+            <div class="card-icon">🎪</div>
+            <div class="card-title">Number Bonds to 10</div>
+            <div class="card-description">Master all combinations that make 10!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('skipCount2')">
+            <div class="card-icon">🎵</div>
+            <div class="card-title">Skip Counting by 2s</div>
+            <div class="card-description">2, 4, 6, 8... Find the pattern!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('skipCount5')">
+            <div class="card-icon">🖐️</div>
+            <div class="card-title">Skip Counting by 5s</div>
+            <div class="card-description">5, 10, 15, 20... Count in fives!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('skipCount10')">
+            <div class="card-icon">🔟</div>
+            <div class="card-title">Skip Counting by 10s</div>
+            <div class="card-description">10, 20, 30... Big number jumps!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('additionStrategies')">
+            <div class="card-icon">➕</div>
+            <div class="card-title">Addition Strategies</div>
+            <div class="card-description">Counting on, doubles, near-doubles & making 10!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('subtractionInverse')">
+            <div class="card-icon">➖</div>
+            <div class="card-title">Subtraction as Inverse</div>
+            <div class="card-description">If 5+3=8, then 8-3=5. See the connection!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('placeValue')">
+            <div class="card-icon">🧩</div>
+            <div class="card-title">Place Value (0-99)</div>
+            <div class="card-description">Understand tens and ones! 24 = 2 tens + 4 ones</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('multiplicationIntro')">
+            <div class="card-icon">✨</div>
+            <div class="card-title">Multiplication Intro</div>
+            <div class="card-description">Groups & repeated addition concept!</div>
+            <div class="card-age">Ages 5-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('repeatedAddition')">
+            <div class="card-icon">🔄</div>
+            <div class="card-title">Repeated Addition</div>
+            <div class="card-description">3+3+3+3 = 4 groups of 3 = 4×3</div>
+            <div class="card-age">Ages 5-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('commutativeProperty')">
+            <div class="card-icon">🔀</div>
+            <div class="card-title">Commutative Property</div>
+            <div class="card-description">3+4 = 4+3. Order doesn't matter!</div>
+            <div class="card-age">Ages 5-6</div>
+        </div>
+
+        <div class="game-card" onclick="startGame('wordProblems')">
+            <div class="card-icon">📖</div>
+            <div class="card-title">Simple Word Problems</div>
+            <div class="card-description">Real-world math with Emma and friends!</div>
+            <div class="card-age">Ages 4-6</div>
+        </div>
+    </div>
+
+    <!-- Game Screens -->
+    <div id="gameScreen" class="game-screen">
+        <div class="game-header">
+            <button class="back-button" onclick="goBack()">← Back</button>
+            <div class="game-title" id="gameTitle"></div>
+            <div style="width: 80px;"></div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+
+        <div class="game-content" id="gameContent"></div>
+    </div>
+</div>
+
+<!-- Completion Modal -->
+<div class="completion-modal" id="completionModal">
+    <div class="completion-content">
+        <h2>🎉 Great Job!</h2>
+        <p>You completed this level!</p>
+        <div class="score-display" id="finalScore"></div>
+        <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 0 auto;">Play Again</button>
+    </div>
+</div>
+
+<script>
+    // Game State
+    let currentGame = null;
+    let currentQuestion = 0;
+    let score = 0;
+    let totalQuestions = 0;
+
+    // Game Definitions
+    const games = {
+        numberBonds5: {
+            title: '🎯 Number Bonds to 5',
+            questions: generateNumberBondsQuestions(5),
+        },
+        numberBonds10: {
+            title: '🎪 Number Bonds to 10',
+            questions: generateNumberBondsQuestions(10),
+        },
+        skipCount2: {
+            title: '🎵 Skip Counting by 2s',
+            questions: generateSkipCountQuestions(2, 10),
+        },
+        skipCount5: {
+            title: '🖐️ Skip Counting by 5s',
+            questions: generateSkipCountQuestions(5, 10),
+        },
+        skipCount10: {
+            title: '🔟 Skip Counting by 10s',
+            questions: generateSkipCountQuestions(10, 10),
+        },
+        additionStrategies: {
+            title: '➕ Addition Strategies',
+            questions: generateAdditionQuestions(),
+        },
+        subtractionInverse: {
+            title: '➖ Subtraction as Inverse',
+            questions: generateSubtractionInverseQuestions(),
+        },
+        placeValue: {
+            title: '🧩 Place Value (0-99)',
+            questions: generatePlaceValueQuestions(),
+        },
+        multiplicationIntro: {
+            title: '✨ Multiplication Intro',
+            questions: generateMultiplicationIntroQuestions(),
+        },
+        repeatedAddition: {
+            title: '🔄 Repeated Addition',
+            questions: generateRepeatedAdditionQuestions(),
+        },
+        commutativeProperty: {
+            title: '🔀 Commutative Property',
+            questions: generateCommutativePropertyQuestions(),
+        },
+        wordProblems: {
+            title: '📖 Simple Word Problems',
+            questions: generateWordProblemsQuestions(),
+        },
+    };
+
+    // Generate Question Functions
+    function generateNumberBondsQuestions(target) {
+        const questions = [];
+        for (let i = 1; i < target; i++) {
+            const j = target - i;
+            if (i <= j) {
+                questions.push({
+                    type: 'numberBonds',
+                    target,
+                    part1: i,
+                    part2: j,
+                    display: `${target} = ${i} + ?`,
+                    answer: j,
+                    visual: `${target} = ${i} + ${j}`,
+                });
+            }
+        }
+        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
+    }
+
+    function generateSkipCountQuestions(step, count) {
+        const questions = [];
+        const sequence = Array.from({ length: count }, (_, i) => (i + 1) * step);
+        
+        for (let i = 0; i < sequence.length - 1; i++) {
+            questions.push({
+                type: 'skipCount',
+                step,
+                sequence: sequence.slice(0, i + 2),
+                display: `What comes next? ${sequence.slice(0, i + 1).join(', ')}, ?`,
+                answer: sequence[i + 1],
+                visual: sequence.slice(0, i + 2).join(', '),
+            });
+        }
+        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
+    }
+
+    function generateAdditionQuestions() {
+        const questions = [
+            { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!' },
+            { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!' },
+            { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!' },
+            { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!' },
+            { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!' },
+            { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!' },
+            { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!' },
+            { type: 'addition', problem: '7 + 3', answer: 10, desc: 'Make 10!' },
+        ];
+        return questions.sort(() => Math.random() - 0.5);
+    }
+
+    function generateSubtractionInverseQuestions() {
+        const questions = [
+            { type: 'subtraction', addition: '5 + 3 = 8', subtraction: '8 - 3 = ?', answer: 5 },
+            { type: 'subtraction', addition: '2 + 4 = 6', subtraction: '6 - 4 = ?', answer: 2 },
+            { type: 'subtraction', addition: '3 + 3 = 6', subtraction: '6 - 3 = ?', answer: 3 },
+            { type: 'subtraction', addition: '4 + 2 = 6', subtraction: '6 - 2 = ?', answer: 4 },
+            { type: 'subtraction', addition: '1 + 5 = 6', subtraction: '6 - 5 = ?', answer: 1 },
+            { type: 'subtraction', addition: '4 + 4 = 8', subtraction: '8 - 4 = ?', answer: 4 },
+            { type: 'subtraction', addition: '3 + 5 = 8', subtraction: '8 - 5 = ?', answer: 3 },
+            { type: 'subtraction', addition: '2 + 7 = 9', subtraction: '9 - 7 = ?', answer: 2 },
+        ];
+        return questions.sort(() => Math.random() - 0.5);
+    }
+
+    function generatePlaceValueQuestions() {
+        const questions = [];
+        for (let i = 10; i <= 50; i += 5) {
+            const tens = Math.floor(i / 10);
+            const ones = i % 10;
+            questions.push({
+                type: 'placeValue',
+                number: i,
+                tens,
+                ones,
+                display: `${i} = ? tens + ? ones`,
+            });
+        }
+        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
+    }
+
+    function generateMultiplicationIntroQuestions() {
+        const groups = [
+            { times: 2, groups: 3, desc: '3 groups of 2' },
+            { times: 2, groups: 4, desc: '4 groups of 2' },
+            { times: 3, groups: 2, desc: '2 groups of 3' },
+            { times: 5, groups: 2, desc: '2 groups of 5' },
+            { times: 2, groups: 5, desc: '5 groups of 2' },
+            { times: 3, groups: 3, desc: '3 groups of 3' },
+            { times: 4, groups: 2, desc: '2 groups of 4' },
+            { times: 2, groups: 6, desc: '6 groups of 2' },
+        ];
+        return groups.map(g => ({
+            type: 'multiplicationIntro',
+            groups: g.groups,
+            times: g.times,
+            answer: g.groups * g.times,
+            desc: g.desc,
+        }));
+    }
+
+    function generateRepeatedAdditionQuestions() {
+        const questions = [
+            { times: 2, addend: 3, answer: 6 },
+            { times: 3, addend: 2, answer: 6 },
+            { times: 2, addend: 4, answer: 8 },
+            { times: 3, addend: 3, answer: 9 },
+            { times: 4, addend: 2, answer: 8 },
+            { times: 2, addend: 5, answer: 10 },
+            { times: 5, addend: 2, answer: 10 },
+            { times: 3, addend: 4, answer: 12 },
+        ];
+        return questions.map(q => ({
+            type: 'repeatedAddition',
+            addend: q.addend,
+            times: q.times,
+            answer: q.answer,
+        }));
+    }
+
+    function generateCommutativePropertyQuestions() {
+        const questions = [
+            { a: 2, b: 3 },
+            { a: 4, b: 1 },
+            { a: 3, b: 5 },
+            { a: 2, b: 2 },
+            { a: 1, b: 5 },
+            { a: 4, b: 3 },
+            { a: 2, b: 4 },
+            { a: 3, b: 3 },
+        ];
+        return questions.map(q => ({
+            type: 'commutative',
+            a: q.a,
+            b: q.b,
+            answer: q.a + q.b,
+        }));
+    }
+
+    function generateWordProblemsQuestions() {
+        const problems = [
+            { text: 'Emma has 3 apples. She gets 2 more. How many does she have?', answer: 5 },
+            { text: 'Tom finds 4 shells at the beach. He finds 3 more. How many shells?', answer: 7 },
+            { text: 'Sara has 5 crayons. Her friend gives her 2 more. How many now?', answer: 7 },
+            { text: 'Ben has 6 cookies. He eats 2. How many cookies are left?', answer: 4 },
+            { text: 'Lily has 8 stickers. She gives 3 to her friend. How many left?', answer: 5 },
+            { text: 'Max has 2 toy cars. His mom buys him 4 more. How many cars?', answer: 6 },
+            { text: 'Zoe has 9 blocks. She removes 4. How many blocks remain?', answer: 5 },
+            { text: 'Noah has 3 balloons. He blows up 4 more. How many total?', answer: 7 },
+        ];
+        return problems.map(p => ({
+            type: 'wordProblem',
+            text: p.text,
+            answer: p.answer,
+        }));
+    }
+
+    // Game Functions
+    function startGame(gameName) {
+        currentGame = gameName;
+        currentQuestion = 0;
+        score = 0;
+        const game = games[gameName];
+        totalQuestions = game.questions.length;
+        
+        document.getElementById('menuScreen').style.display = 'none';
+        document.getElementById('gameScreen').classList.add('active');
+        document.getElementById('gameTitle').textContent = game.title;
+        
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const game = games[currentGame];
+        const question = game.questions[currentQuestion];
+        const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+        
+        document.getElementById('progressFill').style.width = progress + '%';
+        const gameContent = document.getElementById('gameContent');
+        gameContent.innerHTML = '';
+
+        if (question.type === 'numberBonds') {
+            renderNumberBondsQuestion(question, gameContent);
+        } else if (question.type === 'skipCount') {
+            renderSkipCountQuestion(question, gameContent);
+        } else if (question.type === 'addition') {
+            renderAdditionQuestion(question, gameContent);
+        } else if (question.type === 'subtraction') {
+            renderSubtractionQuestion(question, gameContent);
+        } else if (question.type === 'placeValue') {
+            renderPlaceValueQuestion(question, gameContent);
+        } else if (question.type === 'multiplicationIntro') {
+            renderMultiplicationIntroQuestion(question, gameContent);
+        } else if (question.type === 'repeatedAddition') {
+            renderRepeatedAdditionQuestion(question, gameContent);
+        } else if (question.type === 'commutative') {
+            renderCommutativeQuestion(question, gameContent);
+        } else if (question.type === 'wordProblem') {
+            renderWordProblemQuestion(question, gameContent);
+        }
+    }
+
+    function renderNumberBondsQuestion(q, container) {
+        const answers = generateMultipleChoiceAnswers(q.answer, 5, q.target);
+        container.innerHTML = `
+            <div class="big-number">${q.target}</div>
+            <div class="equation">${q.display}</div>
+            <div class="instruction-box">🎯 How many more do we need?</div>
+            <div class="object-grid">
+                ${Array(q.target).fill('⭐').map(o => `<div class="object">${o}</div>`).join('')}
+            </div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderSkipCountQuestion(q, container) {
+        const answers = generateMultipleChoiceAnswers(q.answer, 5);
+        container.innerHTML = `
+            <div class="instruction-box">🎵 What number comes next?</div>
+            <div class="skip-count-display">
+                ${q.sequence.map(n => `<div class="count-box">${n}</div>`).join('')}
+                <div class="count-box" style="background: linear-gradient(135deg, #FF6B6B, #F38181);">?</div>
+            </div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderAdditionQuestion(q, container) {
+        const [a, b] = q.problem.split(' + ').map(Number);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        container.innerHTML = `
+            <div class="equation">${q.problem} = ?</div>
+            <div class="instruction-box">💡 ${q.desc}</div>
+            <div class="object-grid">
+                ${Array(a).fill('🍎').map(o => `<div class="object">${o}</div>`).join('')}
+                ${Array(b).fill('🍎').map(o => `<div class="object" style="background: linear-gradient(135deg, #4ECDC4, #44B8AC);">${o}</div>`).join('')}
+            </div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-warning" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderSubtractionQuestion(q, container) {
+        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        container.innerHTML = `
+            <div class="instruction-box">🔗 These are connected!</div>
+            <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 20px 0;">${q.addition}</div>
+            <div class="equation">${q.subtraction}</div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-danger" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderPlaceValueQuestion(q, container) {
+        const tens = Array(q.tens).fill('🔟');
+        const ones = Array(q.ones).fill('●');
+        container.innerHTML = `
+            <div class="big-number">${q.number}</div>
+            <div class="instruction-box">🧩 How many tens? How many ones?</div>
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">TENS</div>
+                    <div class="object-grid" style="max-width: 200px;">
+                        ${tens.map(o => `<div class="object" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">${o}</div>`).join('')}
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; font-weight: 700; color: #FFE66D;">ONES</div>
+                    <div class="object-grid" style="max-width: 200px;">
+                        ${ones.map(o => `<div class="object">${o}</div>`).join('')}
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 30px 0; font-size: 1.5em; font-weight: 700; text-align: center;">
+                ${q.tens} tens + ${q.ones} ones
+            </div>
+            <button class="btn btn-info" onclick="checkAnswer(${q.answer})" style="width: 200px; margin: 0 auto;">✓ Got it!</button>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderMultiplicationIntroQuestion(q, container) {
+        const items = Array(q.groups).fill(null).map((_, i) => 
+            Array(q.times).fill('⭐')
+        );
+        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        container.innerHTML = `
+            <div class="instruction-box">✨ ${q.desc}</div>
+            <div class="big-number">${q.groups} × ${q.times} = ?</div>
+            <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 20px; max-width: 400px; margin: 20px auto;">
+                ${items.map((group, i) => 
+                    `<div style="background: linear-gradient(135deg, #FCBAD3, #F38181); padding: 15px; border-radius: 15px; text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">${group.join('')}</div>
+                        <div style="font-weight: 700;">Group ${i + 1}</div>
+                    </div>`
+                ).join('')}
+            </div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-info" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderRepeatedAdditionQuestion(q, container) {
+        const additions = Array(q.times).fill(q.addend);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        container.innerHTML = `
+            <div class="equation">${additions.join(' + ')} = ?</div>
+            <div class="instruction-box">🔄 Add them all up!</div>
+            <div class="object-grid">
+                ${additions.map((num, i) => 
+                    `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.3em;">
+                        ${Array(num).fill('●').join('')}
+                    </div>`
+                ).join('')}
+            </div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderCommutativeQuestion(q, container) {
+        const answers = [q.answer, q.answer + 1, q.answer - 1, q.answer + 2].filter(a => a > 0);
+        const shuffled = answers.sort(() => Math.random() - 0.5).slice(0, 4);
+        container.innerHTML = `
+            <div class="instruction-box">🔀 Order doesn't matter!</div>
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; margin: 30px 0; flex-wrap: wrap;">
+                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
+                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-2);">=</div>
+                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
+            </div>
+            <div style="font-size: 1.8em; text-align: center; margin: 20px 0; font-weight: 700;">Both equal ?</div>
+            <div class="buttons-grid">
+                ${shuffled.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function renderWordProblemQuestion(q, container) {
+        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        container.innerHTML = `
+            <div class="instruction-box">📖 Read the story!</div>
+            <div style="background: #E8F5E9; padding: 25px; border-radius: 20px; font-size: 1.3em; font-weight: 700; line-height: 1.8; margin: 20px 0; border: 3px dashed #4CAF50;">
+                ${q.text}
+            </div>
+            <div style="font-size: 1.8em; font-weight: 900; color: var(--primary-1); margin: 30px 0;">?</div>
+            <div class="buttons-grid">
+                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+            </div>
+            <div class="feedback" id="feedback"></div>
+        `;
+    }
+
+    function checkAnswer(answer) {
+        const game = games[currentGame];
+        const question = game.questions[currentQuestion];
+        const feedback = document.getElementById('feedback');
+        const isCorrect = answer === question.answer;
+        
+        if (isCorrect) {
+            score++;
+            feedback.textContent = '🎉 Perfect! Great job!';
+            feedback.className = 'feedback show correct';
+        } else {
+            feedback.textContent = `❌ Oops! The answer is ${question.answer}`;
+            feedback.className = 'feedback show incorrect';
+        }
+        
+        setTimeout(() => {
+            currentQuestion++;
+            if (currentQuestion >= totalQuestions) {
+                showCompletion();
+            } else {
+                showQuestion();
+            }
+        }, 1500);
+    }
+
+    function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
+        const answers = new Set([correct]);
+        while (answers.size < count) {
+            const wrong = Math.floor(Math.random() * max) + 1;
+            if (wrong !== correct) {
+                answers.add(wrong);
+            }
+        }
+        return Array.from(answers).sort(() => Math.random() - 0.5);
+    }
+
+    function showCompletion() {
+        const percentage = Math.round((score / totalQuestions) * 100);
+        document.getElementById('finalScore').textContent = `Score: ${score}/${totalQuestions} (${percentage}%)`;
+        document.getElementById('completionModal').classList.add('show');
+    }
+
+    function goBack() {
+        document.getElementById('completionModal').classList.remove('show');
+        document.getElementById('gameScreen').classList.remove('active');
+        document.getElementById('menuScreen').style.display = 'grid';
+        currentGame = null;
+    }
+</script>
+```
+
+</head>
+<body>
+</body>
+</html>
