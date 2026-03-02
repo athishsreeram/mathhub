@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 Number Builders - Fun Math Games for Toddlers</title>
+    <title>🎨 Number Builders - AI-Powered Math Games for Toddlers</title>
     <style>
         * {
             margin: 0;
@@ -142,6 +142,8 @@
         padding: 30px;
         box-shadow: var(--shadow-lg);
         animation: slideUp 0.5s ease-out;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .game-screen.active {
@@ -152,8 +154,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
         border-bottom: 3px solid var(--bg-light);
     }
 
@@ -176,7 +178,7 @@
     }
 
     .game-title {
-        font-size: 2em;
+        font-size: 1.8em;
         font-weight: 900;
         color: var(--text-dark);
         flex: 1;
@@ -189,7 +191,7 @@
         background: var(--bg-light);
         border-radius: 10px;
         overflow: hidden;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .progress-fill {
@@ -198,13 +200,24 @@
         transition: width 0.4s ease;
     }
 
+    .level-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #FFE66D, #FDD835);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9em;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
     .game-content {
-        min-height: 400px;
+        min-height: 300px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 30px;
+        gap: 20px;
     }
 
     .big-number {
@@ -222,25 +235,30 @@
 
     .buttons-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 12px;
         width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
+        max-width: 500px;
+        margin: 15px auto;
     }
 
     .btn {
-        padding: 20px;
-        font-size: 1.2em;
+        padding: 18px;
+        font-size: 1.1em;
         font-weight: 800;
         border: none;
-        border-radius: 20px;
+        border-radius: 18px;
         cursor: pointer;
         transition: all 0.3s ease;
         color: white;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         position: relative;
         overflow: hidden;
+    }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 
     .btn::before {
@@ -254,11 +272,11 @@
         transition: left 0.3s ease;
     }
 
-    .btn:hover::before {
+    .btn:hover:not(:disabled)::before {
         left: 100%;
     }
 
-    .btn:hover {
+    .btn:hover:not(:disabled) {
         transform: scale(1.08);
         box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
     }
@@ -283,25 +301,13 @@
         background: linear-gradient(135deg, #F38181, #E57373);
     }
 
-    .answer-input {
-        width: 100%;
-        max-width: 200px;
-        padding: 20px;
-        font-size: 2em;
-        text-align: center;
-        border: 3px solid var(--primary-2);
-        border-radius: 15px;
-        font-weight: 700;
-        color: var(--text-dark);
-    }
-
     .feedback {
         font-size: 1.8em;
         font-weight: 800;
         text-align: center;
         padding: 20px;
         border-radius: 15px;
-        margin: 20px 0;
+        margin: 15px 0;
         display: none;
     }
 
@@ -320,6 +326,23 @@
         color: #721C24;
     }
 
+    .ai-hint {
+        background: #E3F2FD;
+        border-left: 5px solid #2196F3;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        font-size: 1em;
+        color: #1565C0;
+        font-weight: 600;
+        display: none;
+        animation: slideUp 0.4s ease-out;
+    }
+
+    .ai-hint.show {
+        display: block;
+    }
+
     .score-display {
         font-size: 1.5em;
         font-weight: 900;
@@ -332,7 +355,7 @@
         gap: 10px;
         width: 100%;
         max-width: 400px;
-        margin: 20px auto;
+        margin: 15px auto;
     }
 
     .object {
@@ -350,20 +373,20 @@
 
     .skip-count-display {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 10px;
         width: 100%;
-        max-width: 500px;
-        margin: 20px auto;
+        max-width: 450px;
+        margin: 15px auto;
     }
 
     .count-box {
-        padding: 20px;
+        padding: 18px;
         background: linear-gradient(135deg, #667eea, #764ba2);
         color: white;
         text-align: center;
         border-radius: 15px;
-        font-size: 1.5em;
+        font-size: 1.4em;
         font-weight: 800;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         animation: slideRight 0.5s ease-out;
@@ -372,12 +395,13 @@
     .instruction-box {
         background: #FFF3CD;
         border-left: 5px solid #FFC107;
-        padding: 20px;
+        padding: 15px;
         border-radius: 10px;
-        margin-bottom: 20px;
         font-size: 1.1em;
         font-weight: 600;
         color: #856404;
+        width: 100%;
+        max-width: 500px;
     }
 
     .completion-modal {
@@ -414,154 +438,92 @@
     }
 
     .completion-content p {
-        font-size: 1.3em;
+        font-size: 1.2em;
         color: #666;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+        line-height: 1.6;
     }
 
     .completion-content .score-display {
         font-size: 2.5em;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+    }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 4px solid var(--bg-light);
+        border-top-color: var(--primary-2);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
     }
 
     /* Animations */
     @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 
     @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes bounce {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
     }
 
     @keyframes popUp {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
     }
 
     @keyframes pop {
-        from {
-            transform: scale(0);
-        }
-        to {
-            transform: scale(1);
-        }
+        from { transform: scale(0); }
+        to { transform: scale(1); }
     }
 
     @keyframes slideRight {
-        from {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-        .header h1 {
-            font-size: 2.2em;
-        }
-
-        .header p {
-            font-size: 1em;
-        }
-
-        .game-card {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 1.2em;
-        }
-
-        .big-number {
-            font-size: 3.5em;
-        }
-
-        .equation {
-            font-size: 1.8em;
-        }
-
-        .game-title {
-            font-size: 1.5em;
-        }
-
-        .menu-container {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .game-screen {
-            padding: 20px;
-        }
+        .header h1 { font-size: 2.2em; }
+        .header p { font-size: 1em; }
+        .game-card { padding: 20px; }
+        .card-title { font-size: 1.2em; }
+        .big-number { font-size: 3.5em; }
+        .equation { font-size: 1.8em; }
+        .game-title { font-size: 1.4em; }
+        .menu-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .game-screen { padding: 20px; }
+        .buttons-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 480px) {
-        .header h1 {
-            font-size: 1.8em;
-        }
-
-        .big-number {
-            font-size: 2.5em;
-        }
-
-        .equation {
-            font-size: 1.4em;
-        }
-
-        .btn {
-            padding: 15px;
-            font-size: 1em;
-        }
-
-        .buttons-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+        .header h1 { font-size: 1.8em; }
+        .big-number { font-size: 2.5em; }
+        .equation { font-size: 1.4em; }
+        .btn { padding: 15px; font-size: 0.95em; }
+        .game-header { flex-wrap: wrap; gap: 10px; }
+        .game-title { font-size: 1.2em; width: 100%; }
     }
 
-    /* Hide scrollbar */
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
     }
 
     ::-webkit-scrollbar-track {
@@ -582,7 +544,7 @@
         <div id="menuScreen" class="menu-container">
             <div class="header">
                 <h1>🎨 Number Builders</h1>
-                <p>Fun Math Games for Young Learners! 🚀</p>
+                <p>AI-Powered Fun Math Games for Young Learners! 🚀</p>
             </div>
 
 ```
@@ -671,7 +633,7 @@
         </div>
     </div>
 
-    <!-- Game Screens -->
+    <!-- Game Screen -->
     <div id="gameScreen" class="game-screen">
         <div class="game-header">
             <button class="back-button" onclick="goBack()">← Back</button>
@@ -683,17 +645,24 @@
             <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
         </div>
 
+        <div style="text-align: center;">
+            <div class="level-badge" id="levelBadge">Level 1 - Beginner</div>
+        </div>
+
         <div class="game-content" id="gameContent"></div>
+
+        <div class="ai-hint" id="aiHint"></div>
     </div>
 </div>
 
 <!-- Completion Modal -->
 <div class="completion-modal" id="completionModal">
     <div class="completion-content">
-        <h2>🎉 Great Job!</h2>
-        <p>You completed this level!</p>
+        <h2>🎉 Awesome Job!</h2>
+        <p id="completionMessage">You completed this level!</p>
         <div class="score-display" id="finalScore"></div>
-        <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 0 auto;">Play Again</button>
+        <p id="aiMessage" style="font-size: 1em; color: #667eea; font-style: italic;"></p>
+        <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 20px auto 0;">Play Another Game</button>
     </div>
 </div>
 
@@ -703,239 +672,295 @@
     let currentQuestion = 0;
     let score = 0;
     let totalQuestions = 0;
+    let correctStreak = 0;
+    let wrongStreak = 0;
+    let difficulty = 1; // 1 = Easy, 2 = Medium, 3 = Hard
+    let allQuestions = {};
 
-    // Game Definitions
-    const games = {
-        numberBonds5: {
-            title: '🎯 Number Bonds to 5',
-            questions: generateNumberBondsQuestions(5),
-        },
-        numberBonds10: {
-            title: '🎪 Number Bonds to 10',
-            questions: generateNumberBondsQuestions(10),
-        },
-        skipCount2: {
-            title: '🎵 Skip Counting by 2s',
-            questions: generateSkipCountQuestions(2, 10),
-        },
-        skipCount5: {
-            title: '🖐️ Skip Counting by 5s',
-            questions: generateSkipCountQuestions(5, 10),
-        },
-        skipCount10: {
-            title: '🔟 Skip Counting by 10s',
-            questions: generateSkipCountQuestions(10, 10),
-        },
-        additionStrategies: {
-            title: '➕ Addition Strategies',
-            questions: generateAdditionQuestions(),
-        },
-        subtractionInverse: {
-            title: '➖ Subtraction as Inverse',
-            questions: generateSubtractionInverseQuestions(),
-        },
-        placeValue: {
-            title: '🧩 Place Value (0-99)',
-            questions: generatePlaceValueQuestions(),
-        },
-        multiplicationIntro: {
-            title: '✨ Multiplication Intro',
-            questions: generateMultiplicationIntroQuestions(),
-        },
-        repeatedAddition: {
-            title: '🔄 Repeated Addition',
-            questions: generateRepeatedAdditionQuestions(),
-        },
-        commutativeProperty: {
-            title: '🔀 Commutative Property',
-            questions: generateCommutativePropertyQuestions(),
-        },
-        wordProblems: {
-            title: '📖 Simple Word Problems',
-            questions: generateWordProblemsQuestions(),
-        },
+    // OpenRouter API Configuration
+    const OPENROUTER_API_KEY = "sk-or-free-test-key"; // Free tier key
+    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+    // AI Hints Database
+    const hints = {
+        numberBonds5: [
+            "Count on your fingers! 5 = 1 + ?",
+            "Think: if we have 2, how many more to make 5?",
+            "Try counting: 1, 2, 3... how many more?"
+        ],
+        numberBonds10: [
+            "10 is like 2 hands with 5 fingers each!",
+            "If you have 3, you need 7 more to make 10!",
+            "Count up from the first number!"
+        ],
+        skipCount2: [
+            "Add 2 each time: 2, 4, 6, 8...",
+            "It's like counting by twos - even numbers!",
+            "The pattern repeats: +2, +2, +2"
+        ],
+        skipCount5: [
+            "Think of counting money - nickels!",
+            "Add 5 each time: 5, 10, 15, 20...",
+            "Pattern is always +5 more!"
+        ],
+        skipCount10: [
+            "Counting by tens! 10, 20, 30...",
+            "Each time add one more group of 10!",
+            "Like counting: 1 ten, 2 tens, 3 tens..."
+        ],
+        addition: [
+            "Start with the bigger number and count up!",
+            "Remember: you can switch the order and get the same answer!",
+            "Count on your fingers or use objects!"
+        ],
+        subtraction: [
+            "What's the opposite? If you add, subtract goes backwards!",
+            "Count backwards: start high, go down!",
+            "Think: how many are left?"
+        ],
+        placeValue: [
+            "Tens are like groups of 10 together!",
+            "Count the tens, then count the ones!",
+            "10 = 1 ten + 0 ones, 20 = 2 tens + 0 ones"
+        ]
     };
 
-    // Generate Question Functions
-    function generateNumberBondsQuestions(target) {
-        const questions = [];
-        for (let i = 1; i < target; i++) {
-            const j = target - i;
-            if (i <= j) {
-                questions.push({
-                    type: 'numberBonds',
-                    target,
-                    part1: i,
-                    part2: j,
-                    display: `${target} = ${i} + ?`,
-                    answer: j,
-                    visual: `${target} = ${i} + ${j}`,
-                });
-            }
-        }
-        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
-    }
+    // Game Definitions with dynamic difficulty
+    const games = {
+        numberBonds5: { title: '🎯 Number Bonds to 5', baseTarget: 5 },
+        numberBonds10: { title: '🎪 Number Bonds to 10', baseTarget: 10 },
+        skipCount2: { title: '🎵 Skip Counting by 2s', step: 2 },
+        skipCount5: { title: '🖐️ Skip Counting by 5s', step: 5 },
+        skipCount10: { title: '🔟 Skip Counting by 10s', step: 10 },
+        additionStrategies: { title: '➕ Addition Strategies' },
+        subtractionInverse: { title: '➖ Subtraction as Inverse' },
+        placeValue: { title: '🧩 Place Value (0-99)' },
+        multiplicationIntro: { title: '✨ Multiplication Intro' },
+        repeatedAddition: { title: '🔄 Repeated Addition' },
+        commutativeProperty: { title: '🔀 Commutative Property' },
+        wordProblems: { title: '📖 Simple Word Problems' },
+    };
 
-    function generateSkipCountQuestions(step, count) {
-        const questions = [];
-        const sequence = Array.from({ length: count }, (_, i) => (i + 1) * step);
-        
-        for (let i = 0; i < sequence.length - 1; i++) {
-            questions.push({
-                type: 'skipCount',
-                step,
-                sequence: sequence.slice(0, i + 2),
-                display: `What comes next? ${sequence.slice(0, i + 1).join(', ')}, ?`,
-                answer: sequence[i + 1],
-                visual: sequence.slice(0, i + 2).join(', '),
-            });
-        }
-        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
-    }
-
-    function generateAdditionQuestions() {
-        const questions = [
-            { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!' },
-            { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!' },
-            { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!' },
-            { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!' },
-            { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!' },
-            { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!' },
-            { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!' },
-            { type: 'addition', problem: '7 + 3', answer: 10, desc: 'Make 10!' },
-        ];
-        return questions.sort(() => Math.random() - 0.5);
-    }
-
-    function generateSubtractionInverseQuestions() {
-        const questions = [
-            { type: 'subtraction', addition: '5 + 3 = 8', subtraction: '8 - 3 = ?', answer: 5 },
-            { type: 'subtraction', addition: '2 + 4 = 6', subtraction: '6 - 4 = ?', answer: 2 },
-            { type: 'subtraction', addition: '3 + 3 = 6', subtraction: '6 - 3 = ?', answer: 3 },
-            { type: 'subtraction', addition: '4 + 2 = 6', subtraction: '6 - 2 = ?', answer: 4 },
-            { type: 'subtraction', addition: '1 + 5 = 6', subtraction: '6 - 5 = ?', answer: 1 },
-            { type: 'subtraction', addition: '4 + 4 = 8', subtraction: '8 - 4 = ?', answer: 4 },
-            { type: 'subtraction', addition: '3 + 5 = 8', subtraction: '8 - 5 = ?', answer: 3 },
-            { type: 'subtraction', addition: '2 + 7 = 9', subtraction: '9 - 7 = ?', answer: 2 },
-        ];
-        return questions.sort(() => Math.random() - 0.5);
-    }
-
-    function generatePlaceValueQuestions() {
-        const questions = [];
-        for (let i = 10; i <= 50; i += 5) {
-            const tens = Math.floor(i / 10);
-            const ones = i % 10;
-            questions.push({
-                type: 'placeValue',
-                number: i,
-                tens,
-                ones,
-                display: `${i} = ? tens + ? ones`,
-            });
-        }
-        return questions.sort(() => Math.random() - 0.5).slice(0, 8);
-    }
-
-    function generateMultiplicationIntroQuestions() {
-        const groups = [
-            { times: 2, groups: 3, desc: '3 groups of 2' },
-            { times: 2, groups: 4, desc: '4 groups of 2' },
-            { times: 3, groups: 2, desc: '2 groups of 3' },
-            { times: 5, groups: 2, desc: '2 groups of 5' },
-            { times: 2, groups: 5, desc: '5 groups of 2' },
-            { times: 3, groups: 3, desc: '3 groups of 3' },
-            { times: 4, groups: 2, desc: '2 groups of 4' },
-            { times: 2, groups: 6, desc: '6 groups of 2' },
-        ];
-        return groups.map(g => ({
-            type: 'multiplicationIntro',
-            groups: g.groups,
-            times: g.times,
-            answer: g.groups * g.times,
-            desc: g.desc,
-        }));
-    }
-
-    function generateRepeatedAdditionQuestions() {
-        const questions = [
-            { times: 2, addend: 3, answer: 6 },
-            { times: 3, addend: 2, answer: 6 },
-            { times: 2, addend: 4, answer: 8 },
-            { times: 3, addend: 3, answer: 9 },
-            { times: 4, addend: 2, answer: 8 },
-            { times: 2, addend: 5, answer: 10 },
-            { times: 5, addend: 2, answer: 10 },
-            { times: 3, addend: 4, answer: 12 },
-        ];
-        return questions.map(q => ({
-            type: 'repeatedAddition',
-            addend: q.addend,
-            times: q.times,
-            answer: q.answer,
-        }));
-    }
-
-    function generateCommutativePropertyQuestions() {
-        const questions = [
-            { a: 2, b: 3 },
-            { a: 4, b: 1 },
-            { a: 3, b: 5 },
-            { a: 2, b: 2 },
-            { a: 1, b: 5 },
-            { a: 4, b: 3 },
-            { a: 2, b: 4 },
-            { a: 3, b: 3 },
-        ];
-        return questions.map(q => ({
-            type: 'commutative',
-            a: q.a,
-            b: q.b,
-            answer: q.a + q.b,
-        }));
-    }
-
-    function generateWordProblemsQuestions() {
-        const problems = [
-            { text: 'Emma has 3 apples. She gets 2 more. How many does she have?', answer: 5 },
-            { text: 'Tom finds 4 shells at the beach. He finds 3 more. How many shells?', answer: 7 },
-            { text: 'Sara has 5 crayons. Her friend gives her 2 more. How many now?', answer: 7 },
-            { text: 'Ben has 6 cookies. He eats 2. How many cookies are left?', answer: 4 },
-            { text: 'Lily has 8 stickers. She gives 3 to her friend. How many left?', answer: 5 },
-            { text: 'Max has 2 toy cars. His mom buys him 4 more. How many cars?', answer: 6 },
-            { text: 'Zoe has 9 blocks. She removes 4. How many blocks remain?', answer: 5 },
-            { text: 'Noah has 3 balloons. He blows up 4 more. How many total?', answer: 7 },
-        ];
-        return problems.map(p => ({
-            type: 'wordProblem',
-            text: p.text,
-            answer: p.answer,
-        }));
-    }
-
-    // Game Functions
+    // Initialize Game
     function startGame(gameName) {
         currentGame = gameName;
         currentQuestion = 0;
         score = 0;
-        const game = games[gameName];
-        totalQuestions = game.questions.length;
+        correctStreak = 0;
+        wrongStreak = 0;
+        difficulty = 1;
+        
+        generateQuestions(gameName);
+        totalQuestions = allQuestions[gameName].length;
         
         document.getElementById('menuScreen').style.display = 'none';
         document.getElementById('gameScreen').classList.add('active');
-        document.getElementById('gameTitle').textContent = game.title;
+        document.getElementById('gameTitle').textContent = games[gameName].title;
         
         showQuestion();
     }
 
+    // Generate Questions Based on Game Type
+    function generateQuestions(gameName) {
+        const questions = [];
+        const game = games[gameName];
+
+        if (gameName.startsWith('numberBonds')) {
+            const target = game.baseTarget;
+            for (let i = 1; i < target; i++) {
+                const j = target - i;
+                if (i <= j) {
+                    questions.push({
+                        type: 'numberBonds',
+                        target,
+                        part1: i,
+                        part2: j,
+                        display: `${target} = ${i} + ?`,
+                        answer: j,
+                        difficulty: 1
+                    });
+                }
+            }
+        } else if (gameName.startsWith('skipCount')) {
+            const step = game.step;
+            const sequence = Array.from({ length: 12 }, (_, i) => (i + 1) * step);
+            
+            for (let i = 0; i < Math.min(sequence.length - 1, 10); i++) {
+                const seqLength = Math.min(i + 3, 5);
+                questions.push({
+                    type: 'skipCount',
+                    step,
+                    sequence: sequence.slice(0, seqLength),
+                    display: `What comes next? ${sequence.slice(0, seqLength - 1).join(', ')}, ?`,
+                    answer: sequence[seqLength - 1],
+                    difficulty: seqLength === 3 ? 1 : seqLength === 4 ? 2 : 3
+                });
+            }
+        } else if (gameName === 'additionStrategies') {
+            questions.push(
+                { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!', difficulty: 1 },
+                { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!', difficulty: 1 },
+                { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!', difficulty: 1 },
+                { type: 'addition', problem: '3 + 1', answer: 4, desc: 'Count on!', difficulty: 1 },
+                { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!', difficulty: 2 },
+                { type: 'addition', problem: '4 + 1', answer: 5, desc: 'Count on!', difficulty: 1 },
+                { type: 'addition', problem: '4 + 2', answer: 6, desc: 'Count on!', difficulty: 2 },
+                { type: 'addition', problem: '5 + 1', answer: 6, desc: 'Count on!', difficulty: 1 },
+                { type: 'addition', problem: '5 + 2', answer: 7, desc: 'Count on!', difficulty: 2 },
+                { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!', difficulty: 3 },
+                { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!', difficulty: 2 },
+                { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!', difficulty: 3 }
+            );
+        } else if (gameName === 'subtractionInverse') {
+            const additionFacts = [
+                { add: '2 + 1 = 3', sub: '3 - 1 = ?', ans: 2 },
+                { add: '2 + 2 = 4', sub: '4 - 2 = ?', ans: 2 },
+                { add: '3 + 1 = 4', sub: '4 - 1 = ?', ans: 3 },
+                { add: '3 + 2 = 5', sub: '5 - 2 = ?', ans: 3 },
+                { add: '3 + 3 = 6', sub: '6 - 3 = ?', ans: 3 },
+                { add: '4 + 1 = 5', sub: '5 - 1 = ?', ans: 4 },
+                { add: '4 + 2 = 6', sub: '6 - 2 = ?', ans: 4 },
+                { add: '5 + 3 = 8', sub: '8 - 3 = ?', ans: 5 },
+                { add: '5 + 5 = 10', sub: '10 - 5 = ?', ans: 5 },
+                { add: '4 + 4 = 8', sub: '8 - 4 = ?', ans: 4 }
+            ];
+            additionFacts.forEach(f => {
+                questions.push({
+                    type: 'subtraction',
+                    addition: f.add,
+                    subtraction: f.sub,
+                    answer: f.ans,
+                    difficulty: parseInt(f.ans) <= 3 ? 1 : 2
+                });
+            });
+        } else if (gameName === 'placeValue') {
+            for (let i = 10; i <= 60; i += 5) {
+                const tens = Math.floor(i / 10);
+                const ones = i % 10;
+                questions.push({
+                    type: 'placeValue',
+                    number: i,
+                    tens,
+                    ones,
+                    display: `${i} = ? tens + ? ones`,
+                    difficulty: i <= 20 ? 1 : i <= 40 ? 2 : 3
+                });
+            }
+        } else if (gameName === 'multiplicationIntro') {
+            const groups = [
+                { times: 2, groups: 2, desc: '2 groups of 2', diff: 1 },
+                { times: 2, groups: 3, desc: '3 groups of 2', diff: 1 },
+                { times: 3, groups: 2, desc: '2 groups of 3', diff: 1 },
+                { times: 2, groups: 4, desc: '4 groups of 2', diff: 2 },
+                { times: 3, groups: 3, desc: '3 groups of 3', diff: 2 },
+                { times: 2, groups: 5, desc: '5 groups of 2', diff: 3 },
+                { times: 4, groups: 2, desc: '2 groups of 4', diff: 2 },
+                { times: 5, groups: 2, desc: '2 groups of 5', diff: 3 }
+            ];
+            groups.forEach(g => {
+                questions.push({
+                    type: 'multiplicationIntro',
+                    groups: g.groups,
+                    times: g.times,
+                    answer: g.groups * g.times,
+                    desc: g.desc,
+                    difficulty: g.diff
+                });
+            });
+        } else if (gameName === 'repeatedAddition') {
+            const facts = [
+                { times: 2, addend: 2, diff: 1 },
+                { times: 2, addend: 3, diff: 1 },
+                { times: 3, addend: 2, diff: 1 },
+                { times: 2, addend: 4, diff: 2 },
+                { times: 3, addend: 3, diff: 2 },
+                { times: 4, addend: 2, diff: 2 },
+                { times: 2, addend: 5, diff: 3 },
+                { times: 5, addend: 2, diff: 3 },
+                { times: 3, addend: 4, diff: 3 }
+            ];
+            facts.forEach(q => {
+                questions.push({
+                    type: 'repeatedAddition',
+                    addend: q.addend,
+                    times: q.times,
+                    answer: q.times * q.addend,
+                    difficulty: q.diff
+                });
+            });
+        } else if (gameName === 'commutativeProperty') {
+            const facts = [
+                { a: 1, b: 1 }, { a: 1, b: 2 }, { a: 2, b: 2 },
+                { a: 1, b: 3 }, { a: 2, b: 3 }, { a: 3, b: 3 },
+                { a: 2, b: 4 }, { a: 3, b: 4 }, { a: 4, b: 4 },
+                { a: 3, b: 5 }, { a: 4, b: 5 }, { a: 5, b: 5 }
+            ];
+            facts.forEach(q => {
+                questions.push({
+                    type: 'commutative',
+                    a: q.a,
+                    b: q.b,
+                    answer: q.a + q.b,
+                    difficulty: (q.a + q.b) <= 4 ? 1 : (q.a + q.b) <= 7 ? 2 : 3
+                });
+            });
+        } else if (gameName === 'wordProblems') {
+            const problems = [
+                { text: 'Emma has 2 apples. She gets 1 more. How many?', ans: 3, diff: 1 },
+                { text: 'Tom has 3 toys. He gets 2 more. How many toys?', ans: 5, diff: 1 },
+                { text: 'Sara has 2 crayons. Her friend gives 2 more. How many?', ans: 4, diff: 1 },
+                { text: 'Ben has 5 cookies. He eats 1. How many left?', ans: 4, diff: 1 },
+                { text: 'Lily has 6 stickers. She gives 2 to a friend. How many left?', ans: 4, diff: 2 },
+                { text: 'Max has 3 toy cars. His mom buys 3 more. How many?', ans: 6, diff: 2 },
+                { text: 'Zoe has 8 blocks. She removes 3. How many remain?', ans: 5, diff: 2 },
+                { text: 'Noah has 4 balloons. He blows up 4 more. How many total?', ans: 8, diff: 2 },
+                { text: 'Lucy has 7 books. She reads 2. How many unread?', ans: 5, diff: 3 },
+                { text: 'Alex has 5 cookies. Gets 3 more, eats 2. How many left?', ans: 6, diff: 3 }
+            ];
+            problems.forEach(p => {
+                questions.push({
+                    type: 'wordProblem',
+                    text: p.text,
+                    answer: p.ans,
+                    difficulty: p.diff
+                });
+            });
+        }
+
+        // Filter questions by difficulty level
+        allQuestions[gameName] = questions
+            .filter(q => q.difficulty <= difficulty)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 10);
+
+        if (allQuestions[gameName].length === 0) {
+            allQuestions[gameName] = questions.sort(() => Math.random() - 0.5).slice(0, 10);
+        }
+    }
+
+    // Show Question
     function showQuestion() {
-        const game = games[currentGame];
-        const question = game.questions[currentQuestion];
-        const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+        if (!allQuestions[currentGame]) return;
+        
+        const questions = allQuestions[currentGame];
+        if (currentQuestion >= questions.length) {
+            showCompletion();
+            return;
+        }
+
+        const question = questions[currentQuestion];
+        const progress = ((currentQuestion + 1) / questions.length) * 100;
         
         document.getElementById('progressFill').style.width = progress + '%';
+        
+        // Update level badge
+        const levelText = difficulty === 1 ? 'Level 1 - Beginner' : 
+                         difficulty === 2 ? 'Level 2 - Intermediate' : 'Level 3 - Advanced';
+        document.getElementById('levelBadge').textContent = levelText;
+
         const gameContent = document.getElementById('gameContent');
         gameContent.innerHTML = '';
+        document.getElementById('aiHint').classList.remove('show');
 
         if (question.type === 'numberBonds') {
             renderNumberBondsQuestion(question, gameContent);
@@ -958,8 +983,9 @@
         }
     }
 
+    // Rendering Functions
     function renderNumberBondsQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 5, q.target);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, q.target);
         container.innerHTML = `
             <div class="big-number">${q.target}</div>
             <div class="equation">${q.display}</div>
@@ -975,7 +1001,7 @@
     }
 
     function renderSkipCountQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 5);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, q.answer + 20);
         container.innerHTML = `
             <div class="instruction-box">🎵 What number comes next?</div>
             <div class="skip-count-display">
@@ -991,7 +1017,7 @@
 
     function renderAdditionQuestion(q, container) {
         const [a, b] = q.problem.split(' + ').map(Number);
-        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
         container.innerHTML = `
             <div class="equation">${q.problem} = ?</div>
             <div class="instruction-box">💡 ${q.desc}</div>
@@ -1007,10 +1033,10 @@
     }
 
     function renderSubtractionQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, 10);
         container.innerHTML = `
             <div class="instruction-box">🔗 These are connected!</div>
-            <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 20px 0;">${q.addition}</div>
+            <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 15px 0;">${q.addition}</div>
             <div class="equation">${q.subtraction}</div>
             <div class="buttons-grid">
                 ${answers.map(a => `<button class="btn btn-danger" onclick="checkAnswer(${a})">${a}</button>`).join('')}
@@ -1027,39 +1053,28 @@
             <div class="instruction-box">🧩 How many tens? How many ones?</div>
             <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
                 <div style="text-align: center;">
-                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">TENS</div>
-                    <div class="object-grid" style="max-width: 200px;">
-                        ${tens.map(o => `<div class="object" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">${o}</div>`).join('')}
-                    </div>
+                    <div style="font-size: 1.8em; font-weight: 700; color: #667eea;">TENS: ${q.tens}</div>
                 </div>
                 <div style="text-align: center;">
-                    <div style="font-size: 2em; font-weight: 700; color: #FFE66D;">ONES</div>
-                    <div class="object-grid" style="max-width: 200px;">
-                        ${ones.map(o => `<div class="object">${o}</div>`).join('')}
-                    </div>
+                    <div style="font-size: 1.8em; font-weight: 700; color: #FFE66D;">ONES: ${q.ones}</div>
                 </div>
             </div>
-            <div style="margin: 30px 0; font-size: 1.5em; font-weight: 700; text-align: center;">
-                ${q.tens} tens + ${q.ones} ones
-            </div>
-            <button class="btn btn-info" onclick="checkAnswer(${q.answer})" style="width: 200px; margin: 0 auto;">✓ Got it!</button>
+            <button class="btn btn-info" onclick="checkAnswer(1)" style="width: 200px; margin: 20px auto;">✓ Got it!</button>
             <div class="feedback" id="feedback"></div>
         `;
     }
 
     function renderMultiplicationIntroQuestion(q, container) {
-        const items = Array(q.groups).fill(null).map((_, i) => 
-            Array(q.times).fill('⭐')
-        );
-        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        const items = Array(q.groups).fill(null).map((_, i) => Array(q.times).fill('⭐'));
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, 20);
         container.innerHTML = `
             <div class="instruction-box">✨ ${q.desc}</div>
             <div class="big-number">${q.groups} × ${q.times} = ?</div>
-            <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 20px; max-width: 400px; margin: 20px auto;">
+            <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 15px; max-width: 400px; margin: 15px auto;">
                 ${items.map((group, i) => 
                     `<div style="background: linear-gradient(135deg, #FCBAD3, #F38181); padding: 15px; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 2em; margin-bottom: 10px;">${group.join('')}</div>
-                        <div style="font-weight: 700;">Group ${i + 1}</div>
+                        <div style="font-size: 1.8em; margin-bottom: 8px;">${group.join('')}</div>
+                        <div style="font-weight: 700; font-size: 0.9em;">Group ${i + 1}</div>
                     </div>`
                 ).join('')}
             </div>
@@ -1072,13 +1087,13 @@
 
     function renderRepeatedAdditionQuestion(q, container) {
         const additions = Array(q.times).fill(q.addend);
-        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, 25);
         container.innerHTML = `
             <div class="equation">${additions.join(' + ')} = ?</div>
             <div class="instruction-box">🔄 Add them all up!</div>
-            <div class="object-grid">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 10px; width: 100%; max-width: 400px; margin: 15px auto;">
                 ${additions.map((num, i) => 
-                    `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.3em;">
+                    `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.2em;">
                         ${Array(num).fill('●').join('')}
                     </div>`
                 ).join('')}
@@ -1091,31 +1106,31 @@
     }
 
     function renderCommutativeQuestion(q, container) {
-        const answers = [q.answer, q.answer + 1, q.answer - 1, q.answer + 2].filter(a => a > 0);
-        const shuffled = answers.sort(() => Math.random() - 0.5).slice(0, 4);
+        const wrongAnswers = [q.answer + 1, q.answer - 1, q.answer + 2, q.answer - 2].filter(a => a > 0 && a !== q.answer);
+        const answers = [q.answer, ...wrongAnswers].sort(() => Math.random() - 0.5).slice(0, 4);
         container.innerHTML = `
             <div class="instruction-box">🔀 Order doesn't matter!</div>
-            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; margin: 30px 0; flex-wrap: wrap;">
-                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
-                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-2);">=</div>
-                <div style="font-size: 2.5em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
+            <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin: 25px 0; flex-wrap: wrap;">
+                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
+                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-2);">=</div>
+                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
             </div>
-            <div style="font-size: 1.8em; text-align: center; margin: 20px 0; font-weight: 700;">Both equal ?</div>
+            <div style="font-size: 1.6em; text-align: center; margin: 15px 0; font-weight: 700;">Both equal ?</div>
             <div class="buttons-grid">
-                ${shuffled.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
             </div>
             <div class="feedback" id="feedback"></div>
         `;
     }
 
     function renderWordProblemQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4);
+        const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
         container.innerHTML = `
-            <div class="instruction-box">📖 Read the story!</div>
-            <div style="background: #E8F5E9; padding: 25px; border-radius: 20px; font-size: 1.3em; font-weight: 700; line-height: 1.8; margin: 20px 0; border: 3px dashed #4CAF50;">
+            <div class="instruction-box">📖 Read the story carefully!</div>
+            <div style="background: #E8F5E9; padding: 20px; border-radius: 20px; font-size: 1.2em; font-weight: 700; line-height: 1.8; margin: 15px 0; border: 3px dashed #4CAF50;">
                 ${q.text}
             </div>
-            <div style="font-size: 1.8em; font-weight: 900; color: var(--primary-1); margin: 30px 0;">?</div>
+            <div style="font-size: 1.6em; font-weight: 900; color: var(--primary-1); margin: 20px 0;">?</div>
             <div class="buttons-grid">
                 ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
             </div>
@@ -1123,48 +1138,125 @@
         `;
     }
 
-    function checkAnswer(answer) {
-        const game = games[currentGame];
-        const question = game.questions[currentQuestion];
+    // Check Answer
+    async function checkAnswer(answer) {
+        const questions = allQuestions[currentGame];
+        const question = questions[currentQuestion];
         const feedback = document.getElementById('feedback');
         const isCorrect = answer === question.answer;
         
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => btn.disabled = true);
+
         if (isCorrect) {
             score++;
+            correctStreak++;
+            wrongStreak = 0;
             feedback.textContent = '🎉 Perfect! Great job!';
             feedback.className = 'feedback show correct';
+
+            // Level up on 3 correct streak
+            if (correctStreak >= 3 && difficulty < 3) {
+                difficulty++;
+                generateQuestions(currentGame);
+            }
         } else {
+            wrongStreak++;
+            correctStreak = 0;
             feedback.textContent = `❌ Oops! The answer is ${question.answer}`;
             feedback.className = 'feedback show incorrect';
+
+            // Show AI hint on wrong answer
+            await showAIHint(currentGame, question);
+
+            // Level down on 2 wrong streak
+            if (wrongStreak >= 2 && difficulty > 1) {
+                difficulty--;
+                generateQuestions(currentGame);
+            }
         }
         
         setTimeout(() => {
             currentQuestion++;
-            if (currentQuestion >= totalQuestions) {
+            if (currentQuestion >= questions.length) {
                 showCompletion();
             } else {
                 showQuestion();
             }
-        }, 1500);
+        }, 2000);
     }
 
+    // AI Hint Function
+    async function showAIHint(gameName, question) {
+        const hintContainer = document.getElementById('aiHint');
+        
+        try {
+            let hintText = '';
+            
+            // Use local hints first (faster)
+            const hintKey = gameName.replace(/[0-9]/g, '');
+            if (hints[gameName]) {
+                const hintList = hints[gameName];
+                hintText = hintList[Math.floor(Math.random() * hintList.length)];
+            } else if (hints[hintKey]) {
+                const hintList = hints[hintKey];
+                hintText = hintList[Math.floor(Math.random() * hintList.length)];
+            } else {
+                hintText = "Try counting on your fingers or using objects to help!";
+            }
+            
+            hintContainer.textContent = '💡 Hint: ' + hintText;
+            hintContainer.classList.add('show');
+        } catch (error) {
+            console.log('Hint system ready');
+        }
+    }
+
+    // Multiple Choice Generator
     function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
         const answers = new Set([correct]);
-        while (answers.size < count) {
+        const attempts = new Set();
+        
+        while (answers.size < count && attempts.size < count * 5) {
             const wrong = Math.floor(Math.random() * max) + 1;
-            if (wrong !== correct) {
+            attempts.add(wrong);
+            if (wrong !== correct && Math.abs(wrong - correct) >= 1) {
                 answers.add(wrong);
             }
         }
+        
         return Array.from(answers).sort(() => Math.random() - 0.5);
     }
 
-    function showCompletion() {
-        const percentage = Math.round((score / totalQuestions) * 100);
-        document.getElementById('finalScore').textContent = `Score: ${score}/${totalQuestions} (${percentage}%)`;
+    // Show Completion
+    async function showCompletion() {
+        const questions = allQuestions[currentGame];
+        const percentage = Math.round((score / questions.length) * 100);
+        const game = games[currentGame];
+        
+        document.getElementById('finalScore').textContent = `Score: ${score}/${questions.length} (${percentage}%)`;
+        
+        // Get AI Message
+        let aiMessage = '';
+        if (percentage === 100) {
+            aiMessage = "Perfect! 🌟 You're a math superstar! Ready for harder challenges?";
+        } else if (percentage >= 80) {
+            aiMessage = "Excellent! 🎯 You're getting really good at this!";
+        } else if (percentage >= 60) {
+            aiMessage = "Great effort! 💪 Keep practicing and you'll master this!";
+        } else {
+            aiMessage = "Good start! 🌱 Practice makes perfect. Try again!";
+        }
+        
+        document.getElementById('completionMessage').textContent = 
+            difficulty === 3 ? "You completed Advanced Level!" :
+            difficulty === 2 ? "You completed Intermediate Level!" :
+            "You completed Beginner Level!";
+        document.getElementById('aiMessage').textContent = aiMessage;
         document.getElementById('completionModal').classList.add('show');
     }
 
+    // Go Back
     function goBack() {
         document.getElementById('completionModal').classList.remove('show');
         document.getElementById('gameScreen').classList.remove('active');
@@ -1174,7 +1266,5 @@
 </script>
 ```
 
-</head>
-<body>
 </body>
 </html>
