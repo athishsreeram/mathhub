@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,531 +11,579 @@
             box-sizing: border-box;
         }
 
-```
-    :root {
-        --primary-1: #FF6B6B;
-        --primary-2: #4ECDC4;
-        --primary-3: #FFE66D;
-        --primary-4: #95E1D3;
-        --primary-5: #F38181;
-        --primary-6: #AA96DA;
-        --primary-7: #FCBAD3;
-        --text-dark: #2C3E50;
-        --text-light: #FFFFFF;
-        --bg-light: #F5F7FA;
-        --bg-medium: #F0E6FF;
-        --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
-    }
-
-    body {
-        font-family: 'Fredoka', 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--text-dark);
-    }
-
-    .container {
-        width: 100%;
-        max-width: 1200px;
-    }
-
-    .header {
-        text-align: center;
-        color: var(--text-light);
-        margin-bottom: 30px;
-        animation: slideDown 0.6s ease-out;
-    }
-
-    .header h1 {
-        font-size: 3em;
-        font-weight: 900;
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-        margin-bottom: 10px;
-        letter-spacing: 2px;
-    }
-
-    .header p {
-        font-size: 1.2em;
-        opacity: 0.95;
-        font-weight: 600;
-    }
-
-    .menu-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        animation: fadeIn 0.8s ease-out 0.2s both;
-    }
-
-    .game-card {
-        background: var(--text-light);
-        border-radius: 25px;
-        padding: 25px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: var(--shadow);
-        border: 4px solid transparent;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .game-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .game-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .game-card:hover::before {
-        opacity: 1;
-    }
-
-    .card-icon {
-        font-size: 3em;
-        margin-bottom: 15px;
-    }
-
-    .card-title {
-        font-size: 1.4em;
-        font-weight: 800;
-        margin-bottom: 8px;
-        color: var(--text-dark);
-    }
-
-    .card-description {
-        font-size: 0.9em;
-        color: #666;
-        margin-bottom: 15px;
-        line-height: 1.4;
-    }
-
-    .card-age {
-        display: inline-block;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.8em;
-        font-weight: 700;
-    }
-
-    .game-screen {
-        display: none;
-        background: var(--text-light);
-        border-radius: 30px;
-        padding: 30px;
-        box-shadow: var(--shadow-lg);
-        animation: slideUp 0.5s ease-out;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    .game-screen.active {
-        display: block;
-    }
-
-    .game-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 3px solid var(--bg-light);
-    }
-
-    .back-button {
-        background: linear-gradient(135deg, #FF6B6B, #F38181);
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 15px;
-        font-size: 1em;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-    }
-
-    .back-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-    }
-
-    .game-title {
-        font-size: 1.8em;
-        font-weight: 900;
-        color: var(--text-dark);
-        flex: 1;
-        text-align: center;
-    }
-
-    .progress-bar {
-        width: 100%;
-        height: 12px;
-        background: var(--bg-light);
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
-
-    .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        transition: width 0.4s ease;
-    }
-
-    .level-badge {
-        display: inline-block;
-        background: linear-gradient(135deg, #FFE66D, #FDD835);
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.9em;
-        color: #333;
-        margin-bottom: 15px;
-    }
-
-    .game-content {
-        min-height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .big-number {
-        font-size: 5em;
-        font-weight: 900;
-        color: var(--primary-1);
-        animation: bounce 0.6s ease-out;
-    }
-
-    .equation {
-        font-size: 2.5em;
-        font-weight: 800;
-        color: var(--text-dark);
-    }
-
-    .buttons-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 12px;
-        width: 100%;
-        max-width: 500px;
-        margin: 15px auto;
-    }
-
-    .btn {
-        padding: 18px;
-        font-size: 1.1em;
-        font-weight: 800;
-        border: none;
-        border-radius: 18px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: white;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.2);
-        transition: left 0.3s ease;
-    }
-
-    .btn:hover:not(:disabled)::before {
-        left: 100%;
-    }
-
-    .btn:hover:not(:disabled) {
-        transform: scale(1.08);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #FF6B6B, #F38181);
-    }
-
-    .btn-success {
-        background: linear-gradient(135deg, #4ECDC4, #44B8AC);
-    }
-
-    .btn-warning {
-        background: linear-gradient(135deg, #FFE66D, #FDD835);
-    }
-
-    .btn-info {
-        background: linear-gradient(135deg, #AA96DA, #9575CD);
-    }
-
-    .btn-danger {
-        background: linear-gradient(135deg, #F38181, #E57373);
-    }
-
-    .feedback {
-        font-size: 1.8em;
-        font-weight: 800;
-        text-align: center;
-        padding: 20px;
-        border-radius: 15px;
-        margin: 15px 0;
-        display: none;
-    }
-
-    .feedback.show {
-        display: block;
-        animation: popUp 0.5s ease-out;
-    }
-
-    .feedback.correct {
-        background: #D4EDDA;
-        color: #155724;
-    }
-
-    .feedback.incorrect {
-        background: #F8D7DA;
-        color: #721C24;
-    }
-
-    .ai-hint {
-        background: #E3F2FD;
-        border-left: 5px solid #2196F3;
-        padding: 15px;
-        border-radius: 10px;
-        margin: 15px 0;
-        font-size: 1em;
-        color: #1565C0;
-        font-weight: 600;
-        display: none;
-        animation: slideUp 0.4s ease-out;
-    }
-
-    .ai-hint.show {
-        display: block;
-    }
-
-    .score-display {
-        font-size: 1.5em;
-        font-weight: 900;
-        color: var(--primary-1);
-    }
-
-    .object-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-        gap: 10px;
-        width: 100%;
-        max-width: 400px;
-        margin: 15px auto;
-    }
-
-    .object {
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5em;
-        background: linear-gradient(135deg, #FFE66D, #FDD835);
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        animation: pop 0.4s ease-out;
-    }
-
-    .skip-count-display {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-        gap: 10px;
-        width: 100%;
-        max-width: 450px;
-        margin: 15px auto;
-    }
-
-    .count-box {
-        padding: 18px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        text-align: center;
-        border-radius: 15px;
-        font-size: 1.4em;
-        font-weight: 800;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        animation: slideRight 0.5s ease-out;
-    }
-
-    .instruction-box {
-        background: #FFF3CD;
-        border-left: 5px solid #FFC107;
-        padding: 15px;
-        border-radius: 10px;
-        font-size: 1.1em;
-        font-weight: 600;
-        color: #856404;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .completion-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-        animation: fadeIn 0.3s ease;
-    }
-
-    .completion-modal.show {
-        display: flex;
-    }
-
-    .completion-content {
-        background: white;
-        padding: 40px;
-        border-radius: 30px;
-        text-align: center;
-        max-width: 500px;
-        animation: popUp 0.5s ease-out;
-    }
-
-    .completion-content h2 {
-        font-size: 2.5em;
-        color: var(--primary-1);
-        margin-bottom: 20px;
-    }
-
-    .completion-content p {
-        font-size: 1.2em;
-        color: #666;
-        margin-bottom: 15px;
-        line-height: 1.6;
-    }
-
-    .completion-content .score-display {
-        font-size: 2.5em;
-        margin-bottom: 20px;
-    }
-
-    .loading-spinner {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        border: 4px solid var(--bg-light);
-        border-top-color: var(--primary-2);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    /* Animations */
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
-
-    @keyframes popUp {
-        from { opacity: 0; transform: scale(0.8); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes pop {
-        from { transform: scale(0); }
-        to { transform: scale(1); }
-    }
-
-    @keyframes slideRight {
-        from { opacity: 0; transform: translateX(-20px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .header h1 { font-size: 2.2em; }
-        .header p { font-size: 1em; }
-        .game-card { padding: 20px; }
-        .card-title { font-size: 1.2em; }
-        .big-number { font-size: 3.5em; }
-        .equation { font-size: 1.8em; }
-        .game-title { font-size: 1.4em; }
-        .menu-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .game-screen { padding: 20px; }
-        .buttons-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-        .header h1 { font-size: 1.8em; }
-        .big-number { font-size: 2.5em; }
-        .equation { font-size: 1.4em; }
-        .btn { padding: 15px; font-size: 0.95em; }
-        .game-header { flex-wrap: wrap; gap: 10px; }
-        .game-title { font-size: 1.2em; width: 100%; }
-    }
-
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: var(--bg-light);
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: var(--primary-2);
-        border-radius: 10px;
-    }
-</style>
-```
-
+        :root {
+            --primary-1: #FF6B6B;
+            --primary-2: #4ECDC4;
+            --primary-3: #FFE66D;
+            --primary-4: #95E1D3;
+            --primary-5: #F38181;
+            --primary-6: #AA96DA;
+            --primary-7: #FCBAD3;
+            --text-dark: #2C3E50;
+            --text-light: #FFFFFF;
+            --bg-light: #F5F7FA;
+            --bg-medium: #F0E6FF;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Fredoka', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #FFD4E5 0%, #C9E4FF 50%, #D4F1D4 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '☁️ ☁️ ☁️';
+            position: fixed;
+            top: 5%;
+            left: 0;
+            width: 100%;
+            font-size: 4em;
+            opacity: 0.6;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+            letter-spacing: 100px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '⭐ ✨ 🌈 ✨ ⭐';
+            position: fixed;
+            bottom: 5%;
+            right: 0;
+            font-size: 3em;
+            opacity: 0.5;
+            z-index: 0;
+            animation: float 12s ease-in-out infinite reverse;
+            letter-spacing: 80px;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50px) translateY(0px); }
+            50% { transform: translateX(50px) translateY(-20px); }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(144, 238, 144, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 900;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .game-card {
+            background: var(--text-light);
+            border-radius: 25px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            border: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .card-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .card-age {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .game-screen {
+            display: none;
+            background: var(--text-light);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.5s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .game-screen.active {
+            display: block;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--bg-light);
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #FF6B6B, #F38181);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .game-title {
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--text-dark);
+            flex: 1;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFE66D, #FDD835);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .game-content {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .big-number {
+            font-size: 5em;
+            font-weight: 900;
+            color: var(--primary-1);
+            animation: bounce 0.6s ease-out;
+        }
+
+        .equation {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 12px;
+            width: 100%;
+            max-width: 500px;
+            margin: 15px auto;
+        }
+
+        .btn {
+            padding: 18px;
+            font-size: 1.1em;
+            font-weight: 800;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: scale(1.08);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B6B, #F38181);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4ECDC4, #44B8AC);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #FFE66D, #FDD835);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #AA96DA, #9575CD);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #F38181, #E57373);
+        }
+
+        .feedback {
+            font-size: 1.8em;
+            font-weight: 800;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: popUp 0.5s ease-out;
+        }
+
+        .feedback.correct {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .ai-hint {
+            background: #E3F2FD;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1em;
+            color: #1565C0;
+            font-weight: 600;
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .ai-hint.show {
+            display: block;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: var(--primary-1);
+        }
+
+        .object-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 15px auto;
+        }
+
+        .object {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #FFE66D, #FDD835);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: pop 0.4s ease-out;
+        }
+
+        .skip-count-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 450px;
+            margin: 15px auto;
+        }
+
+        .count-box {
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 1.4em;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideRight 0.5s ease-out;
+        }
+
+        .instruction-box {
+            background: #FFF3CD;
+            border-left: 5px solid #FFC107;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #856404;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .completion-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .completion-modal.show {
+            display: flex;
+        }
+
+        .completion-content {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 500px;
+            animation: popUp 0.5s ease-out;
+        }
+
+        .completion-content h2 {
+            font-size: 2.5em;
+            color: var(--primary-1);
+            margin-bottom: 20px;
+        }
+
+        .completion-content p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .completion-content .score-display {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-light);
+            border-top-color: var(--primary-2);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pop {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.2em; }
+            .header p { font-size: 1em; }
+            .game-card { padding: 20px; }
+            .card-title { font-size: 1.2em; }
+            .big-number { font-size: 3.5em; }
+            .equation { font-size: 1.8em; }
+            .game-title { font-size: 1.4em; }
+            .menu-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+            .game-screen { padding: 20px; }
+            .buttons-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8em; }
+            .big-number { font-size: 2.5em; }
+            .equation { font-size: 1.4em; }
+            .btn { padding: 15px; font-size: 0.95em; }
+            .game-header { flex-wrap: wrap; gap: 10px; }
+            .game-title { font-size: 1.2em; width: 100%; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-2);
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -546,725 +593,722 @@
                 <h1>🎨 Number Builders</h1>
                 <p>AI-Powered Fun Math Games for Young Learners! 🚀</p>
             </div>
+            
+            <div class="game-card" onclick="startGame('numberBonds5')">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Number Bonds to 5</div>
+                <div class="card-description">Learn all the ways to make 5! (5=1+4, 5=2+3, etc.)</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
 
-```
-        <div class="game-card" onclick="startGame('numberBonds5')">
-            <div class="card-icon">🎯</div>
-            <div class="card-title">Number Bonds to 5</div>
-            <div class="card-description">Learn all the ways to make 5! (5=1+4, 5=2+3, etc.)</div>
-            <div class="card-age">Ages 4-6</div>
+            <div class="game-card" onclick="startGame('numberBonds10')">
+                <div class="card-icon">🎪</div>
+                <div class="card-title">Number Bonds to 10</div>
+                <div class="card-description">Master all combinations that make 10!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('skipCount2')">
+                <div class="card-icon">🎵</div>
+                <div class="card-title">Skip Counting by 2s</div>
+                <div class="card-description">2, 4, 6, 8... Find the pattern!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('skipCount5')">
+                <div class="card-icon">🖐️</div>
+                <div class="card-title">Skip Counting by 5s</div>
+                <div class="card-description">5, 10, 15, 20... Count in fives!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('skipCount10')">
+                <div class="card-icon">🔟</div>
+                <div class="card-title">Skip Counting by 10s</div>
+                <div class="card-description">10, 20, 30... Big number jumps!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('additionStrategies')">
+                <div class="card-icon">➕</div>
+                <div class="card-title">Addition Strategies</div>
+                <div class="card-description">Counting on, doubles, near-doubles & making 10!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('subtractionInverse')">
+                <div class="card-icon">➖</div>
+                <div class="card-title">Subtraction as Inverse</div>
+                <div class="card-description">If 5+3=8, then 8-3=5. See the connection!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('placeValue')">
+                <div class="card-icon">🧩</div>
+                <div class="card-title">Place Value (0-99)</div>
+                <div class="card-description">Understand tens and ones! 24 = 2 tens + 4 ones</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('multiplicationIntro')">
+                <div class="card-icon">✨</div>
+                <div class="card-title">Multiplication Intro</div>
+                <div class="card-description">Groups & repeated addition concept!</div>
+                <div class="card-age">Ages 5-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('repeatedAddition')">
+                <div class="card-icon">🔄</div>
+                <div class="card-title">Repeated Addition</div>
+                <div class="card-description">3+3+3+3 = 4 groups of 3 = 4×3</div>
+                <div class="card-age">Ages 5-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('commutativeProperty')">
+                <div class="card-icon">🔀</div>
+                <div class="card-title">Commutative Property</div>
+                <div class="card-description">3+4 = 4+3. Order doesn't matter!</div>
+                <div class="card-age">Ages 5-6</div>
+            </div>
+
+            <div class="game-card" onclick="startGame('wordProblems')">
+                <div class="card-icon">📖</div>
+                <div class="card-title">Simple Word Problems</div>
+                <div class="card-description">Real-world math with Emma and friends!</div>
+                <div class="card-age">Ages 4-6</div>
+            </div>
         </div>
 
-        <div class="game-card" onclick="startGame('numberBonds10')">
-            <div class="card-icon">🎪</div>
-            <div class="card-title">Number Bonds to 10</div>
-            <div class="card-description">Master all combinations that make 10!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen">
+            <div class="game-header">
+                <button class="back-button" onclick="goBack()">← Back</button>
+                <div class="game-title" id="gameTitle"></div>
+                <div style="width: 80px;"></div>
+            </div>
 
-        <div class="game-card" onclick="startGame('skipCount2')">
-            <div class="card-icon">🎵</div>
-            <div class="card-title">Skip Counting by 2s</div>
-            <div class="card-description">2, 4, 6, 8... Find the pattern!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
 
-        <div class="game-card" onclick="startGame('skipCount5')">
-            <div class="card-icon">🖐️</div>
-            <div class="card-title">Skip Counting by 5s</div>
-            <div class="card-description">5, 10, 15, 20... Count in fives!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
+            <div style="text-align: center;">
+                <div class="level-badge" id="levelBadge">Level 1 - Beginner</div>
+            </div>
 
-        <div class="game-card" onclick="startGame('skipCount10')">
-            <div class="card-icon">🔟</div>
-            <div class="card-title">Skip Counting by 10s</div>
-            <div class="card-description">10, 20, 30... Big number jumps!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
+            <div class="game-content" id="gameContent"></div>
 
-        <div class="game-card" onclick="startGame('additionStrategies')">
-            <div class="card-icon">➕</div>
-            <div class="card-title">Addition Strategies</div>
-            <div class="card-description">Counting on, doubles, near-doubles & making 10!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('subtractionInverse')">
-            <div class="card-icon">➖</div>
-            <div class="card-title">Subtraction as Inverse</div>
-            <div class="card-description">If 5+3=8, then 8-3=5. See the connection!</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('placeValue')">
-            <div class="card-icon">🧩</div>
-            <div class="card-title">Place Value (0-99)</div>
-            <div class="card-description">Understand tens and ones! 24 = 2 tens + 4 ones</div>
-            <div class="card-age">Ages 4-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('multiplicationIntro')">
-            <div class="card-icon">✨</div>
-            <div class="card-title">Multiplication Intro</div>
-            <div class="card-description">Groups & repeated addition concept!</div>
-            <div class="card-age">Ages 5-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('repeatedAddition')">
-            <div class="card-icon">🔄</div>
-            <div class="card-title">Repeated Addition</div>
-            <div class="card-description">3+3+3+3 = 4 groups of 3 = 4×3</div>
-            <div class="card-age">Ages 5-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('commutativeProperty')">
-            <div class="card-icon">🔀</div>
-            <div class="card-title">Commutative Property</div>
-            <div class="card-description">3+4 = 4+3. Order doesn't matter!</div>
-            <div class="card-age">Ages 5-6</div>
-        </div>
-
-        <div class="game-card" onclick="startGame('wordProblems')">
-            <div class="card-icon">📖</div>
-            <div class="card-title">Simple Word Problems</div>
-            <div class="card-description">Real-world math with Emma and friends!</div>
-            <div class="card-age">Ages 4-6</div>
+            <div class="ai-hint" id="aiHint"></div>
         </div>
     </div>
 
-    <!-- Game Screen -->
-    <div id="gameScreen" class="game-screen">
-        <div class="game-header">
-            <button class="back-button" onclick="goBack()">← Back</button>
-            <div class="game-title" id="gameTitle"></div>
-            <div style="width: 80px;"></div>
+    <!-- Completion Modal -->
+    <div class="completion-modal" id="completionModal">
+        <div class="completion-content">
+            <h2>🎉 Awesome Job!</h2>
+            <p id="completionMessage">You completed this level!</p>
+            <div class="score-display" id="finalScore"></div>
+            <p id="aiMessage" style="font-size: 1em; color: #667eea; font-style: italic;"></p>
+            <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 20px auto 0;">Play Another Game</button>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-        </div>
-
-        <div style="text-align: center;">
-            <div class="level-badge" id="levelBadge">Level 1 - Beginner</div>
-        </div>
-
-        <div class="game-content" id="gameContent"></div>
-
-        <div class="ai-hint" id="aiHint"></div>
     </div>
-</div>
 
-<!-- Completion Modal -->
-<div class="completion-modal" id="completionModal">
-    <div class="completion-content">
-        <h2>🎉 Awesome Job!</h2>
-        <p id="completionMessage">You completed this level!</p>
-        <div class="score-display" id="finalScore"></div>
-        <p id="aiMessage" style="font-size: 1em; color: #667eea; font-style: italic;"></p>
-        <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 20px auto 0;">Play Another Game</button>
-    </div>
-</div>
+    <script>
+        // Game State
+        let currentGame = null;
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = 0;
+        let correctStreak = 0;
+        let wrongStreak = 0;
+        let difficulty = 1; // 1 = Easy, 2 = Medium, 3 = Hard
+        let allQuestions = {};
 
-<script>
-    // Game State
-    let currentGame = null;
-    let currentQuestion = 0;
-    let score = 0;
-    let totalQuestions = 0;
-    let correctStreak = 0;
-    let wrongStreak = 0;
-    let difficulty = 1; // 1 = Easy, 2 = Medium, 3 = Hard
-    let allQuestions = {};
+        // OpenRouter API Configuration
+        const OPENROUTER_API_KEY = "sk-or-free-test-key"; // Free tier key
+        const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-    // OpenRouter API Configuration
-    const OPENROUTER_API_KEY = "sk-or-free-test-key"; // Free tier key
-    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+        // AI Hints Database
+        const hints = {
+            numberBonds5: [
+                "Count on your fingers! 5 = 1 + ?",
+                "Think: if we have 2, how many more to make 5?",
+                "Try counting: 1, 2, 3... how many more?"
+            ],
+            numberBonds10: [
+                "10 is like 2 hands with 5 fingers each!",
+                "If you have 3, you need 7 more to make 10!",
+                "Count up from the first number!"
+            ],
+            skipCount2: [
+                "Add 2 each time: 2, 4, 6, 8...",
+                "It's like counting by twos - even numbers!",
+                "The pattern repeats: +2, +2, +2"
+            ],
+            skipCount5: [
+                "Think of counting money - nickels!",
+                "Add 5 each time: 5, 10, 15, 20...",
+                "Pattern is always +5 more!"
+            ],
+            skipCount10: [
+                "Counting by tens! 10, 20, 30...",
+                "Each time add one more group of 10!",
+                "Like counting: 1 ten, 2 tens, 3 tens..."
+            ],
+            addition: [
+                "Start with the bigger number and count up!",
+                "Remember: you can switch the order and get the same answer!",
+                "Count on your fingers or use objects!"
+            ],
+            subtraction: [
+                "What's the opposite? If you add, subtract goes backwards!",
+                "Count backwards: start high, go down!",
+                "Think: how many are left?"
+            ],
+            placeValue: [
+                "Tens are like groups of 10 together!",
+                "Count the tens, then count the ones!",
+                "10 = 1 ten + 0 ones, 20 = 2 tens + 0 ones"
+            ]
+        };
 
-    // AI Hints Database
-    const hints = {
-        numberBonds5: [
-            "Count on your fingers! 5 = 1 + ?",
-            "Think: if we have 2, how many more to make 5?",
-            "Try counting: 1, 2, 3... how many more?"
-        ],
-        numberBonds10: [
-            "10 is like 2 hands with 5 fingers each!",
-            "If you have 3, you need 7 more to make 10!",
-            "Count up from the first number!"
-        ],
-        skipCount2: [
-            "Add 2 each time: 2, 4, 6, 8...",
-            "It's like counting by twos - even numbers!",
-            "The pattern repeats: +2, +2, +2"
-        ],
-        skipCount5: [
-            "Think of counting money - nickels!",
-            "Add 5 each time: 5, 10, 15, 20...",
-            "Pattern is always +5 more!"
-        ],
-        skipCount10: [
-            "Counting by tens! 10, 20, 30...",
-            "Each time add one more group of 10!",
-            "Like counting: 1 ten, 2 tens, 3 tens..."
-        ],
-        addition: [
-            "Start with the bigger number and count up!",
-            "Remember: you can switch the order and get the same answer!",
-            "Count on your fingers or use objects!"
-        ],
-        subtraction: [
-            "What's the opposite? If you add, subtract goes backwards!",
-            "Count backwards: start high, go down!",
-            "Think: how many are left?"
-        ],
-        placeValue: [
-            "Tens are like groups of 10 together!",
-            "Count the tens, then count the ones!",
-            "10 = 1 ten + 0 ones, 20 = 2 tens + 0 ones"
-        ]
-    };
+        // Game Definitions with dynamic difficulty
+        const games = {
+            numberBonds5: { title: '🎯 Number Bonds to 5', baseTarget: 5 },
+            numberBonds10: { title: '🎪 Number Bonds to 10', baseTarget: 10 },
+            skipCount2: { title: '🎵 Skip Counting by 2s', step: 2 },
+            skipCount5: { title: '🖐️ Skip Counting by 5s', step: 5 },
+            skipCount10: { title: '🔟 Skip Counting by 10s', step: 10 },
+            additionStrategies: { title: '➕ Addition Strategies' },
+            subtractionInverse: { title: '➖ Subtraction as Inverse' },
+            placeValue: { title: '🧩 Place Value (0-99)' },
+            multiplicationIntro: { title: '✨ Multiplication Intro' },
+            repeatedAddition: { title: '🔄 Repeated Addition' },
+            commutativeProperty: { title: '🔀 Commutative Property' },
+            wordProblems: { title: '📖 Simple Word Problems' },
+        };
 
-    // Game Definitions with dynamic difficulty
-    const games = {
-        numberBonds5: { title: '🎯 Number Bonds to 5', baseTarget: 5 },
-        numberBonds10: { title: '🎪 Number Bonds to 10', baseTarget: 10 },
-        skipCount2: { title: '🎵 Skip Counting by 2s', step: 2 },
-        skipCount5: { title: '🖐️ Skip Counting by 5s', step: 5 },
-        skipCount10: { title: '🔟 Skip Counting by 10s', step: 10 },
-        additionStrategies: { title: '➕ Addition Strategies' },
-        subtractionInverse: { title: '➖ Subtraction as Inverse' },
-        placeValue: { title: '🧩 Place Value (0-99)' },
-        multiplicationIntro: { title: '✨ Multiplication Intro' },
-        repeatedAddition: { title: '🔄 Repeated Addition' },
-        commutativeProperty: { title: '🔀 Commutative Property' },
-        wordProblems: { title: '📖 Simple Word Problems' },
-    };
+        // Initialize Game
+        function startGame(gameName) {
+            currentGame = gameName;
+            currentQuestion = 0;
+            score = 0;
+            correctStreak = 0;
+            wrongStreak = 0;
+            difficulty = 1;
+            
+            generateQuestions(gameName);
+            totalQuestions = allQuestions[gameName].length;
+            
+            document.getElementById('menuScreen').style.display = 'none';
+            document.getElementById('gameScreen').classList.add('active');
+            document.getElementById('gameTitle').textContent = games[gameName].title;
+            
+            showQuestion();
+        }
 
-    // Initialize Game
-    function startGame(gameName) {
-        currentGame = gameName;
-        currentQuestion = 0;
-        score = 0;
-        correctStreak = 0;
-        wrongStreak = 0;
-        difficulty = 1;
-        
-        generateQuestions(gameName);
-        totalQuestions = allQuestions[gameName].length;
-        
-        document.getElementById('menuScreen').style.display = 'none';
-        document.getElementById('gameScreen').classList.add('active');
-        document.getElementById('gameTitle').textContent = games[gameName].title;
-        
-        showQuestion();
-    }
+        // Generate Questions Based on Game Type
+        function generateQuestions(gameName) {
+            const questions = [];
+            const game = games[gameName];
 
-    // Generate Questions Based on Game Type
-    function generateQuestions(gameName) {
-        const questions = [];
-        const game = games[gameName];
-
-        if (gameName.startsWith('numberBonds')) {
-            const target = game.baseTarget;
-            for (let i = 1; i < target; i++) {
-                const j = target - i;
-                if (i <= j) {
+            if (gameName.startsWith('numberBonds')) {
+                const target = game.baseTarget;
+                for (let i = 1; i < target; i++) {
+                    const j = target - i;
+                    if (i <= j) {
+                        questions.push({
+                            type: 'numberBonds',
+                            target,
+                            part1: i,
+                            part2: j,
+                            display: `${target} = ${i} + ?`,
+                            answer: j,
+                            difficulty: 1
+                        });
+                    }
+                }
+            } else if (gameName.startsWith('skipCount')) {
+                const step = game.step;
+                const sequence = Array.from({ length: 12 }, (_, i) => (i + 1) * step);
+                
+                for (let i = 0; i < Math.min(sequence.length - 1, 10); i++) {
+                    const seqLength = Math.min(i + 3, 5);
                     questions.push({
-                        type: 'numberBonds',
-                        target,
-                        part1: i,
-                        part2: j,
-                        display: `${target} = ${i} + ?`,
-                        answer: j,
-                        difficulty: 1
+                        type: 'skipCount',
+                        step,
+                        sequence: sequence.slice(0, seqLength),
+                        display: `What comes next? ${sequence.slice(0, seqLength - 1).join(', ')}, ?`,
+                        answer: sequence[seqLength - 1],
+                        difficulty: seqLength === 3 ? 1 : seqLength === 4 ? 2 : 3
                     });
                 }
+            } else if (gameName === 'additionStrategies') {
+                questions.push(
+                    { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!', difficulty: 1 },
+                    { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!', difficulty: 1 },
+                    { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!', difficulty: 1 },
+                    { type: 'addition', problem: '3 + 1', answer: 4, desc: 'Count on!', difficulty: 1 },
+                    { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!', difficulty: 2 },
+                    { type: 'addition', problem: '4 + 1', answer: 5, desc: 'Count on!', difficulty: 1 },
+                    { type: 'addition', problem: '4 + 2', answer: 6, desc: 'Count on!', difficulty: 2 },
+                    { type: 'addition', problem: '5 + 1', answer: 6, desc: 'Count on!', difficulty: 1 },
+                    { type: 'addition', problem: '5 + 2', answer: 7, desc: 'Count on!', difficulty: 2 },
+                    { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!', difficulty: 3 },
+                    { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!', difficulty: 2 },
+                    { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!', difficulty: 3 }
+                );
+            } else if (gameName === 'subtractionInverse') {
+                const additionFacts = [
+                    { add: '2 + 1 = 3', sub: '3 - 1 = ?', ans: 2 },
+                    { add: '2 + 2 = 4', sub: '4 - 2 = ?', ans: 2 },
+                    { add: '3 + 1 = 4', sub: '4 - 1 = ?', ans: 3 },
+                    { add: '3 + 2 = 5', sub: '5 - 2 = ?', ans: 3 },
+                    { add: '3 + 3 = 6', sub: '6 - 3 = ?', ans: 3 },
+                    { add: '4 + 1 = 5', sub: '5 - 1 = ?', ans: 4 },
+                    { add: '4 + 2 = 6', sub: '6 - 2 = ?', ans: 4 },
+                    { add: '5 + 3 = 8', sub: '8 - 3 = ?', ans: 5 },
+                    { add: '5 + 5 = 10', sub: '10 - 5 = ?', ans: 5 },
+                    { add: '4 + 4 = 8', sub: '8 - 4 = ?', ans: 4 }
+                ];
+                additionFacts.forEach(f => {
+                    questions.push({
+                        type: 'subtraction',
+                        addition: f.add,
+                        subtraction: f.sub,
+                        answer: f.ans,
+                        difficulty: parseInt(f.ans) <= 3 ? 1 : 2
+                    });
+                });
+            } else if (gameName === 'placeValue') {
+                for (let i = 10; i <= 60; i += 5) {
+                    const tens = Math.floor(i / 10);
+                    const ones = i % 10;
+                    questions.push({
+                        type: 'placeValue',
+                        number: i,
+                        tens,
+                        ones,
+                        display: `${i} = ? tens + ? ones`,
+                        difficulty: i <= 20 ? 1 : i <= 40 ? 2 : 3
+                    });
+                }
+            } else if (gameName === 'multiplicationIntro') {
+                const groups = [
+                    { times: 2, groups: 2, desc: '2 groups of 2', diff: 1 },
+                    { times: 2, groups: 3, desc: '3 groups of 2', diff: 1 },
+                    { times: 3, groups: 2, desc: '2 groups of 3', diff: 1 },
+                    { times: 2, groups: 4, desc: '4 groups of 2', diff: 2 },
+                    { times: 3, groups: 3, desc: '3 groups of 3', diff: 2 },
+                    { times: 2, groups: 5, desc: '5 groups of 2', diff: 3 },
+                    { times: 4, groups: 2, desc: '2 groups of 4', diff: 2 },
+                    { times: 5, groups: 2, desc: '2 groups of 5', diff: 3 }
+                ];
+                groups.forEach(g => {
+                    questions.push({
+                        type: 'multiplicationIntro',
+                        groups: g.groups,
+                        times: g.times,
+                        answer: g.groups * g.times,
+                        desc: g.desc,
+                        difficulty: g.diff
+                    });
+                });
+            } else if (gameName === 'repeatedAddition') {
+                const facts = [
+                    { times: 2, addend: 2, diff: 1 },
+                    { times: 2, addend: 3, diff: 1 },
+                    { times: 3, addend: 2, diff: 1 },
+                    { times: 2, addend: 4, diff: 2 },
+                    { times: 3, addend: 3, diff: 2 },
+                    { times: 4, addend: 2, diff: 2 },
+                    { times: 2, addend: 5, diff: 3 },
+                    { times: 5, addend: 2, diff: 3 },
+                    { times: 3, addend: 4, diff: 3 }
+                ];
+                facts.forEach(q => {
+                    questions.push({
+                        type: 'repeatedAddition',
+                        addend: q.addend,
+                        times: q.times,
+                        answer: q.times * q.addend,
+                        difficulty: q.diff
+                    });
+                });
+            } else if (gameName === 'commutativeProperty') {
+                const facts = [
+                    { a: 1, b: 1 }, { a: 1, b: 2 }, { a: 2, b: 2 },
+                    { a: 1, b: 3 }, { a: 2, b: 3 }, { a: 3, b: 3 },
+                    { a: 2, b: 4 }, { a: 3, b: 4 }, { a: 4, b: 4 },
+                    { a: 3, b: 5 }, { a: 4, b: 5 }, { a: 5, b: 5 }
+                ];
+                facts.forEach(q => {
+                    questions.push({
+                        type: 'commutative',
+                        a: q.a,
+                        b: q.b,
+                        answer: q.a + q.b,
+                        difficulty: (q.a + q.b) <= 4 ? 1 : (q.a + q.b) <= 7 ? 2 : 3
+                    });
+                });
+            } else if (gameName === 'wordProblems') {
+                const problems = [
+                    { text: 'Emma has 2 apples. She gets 1 more. How many?', ans: 3, diff: 1 },
+                    { text: 'Tom has 3 toys. He gets 2 more. How many toys?', ans: 5, diff: 1 },
+                    { text: 'Sara has 2 crayons. Her friend gives 2 more. How many?', ans: 4, diff: 1 },
+                    { text: 'Ben has 5 cookies. He eats 1. How many left?', ans: 4, diff: 1 },
+                    { text: 'Lily has 6 stickers. She gives 2 to a friend. How many left?', ans: 4, diff: 2 },
+                    { text: 'Max has 3 toy cars. His mom buys 3 more. How many?', ans: 6, diff: 2 },
+                    { text: 'Zoe has 8 blocks. She removes 3. How many remain?', ans: 5, diff: 2 },
+                    { text: 'Noah has 4 balloons. He blows up 4 more. How many total?', ans: 8, diff: 2 },
+                    { text: 'Lucy has 7 books. She reads 2. How many unread?', ans: 5, diff: 3 },
+                    { text: 'Alex has 5 cookies. Gets 3 more, eats 2. How many left?', ans: 6, diff: 3 }
+                ];
+                problems.forEach(p => {
+                    questions.push({
+                        type: 'wordProblem',
+                        text: p.text,
+                        answer: p.ans,
+                        difficulty: p.diff
+                    });
+                });
             }
-        } else if (gameName.startsWith('skipCount')) {
-            const step = game.step;
-            const sequence = Array.from({ length: 12 }, (_, i) => (i + 1) * step);
+
+            // Filter questions by difficulty level
+            allQuestions[gameName] = questions
+                .filter(q => q.difficulty <= difficulty)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 10);
+
+            if (allQuestions[gameName].length === 0) {
+                allQuestions[gameName] = questions.sort(() => Math.random() - 0.5).slice(0, 10);
+            }
+        }
+
+        // Show Question
+        function showQuestion() {
+            if (!allQuestions[currentGame]) return;
             
-            for (let i = 0; i < Math.min(sequence.length - 1, 10); i++) {
-                const seqLength = Math.min(i + 3, 5);
-                questions.push({
-                    type: 'skipCount',
-                    step,
-                    sequence: sequence.slice(0, seqLength),
-                    display: `What comes next? ${sequence.slice(0, seqLength - 1).join(', ')}, ?`,
-                    answer: sequence[seqLength - 1],
-                    difficulty: seqLength === 3 ? 1 : seqLength === 4 ? 2 : 3
-                });
-            }
-        } else if (gameName === 'additionStrategies') {
-            questions.push(
-                { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!', difficulty: 1 },
-                { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!', difficulty: 1 },
-                { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!', difficulty: 1 },
-                { type: 'addition', problem: '3 + 1', answer: 4, desc: 'Count on!', difficulty: 1 },
-                { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!', difficulty: 2 },
-                { type: 'addition', problem: '4 + 1', answer: 5, desc: 'Count on!', difficulty: 1 },
-                { type: 'addition', problem: '4 + 2', answer: 6, desc: 'Count on!', difficulty: 2 },
-                { type: 'addition', problem: '5 + 1', answer: 6, desc: 'Count on!', difficulty: 1 },
-                { type: 'addition', problem: '5 + 2', answer: 7, desc: 'Count on!', difficulty: 2 },
-                { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!', difficulty: 3 },
-                { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!', difficulty: 2 },
-                { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!', difficulty: 3 }
-            );
-        } else if (gameName === 'subtractionInverse') {
-            const additionFacts = [
-                { add: '2 + 1 = 3', sub: '3 - 1 = ?', ans: 2 },
-                { add: '2 + 2 = 4', sub: '4 - 2 = ?', ans: 2 },
-                { add: '3 + 1 = 4', sub: '4 - 1 = ?', ans: 3 },
-                { add: '3 + 2 = 5', sub: '5 - 2 = ?', ans: 3 },
-                { add: '3 + 3 = 6', sub: '6 - 3 = ?', ans: 3 },
-                { add: '4 + 1 = 5', sub: '5 - 1 = ?', ans: 4 },
-                { add: '4 + 2 = 6', sub: '6 - 2 = ?', ans: 4 },
-                { add: '5 + 3 = 8', sub: '8 - 3 = ?', ans: 5 },
-                { add: '5 + 5 = 10', sub: '10 - 5 = ?', ans: 5 },
-                { add: '4 + 4 = 8', sub: '8 - 4 = ?', ans: 4 }
-            ];
-            additionFacts.forEach(f => {
-                questions.push({
-                    type: 'subtraction',
-                    addition: f.add,
-                    subtraction: f.sub,
-                    answer: f.ans,
-                    difficulty: parseInt(f.ans) <= 3 ? 1 : 2
-                });
-            });
-        } else if (gameName === 'placeValue') {
-            for (let i = 10; i <= 60; i += 5) {
-                const tens = Math.floor(i / 10);
-                const ones = i % 10;
-                questions.push({
-                    type: 'placeValue',
-                    number: i,
-                    tens,
-                    ones,
-                    display: `${i} = ? tens + ? ones`,
-                    difficulty: i <= 20 ? 1 : i <= 40 ? 2 : 3
-                });
-            }
-        } else if (gameName === 'multiplicationIntro') {
-            const groups = [
-                { times: 2, groups: 2, desc: '2 groups of 2', diff: 1 },
-                { times: 2, groups: 3, desc: '3 groups of 2', diff: 1 },
-                { times: 3, groups: 2, desc: '2 groups of 3', diff: 1 },
-                { times: 2, groups: 4, desc: '4 groups of 2', diff: 2 },
-                { times: 3, groups: 3, desc: '3 groups of 3', diff: 2 },
-                { times: 2, groups: 5, desc: '5 groups of 2', diff: 3 },
-                { times: 4, groups: 2, desc: '2 groups of 4', diff: 2 },
-                { times: 5, groups: 2, desc: '2 groups of 5', diff: 3 }
-            ];
-            groups.forEach(g => {
-                questions.push({
-                    type: 'multiplicationIntro',
-                    groups: g.groups,
-                    times: g.times,
-                    answer: g.groups * g.times,
-                    desc: g.desc,
-                    difficulty: g.diff
-                });
-            });
-        } else if (gameName === 'repeatedAddition') {
-            const facts = [
-                { times: 2, addend: 2, diff: 1 },
-                { times: 2, addend: 3, diff: 1 },
-                { times: 3, addend: 2, diff: 1 },
-                { times: 2, addend: 4, diff: 2 },
-                { times: 3, addend: 3, diff: 2 },
-                { times: 4, addend: 2, diff: 2 },
-                { times: 2, addend: 5, diff: 3 },
-                { times: 5, addend: 2, diff: 3 },
-                { times: 3, addend: 4, diff: 3 }
-            ];
-            facts.forEach(q => {
-                questions.push({
-                    type: 'repeatedAddition',
-                    addend: q.addend,
-                    times: q.times,
-                    answer: q.times * q.addend,
-                    difficulty: q.diff
-                });
-            });
-        } else if (gameName === 'commutativeProperty') {
-            const facts = [
-                { a: 1, b: 1 }, { a: 1, b: 2 }, { a: 2, b: 2 },
-                { a: 1, b: 3 }, { a: 2, b: 3 }, { a: 3, b: 3 },
-                { a: 2, b: 4 }, { a: 3, b: 4 }, { a: 4, b: 4 },
-                { a: 3, b: 5 }, { a: 4, b: 5 }, { a: 5, b: 5 }
-            ];
-            facts.forEach(q => {
-                questions.push({
-                    type: 'commutative',
-                    a: q.a,
-                    b: q.b,
-                    answer: q.a + q.b,
-                    difficulty: (q.a + q.b) <= 4 ? 1 : (q.a + q.b) <= 7 ? 2 : 3
-                });
-            });
-        } else if (gameName === 'wordProblems') {
-            const problems = [
-                { text: 'Emma has 2 apples. She gets 1 more. How many?', ans: 3, diff: 1 },
-                { text: 'Tom has 3 toys. He gets 2 more. How many toys?', ans: 5, diff: 1 },
-                { text: 'Sara has 2 crayons. Her friend gives 2 more. How many?', ans: 4, diff: 1 },
-                { text: 'Ben has 5 cookies. He eats 1. How many left?', ans: 4, diff: 1 },
-                { text: 'Lily has 6 stickers. She gives 2 to a friend. How many left?', ans: 4, diff: 2 },
-                { text: 'Max has 3 toy cars. His mom buys 3 more. How many?', ans: 6, diff: 2 },
-                { text: 'Zoe has 8 blocks. She removes 3. How many remain?', ans: 5, diff: 2 },
-                { text: 'Noah has 4 balloons. He blows up 4 more. How many total?', ans: 8, diff: 2 },
-                { text: 'Lucy has 7 books. She reads 2. How many unread?', ans: 5, diff: 3 },
-                { text: 'Alex has 5 cookies. Gets 3 more, eats 2. How many left?', ans: 6, diff: 3 }
-            ];
-            problems.forEach(p => {
-                questions.push({
-                    type: 'wordProblem',
-                    text: p.text,
-                    answer: p.ans,
-                    difficulty: p.diff
-                });
-            });
-        }
-
-        // Filter questions by difficulty level
-        allQuestions[gameName] = questions
-            .filter(q => q.difficulty <= difficulty)
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 10);
-
-        if (allQuestions[gameName].length === 0) {
-            allQuestions[gameName] = questions.sort(() => Math.random() - 0.5).slice(0, 10);
-        }
-    }
-
-    // Show Question
-    function showQuestion() {
-        if (!allQuestions[currentGame]) return;
-        
-        const questions = allQuestions[currentGame];
-        if (currentQuestion >= questions.length) {
-            showCompletion();
-            return;
-        }
-
-        const question = questions[currentQuestion];
-        const progress = ((currentQuestion + 1) / questions.length) * 100;
-        
-        document.getElementById('progressFill').style.width = progress + '%';
-        
-        // Update level badge
-        const levelText = difficulty === 1 ? 'Level 1 - Beginner' : 
-                         difficulty === 2 ? 'Level 2 - Intermediate' : 'Level 3 - Advanced';
-        document.getElementById('levelBadge').textContent = levelText;
-
-        const gameContent = document.getElementById('gameContent');
-        gameContent.innerHTML = '';
-        document.getElementById('aiHint').classList.remove('show');
-
-        if (question.type === 'numberBonds') {
-            renderNumberBondsQuestion(question, gameContent);
-        } else if (question.type === 'skipCount') {
-            renderSkipCountQuestion(question, gameContent);
-        } else if (question.type === 'addition') {
-            renderAdditionQuestion(question, gameContent);
-        } else if (question.type === 'subtraction') {
-            renderSubtractionQuestion(question, gameContent);
-        } else if (question.type === 'placeValue') {
-            renderPlaceValueQuestion(question, gameContent);
-        } else if (question.type === 'multiplicationIntro') {
-            renderMultiplicationIntroQuestion(question, gameContent);
-        } else if (question.type === 'repeatedAddition') {
-            renderRepeatedAdditionQuestion(question, gameContent);
-        } else if (question.type === 'commutative') {
-            renderCommutativeQuestion(question, gameContent);
-        } else if (question.type === 'wordProblem') {
-            renderWordProblemQuestion(question, gameContent);
-        }
-    }
-
-    // Rendering Functions
-    function renderNumberBondsQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, q.target);
-        container.innerHTML = `
-            <div class="big-number">${q.target}</div>
-            <div class="equation">${q.display}</div>
-            <div class="instruction-box">🎯 How many more do we need?</div>
-            <div class="object-grid">
-                ${Array(q.target).fill('⭐').map(o => `<div class="object">${o}</div>`).join('')}
-            </div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderSkipCountQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, q.answer + 20);
-        container.innerHTML = `
-            <div class="instruction-box">🎵 What number comes next?</div>
-            <div class="skip-count-display">
-                ${q.sequence.map(n => `<div class="count-box">${n}</div>`).join('')}
-                <div class="count-box" style="background: linear-gradient(135deg, #FF6B6B, #F38181);">?</div>
-            </div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderAdditionQuestion(q, container) {
-        const [a, b] = q.problem.split(' + ').map(Number);
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
-        container.innerHTML = `
-            <div class="equation">${q.problem} = ?</div>
-            <div class="instruction-box">💡 ${q.desc}</div>
-            <div class="object-grid">
-                ${Array(a).fill('🍎').map(o => `<div class="object">${o}</div>`).join('')}
-                ${Array(b).fill('🍎').map(o => `<div class="object" style="background: linear-gradient(135deg, #4ECDC4, #44B8AC);">${o}</div>`).join('')}
-            </div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-warning" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderSubtractionQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, 10);
-        container.innerHTML = `
-            <div class="instruction-box">🔗 These are connected!</div>
-            <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 15px 0;">${q.addition}</div>
-            <div class="equation">${q.subtraction}</div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-danger" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderPlaceValueQuestion(q, container) {
-        const tens = Array(q.tens).fill('🔟');
-        const ones = Array(q.ones).fill('●');
-        container.innerHTML = `
-            <div class="big-number">${q.number}</div>
-            <div class="instruction-box">🧩 How many tens? How many ones?</div>
-            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
-                <div style="text-align: center;">
-                    <div style="font-size: 1.8em; font-weight: 700; color: #667eea;">TENS: ${q.tens}</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 1.8em; font-weight: 700; color: #FFE66D;">ONES: ${q.ones}</div>
-                </div>
-            </div>
-            <button class="btn btn-info" onclick="checkAnswer(1)" style="width: 200px; margin: 20px auto;">✓ Got it!</button>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderMultiplicationIntroQuestion(q, container) {
-        const items = Array(q.groups).fill(null).map((_, i) => Array(q.times).fill('⭐'));
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, 20);
-        container.innerHTML = `
-            <div class="instruction-box">✨ ${q.desc}</div>
-            <div class="big-number">${q.groups} × ${q.times} = ?</div>
-            <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 15px; max-width: 400px; margin: 15px auto;">
-                ${items.map((group, i) => 
-                    `<div style="background: linear-gradient(135deg, #FCBAD3, #F38181); padding: 15px; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 1.8em; margin-bottom: 8px;">${group.join('')}</div>
-                        <div style="font-weight: 700; font-size: 0.9em;">Group ${i + 1}</div>
-                    </div>`
-                ).join('')}
-            </div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-info" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderRepeatedAdditionQuestion(q, container) {
-        const additions = Array(q.times).fill(q.addend);
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, 25);
-        container.innerHTML = `
-            <div class="equation">${additions.join(' + ')} = ?</div>
-            <div class="instruction-box">🔄 Add them all up!</div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 10px; width: 100%; max-width: 400px; margin: 15px auto;">
-                ${additions.map((num, i) => 
-                    `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.2em;">
-                        ${Array(num).fill('●').join('')}
-                    </div>`
-                ).join('')}
-            </div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderCommutativeQuestion(q, container) {
-        const wrongAnswers = [q.answer + 1, q.answer - 1, q.answer + 2, q.answer - 2].filter(a => a > 0 && a !== q.answer);
-        const answers = [q.answer, ...wrongAnswers].sort(() => Math.random() - 0.5).slice(0, 4);
-        container.innerHTML = `
-            <div class="instruction-box">🔀 Order doesn't matter!</div>
-            <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin: 25px 0; flex-wrap: wrap;">
-                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
-                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-2);">=</div>
-                <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
-            </div>
-            <div style="font-size: 1.6em; text-align: center; margin: 15px 0; font-weight: 700;">Both equal ?</div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    function renderWordProblemQuestion(q, container) {
-        const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
-        container.innerHTML = `
-            <div class="instruction-box">📖 Read the story carefully!</div>
-            <div style="background: #E8F5E9; padding: 20px; border-radius: 20px; font-size: 1.2em; font-weight: 700; line-height: 1.8; margin: 15px 0; border: 3px dashed #4CAF50;">
-                ${q.text}
-            </div>
-            <div style="font-size: 1.6em; font-weight: 900; color: var(--primary-1); margin: 20px 0;">?</div>
-            <div class="buttons-grid">
-                ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-            </div>
-            <div class="feedback" id="feedback"></div>
-        `;
-    }
-
-    // Check Answer
-    async function checkAnswer(answer) {
-        const questions = allQuestions[currentGame];
-        const question = questions[currentQuestion];
-        const feedback = document.getElementById('feedback');
-        const isCorrect = answer === question.answer;
-        
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(btn => btn.disabled = true);
-
-        if (isCorrect) {
-            score++;
-            correctStreak++;
-            wrongStreak = 0;
-            feedback.textContent = '🎉 Perfect! Great job!';
-            feedback.className = 'feedback show correct';
-
-            // Level up on 3 correct streak
-            if (correctStreak >= 3 && difficulty < 3) {
-                difficulty++;
-                generateQuestions(currentGame);
-            }
-        } else {
-            wrongStreak++;
-            correctStreak = 0;
-            feedback.textContent = `❌ Oops! The answer is ${question.answer}`;
-            feedback.className = 'feedback show incorrect';
-
-            // Show AI hint on wrong answer
-            await showAIHint(currentGame, question);
-
-            // Level down on 2 wrong streak
-            if (wrongStreak >= 2 && difficulty > 1) {
-                difficulty--;
-                generateQuestions(currentGame);
-            }
-        }
-        
-        setTimeout(() => {
-            currentQuestion++;
+            const questions = allQuestions[currentGame];
             if (currentQuestion >= questions.length) {
                 showCompletion();
-            } else {
-                showQuestion();
+                return;
             }
-        }, 2000);
-    }
 
-    // AI Hint Function
-    async function showAIHint(gameName, question) {
-        const hintContainer = document.getElementById('aiHint');
-        
-        try {
-            let hintText = '';
+            const question = questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
             
-            // Use local hints first (faster)
-            const hintKey = gameName.replace(/[0-9]/g, '');
-            if (hints[gameName]) {
-                const hintList = hints[gameName];
-                hintText = hintList[Math.floor(Math.random() * hintList.length)];
-            } else if (hints[hintKey]) {
-                const hintList = hints[hintKey];
-                hintText = hintList[Math.floor(Math.random() * hintList.length)];
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update level badge
+            const levelText = difficulty === 1 ? 'Level 1 - Beginner' : 
+                             difficulty === 2 ? 'Level 2 - Intermediate' : 'Level 3 - Advanced';
+            document.getElementById('levelBadge').textContent = levelText;
+
+            const gameContent = document.getElementById('gameContent');
+            gameContent.innerHTML = '';
+            document.getElementById('aiHint').classList.remove('show');
+
+            if (question.type === 'numberBonds') {
+                renderNumberBondsQuestion(question, gameContent);
+            } else if (question.type === 'skipCount') {
+                renderSkipCountQuestion(question, gameContent);
+            } else if (question.type === 'addition') {
+                renderAdditionQuestion(question, gameContent);
+            } else if (question.type === 'subtraction') {
+                renderSubtractionQuestion(question, gameContent);
+            } else if (question.type === 'placeValue') {
+                renderPlaceValueQuestion(question, gameContent);
+            } else if (question.type === 'multiplicationIntro') {
+                renderMultiplicationIntroQuestion(question, gameContent);
+            } else if (question.type === 'repeatedAddition') {
+                renderRepeatedAdditionQuestion(question, gameContent);
+            } else if (question.type === 'commutative') {
+                renderCommutativeQuestion(question, gameContent);
+            } else if (question.type === 'wordProblem') {
+                renderWordProblemQuestion(question, gameContent);
+            }
+        }
+
+        // Rendering Functions
+        function renderNumberBondsQuestion(q, container) {
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, q.target);
+            container.innerHTML = `
+                <div class="big-number">${q.target}</div>
+                <div class="equation">${q.display}</div>
+                <div class="instruction-box">🎯 How many more do we need?</div>
+                <div class="object-grid">
+                    ${Array(q.target).fill('⭐').map(o => `<div class="object">${o}</div>`).join('')}
+                </div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderSkipCountQuestion(q, container) {
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, q.answer + 20);
+            container.innerHTML = `
+                <div class="instruction-box">🎵 What number comes next?</div>
+                <div class="skip-count-display">
+                    ${q.sequence.map(n => `<div class="count-box">${n}</div>`).join('')}
+                    <div class="count-box" style="background: linear-gradient(135deg, #FF6B6B, #F38181);">?</div>
+                </div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderAdditionQuestion(q, container) {
+            const [a, b] = q.problem.split(' + ').map(Number);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
+            container.innerHTML = `
+                <div class="equation">${q.problem} = ?</div>
+                <div class="instruction-box">💡 ${q.desc}</div>
+                <div class="object-grid">
+                    ${Array(a).fill('🍎').map(o => `<div class="object">${o}</div>`).join('')}
+                    ${Array(b).fill('🍎').map(o => `<div class="object" style="background: linear-gradient(135deg, #4ECDC4, #44B8AC);">${o}</div>`).join('')}
+                </div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-warning" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderSubtractionQuestion(q, container) {
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, 10);
+            container.innerHTML = `
+                <div class="instruction-box">🔗 These are connected!</div>
+                <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 15px 0;">${q.addition}</div>
+                <div class="equation">${q.subtraction}</div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-danger" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderPlaceValueQuestion(q, container) {
+            const tens = Array(q.tens).fill('🔟');
+            const ones = Array(q.ones).fill('●');
+            container.innerHTML = `
+                <div class="big-number">${q.number}</div>
+                <div class="instruction-box">🧩 How many tens? How many ones?</div>
+                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.8em; font-weight: 700; color: #667eea;">TENS: ${q.tens}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.8em; font-weight: 700; color: #FFE66D;">ONES: ${q.ones}</div>
+                    </div>
+                </div>
+                <button class="btn btn-info" onclick="checkAnswer(1)" style="width: 200px; margin: 20px auto;">✓ Got it!</button>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderMultiplicationIntroQuestion(q, container) {
+            const items = Array(q.groups).fill(null).map((_, i) => Array(q.times).fill('⭐'));
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, 20);
+            container.innerHTML = `
+                <div class="instruction-box">✨ ${q.desc}</div>
+                <div class="big-number">${q.groups} × ${q.times} = ?</div>
+                <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 15px; max-width: 400px; margin: 15px auto;">
+                    ${items.map((group, i) => 
+                        `<div style="background: linear-gradient(135deg, #FCBAD3, #F38181); padding: 15px; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 1.8em; margin-bottom: 8px;">${group.join('')}</div>
+                            <div style="font-weight: 700; font-size: 0.9em;">Group ${i + 1}</div>
+                        </div>`
+                    ).join('')}
+                </div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-info" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderRepeatedAdditionQuestion(q, container) {
+            const additions = Array(q.times).fill(q.addend);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, 25);
+            container.innerHTML = `
+                <div class="equation">${additions.join(' + ')} = ?</div>
+                <div class="instruction-box">🔄 Add them all up!</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 10px; width: 100%; max-width: 400px; margin: 15px auto;">
+                    ${additions.map((num, i) => 
+                        `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.2em;">
+                            ${Array(num).fill('●').join('')}
+                        </div>`
+                    ).join('')}
+                </div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderCommutativeQuestion(q, container) {
+            const wrongAnswers = [q.answer + 1, q.answer - 1, q.answer + 2, q.answer - 2].filter(a => a > 0 && a !== q.answer);
+            const answers = [q.answer, ...wrongAnswers].sort(() => Math.random() - 0.5).slice(0, 4);
+            container.innerHTML = `
+                <div class="instruction-box">🔀 Order doesn't matter!</div>
+                <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin: 25px 0; flex-wrap: wrap;">
+                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
+                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-2);">=</div>
+                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
+                </div>
+                <div style="font-size: 1.6em; text-align: center; margin: 15px 0; font-weight: 700;">Both equal ?</div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        function renderWordProblemQuestion(q, container) {
+            const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
+            container.innerHTML = `
+                <div class="instruction-box">📖 Read the story carefully!</div>
+                <div style="background: #E8F5E9; padding: 20px; border-radius: 20px; font-size: 1.2em; font-weight: 700; line-height: 1.8; margin: 15px 0; border: 3px dashed #4CAF50;">
+                    ${q.text}
+                </div>
+                <div style="font-size: 1.6em; font-weight: 900; color: var(--primary-1); margin: 20px 0;">?</div>
+                <div class="buttons-grid">
+                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
+                </div>
+                <div class="feedback" id="feedback"></div>
+            `;
+        }
+
+        // Check Answer
+        async function checkAnswer(answer) {
+            const questions = allQuestions[currentGame];
+            const question = questions[currentQuestion];
+            const feedback = document.getElementById('feedback');
+            const isCorrect = answer === question.answer;
+            
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                score++;
+                correctStreak++;
+                wrongStreak = 0;
+                feedback.textContent = '🎉 Perfect! Great job!';
+                feedback.className = 'feedback show correct';
+
+                // Level up on 3 correct streak
+                if (correctStreak >= 3 && difficulty < 3) {
+                    difficulty++;
+                    generateQuestions(currentGame);
+                }
             } else {
-                hintText = "Try counting on your fingers or using objects to help!";
+                wrongStreak++;
+                correctStreak = 0;
+                feedback.textContent = `❌ Oops! The answer is ${question.answer}`;
+                feedback.className = 'feedback show incorrect';
+
+                // Show AI hint on wrong answer
+                await showAIHint(currentGame, question);
+
+                // Level down on 2 wrong streak
+                if (wrongStreak >= 2 && difficulty > 1) {
+                    difficulty--;
+                    generateQuestions(currentGame);
+                }
             }
             
-            hintContainer.textContent = '💡 Hint: ' + hintText;
-            hintContainer.classList.add('show');
-        } catch (error) {
-            console.log('Hint system ready');
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion >= questions.length) {
+                    showCompletion();
+                } else {
+                    showQuestion();
+                }
+            }, 2000);
         }
-    }
 
-    // Multiple Choice Generator
-    function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
-        const answers = new Set([correct]);
-        const attempts = new Set();
-        
-        while (answers.size < count && attempts.size < count * 5) {
-            const wrong = Math.floor(Math.random() * max) + 1;
-            attempts.add(wrong);
-            if (wrong !== correct && Math.abs(wrong - correct) >= 1) {
-                answers.add(wrong);
+        // AI Hint Function
+        async function showAIHint(gameName, question) {
+            const hintContainer = document.getElementById('aiHint');
+            
+            try {
+                let hintText = '';
+                
+                // Use local hints first (faster)
+                const hintKey = gameName.replace(/[0-9]/g, '');
+                if (hints[gameName]) {
+                    const hintList = hints[gameName];
+                    hintText = hintList[Math.floor(Math.random() * hintList.length)];
+                } else if (hints[hintKey]) {
+                    const hintList = hints[hintKey];
+                    hintText = hintList[Math.floor(Math.random() * hintList.length)];
+                } else {
+                    hintText = "Try counting on your fingers or using objects to help!";
+                }
+                
+                hintContainer.textContent = '💡 Hint: ' + hintText;
+                hintContainer.classList.add('show');
+            } catch (error) {
+                console.log('Hint system ready');
             }
         }
-        
-        return Array.from(answers).sort(() => Math.random() - 0.5);
-    }
 
-    // Show Completion
-    async function showCompletion() {
-        const questions = allQuestions[currentGame];
-        const percentage = Math.round((score / questions.length) * 100);
-        const game = games[currentGame];
-        
-        document.getElementById('finalScore').textContent = `Score: ${score}/${questions.length} (${percentage}%)`;
-        
-        // Get AI Message
-        let aiMessage = '';
-        if (percentage === 100) {
-            aiMessage = "Perfect! 🌟 You're a math superstar! Ready for harder challenges?";
-        } else if (percentage >= 80) {
-            aiMessage = "Excellent! 🎯 You're getting really good at this!";
-        } else if (percentage >= 60) {
-            aiMessage = "Great effort! 💪 Keep practicing and you'll master this!";
-        } else {
-            aiMessage = "Good start! 🌱 Practice makes perfect. Try again!";
+        // Multiple Choice Generator
+        function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
+            const answers = new Set([correct]);
+            const attempts = new Set();
+            
+            while (answers.size < count && attempts.size < count * 5) {
+                const wrong = Math.floor(Math.random() * max) + 1;
+                attempts.add(wrong);
+                if (wrong !== correct && Math.abs(wrong - correct) >= 1) {
+                    answers.add(wrong);
+                }
+            }
+            
+            return Array.from(answers).sort(() => Math.random() - 0.5);
         }
-        
-        document.getElementById('completionMessage').textContent = 
-            difficulty === 3 ? "You completed Advanced Level!" :
-            difficulty === 2 ? "You completed Intermediate Level!" :
-            "You completed Beginner Level!";
-        document.getElementById('aiMessage').textContent = aiMessage;
-        document.getElementById('completionModal').classList.add('show');
-    }
 
-    // Go Back
-    function goBack() {
-        document.getElementById('completionModal').classList.remove('show');
-        document.getElementById('gameScreen').classList.remove('active');
-        document.getElementById('menuScreen').style.display = 'grid';
-        currentGame = null;
-    }
-</script>
-```
+        // Show Completion
+        async function showCompletion() {
+            const questions = allQuestions[currentGame];
+            const percentage = Math.round((score / questions.length) * 100);
+            const game = games[currentGame];
+            
+            document.getElementById('finalScore').textContent = `Score: ${score}/${questions.length} (${percentage}%)`;
+            
+            // Get AI Message
+            let aiMessage = '';
+            if (percentage === 100) {
+                aiMessage = "Perfect! 🌟 You're a math superstar! Ready for harder challenges?";
+            } else if (percentage >= 80) {
+                aiMessage = "Excellent! 🎯 You're getting really good at this!";
+            } else if (percentage >= 60) {
+                aiMessage = "Great effort! 💪 Keep practicing and you'll master this!";
+            } else {
+                aiMessage = "Good start! 🌱 Practice makes perfect. Try again!";
+            }
+            
+            document.getElementById('completionMessage').textContent = 
+                difficulty === 3 ? "You completed Advanced Level!" :
+                difficulty === 2 ? "You completed Intermediate Level!" :
+                "You completed Beginner Level!";
+            document.getElementById('aiMessage').textContent = aiMessage;
+            document.getElementById('completionModal').classList.add('show');
+        }
 
+        // Go Back
+        function goBack() {
+            document.getElementById('completionModal').classList.remove('show');
+            document.getElementById('gameScreen').classList.remove('active');
+            document.getElementById('menuScreen').style.display = 'grid';
+            currentGame = null;
+        }
+    </script>
 </body>
 </html>
