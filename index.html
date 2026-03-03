@@ -1047,7 +1047,7 @@
         }
 
         function renderSkipCountQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, q.answer + 20);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="instruction-box">🎵 What number comes next?</div>
                 <div class="skip-count-display">
@@ -1063,7 +1063,7 @@
 
         function renderAdditionQuestion(q, container) {
             const [a, b] = q.problem.split(' + ').map(Number);
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="equation">${q.problem} = ?</div>
                 <div class="instruction-box">💡 ${q.desc}</div>
@@ -1079,7 +1079,7 @@
         }
 
         function renderSubtractionQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, 10);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="instruction-box">🔗 These are connected!</div>
                 <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 15px 0;">${q.addition}</div>
@@ -1112,7 +1112,7 @@
 
         function renderMultiplicationIntroQuestion(q, container) {
             const items = Array(q.groups).fill(null).map((_, i) => Array(q.times).fill('⭐'));
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, 20);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="instruction-box">✨ ${q.desc}</div>
                 <div class="big-number">${q.groups} × ${q.times} = ?</div>
@@ -1133,7 +1133,7 @@
 
         function renderRepeatedAdditionQuestion(q, container) {
             const additions = Array(q.times).fill(q.addend);
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, 25);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="equation">${additions.join(' + ')} = ?</div>
                 <div class="instruction-box">🔄 Add them all up!</div>
@@ -1170,7 +1170,7 @@
         }
 
         function renderWordProblemQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, 15);
+            const answers = generateMultipleChoiceAnswers(q.answer, 4);
             container.innerHTML = `
                 <div class="instruction-box">📖 Read the story carefully!</div>
                 <div style="background: #E8F5E9; padding: 20px; border-radius: 20px; font-size: 1.2em; font-weight: 700; line-height: 1.8; margin: 15px 0; border: 3px dashed #4CAF50;">
@@ -1258,20 +1258,47 @@
             }
         }
 
-        // Multiple Choice Generator
+        // Multiple Choice Generator - Fixed to ensure correct answer is always included
         function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
             const answers = new Set([correct]);
-            const attempts = new Set();
             
-            while (answers.size < count && attempts.size < count * 5) {
-                const wrong = Math.floor(Math.random() * max) + 1;
-                attempts.add(wrong);
-                if (wrong !== correct && Math.abs(wrong - correct) >= 1) {
-                    answers.add(wrong);
+            // Generate wrong answers smartly based on the correct answer
+            const wrongAnswers = new Set();
+            let attempts = 0;
+            
+            while (wrongAnswers.size < count - 1 && attempts < 50) {
+                let wrong;
+                
+                // Create varied wrong answers (some close, some far)
+                const variation = Math.floor(Math.random() * 4);
+                switch(variation) {
+                    case 0: wrong = correct + 1; break;
+                    case 1: wrong = correct - 1; break;
+                    case 2: wrong = correct + 2; break;
+                    case 3: wrong = correct - 2; break;
+                    default: wrong = Math.floor(Math.random() * max) + 1;
+                }
+                
+                // Ensure wrong answer is not negative and not the correct answer
+                if (wrong > 0 && wrong !== correct) {
+                    wrongAnswers.add(wrong);
+                }
+                attempts++;
+            }
+            
+            // Combine correct answer with wrong answers
+            const allAnswers = Array.from(answers).concat(Array.from(wrongAnswers)).slice(0, count);
+            
+            // If we don't have enough answers, fill with more options
+            while (allAnswers.length < count) {
+                const filler = Math.floor(Math.random() * (correct + 5)) + 1;
+                if (!allAnswers.includes(filler)) {
+                    allAnswers.push(filler);
                 }
             }
             
-            return Array.from(answers).sort(() => Math.random() - 0.5);
+            // Shuffle and return
+            return allAnswers.sort(() => Math.random() - 0.5);
         }
 
         // Show Completion
