@@ -1,1377 +1,1285 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 Number Builders - AI-Powered Math Games for Toddlers</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-1: #FF6B6B;
-            --primary-2: #4ECDC4;
-            --primary-3: #FFE66D;
-            --primary-4: #95E1D3;
-            --primary-5: #F38181;
-            --primary-6: #AA96DA;
-            --primary-7: #FCBAD3;
-            --text-dark: #2C3E50;
-            --text-light: #FFFFFF;
-            --bg-light: #F5F7FA;
-            --bg-medium: #F0E6FF;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        body {
-            font-family: 'Fredoka', 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #FFD4E5 0%, #C9E4FF 50%, #D4F1D4 100%);
-            min-height: 100vh;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-dark);
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '☁️ ☁️ ☁️';
-            position: fixed;
-            top: 5%;
-            left: 0;
-            width: 100%;
-            font-size: 4em;
-            opacity: 0.6;
-            z-index: 0;
-            animation: float 8s ease-in-out infinite;
-            letter-spacing: 100px;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '⭐ ✨ 🌈 ✨ ⭐';
-            position: fixed;
-            bottom: 5%;
-            right: 0;
-            font-size: 3em;
-            opacity: 0.5;
-            z-index: 0;
-            animation: float 12s ease-in-out infinite reverse;
-            letter-spacing: 80px;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateX(-50px) translateY(0px); }
-            50% { transform: translateX(50px) translateY(-20px); }
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(144, 238, 144, 0.2) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .header {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 30px;
-            animation: slideDown 0.6s ease-out;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            font-weight: 900;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-            font-weight: 600;
-        }
-
-        .menu-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            animation: fadeIn 0.8s ease-out 0.2s both;
-        }
-
-        .game-card {
-            background: var(--text-light);
-            border-radius: 25px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            border: 4px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 1.4em;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .card-description {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .card-age {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 700;
-        }
-
-        .game-screen {
-            display: none;
-            background: var(--text-light);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: var(--shadow-lg);
-            animation: slideUp 0.5s ease-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .game-screen.active {
-            display: block;
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--bg-light);
-        }
-
-        .back-button {
-            background: linear-gradient(135deg, #FF6B6B, #F38181);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-size: 1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .back-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-        }
-
-        .game-title {
-            font-size: 1.8em;
-            font-weight: 900;
-            color: var(--text-dark);
-            flex: 1;
-            text-align: center;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: var(--bg-light);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.4s ease;
-        }
-
-        .level-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #FFE66D, #FDD835);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9em;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .game-content {
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .big-number {
-            font-size: 5em;
-            font-weight: 900;
-            color: var(--primary-1);
-            animation: bounce 0.6s ease-out;
-        }
-
-        .equation {
-            font-size: 2.5em;
-            font-weight: 800;
-            color: var(--text-dark);
-        }
-
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 12px;
-            width: 100%;
-            max-width: 500px;
-            margin: 15px auto;
-        }
-
-        .btn {
-            padding: 18px;
-            font-size: 1.1em;
-            font-weight: 800;
-            border: none;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.3s ease;
-        }
-
-        .btn:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        .btn:hover:not(:disabled) {
-            transform: scale(1.08);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #FF6B6B, #F38181);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #4ECDC4, #44B8AC);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, #FFE66D, #FDD835);
-        }
-
-        .btn-info {
-            background: linear-gradient(135deg, #AA96DA, #9575CD);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #F38181, #E57373);
-        }
-
-        .feedback {
-            font-size: 1.8em;
-            font-weight: 800;
-            text-align: center;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            display: none;
-        }
-
-        .feedback.show {
-            display: block;
-            animation: popUp 0.5s ease-out;
-        }
-
-        .feedback.correct {
-            background: #D4EDDA;
-            color: #155724;
-        }
-
-        .feedback.incorrect {
-            background: #F8D7DA;
-            color: #721C24;
-        }
-
-        .ai-hint {
-            background: #E3F2FD;
-            border-left: 5px solid #2196F3;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            font-size: 1em;
-            color: #1565C0;
-            font-weight: 600;
-            display: none;
-            animation: slideUp 0.4s ease-out;
-        }
-
-        .ai-hint.show {
-            display: block;
-        }
-
-        .score-display {
-            font-size: 1.5em;
-            font-weight: 900;
-            color: var(--primary-1);
-        }
-
-        .object-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-            gap: 10px;
-            width: 100%;
-            max-width: 400px;
-            margin: 15px auto;
-        }
-
-        .object {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5em;
-            background: linear-gradient(135deg, #FFE66D, #FDD835);
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            animation: pop 0.4s ease-out;
-        }
-
-        .skip-count-display {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            gap: 10px;
-            width: 100%;
-            max-width: 450px;
-            margin: 15px auto;
-        }
-
-        .count-box {
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-align: center;
-            border-radius: 15px;
-            font-size: 1.4em;
-            font-weight: 800;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: slideRight 0.5s ease-out;
-        }
-
-        .instruction-box {
-            background: #FFF3CD;
-            border-left: 5px solid #FFC107;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #856404;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .completion-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .completion-modal.show {
-            display: flex;
-        }
-
-        .completion-content {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            text-align: center;
-            max-width: 500px;
-            animation: popUp 0.5s ease-out;
-        }
-
-        .completion-content h2 {
-            font-size: 2.5em;
-            color: var(--primary-1);
-            margin-bottom: 20px;
-        }
-
-        .completion-content p {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .completion-content .score-display {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--bg-light);
-            border-top-color: var(--primary-2);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes popUp {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes pop {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
-
-        @keyframes slideRight {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2.2em; }
-            .header p { font-size: 1em; }
-            .game-card { padding: 20px; }
-            .card-title { font-size: 1.2em; }
-            .big-number { font-size: 3.5em; }
-            .equation { font-size: 1.8em; }
-            .game-title { font-size: 1.4em; }
-            .menu-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-            .game-screen { padding: 20px; }
-            .buttons-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 { font-size: 1.8em; }
-            .big-number { font-size: 2.5em; }
-            .equation { font-size: 1.4em; }
-            .btn { padding: 15px; font-size: 0.95em; }
-            .game-header { flex-wrap: wrap; gap: 10px; }
-            .game-title { font-size: 1.2em; width: 100%; }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-light);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-2);
-            border-radius: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>🌟 MathHub – Fun Math for Kids!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --sky: #6EC6F5; --sun: #FFD93D; --grass: #6BCB77; --coral: #FF6B6B;
+    --purple: #A78BFA; --mint: #4ECDC4; --orange: #FF9F43; --pink: #FF6B9D;
+    --white: #FFFEF7; --dark: #2D3561; --card-bg: #FFFEF7;
+    --shadow: 0 6px 0 rgba(0,0,0,0.15); --radius: 20px;
+    font-size: 16px;
+  }
+  html, body { height: 100%; touch-action: pan-y; overscroll-behavior: contain; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #E0F4FF 0%, #FFF9E6 50%, #E8FFE8 100%);
+    min-height: 100vh; overflow-x: hidden; color: var(--dark);
+  }
+
+/* ===== SCREENS ===== */
+.screen { display: none; min-height: 100vh; padding: 20px 16px 40px; animation: fadeIn .35s ease; }
+.screen.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+
+/* ===== HEADER ===== */
+.site-header { text-align: center; padding: 24px 0 8px; }
+.site-header h1 { font-family:‘Fredoka One’,cursive; font-size: clamp(2rem,7vw,3.2rem); color: var(–dark); line-height:1.1; }
+.site-header h1 span { color: var(–coral); }
+.site-header p { font-size: clamp(.9rem,3vw,1.1rem); color: #555; margin-top: 6px; }
+.stars-bar { font-size: 1.2rem; margin-top:6px; color: var(–sun); letter-spacing:2px; }
+
+/* ===== BACK BUTTON ===== */
+.back-btn {
+display: inline-flex; align-items:center; gap:6px;
+background: var(–white); border: 3px solid var(–dark);
+border-radius: 50px; padding: 8px 20px; font-family:‘Fredoka One’,cursive;
+font-size: 1rem; color: var(–dark); cursor: pointer;
+box-shadow: var(–shadow); transition: transform .15s, box-shadow .15s;
+margin-bottom: 18px; touch-action: manipulation;
+}
+.back-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,.15); }
+
+/* ===== WORLD CARDS (Home) ===== */
+.world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; max-width: 900px; margin: 0 auto; padding-top: 12px; }
+.world-card {
+background: var(–card-bg); border-radius: var(–radius);
+border: 3px solid var(–dark); box-shadow: var(–shadow);
+padding: 24px 20px; cursor: pointer; transition: transform .15s, box-shadow .15s;
+touch-action: manipulation; text-align: center;
+}
+.world-card:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.15); }
+.world-card .w-icon { font-size: 3rem; margin-bottom: 10px; display:block; }
+.world-card h2 { font-family:‘Fredoka One’,cursive; font-size: 1.4rem; color: var(–dark); }
+.world-card p { font-size:.9rem; color:#666; margin-top:4px; }
+.world-card .w-count { margin-top:10px; font-size:.85rem; font-weight:700; background:rgba(0,0,0,.06); border-radius:50px; padding:3px 12px; display:inline-block; }
+.world-card.c1 { border-color:#6BCB77; } .world-card.c1 .w-icon-bg { background:#E8FFE8; }
+.world-card.c2 { border-color:#FF6B6B; }
+.world-card.c3 { border-color:#A78BFA; }
+.world-card.c4 { border-color:#FF9F43; }
+.world-card.c5 { border-color:#4ECDC4; }
+.world-card.c6 { border-color:#FF6B9D; }
+
+/* ===== LEVEL LIST ===== */
+.level-header { text-align:center; margin-bottom:20px; }
+.level-header .lh-icon { font-size:3rem; }
+.level-header h2 { font-family:‘Fredoka One’,cursive; font-size:clamp(1.5rem,5vw,2.2rem); color:var(–dark); }
+.level-header p { color:#555; font-size:.95rem; }
+.game-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; max-width:860px; margin:0 auto; }
+.game-btn {
+display:flex; align-items:center; gap:14px;
+background:var(–card-bg); border:3px solid var(–dark); border-radius:var(–radius);
+padding:16px 18px; cursor:pointer; text-align:left;
+box-shadow:var(–shadow); transition:transform .15s,box-shadow .15s; touch-action:manipulation;
+}
+.game-btn:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.15); }
+.game-btn .g-icon { font-size:2rem; flex-shrink:0; }
+.game-btn .g-info h3 { font-family:‘Fredoka One’,cursive; font-size:1rem; color:var(–dark); }
+.game-btn .g-info p { font-size:.8rem; color:#666; }
+.game-btn .g-stars { font-size:.75rem; color:var(–sun); margin-top:2px; }
+
+/* ===== GAME PANEL ===== */
+.game-panel { max-width:680px; margin:0 auto; }
+.game-panel h2 { font-family:‘Fredoka One’,cursive; font-size:clamp(1.4rem,5vw,2rem); color:var(–dark); text-align:center; margin-bottom:6px; }
+.game-panel .game-desc { text-align:center; color:#555; font-size:.95rem; margin-bottom:18px; line-height:1.5; }
+
+/* ===== SHARED GAME UI ===== */
+.game-box { background:var(–white); border:3px solid var(–dark); border-radius:var(–radius); padding:24px 20px; box-shadow:var(–shadow); }
+.btn-primary {
+display:inline-flex; align-items:center; justify-content:center; gap:6px;
+background:var(–coral); color:#fff; border:3px solid var(–dark);
+border-radius:50px; padding:12px 28px; font-family:‘Fredoka One’,cursive;
+font-size:1.1rem; cursor:pointer; box-shadow:var(–shadow);
+transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px;
+}
+.btn-primary:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.15); }
+.btn-primary.green { background:var(–grass); }
+.btn-primary.purple { background:var(–purple); }
+.btn-primary.blue { background:var(–sky); color:var(–dark); }
+.btn-primary.orange { background:var(–orange); }
+.btn-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:14px; }
+.score-badge { display:inline-block; background:var(–sun); border:2px solid var(–dark); border-radius:50px; padding:4px 14px; font-weight:800; font-size:.9rem; margin:4px; }
+.feedback { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.3rem; min-height:2rem; margin:10px 0; }
+.feedback.good { color: var(–grass); } .feedback.bad { color: var(–coral); }
+.progress-bar-outer { background:#eee; border-radius:50px; height:14px; border:2px solid var(–dark); overflow:hidden; margin:10px 0; }
+.progress-bar-inner { height:100%; background:linear-gradient(90deg,var(–grass),var(–mint)); border-radius:50px; transition:width .4s; }
+
+/* WIN MODAL */
+.win-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:999; align-items:center; justify-content:center; padding:20px; }
+.win-modal.open { display:flex; }
+.win-box { background:var(–white); border:4px solid var(–dark); border-radius:24px; padding:32px 28px; text-align:center; max-width:380px; width:100%; box-shadow:0 12px 0 rgba(0,0,0,.2); animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
+@keyframes popIn { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
+.win-box h2 { font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
+.win-box .stars { font-size:2.5rem; margin:10px 0; }
+.win-box p { color:#555; margin-bottom:14px; }
+
+/* ===== INDIVIDUAL GAME STYLES ===== */
+
+/* Number Bonds */
+.bonds-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.bond-btn { background:var(–sky); border:3px solid var(–dark); border-radius:14px; padding:14px 8px; font-family:‘Fredoka One’,cursive; font-size:1.1rem; cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center; }
+.bond-btn:active { transform:translateY(2px); }
+.bond-btn.selected { background:var(–grass); color:#fff; }
+.bond-btn.wrong { background:var(–coral); color:#fff; }
+.bond-visual { display:flex; align-items:center; justify-content:center; gap:12px; font-size:2.5rem; font-family:‘Fredoka One’,cursive; color:var(–dark); margin:16px 0; }
+
+/* Counting / Skip */
+.number-track { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
+.num-cell { width:48px; height:48px; border-radius:12px; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.1rem; background:var(–white); transition:.2s; }
+.num-cell.lit { background:var(–sun); }
+.num-cell.blank { background:#eee; color:#bbb; cursor:pointer; touch-action:manipulation; }
+.num-cell.blank:active { background:var(–sky); }
+.num-cell.correct { background:var(–grass); color:#fff; }
+.num-cell.wrong { background:var(–coral); color:#fff; }
+
+/* Balloons */
+.balloon-field { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:16px 0; min-height:120px; }
+.balloon { width:60px; height:72px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.3rem; cursor:pointer; touch-action:manipulation; transition:.2s; box-shadow:0 4px 0 rgba(0,0,0,.15); }
+.balloon:active { transform:scale(.9); }
+.balloon.popped { opacity:0; transform:scale(1.5); pointer-events:none; }
+
+/* Gator comparison */
+.gator-row { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.gator-num { background:var(–sky); border:3px solid var(–dark); border-radius:16px; padding:18px 28px; font-family:‘Fredoka One’,cursive; font-size:3rem; min-width:90px; text-align:center; }
+.gator-emoji { font-size:3.5rem; }
+.gator-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
+.gator-btn { background:var(–white); border:3px solid var(–dark); border-radius:12px; padding:14px 24px; font-family:‘Fredoka One’,cursive; font-size:1.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
+.gator-btn:active { background:var(–sun); transform:translateY(2px); }
+
+/* Frog */
+.frog-track { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:16px 0; overflow:hidden; }
+.frog-pad { width:44px; height:44px; border-radius:50%; border:3px solid var(–dark); background:#d4f0d4; display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:.85rem; transition:.3s; }
+.frog-pad.active { background:var(–grass); color:#fff; font-size:1.2rem; }
+.frog-pad.visited { background:#a8e6a8; }
+
+/* Smoothie / addition */
+.fruit-shelf { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:12px 0; }
+.fruit-item { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; border-radius:12px; padding:6px; border:3px solid transparent; }
+.fruit-item:active { transform:scale(1.2); border-color:var(–dark); }
+.blender { min-height:80px; border:3px dashed var(–dark); border-radius:16px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:10px; gap:6px; font-size:2rem; margin:12px 0; }
+.blend-total { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
+
+/* Cupcakes */
+.cupcake-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:16px 0; }
+.cupcake { font-size:2.2rem; transition:.3s; }
+.cupcake.paired { filter:brightness(.7); }
+
+/* Robot */
+.robot-groups { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
+.robot-group { border:3px dashed var(–purple); border-radius:16px; padding:10px 14px; display:flex; flex-wrap:wrap; gap:6px; min-width:80px; justify-content:center; }
+.wheel { font-size:1.6rem; }
+
+/* Pizza */
+.pizza-container { position:relative; width:200px; height:200px; margin:16px auto; }
+.pizza-svg { width:100%; height:100%; }
+.slice { cursor:pointer; touch-action:manipulation; transition:.2s; }
+.slice.served { opacity:.45; }
+.fraction-display { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.8rem; color:var(–dark); }
+
+/* Shapes */
+.shape-options { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
+.shape-opt { background:var(–white); border:3px solid var(–dark); border-radius:14px; padding:14px 18px; cursor:pointer; touch-action:manipulation; font-size:1.5rem; transition:.15s; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.shape-opt:active { background:var(–sky); transform:translateY(2px); }
+.shape-opt span { font-family:‘Fredoka One’,cursive; font-size:.8rem; }
+.toy-display { font-size:5rem; text-align:center; margin:12px 0; }
+
+/* Clock */
+.clock-svg-wrap { display:flex; justify-content:center; margin:12px 0; }
+.time-display { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2.5rem; color:var(–dark); margin:8px 0; }
+.time-target { text-align:center; font-size:1rem; color:#666; margin-bottom:8px; }
+.clock-btns { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+
+/* Tally */
+.tally-fish-row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0; }
+.tally-fish { font-size:2rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
+.tally-fish:active { transform:scale(1.3); }
+.tally-marks { font-family:monospace; font-size:2rem; text-align:center; letter-spacing:4px; margin:10px 0; min-height:2.5rem; }
+.tally-count { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.5rem; }
+
+/* Graph */
+.graph-items { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
+.graph-item-btn { font-size:2rem; background:var(–white); border:3px solid var(–dark); border-radius:12px; padding:8px 14px; cursor:pointer; touch-action:manipulation; transition:.15s; }
+.graph-item-btn:active { background:var(–sun); transform:translateY(2px); }
+.bar-graph { display:flex; align-items:flex-end; justify-content:center; gap:14px; height:140px; border-bottom:3px solid var(–dark); border-left:3px solid var(–dark); padding:0 10px; margin:10px 0; }
+.bar { width:48px; border-radius:8px 8px 0 0; border:2px solid var(–dark); transition:height .3s; min-height:4px; display:flex; align-items:flex-start; justify-content:center; padding-top:4px; font-family:‘Fredoka One’,cursive; font-size:.9rem; }
+
+/* Word Problems */
+.wp-box { background:linear-gradient(135deg,#E8F4FF,#FFF9E6); border:3px solid var(–dark); border-radius:var(–radius); padding:20px; margin:12px 0; }
+.wp-box p { font-size:1.05rem; line-height:1.6; }
+.wp-choices { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.wp-choice { background:var(–white); border:3px solid var(–dark); border-radius:14px; padding:12px; font-family:‘Fredoka One’,cursive; font-size:1.1rem; cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s; }
+.wp-choice:active { background:var(–sky); transform:translateY(2px); }
+.wp-choice.correct { background:var(–grass); color:#fff; }
+.wp-choice.wrong { background:var(–coral); color:#fff; }
+
+/* Place value */
+.pv-display { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:16px 0; }
+.pv-col { text-align:center; }
+.pv-col label { font-family:‘Fredoka One’,cursive; font-size:1rem; display:block; margin-bottom:6px; color:#666; }
+.pv-blocks { display:flex; flex-wrap:wrap; gap:3px; justify-content:center; min-height:60px; width:100%; max-width:160px; }
+.pv-block { width:24px; height:24px; border:2px solid var(–dark); border-radius:4px; }
+.pv-block.ten { background:var(–sky); }
+.pv-block.one { background:var(–sun); }
+.pv-num { font-family:‘Fredoka One’,cursive; font-size:3rem; color:var(–dark); text-align:center; margin:8px 0; }
+.pv-input { width:70px; height:54px; font-family:‘Fredoka One’,cursive; font-size:1.8rem; border:3px solid var(–dark); border-radius:12px; text-align:center; margin:0 6px; }
+
+/* Commutative */
+.comm-eq { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:16px 0; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
+.comm-num { background:var(–sky); border:3px solid var(–dark); border-radius:12px; padding:6px 18px; min-width:60px; text-align:center; }
+
+/* Missing bridge */
+.bridge-row { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
+.plank { width:52px; height:52px; border-radius:10px; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.1rem; }
+.plank.filled { background:var(–orange); color:#fff; }
+.plank.gap { background:#eee; border-style:dashed; cursor:pointer; touch-action:manipulation; }
+.num-pad { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0; }
+.num-pad-btn { width:50px; height:50px; border-radius:10px; border:3px solid var(–dark); font-family:‘Fredoka One’,cursive; font-size:1.2rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; }
+.num-pad-btn:active { background:var(–sun); transform:translateY(2px); }
+
+/* Toy shelf sequencing */
+.toy-shelf-area { background:#8B4513; border-radius:0 0 6px 6px; height:16px; margin-top:-4px; }
+.toy-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; min-height:60px; align-items:flex-end; margin:12px 0; }
+.toy-tap { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.3s; }
+.toy-tap.selected { transform:scale(1.3); filter:brightness(1.2); }
+.toy-tap.placed { opacity:.4; pointer-events:none; }
+
+/* Subtraction */
+.sub-vis { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
+.sub-item { font-size:2rem; transition:.3s; }
+.sub-item.gone { opacity:.15; text-decoration:line-through; }
+.sub-eq { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); margin:12px 0; }
+.sub-choices { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:10px 0; }
+.sub-choice { width:60px; height:60px; border-radius:12px; border:3px solid var(–dark); font-family:‘Fredoka One’,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; display:flex; align-items:center; justify-content:center; }
+.sub-choice:active { background:var(–sky); }
+.sub-choice.correct { background:var(–grass); color:#fff; }
+.sub-choice.wrong { background:var(–coral); color:#fff; }
+
+/* Multiplication repeated addition */
+.mult-groups { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
+.mult-group { border:3px solid var(–purple); border-radius:14px; padding:10px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; min-width:70px; }
+.mult-dot { width:28px; height:28px; border-radius:50%; background:var(–purple); border:2px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1rem; }
+.mult-eq { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.5rem; color:var(–dark); margin:12px 0; }
+.mult-input { width:70px; height:54px; font-family:‘Fredoka One’,cursive; font-size:2rem; border:3px solid var(–dark); border-radius:12px; text-align:center; }
+
+/* Addition strategies */
+.add-strat-box { background:linear-gradient(135deg,#FFF9E6,#E8F4FF); border:3px solid var(–dark); border-radius:var(–radius); padding:16px; margin:12px 0; }
+.add-strat-box h3 { font-family:‘Fredoka One’,cursive; font-size:1.1rem; margin-bottom:8px; color:var(–dark); }
+.add-strat-eq { font-size:1.6rem; font-family:‘Fredoka One’,cursive; text-align:center; margin:8px 0; }
+.num-dots { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; margin:6px 0; }
+.nd { width:28px; height:28px; border-radius:50%; background:var(–coral); border:2px solid var(–dark); display:inline-flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:800; color:#fff; }
+.nd.b { background:var(–sky); }
+
+/* responsive */
+@media (max-width:480px) {
+.world-grid { grid-template-columns:1fr 1fr; gap:12px; }
+.game-list { grid-template-columns:1fr; }
+.bonds-grid { grid-template-columns:repeat(2,1fr); }
+.gator-num { font-size:2.2rem; padding:12px 18px; }
+.comm-eq { font-size:1.5rem; }
+.wp-choices { grid-template-columns:1fr; }
+.pv-blocks { max-width:120px; }
+}
+@media (max-width:360px) {
+.world-grid { grid-template-columns:1fr; }
+}
+</style>
+
 </head>
 <body>
-    <div class="container">
-        <!-- Menu Screen -->
-        <div id="menuScreen" class="menu-container">
-            <div class="header">
-                <h1>🎨 Number Builders</h1>
-                <p>AI-Powered Fun Math Games for Young Learners! 🚀</p>
-            </div>
-            
-            <div class="game-card" onclick="startGame('numberBonds5')">
-                <div class="card-icon">🎯</div>
-                <div class="card-title">Number Bonds to 5</div>
-                <div class="card-description">Learn all the ways to make 5! (5=1+4, 5=2+3, etc.)</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
 
-            <div class="game-card" onclick="startGame('numberBonds10')">
-                <div class="card-icon">🎪</div>
-                <div class="card-title">Number Bonds to 10</div>
-                <div class="card-description">Master all combinations that make 10!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
+<!-- ===== WIN MODAL ===== -->
 
-            <div class="game-card" onclick="startGame('skipCount2')">
-                <div class="card-icon">🎵</div>
-                <div class="card-title">Skip Counting by 2s</div>
-                <div class="card-description">2, 4, 6, 8... Find the pattern!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('skipCount5')">
-                <div class="card-icon">🖐️</div>
-                <div class="card-title">Skip Counting by 5s</div>
-                <div class="card-description">5, 10, 15, 20... Count in fives!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('skipCount10')">
-                <div class="card-icon">🔟</div>
-                <div class="card-title">Skip Counting by 10s</div>
-                <div class="card-description">10, 20, 30... Big number jumps!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('additionStrategies')">
-                <div class="card-icon">➕</div>
-                <div class="card-title">Addition Strategies</div>
-                <div class="card-description">Counting on, doubles, near-doubles & making 10!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('subtractionInverse')">
-                <div class="card-icon">➖</div>
-                <div class="card-title">Subtraction as Inverse</div>
-                <div class="card-description">If 5+3=8, then 8-3=5. See the connection!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('placeValue')">
-                <div class="card-icon">🧩</div>
-                <div class="card-title">Place Value (0-99)</div>
-                <div class="card-description">Understand tens and ones! 24 = 2 tens + 4 ones</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('multiplicationIntro')">
-                <div class="card-icon">✨</div>
-                <div class="card-title">Multiplication Intro</div>
-                <div class="card-description">Groups & repeated addition concept!</div>
-                <div class="card-age">Ages 5-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('repeatedAddition')">
-                <div class="card-icon">🔄</div>
-                <div class="card-title">Repeated Addition</div>
-                <div class="card-description">3+3+3+3 = 4 groups of 3 = 4×3</div>
-                <div class="card-age">Ages 5-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('commutativeProperty')">
-                <div class="card-icon">🔀</div>
-                <div class="card-title">Commutative Property</div>
-                <div class="card-description">3+4 = 4+3. Order doesn't matter!</div>
-                <div class="card-age">Ages 5-6</div>
-            </div>
-
-            <div class="game-card" onclick="startGame('wordProblems')">
-                <div class="card-icon">📖</div>
-                <div class="card-title">Simple Word Problems</div>
-                <div class="card-description">Real-world math with Emma and friends!</div>
-                <div class="card-age">Ages 4-6</div>
-            </div>
-        </div>
-
-        <!-- Game Screen -->
-        <div id="gameScreen" class="game-screen">
-            <div class="game-header">
-                <button class="back-button" onclick="goBack()">← Back</button>
-                <div class="game-title" id="gameTitle"></div>
-                <div style="width: 80px;"></div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-            </div>
-
-            <div style="text-align: center;">
-                <div class="level-badge" id="levelBadge">Level 1 - Beginner</div>
-            </div>
-
-            <div class="game-content" id="gameContent"></div>
-
-            <div class="ai-hint" id="aiHint"></div>
-        </div>
+<div class="win-modal" id="winModal">
+  <div class="win-box">
+    <div style="font-size:3rem">🎉</div>
+    <h2>Amazing!</h2>
+    <div class="stars" id="winStars">⭐⭐⭐</div>
+    <p id="winMsg">You completed this game!</p>
+    <div class="btn-row">
+      <button class="btn-primary green" onclick="playAgain()">▶ Play Again</button>
+      <button class="btn-primary blue" onclick="goBack()">🏠 Back</button>
     </div>
+  </div>
+</div>
 
-    <!-- Completion Modal -->
-    <div class="completion-modal" id="completionModal">
-        <div class="completion-content">
-            <h2>🎉 Awesome Job!</h2>
-            <p id="completionMessage">You completed this level!</p>
-            <div class="score-display" id="finalScore"></div>
-            <p id="aiMessage" style="font-size: 1em; color: #667eea; font-style: italic;"></p>
-            <button class="btn btn-success" onclick="goBack()" style="width: 200px; margin: 20px auto 0;">Play Another Game</button>
-        </div>
+<!-- ===== SCREEN: HOME ===== -->
+
+<div class="screen active" id="screen-home">
+  <div class="site-header">
+    <h1>🌟 Math<span>Hub</span></h1>
+    <p>Pick a world and start your adventure!</p>
+    <div class="stars-bar" id="totalStarsDisplay">⭐ 0 Stars Collected</div>
+  </div>
+  <div class="world-grid">
+    <div class="world-card c1" onclick="goWorld('counting')">
+      <span class="w-icon">🌳</span>
+      <h2>Number Forest</h2>
+      <p>Counting, Number Sense & Patterns</p>
+      <div class="w-count">6 games • Ages 4–6</div>
     </div>
+    <div class="world-card c2" onclick="goWorld('operations')">
+      <span class="w-icon">🌋</span>
+      <h2>Operation Volcano</h2>
+      <p>Addition, Subtraction & Multiplication</p>
+      <div class="w-count">6 games • Ages 4–6</div>
+    </div>
+    <div class="world-card c3" onclick="goWorld('placevalue')">
+      <span class="w-icon">🏰</span>
+      <h2>Place Value Castle</h2>
+      <p>Tens, Ones & Number Building</p>
+      <div class="w-count">2 games • Ages 4–6</div>
+    </div>
+    <div class="world-card c4" onclick="goWorld('geometry')">
+      <span class="w-icon">🏜️</span>
+      <h2>Shape Desert</h2>
+      <p>Shapes, Measurement & Time</p>
+      <div class="w-count">2 games • Ages 5–7</div>
+    </div>
+    <div class="world-card c5" onclick="goWorld('data')">
+      <span class="w-icon">🌊</span>
+      <h2>Data Deep Sea</h2>
+      <p>Tallying, Graphs & Sorting</p>
+      <div class="w-count">2 games • Ages 5–7</div>
+    </div>
+    <div class="world-card c6" onclick="goWorld('wordproblems')">
+      <span class="w-icon">📖</span>
+      <h2>Story Land</h2>
+      <p>Fun Word Problems & Real-World Math</p>
+      <div class="w-count">1 game • Ages 4–6</div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Game State
-        let currentGame = null;
-        let currentQuestion = 0;
-        let score = 0;
-        let totalQuestions = 0;
-        let correctStreak = 0;
-        let wrongStreak = 0;
-        let difficulty = 1; // 1 = Easy, 2 = Medium, 3 = Hard
-        let allQuestions = {};
+<!-- ===== SCREEN: WORLD LEVEL LIST ===== -->
 
-        // OpenRouter API Configuration
-        const OPENROUTER_API_KEY = "sk-or-free-test-key"; // Free tier key
-        const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+<div class="screen" id="screen-world">
+  <button class="back-btn" onclick="showHome()">← Back to Worlds</button>
+  <div class="level-header" id="worldHeader"></div>
+  <div class="game-list" id="gameList"></div>
+</div>
 
-        // AI Hints Database
-        const hints = {
-            numberBonds5: [
-                "Count on your fingers! 5 = 1 + ?",
-                "Think: if we have 2, how many more to make 5?",
-                "Try counting: 1, 2, 3... how many more?"
-            ],
-            numberBonds10: [
-                "10 is like 2 hands with 5 fingers each!",
-                "If you have 3, you need 7 more to make 10!",
-                "Count up from the first number!"
-            ],
-            skipCount2: [
-                "Add 2 each time: 2, 4, 6, 8...",
-                "It's like counting by twos - even numbers!",
-                "The pattern repeats: +2, +2, +2"
-            ],
-            skipCount5: [
-                "Think of counting money - nickels!",
-                "Add 5 each time: 5, 10, 15, 20...",
-                "Pattern is always +5 more!"
-            ],
-            skipCount10: [
-                "Counting by tens! 10, 20, 30...",
-                "Each time add one more group of 10!",
-                "Like counting: 1 ten, 2 tens, 3 tens..."
-            ],
-            addition: [
-                "Start with the bigger number and count up!",
-                "Remember: you can switch the order and get the same answer!",
-                "Count on your fingers or use objects!"
-            ],
-            subtraction: [
-                "What's the opposite? If you add, subtract goes backwards!",
-                "Count backwards: start high, go down!",
-                "Think: how many are left?"
-            ],
-            placeValue: [
-                "Tens are like groups of 10 together!",
-                "Count the tens, then count the ones!",
-                "10 = 1 ten + 0 ones, 20 = 2 tens + 0 ones"
-            ]
-        };
+<!-- ===== SCREEN: GAME ===== -->
 
-        // Game Definitions with dynamic difficulty
-        const games = {
-            numberBonds5: { title: '🎯 Number Bonds to 5', baseTarget: 5 },
-            numberBonds10: { title: '🎪 Number Bonds to 10', baseTarget: 10 },
-            skipCount2: { title: '🎵 Skip Counting by 2s', step: 2 },
-            skipCount5: { title: '🖐️ Skip Counting by 5s', step: 5 },
-            skipCount10: { title: '🔟 Skip Counting by 10s', step: 10 },
-            additionStrategies: { title: '➕ Addition Strategies' },
-            subtractionInverse: { title: '➖ Subtraction as Inverse' },
-            placeValue: { title: '🧩 Place Value (0-99)' },
-            multiplicationIntro: { title: '✨ Multiplication Intro' },
-            repeatedAddition: { title: '🔄 Repeated Addition' },
-            commutativeProperty: { title: '🔀 Commutative Property' },
-            wordProblems: { title: '📖 Simple Word Problems' },
-        };
+<div class="screen" id="screen-game">
+  <button class="back-btn" id="gameBackBtn" onclick="goBack()">← Back</button>
+  <div class="game-panel" id="gamePanel"></div>
+</div>
 
-        // Initialize Game
-        function startGame(gameName) {
-            currentGame = gameName;
-            currentQuestion = 0;
-            score = 0;
-            correctStreak = 0;
-            wrongStreak = 0;
-            difficulty = 1;
-            
-            generateQuestions(gameName);
-            totalQuestions = allQuestions[gameName].length;
-            
-            document.getElementById('menuScreen').style.display = 'none';
-            document.getElementById('gameScreen').classList.add('active');
-            document.getElementById('gameTitle').textContent = games[gameName].title;
-            
-            showQuestion();
-        }
+<script>
+// ============================
+// STATE
+// ============================
+let currentWorld = '';
+let currentGame = '';
+let totalStars = 0;
+let gameStars = {};
+let currentGameState = {};
 
-        // Generate Questions Based on Game Type
-        function generateQuestions(gameName) {
-            const questions = [];
-            const game = games[gameName];
+// ============================
+// WORLD DEFINITIONS
+// ============================
+const worlds = {
+  counting: {
+    icon: '🌳', name: 'Number Forest', desc: 'Counting, Number Sense & Patterns',
+    games: [
+      { id:'balloons', icon:'🎈', name:'Balloon Pop', desc:'Pop balloons 1–10 in order!', stars:0 },
+      { id:'bridge', icon:'🌉', name:'Missing Bridge', desc:'Fill in the missing numbers!', stars:0 },
+      { id:'frog', icon:'🐸', name:'Frog Jump', desc:'Skip count by 2s!', stars:0 },
+      { id:'toyshelf', icon:'🧸', name:'Toy Shelf', desc:'Put toys in order smallest → largest!', stars:0 },
+      { id:'gator', icon:'🐊', name:'Hungry Gator', desc:'Which is bigger? >, < or =?', stars:0 },
+      { id:'partyplanner', icon:'🧁', name:'Party Planner', desc:'Even or Odd numbers?', stars:0 },
+    ]
+  },
+  operations: {
+    icon: '🌋', name: 'Operation Volcano', desc: 'Addition, Subtraction & Multiplication',
+    games: [
+      { id:'smoothie', icon:'🥤', name:'Fruit Smoothie', desc:'Add fruits and find the total!', stars:0 },
+      { id:'subtraction', icon:'➖', name:'Take Away Town', desc:'Subtraction is just the opposite!', stars:0 },
+      { id:'numberbonds5', icon:'🎯', name:'Number Bonds to 5', desc:'All ways to make 5!', stars:0 },
+      { id:'numberbonds10', icon:'🔟', name:'Number Bonds to 10', desc:'All ways to make 10!', stars:0 },
+      { id:'repeatedadd', icon:'🔄', name:'Repeated Addition', desc:'3+3+3 = 3 groups of 3!', stars:0 },
+      { id:'robot', icon:'🤖', name:'Robot Factory', desc:'Build groups – intro to multiplication!', stars:0 },
+    ]
+  },
+  placevalue: {
+    icon: '🏰', name: 'Place Value Castle', desc: 'Tens, Ones & Number Building',
+    games: [
+      { id:'placevalue', icon:'🧩', name:'Place Value Builder', desc:'Build numbers with tens and ones!', stars:0 },
+      { id:'commutative', icon:'🔀', name:'Flip It!', desc:'3+4 = 4+3 – order doesn\'t matter!', stars:0 },
+    ]
+  },
+  geometry: {
+    icon: '🏜️', name: 'Shape Desert', desc: 'Shapes, Measurement & Time',
+    games: [
+      { id:'shapes', icon:'🎁', name:'Gift Wrapper', desc:'Match the toy to its box shape!', stars:0 },
+      { id:'clock', icon:'☀️', name:'Sun & Moon', desc:'What time is it?', stars:0 },
+    ]
+  },
+  data: {
+    icon: '🌊', name: 'Data Deep Sea', desc: 'Tallying, Graphs & Sorting',
+    games: [
+      { id:'tally', icon:'🐟', name:'Fish Counter', desc:'Tap fish and make tally marks!', stars:0 },
+      { id:'bargraph', icon:'🐚', name:'Shell Sort', desc:'Collect shells and build a graph!', stars:0 },
+    ]
+  },
+  wordproblems: {
+    icon: '📖', name: 'Story Land', desc: 'Fun Word Problems & Real-World Math',
+    games: [
+      { id:'wordprobs', icon:'📖', name:'Story Problems', desc:'Solve real-world math with Emma!', stars:0 },
+    ]
+  }
+};
 
-            if (gameName.startsWith('numberBonds')) {
-                const target = game.baseTarget;
-                for (let i = 1; i < target; i++) {
-                    const j = target - i;
-                    if (i <= j) {
-                        questions.push({
-                            type: 'numberBonds',
-                            target,
-                            part1: i,
-                            part2: j,
-                            display: `${target} = ${i} + ?`,
-                            answer: j,
-                            difficulty: 1
-                        });
-                    }
-                }
-            } else if (gameName.startsWith('skipCount')) {
-                const step = game.step;
-                const maxNumbers = 12;
-                
-                // Generate questions with correct sequences
-                for (let startPos = 0; startPos < 8; startPos++) {
-                    // Start from different positions to create variety
-                    const seqLength = (startPos % 3) + 2; // 2, 3, or 4 numbers shown
-                    const sequence = Array.from({ length: seqLength + 1 }, (_, i) => (startPos + i + 1) * step);
-                    
-                    questions.push({
-                        type: 'skipCount',
-                        step,
-                        sequence: sequence.slice(0, seqLength),
-                        display: `What comes next? ${sequence.slice(0, seqLength).join(', ')}, ?`,
-                        answer: sequence[seqLength], // Next number in sequence
-                        difficulty: seqLength === 2 ? 1 : seqLength === 3 ? 2 : 3
-                    });
-                }
-            } else if (gameName === 'additionStrategies') {
-                questions.push(
-                    { type: 'addition', problem: '1 + 1', answer: 2, desc: 'Count on!', difficulty: 1 },
-                    { type: 'addition', problem: '2 + 1', answer: 3, desc: 'Count on!', difficulty: 1 },
-                    { type: 'addition', problem: '2 + 2', answer: 4, desc: 'Double!', difficulty: 1 },
-                    { type: 'addition', problem: '3 + 1', answer: 4, desc: 'Count on!', difficulty: 1 },
-                    { type: 'addition', problem: '3 + 3', answer: 6, desc: 'Double!', difficulty: 2 },
-                    { type: 'addition', problem: '4 + 1', answer: 5, desc: 'Count on!', difficulty: 1 },
-                    { type: 'addition', problem: '4 + 2', answer: 6, desc: 'Count on!', difficulty: 2 },
-                    { type: 'addition', problem: '5 + 1', answer: 6, desc: 'Count on!', difficulty: 1 },
-                    { type: 'addition', problem: '5 + 2', answer: 7, desc: 'Count on!', difficulty: 2 },
-                    { type: 'addition', problem: '5 + 5', answer: 10, desc: 'Make 10!', difficulty: 3 },
-                    { type: 'addition', problem: '4 + 3', answer: 7, desc: 'Near double!', difficulty: 2 },
-                    { type: 'addition', problem: '6 + 4', answer: 10, desc: 'Make 10!', difficulty: 3 }
-                );
-            } else if (gameName === 'subtractionInverse') {
-                const additionFacts = [
-                    { add: '2 + 1 = 3', sub: '3 - 1 = ?', ans: 2 },
-                    { add: '2 + 2 = 4', sub: '4 - 2 = ?', ans: 2 },
-                    { add: '3 + 1 = 4', sub: '4 - 1 = ?', ans: 3 },
-                    { add: '3 + 2 = 5', sub: '5 - 2 = ?', ans: 3 },
-                    { add: '3 + 3 = 6', sub: '6 - 3 = ?', ans: 3 },
-                    { add: '4 + 1 = 5', sub: '5 - 1 = ?', ans: 4 },
-                    { add: '4 + 2 = 6', sub: '6 - 2 = ?', ans: 4 },
-                    { add: '5 + 3 = 8', sub: '8 - 3 = ?', ans: 5 },
-                    { add: '5 + 5 = 10', sub: '10 - 5 = ?', ans: 5 },
-                    { add: '4 + 4 = 8', sub: '8 - 4 = ?', ans: 4 }
-                ];
-                additionFacts.forEach(f => {
-                    questions.push({
-                        type: 'subtraction',
-                        addition: f.add,
-                        subtraction: f.sub,
-                        answer: f.ans,
-                        difficulty: parseInt(f.ans) <= 3 ? 1 : 2
-                    });
-                });
-            } else if (gameName === 'placeValue') {
-                for (let i = 10; i <= 60; i += 5) {
-                    const tens = Math.floor(i / 10);
-                    const ones = i % 10;
-                    questions.push({
-                        type: 'placeValue',
-                        number: i,
-                        tens,
-                        ones,
-                        display: `${i} = ? tens + ? ones`,
-                        difficulty: i <= 20 ? 1 : i <= 40 ? 2 : 3
-                    });
-                }
-            } else if (gameName === 'multiplicationIntro') {
-                const groups = [
-                    { times: 2, groups: 2, desc: '2 groups of 2', diff: 1 },
-                    { times: 2, groups: 3, desc: '3 groups of 2', diff: 1 },
-                    { times: 3, groups: 2, desc: '2 groups of 3', diff: 1 },
-                    { times: 2, groups: 4, desc: '4 groups of 2', diff: 2 },
-                    { times: 3, groups: 3, desc: '3 groups of 3', diff: 2 },
-                    { times: 2, groups: 5, desc: '5 groups of 2', diff: 3 },
-                    { times: 4, groups: 2, desc: '2 groups of 4', diff: 2 },
-                    { times: 5, groups: 2, desc: '2 groups of 5', diff: 3 }
-                ];
-                groups.forEach(g => {
-                    questions.push({
-                        type: 'multiplicationIntro',
-                        groups: g.groups,
-                        times: g.times,
-                        answer: g.groups * g.times,
-                        desc: g.desc,
-                        difficulty: g.diff
-                    });
-                });
-            } else if (gameName === 'repeatedAddition') {
-                const facts = [
-                    { times: 2, addend: 2, diff: 1 },
-                    { times: 2, addend: 3, diff: 1 },
-                    { times: 3, addend: 2, diff: 1 },
-                    { times: 2, addend: 4, diff: 2 },
-                    { times: 3, addend: 3, diff: 2 },
-                    { times: 4, addend: 2, diff: 2 },
-                    { times: 2, addend: 5, diff: 3 },
-                    { times: 5, addend: 2, diff: 3 },
-                    { times: 3, addend: 4, diff: 3 }
-                ];
-                facts.forEach(q => {
-                    questions.push({
-                        type: 'repeatedAddition',
-                        addend: q.addend,
-                        times: q.times,
-                        answer: q.times * q.addend,
-                        difficulty: q.diff
-                    });
-                });
-            } else if (gameName === 'commutativeProperty') {
-                const facts = [
-                    { a: 1, b: 1 }, { a: 1, b: 2 }, { a: 2, b: 2 },
-                    { a: 1, b: 3 }, { a: 2, b: 3 }, { a: 3, b: 3 },
-                    { a: 2, b: 4 }, { a: 3, b: 4 }, { a: 4, b: 4 },
-                    { a: 3, b: 5 }, { a: 4, b: 5 }, { a: 5, b: 5 }
-                ];
-                facts.forEach(q => {
-                    questions.push({
-                        type: 'commutative',
-                        a: q.a,
-                        b: q.b,
-                        answer: q.a + q.b,
-                        difficulty: (q.a + q.b) <= 4 ? 1 : (q.a + q.b) <= 7 ? 2 : 3
-                    });
-                });
-            } else if (gameName === 'wordProblems') {
-                const problems = [
-                    { text: 'Emma has 2 apples. She gets 1 more. How many?', ans: 3, diff: 1 },
-                    { text: 'Tom has 3 toys. He gets 2 more. How many toys?', ans: 5, diff: 1 },
-                    { text: 'Sara has 2 crayons. Her friend gives 2 more. How many?', ans: 4, diff: 1 },
-                    { text: 'Ben has 5 cookies. He eats 1. How many left?', ans: 4, diff: 1 },
-                    { text: 'Lily has 6 stickers. She gives 2 to a friend. How many left?', ans: 4, diff: 2 },
-                    { text: 'Max has 3 toy cars. His mom buys 3 more. How many?', ans: 6, diff: 2 },
-                    { text: 'Zoe has 8 blocks. She removes 3. How many remain?', ans: 5, diff: 2 },
-                    { text: 'Noah has 4 balloons. He blows up 4 more. How many total?', ans: 8, diff: 2 },
-                    { text: 'Lucy has 7 books. She reads 2. How many unread?', ans: 5, diff: 3 },
-                    { text: 'Alex has 5 cookies. Gets 3 more, eats 2. How many left?', ans: 6, diff: 3 }
-                ];
-                problems.forEach(p => {
-                    questions.push({
-                        type: 'wordProblem',
-                        text: p.text,
-                        answer: p.ans,
-                        difficulty: p.diff
-                    });
-                });
-            }
+// ============================
+// NAVIGATION
+// ============================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showHome() {
+  showScreen('home');
+  updateStarsDisplay();
+}
+function goWorld(wid) {
+  currentWorld = wid;
+  const w = worlds[wid];
+  document.getElementById('worldHeader').innerHTML = `
+    <div class="lh-icon">${w.icon}</div>
+    <h2>${w.name}</h2>
+    <p>${w.desc}</p>`;
+  const gl = document.getElementById('gameList');
+  gl.innerHTML = '';
+  w.games.forEach(g => {
+    const s = gameStars[g.id] || 0;
+    const stars = '⭐'.repeat(s) + '☆'.repeat(3-s);
+    gl.innerHTML += `<div class="game-btn" onclick="launchGame('${g.id}')">
+      <div class="g-icon">${g.icon}</div>
+      <div class="g-info">
+        <h3>${g.name}</h3>
+        <p>${g.desc}</p>
+        <div class="g-stars">${stars}</div>
+      </div>
+    </div>`;
+  });
+  showScreen('world');
+}
+function launchGame(gid) {
+  currentGame = gid;
+  document.getElementById('gameBackBtn').onclick = goBack;
+  showScreen('game');
+  buildGame(gid);
+}
+function goBack() {
+  showScreen('world');
+  goWorld(currentWorld);
+}
+function updateStarsDisplay() {
+  const t = Object.values(gameStars).reduce((a,b)=>a+b,0);
+  document.getElementById('totalStarsDisplay').textContent = '⭐ ' + t + ' Stars Collected';
+}
+function awardStars(gid, count) {
+  if ((gameStars[gid]||0) < count) gameStars[gid] = count;
+  updateStarsDisplay();
+}
 
-            // Filter questions by difficulty level
-            allQuestions[gameName] = questions
-                .filter(q => q.difficulty <= difficulty)
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 10);
+// ============================
+// WIN MODAL
+// ============================
+function showWin(msg, stars) {
+  stars = Math.min(3, Math.max(1, stars));
+  awardStars(currentGame, stars);
+  document.getElementById('winStars').textContent = '⭐'.repeat(stars) + '☆'.repeat(3-stars);
+  document.getElementById('winMsg').textContent = msg || 'You completed this game!';
+  document.getElementById('winModal').classList.add('open');
+}
+function closeWin() { document.getElementById('winModal').classList.remove('open'); }
+function playAgain() { closeWin(); buildGame(currentGame); }
 
-            if (allQuestions[gameName].length === 0) {
-                allQuestions[gameName] = questions.sort(() => Math.random() - 0.5).slice(0, 10);
-            }
-        }
+// ============================
+// GAME BUILDER
+// ============================
+function buildGame(gid) {
+  const panel = document.getElementById('gamePanel');
+  panel.innerHTML = '<p style="text-align:center;font-size:2rem;padding:40px">Loading... 🎮</p>';
+  const builders = {
+    balloons: buildBalloons,
+    bridge: buildBridge,
+    frog: buildFrog,
+    toyshelf: buildToyShelf,
+    gator: buildGator,
+    partyplanner: buildPartyPlanner,
+    smoothie: buildSmoothie,
+    subtraction: buildSubtraction,
+    numberbonds5: () => buildBonds(5),
+    numberbonds10: () => buildBonds(10),
+    repeatedadd: buildRepeatedAdd,
+    robot: buildRobot,
+    placevalue: buildPlaceValue,
+    commutative: buildCommutative,
+    shapes: buildShapes,
+    clock: buildClock,
+    tally: buildTally,
+    bargraph: buildBarGraph,
+    wordprobs: buildWordProbs,
+  };
+  currentGameState = {};
+  if (builders[gid]) builders[gid]();
+  else panel.innerHTML = '<p style="text-align:center;padding:40px">Coming Soon! 🚧</p>';
+}
 
-        // Show Question
-        function showQuestion() {
-            if (!allQuestions[currentGame]) return;
-            
-            const questions = allQuestions[currentGame];
-            if (currentQuestion >= questions.length) {
-                showCompletion();
-                return;
-            }
+// ===========================
+// 1. BALLOON POP
+// ===========================
+function buildBalloons() {
+  const colors = ['#FF6B6B','#FFD93D','#6EC6F5','#6BCB77','#A78BFA','#FF9F43','#FF6B9D','#4ECDC4','#F7B2B7','#C3F0CA'];
+  const nums = shuffle([1,2,3,4,5,6,7,8,9,10]);
+  currentGameState = { next:1, total:10, nums };
+  const html = `
+    <h2>🎈 Balloon Pop!</h2>
+    <div class="game-desc">Pop the balloons in order from <b>1 to 10</b>!<br>Tap the smallest number first! 🎯</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="balloon-field" id="balloonField"></div>
+    </div>`;
+  document.getElementById('gamePanel').innerHTML = html;
+  const field = document.getElementById('balloonField');
+  nums.forEach((n,i) => {
+    const b = document.createElement('div');
+    b.className = 'balloon'; b.id='b'+n;
+    b.textContent = n;
+    b.style.background = colors[n-1];
+    b.onclick = () => popBalloon(n);
+    field.appendChild(b);
+  });
+}
+function popBalloon(n) {
+  const s = currentGameState;
+  const fb = document.getElementById('bf');
+  if (n === s.next) {
+    const el = document.getElementById('b'+n);
+    el.classList.add('popped');
+    el.textContent = '💥';
+    fb.className='feedback good'; fb.textContent='✅ Yes! '+n+'!';
+    s.next++;
+    if (s.next > s.total) { setTimeout(()=>showWin('You popped all the balloons!', 3),600); }
+  } else {
+    fb.className='feedback bad'; fb.textContent='Try '+s.next+' first!';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},1000);
+  }
+}
 
-            const question = questions[currentQuestion];
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            
-            document.getElementById('progressFill').style.width = progress + '%';
-            
-            // Update level badge
-            const levelText = difficulty === 1 ? 'Level 1 - Beginner' : 
-                             difficulty === 2 ? 'Level 2 - Intermediate' : 'Level 3 - Advanced';
-            document.getElementById('levelBadge').textContent = levelText;
+// ===========================
+// 2. MISSING BRIDGE
+// ===========================
+function buildBridge() {
+  const start = rnd(1,8);
+  const len = 7;
+  const seq = Array.from({length:len},(_,i)=>start+i);
+  const gapIdx = rnd(1, len-2);
+  currentGameState = { seq, gapIdx, answer: seq[gapIdx], selected:null };
+  renderBridge();
+}
+function renderBridge() {
+  const s = currentGameState;
+  const choices = shuffle([s.answer, s.answer+1, s.answer-1, s.answer+2].filter(x=>x>0));
+  let planks = s.seq.map((n,i) => {
+    if (i===s.gapIdx) return `<div class="plank gap" id="gap-plank" onclick="selectGap()">❓</div>`;
+    return `<div class="plank filled">${n}</div>`;
+  }).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🌉 Missing Bridge</h2>
+    <div class="game-desc">🐰 needs to cross! Fill in the missing number!</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="bridge-row">${planks}</div>
+      <p style="text-align:center;color:#666;margin:8px 0">Choose the missing number:</p>
+      <div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join('')}</div>
+      <div class="btn-row"><button class="btn-primary orange" onclick="buildBridge()">Next Puzzle ▶</button></div>
+    </div>`;
+}
+function checkBridge(n) {
+  const fb = document.getElementById('bf');
+  if (n === currentGameState.answer) {
+    document.getElementById('gap-plank').textContent = n;
+    document.getElementById('gap-plank').style.background = '#6BCB77';
+    fb.className='feedback good'; fb.textContent='🎉 Correct! 🐰 can cross!';
+    awardStars(currentGame, 3);
+    setTimeout(buildBridge, 1200);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Try again! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-            const gameContent = document.getElementById('gameContent');
-            gameContent.innerHTML = '';
-            document.getElementById('aiHint').classList.remove('show');
+// ===========================
+// 3. FROG JUMP (skip by 2s)
+// ===========================
+function buildFrog() {
+  const start = 0;
+  const pads = Array.from({length:11},(_,i)=>i*2);
+  currentGameState = { pads, pos:0 };
+  renderFrog();
+}
+function renderFrog() {
+  const s = currentGameState;
+  let cells = s.pads.map((n,i)=>{
+    let cls = 'frog-pad';
+    if (i < s.pos) cls += ' visited';
+    if (i === s.pos) cls += ' active';
+    return `<div class="${cls}" id="fp${i}">${i===s.pos?'🐸':n}</div>`;
+  }).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🐸 Frog Jump!</h2>
+    <div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump to the next number.</div>
+    <div class="game-box">
+      <div class="frog-track">${cells}</div>
+      <div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--dark);margin:10px 0">
+        🐸 is on: <span style="color:var(--coral)">${s.pads[s.pos]}</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="hopFrog()">🐸 Hop!</button>
+        <button class="btn-primary blue" onclick="buildFrog()">↺ Reset</button>
+      </div>
+    </div>`;
+}
+function hopFrog() {
+  const s = currentGameState;
+  if (s.pos < s.pads.length - 1) {
+    s.pos++;
+    renderFrog();
+    if (s.pos === s.pads.length - 1) { setTimeout(()=>showWin('You counted all the way to '+s.pads[s.pads.length-1]+'!', 3),400); }
+  }
+}
 
-            if (question.type === 'numberBonds') {
-                renderNumberBondsQuestion(question, gameContent);
-            } else if (question.type === 'skipCount') {
-                renderSkipCountQuestion(question, gameContent);
-            } else if (question.type === 'addition') {
-                renderAdditionQuestion(question, gameContent);
-            } else if (question.type === 'subtraction') {
-                renderSubtractionQuestion(question, gameContent);
-            } else if (question.type === 'placeValue') {
-                renderPlaceValueQuestion(question, gameContent);
-            } else if (question.type === 'multiplicationIntro') {
-                renderMultiplicationIntroQuestion(question, gameContent);
-            } else if (question.type === 'repeatedAddition') {
-                renderRepeatedAdditionQuestion(question, gameContent);
-            } else if (question.type === 'commutative') {
-                renderCommutativeQuestion(question, gameContent);
-            } else if (question.type === 'wordProblem') {
-                renderWordProblemQuestion(question, gameContent);
-            }
-        }
+// ===========================
+// 4. TOY SHELF SEQUENCING
+// ===========================
+function buildToyShelf() {
+  const allToys = ['🐻','🦁','🐯','🐘','🦒','🐬','🦊','🐼'];
+  const toys = shuffle(allToys).slice(0,4);
+  const sizes = shuffle([1,2,3,4]);
+  const toyObjs = toys.map((t,i)=>({emoji:t, size:sizes[i]}));
+  const sorted = [...toyObjs].sort((a,b)=>a.size-b.size);
+  currentGameState = { toyObjs, sorted, tapped:[], order:0 };
+  renderToyShelf();
+}
+function renderToyShelf() {
+  const s = currentGameState;
+  const tapped = s.tapped.map(t=>t.emoji);
+  const toys = s.toyObjs.map((t,i)=>{
+    const placed = tapped.includes(t.emoji);
+    return `<div class="toy-tap${placed?' placed':''}" style="font-size:${1.2+t.size*.4}rem" onclick="tapToy(${i})">${t.emoji}</div>`;
+  }).join('');
+  const shelf = s.tapped.map(t=>`<div style="font-size:${1.2+t.size*.4}rem">${t.emoji}</div>`).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🧸 Toy Shelf</h2>
+    <div class="game-desc">Tap the toys from <b>Smallest → Largest</b> to put them on the shelf!</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <p style="text-align:center;color:#888;font-size:.9rem;margin-bottom:6px">Tap in order:</p>
+      <div class="toy-row">${toys}</div>
+      <div style="background:#F5DEB3;border-radius:12px;padding:10px;margin:10px 0;min-height:60px;display:flex;align-items:flex-end;justify-content:center;gap:10px;border:3px solid var(--dark)">
+        ${shelf || '<span style="color:#bbb;font-size:.9rem;align-self:center">Shelf is empty</span>'}
+      </div>
+      <div class="toy-shelf-area"></div>
+      <div class="btn-row"><button class="btn-primary orange" onclick="buildToyShelf()">↺ New Puzzle</button></div>
+    </div>`;
+}
+function tapToy(i) {
+  const s = currentGameState;
+  const toy = s.toyObjs[i];
+  if (s.tapped.find(t=>t.emoji===toy.emoji)) return;
+  const expected = s.sorted[s.tapped.length];
+  const fb = document.getElementById('bf');
+  if (toy.emoji === expected.emoji) {
+    s.tapped.push(toy);
+    fb.className='feedback good'; fb.textContent='✅ Great!';
+    if (s.tapped.length === s.sorted.length) { setTimeout(()=>showWin('Shelf is sorted perfectly!', 3),500); return; }
+    renderToyShelf();
+  } else {
+    fb.className='feedback bad'; fb.textContent='Not quite! Try the smallest one left! 🤔';
+    setTimeout(()=>{if(document.getElementById('bf'))document.getElementById('bf').textContent='';},1000);
+  }
+}
 
-        // Rendering Functions
-        function renderNumberBondsQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4, q.target);
-            container.innerHTML = `
-                <div class="big-number">${q.target}</div>
-                <div class="equation">${q.display}</div>
-                <div class="instruction-box">🎯 How many more do we need?</div>
-                <div class="object-grid">
-                    ${Array(q.target).fill('⭐').map(o => `<div class="object">${o}</div>`).join('')}
-                </div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 5. HUNGRY GATOR
+// ===========================
+function buildGator() {
+  let a = rnd(1,12), b = rnd(1,12);
+  while (a===b) b = rnd(1,12);
+  currentGameState = { a, b, answer: a>b?'>':a<b?'<':'=' };
+  renderGator();
+}
+function renderGator() {
+  const s = currentGameState;
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🐊 Hungry Gator</h2>
+    <div class="game-desc">The alligator always eats the <b>bigger</b> number! Pick the right symbol!</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="gator-row">
+        <div class="gator-num">${s.a}</div>
+        <div class="gator-emoji">🐊</div>
+        <div class="gator-num">${s.b}</div>
+      </div>
+      <div class="gator-btns">
+        <button class="gator-btn" onclick="checkGator('>')"> &gt; </button>
+        <button class="gator-btn" onclick="checkGator('=')"> = </button>
+        <button class="gator-btn" onclick="checkGator('<')"> &lt; </button>
+      </div>
+    </div>`;
+}
+function checkGator(sym) {
+  const fb = document.getElementById('bf');
+  if (sym===currentGameState.answer) {
+    fb.className='feedback good'; fb.textContent='🐊 Chomp! Correct!';
+    awardStars(currentGame, 3);
+    setTimeout(buildGator, 1000);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Oops! Try again! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        function renderSkipCountQuestion(q, container) {
-            const answers = generateSkipCountAnswers(q.answer, q.step, 4);
-            container.innerHTML = `
-                <div class="instruction-box">🎵 What number comes next?</div>
-                <div class="skip-count-display">
-                    ${q.sequence.map(n => `<div class="count-box">${n}</div>`).join('')}
-                    <div class="count-box" style="background: linear-gradient(135deg, #FF6B6B, #F38181);">?</div>
-                </div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 6. PARTY PLANNER (Even/Odd)
+// ===========================
+function buildPartyPlanner() {
+  const n = rnd(2,16);
+  currentGameState = { n };
+  renderPartyPlanner();
+}
+function renderPartyPlanner() {
+  const s = currentGameState;
+  const cups = Array.from({length:s.n},()=>'🧁').join(' ');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🧁 Party Planner</h2>
+    <div class="game-desc">Can ALL the cupcakes be paired up?<br>If yes → <b>Even!</b> If one is left alone → <b>Odd!</b></div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div style="text-align:center;font-size:1.8rem;margin:12px 0">There are <b>${s.n}</b> cupcakes</div>
+      <div class="cupcake-row">${'<span class="cupcake">🧁</span>'.repeat(s.n)}</div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="checkEvenOdd('even')">✌️ Even</button>
+        <button class="btn-primary coral" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button>
+      </div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildPartyPlanner()">▶ Next Cupcake!</button></div>
+    </div>`;
+}
+function checkEvenOdd(ans) {
+  const fb = document.getElementById('bf');
+  const correct = currentGameState.n%2===0 ? 'even':'odd';
+  if (ans===correct) {
+    fb.className='feedback good';
+    fb.textContent = correct==='even' ? '🎉 Even! Every cupcake has a pair!' : '🎉 Odd! One cupcake is alone!';
+    awardStars(currentGame,3);
+    setTimeout(buildPartyPlanner,1200);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Try pairing them up! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        function renderAdditionQuestion(q, container) {
-            const [a, b] = q.problem.split(' + ').map(Number);
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
-            container.innerHTML = `
-                <div class="equation">${q.problem} = ?</div>
-                <div class="instruction-box">💡 ${q.desc}</div>
-                <div class="object-grid">
-                    ${Array(a).fill('🍎').map(o => `<div class="object">${o}</div>`).join('')}
-                    ${Array(b).fill('🍎').map(o => `<div class="object" style="background: linear-gradient(135deg, #4ECDC4, #44B8AC);">${o}</div>`).join('')}
-                </div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-warning" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 7. FRUIT SMOOTHIE (Addition)
+// ===========================
+function buildSmoothie() {
+  const fruits = ['🍓','🍌','🍊','🍇','🍎','🍑','🫐','🍒'];
+  const shelf = shuffle(fruits).slice(0,6);
+  currentGameState = { shelf, basket:[] };
+  renderSmoothie();
+}
+function renderSmoothie() {
+  const s = currentGameState;
+  const total = s.basket.length;
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🥤 Fruit Smoothie</h2>
+    <div class="game-desc">Tap fruits to add them to the blender! Press <b>Blend!</b> to find the total! 🎯</div>
+    <div class="game-box">
+      <div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join('')}</div>
+      <div class="blender">${s.basket.join(' ') || '<span style="color:#bbb">Drop fruits here! 🫙</span>'}</div>
+      <div class="blend-total" id="blendTotal">${total>0?'Count: '+total:''}</div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="blendIt()">🌀 Blend!</button>
+        <button class="btn-primary blue" onclick="buildSmoothie()">↺ New Recipe</button>
+      </div>
+    </div>`;
+}
+function addFruit(i) {
+  currentGameState.basket.push(currentGameState.shelf[i]);
+  renderSmoothie();
+}
+function blendIt() {
+  const n = currentGameState.basket.length;
+  if (n===0) return;
+  document.getElementById('blendTotal').textContent = '🥤 Total = '+n+'! Great job!';
+  if(n>=3) { awardStars(currentGame, 3); }
+}
 
-        function renderSubtractionQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
-            container.innerHTML = `
-                <div class="instruction-box">🔗 These are connected!</div>
-                <div style="font-size: 1.5em; color: #667eea; font-weight: 700; margin: 15px 0;">${q.addition}</div>
-                <div class="equation">${q.subtraction}</div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-danger" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 8. SUBTRACTION
+// ===========================
+function buildSubtraction() {
+  const total = rnd(4,10);
+  const take = rnd(1,total-1);
+  const ans = total-take;
+  const choices = shuffle([ans, ans+1, ans-1, ans+2].filter(x=>x>=0 && x<=total));
+  currentGameState = { total, take, ans };
+  const items = Array.from({length:total},()=>'⭐');
+  const vis = items.map((it,i)=>`<span class="sub-item${i>=ans?' gone':''}">${it}</span>`).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>➖ Take Away Town!</h2>
+    <div class="game-desc">We had <b>${total}</b> stars. We take away <b>${take}</b>. How many are left?</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="sub-vis">${vis}</div>
+      <div class="sub-eq">${total} − ${take} = ?</div>
+      <div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join('')}</div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildSubtraction()">▶ Next</button></div>
+    </div>`;
+}
+function checkSub(n) {
+  const fb = document.getElementById('bf');
+  document.querySelectorAll('.sub-choice').forEach(b=>b.onclick=null);
+  if (n===currentGameState.ans) {
+    document.querySelectorAll('.sub-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('correct'); });
+    fb.className='feedback good'; fb.textContent='🎉 Correct! '+currentGameState.total+' − '+currentGameState.take+' = '+n;
+    awardStars(currentGame,3);
+    setTimeout(buildSubtraction,1200);
+  } else {
+    document.querySelectorAll('.sub-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('wrong'); });
+    fb.className='feedback bad'; fb.textContent='Try again! Count the bright stars! 🌟';
+    setTimeout(()=>{document.querySelectorAll('.sub-choice').forEach(b=>{b.classList.remove('wrong');b.onclick=()=>checkSub(+b.textContent);});fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        function renderPlaceValueQuestion(q, container) {
-            const tens = Array(q.tens).fill('🔟');
-            const ones = Array(q.ones).fill('●');
-            container.innerHTML = `
-                <div class="big-number">${q.number}</div>
-                <div class="instruction-box">🧩 How many tens? How many ones?</div>
-                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 1.8em; font-weight: 700; color: #667eea;">TENS: ${q.tens}</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 1.8em; font-weight: 700; color: #FFE66D;">ONES: ${q.ones}</div>
-                    </div>
-                </div>
-                <button class="btn btn-info" onclick="checkAnswer(1)" style="width: 200px; margin: 20px auto;">✓ Got it!</button>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 9. NUMBER BONDS
+// ===========================
+function buildBonds(target) {
+  const pairs = [];
+  for(let i=0;i<=target;i++) pairs.push([i,target-i]);
+  currentGameState = { target, pairs, current:0, score:0 };
+  renderBond();
+}
+function renderBond() {
+  const s = currentGameState;
+  const [a,b] = s.pairs[s.current];
+  const wrongA = rnd(0,s.target); const wrongB = s.target-wrongA;
+  const choices = shuffle([[a,b],[wrongA+1<=s.target?wrongA+1:0, s.target-(wrongA+1<=s.target?wrongA+1:0)]]).slice(0,4);
+  // just show number choices for b
+  const bChoices = shuffle([b, (b+1)%( s.target+1), (b+2)%(s.target+1), b===0?s.target:b-1]);
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🎯 Number Bonds to ${s.target}</h2>
+    <div class="game-desc">Find ALL the ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="bond-visual">
+        <span style="font-size:3rem">${a}</span>
+        <span style="font-size:2rem">+</span>
+        <span style="background:var(--sun);border:3px solid var(--dark);border-radius:12px;padding:4px 16px;font-size:2rem">?</span>
+        <span style="font-size:2rem">=</span>
+        <span style="font-size:3rem">${s.target}</span>
+      </div>
+      <div class="bonds-grid">
+        ${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join('')}
+      </div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(s.current/s.pairs.length)*100}%"></div></div>
+    </div>`;
+}
+function checkBond(n) {
+  const s = currentGameState;
+  const [a,b] = s.pairs[s.current];
+  const fb = document.getElementById('bf');
+  if (n===b) {
+    fb.className='feedback good'; fb.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`;
+    s.current++;
+    if (s.current >= s.pairs.length) { setTimeout(()=>showWin('You found all bonds to '+s.target+'!',3),700); return; }
+    setTimeout(renderBond,900);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Try again! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},800);
+  }
+}
 
-        function renderMultiplicationIntroQuestion(q, container) {
-            const items = Array(q.groups).fill(null).map((_, i) => Array(q.times).fill('⭐'));
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
-            container.innerHTML = `
-                <div class="instruction-box">✨ ${q.desc}</div>
-                <div class="big-number">${q.groups} × ${q.times} = ?</div>
-                <div style="display: grid; grid-template-columns: repeat(${Math.min(q.groups, 3)}, 1fr); gap: 15px; max-width: 400px; margin: 15px auto;">
-                    ${items.map((group, i) => 
-                        `<div style="background: linear-gradient(135deg, #FCBAD3, #F38181); padding: 15px; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 1.8em; margin-bottom: 8px;">${group.join('')}</div>
-                            <div style="font-weight: 700; font-size: 0.9em;">Group ${i + 1}</div>
-                        </div>`
-                    ).join('')}
-                </div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-info" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 10. REPEATED ADDITION
+// ===========================
+function buildRepeatedAdd() {
+  const groups = rnd(2,5), each = rnd(2,6);
+  currentGameState = { groups, each, total: groups*each };
+  renderRepeatedAdd();
+}
+function renderRepeatedAdd() {
+  const s = currentGameState;
+  const addStr = Array.from({length:s.groups},()=>s.each).join('+');
+  const groupsHtml = Array.from({length:s.groups},(_,g)=>`
+    <div class="mult-group">
+      ${Array.from({length:s.each},()=>'<div class="mult-dot">●</div>').join('')}
+    </div>`).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🔄 Repeated Addition</h2>
+    <div class="game-desc">${addStr} means <b>${s.groups} groups of ${s.each}</b>! What's the total?</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="mult-groups">${groupsHtml}</div>
+      <div class="mult-eq">${addStr} = ${s.groups} × ${s.each} = <input class="mult-input" type="number" id="raInput" min="0" max="50" inputmode="numeric" pattern="[0-9]*"></div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="checkRA()">✅ Check!</button>
+        <button class="btn-primary blue" onclick="buildRepeatedAdd()">▶ Next</button>
+      </div>
+    </div>`;
+}
+function checkRA() {
+  const val = +document.getElementById('raInput').value;
+  const fb = document.getElementById('bf');
+  if (val===currentGameState.total) {
+    fb.className='feedback good'; fb.textContent='🎉 Correct! '+currentGameState.total+'!';
+    awardStars(currentGame,3); setTimeout(buildRepeatedAdd,1000);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Try again! Count the dots! 🔴';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        function renderRepeatedAdditionQuestion(q, container) {
-            const additions = Array(q.times).fill(q.addend);
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
-            container.innerHTML = `
-                <div class="equation">${additions.join(' + ')} = ?</div>
-                <div class="instruction-box">🔄 Add them all up!</div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 10px; width: 100%; max-width: 400px; margin: 15px auto;">
-                    ${additions.map((num, i) => 
-                        `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 1.2em;">
-                            ${Array(num).fill('●').join('')}
-                        </div>`
-                    ).join('')}
-                </div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 11. ROBOT FACTORY
+// ===========================
+function buildRobot() {
+  const groups=rnd(2,4), wheels=rnd(2,5);
+  currentGameState = { groups, wheels, total: groups*wheels, built:0 };
+  renderRobot();
+}
+function renderRobot() {
+  const s = currentGameState;
+  const groupsHtml = Array.from({length:s.groups},(_,g)=>`
+    <div class="robot-group">
+      ${Array.from({length:s.wheels},()=>'<div class="wheel">⚙️</div>').join('')}
+    </div>`).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🤖 Robot Factory</h2>
+    <div class="game-desc">Make <b>${s.groups} groups of ${s.wheels} wheels</b>! Count all the wheels!</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="robot-groups">${groupsHtml}</div>
+      <div class="mult-eq">${s.groups} × ${s.wheels} = <input class="mult-input" type="number" id="robotInput" min="0" max="50" inputmode="numeric" pattern="[0-9]*"></div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="checkRobot()">⚙️ Build It!</button>
+        <button class="btn-primary blue" onclick="buildRobot()">▶ Next</button>
+      </div>
+    </div>`;
+}
+function checkRobot() {
+  const val = +document.getElementById('robotInput').value;
+  const fb = document.getElementById('bf');
+  if (val===currentGameState.total) {
+    fb.className='feedback good'; fb.textContent='🤖 Factory complete! '+currentGameState.total+' wheels!';
+    awardStars(currentGame,3); setTimeout(buildRobot,1000);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Count the ⚙️ wheels again!';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        function renderCommutativeQuestion(q, container) {
-            const wrongAnswers = [q.answer + 1, q.answer - 1, q.answer + 2, q.answer - 2].filter(a => a > 0 && a !== q.answer);
-            const answers = [q.answer, ...wrongAnswers].sort(() => Math.random() - 0.5).slice(0, 4);
-            container.innerHTML = `
-                <div class="instruction-box">🔀 Order doesn't matter!</div>
-                <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin: 25px 0; flex-wrap: wrap;">
-                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.a} + ${q.b}</div>
-                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-2);">=</div>
-                    <div style="font-size: 2.2em; font-weight: 900; color: var(--primary-1);">${q.b} + ${q.a}</div>
-                </div>
-                <div style="font-size: 1.6em; text-align: center; margin: 15px 0; font-weight: 700;">Both equal ?</div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-success" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 12. PLACE VALUE
+// ===========================
+function buildPlaceValue() {
+  const n = rnd(11,99);
+  const tens = Math.floor(n/10), ones = n%10;
+  currentGameState = { n, tens, ones, phase:'show' };
+  renderPlaceValue();
+}
+function renderPlaceValue() {
+  const s = currentGameState;
+  const tenBlocks = Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join('');
+  const oneBlocks = Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🧩 Place Value Builder</h2>
+    <div class="game-desc">How many <span style="color:var(--sky);font-weight:800">tens</span> and <span style="color:var(--sun);font-weight:800">ones</span> make this number?</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="pv-num">${s.n}</div>
+      <div class="pv-display">
+        <div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tenBlocks}</div></div>
+        <div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${oneBlocks}</div></div>
+      </div>
+      <div style="text-align:center;margin:14px 0;font-family:'Fredoka One',cursive;font-size:1.2rem">
+        ${s.n} = <input class="pv-input" type="number" id="pvTens" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> tens + 
+        <input class="pv-input" type="number" id="pvOnes" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> ones
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary green" onclick="checkPV()">✅ Check!</button>
+        <button class="btn-primary blue" onclick="buildPlaceValue()">▶ Next Number</button>
+      </div>
+    </div>`;
+}
+function checkPV() {
+  const t = +document.getElementById('pvTens').value;
+  const o = +document.getElementById('pvOnes').value;
+  const fb = document.getElementById('bf');
+  if (t===currentGameState.tens && o===currentGameState.ones) {
+    fb.className='feedback good'; fb.textContent='🎉 Yes! '+currentGameState.n+' = '+t+' tens + '+o+' ones!';
+    awardStars(currentGame,3); setTimeout(buildPlaceValue,1200);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Count the blue blocks for tens, yellow for ones! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},1000);
+  }
+}
 
-        function renderWordProblemQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
-            container.innerHTML = `
-                <div class="instruction-box">📖 Read the story carefully!</div>
-                <div style="background: #E8F5E9; padding: 20px; border-radius: 20px; font-size: 1.2em; font-weight: 700; line-height: 1.8; margin: 15px 0; border: 3px dashed #4CAF50;">
-                    ${q.text}
-                </div>
-                <div style="font-size: 1.6em; font-weight: 900; color: var(--primary-1); margin: 20px 0;">?</div>
-                <div class="buttons-grid">
-                    ${answers.map(a => `<button class="btn btn-primary" onclick="checkAnswer(${a})">${a}</button>`).join('')}
-                </div>
-                <div class="feedback" id="feedback"></div>
-            `;
-        }
+// ===========================
+// 13. COMMUTATIVE PROPERTY
+// ===========================
+function buildCommutative() {
+  const a = rnd(1,9), b = rnd(1,9);
+  currentGameState = { a, b };
+  const dotsA1 = Array.from({length:a},()=>'<div class="nd">●</div>').join('');
+  const dotsA2 = Array.from({length:b},()=>'<div class="nd b">●</div>').join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🔀 Flip It!</h2>
+    <div class="game-desc">The order doesn't matter! Both ways give the same total!</div>
+    <div class="game-box">
+      <div class="comm-eq">
+        <div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun)">${a+b}</div>
+      </div>
+      <div class="num-dots">${dotsA1}${dotsA2}</div>
+      <div style="text-align:center;font-size:1.5rem;margin:8px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div>
+      <div class="comm-eq">
+        <div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun)">${a+b}</div>
+      </div>
+      <div class="num-dots">${dotsA2}${dotsA1}</div>
+      <div class="feedback good" style="display:block;margin-top:12px">✅ ${a}+${b} = ${b}+${a} = ${a+b} !</div>
+      <div class="btn-row"><button class="btn-primary green" onclick="()=>{awardStars(currentGame,3);buildCommutative()}">▶ See Another!</button></div>
+    </div>`;
+  document.querySelector('.btn-primary.green').onclick = () => { awardStars(currentGame,3); buildCommutative(); };
+}
 
-        // Check Answer
-        async function checkAnswer(answer) {
-            const questions = allQuestions[currentGame];
-            const question = questions[currentQuestion];
-            const feedback = document.getElementById('feedback');
-            const isCorrect = answer === question.answer;
-            
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => btn.disabled = true);
+// ===========================
+// 14. SHAPES
+// ===========================
+function buildShapes() {
+  const toys = [
+    {emoji:'⚽',shape:'sphere',name:'Sphere',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:'🎲',shape:'cube',name:'Cube',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:'🥫',shape:'cylinder',name:'Cylinder',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:'🍦',shape:'cone',name:'Cone',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:'📦',shape:'cube',name:'Cube',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:'🏀',shape:'sphere',name:'Sphere',opts:['Sphere','Cube','Cylinder','Cone']},
+  ];
+  const toy = toys[rnd(0,toys.length-1)];
+  currentGameState = { toy };
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🎁 Gift Wrapper</h2>
+    <div class="game-desc">Pick the right box shape to wrap this toy! 🎁</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="toy-display">${toy.emoji}</div>
+      <p style="text-align:center;color:#666;margin-bottom:12px">What shape box do I need?</p>
+      <div class="shape-options">
+        ${toy.opts.map(s=>`<div class="shape-opt" onclick="checkShape('${s}','${toy.name}')">
+          ${s==='Sphere'?'🔵':s==='Cube'?'📦':s==='Cylinder'?'🥫':'🍦'}
+          <span>${s}</span>
+        </div>`).join('')}
+      </div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildShapes()">▶ Next Toy</button></div>
+    </div>`;
+}
+function checkShape(picked, answer) {
+  const fb = document.getElementById('bf');
+  if (picked===answer) {
+    fb.className='feedback good'; fb.textContent='🎁 Perfect wrap! It\'s a '+answer+'!';
+    awardStars(currentGame,3); setTimeout(buildShapes,1200);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Not quite! Think about the toy\'s shape! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-            if (isCorrect) {
-                score++;
-                correctStreak++;
-                wrongStreak = 0;
-                feedback.textContent = '🎉 Perfect! Great job!';
-                feedback.className = 'feedback show correct';
+// ===========================
+// 15. CLOCK
+// ===========================
+function buildClock() {
+  const h = rnd(1,12), m = [0,15,30,45][rnd(0,3)];
+  currentGameState = { h, m };
+  const mChoices = [0,15,30,45];
+  const hChoices = shuffle([h, h%12+1, (h+2)%12||12, (h+10)%12||12]).slice(0,3);
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>☀️ Sun & Moon – Tell the Time!</h2>
+    <div class="game-desc">Look at the clock! What time is it?</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="clock-svg-wrap">${drawClock(h,m)}</div>
+      <div class="time-target">What time does the clock show?</div>
+      <div class="btn-row">
+        ${hChoices.map(hh=>mChoices.map(mm=>`<button class="btn-primary blue" style="font-size:.95rem;padding:10px 14px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,'0')}</button>`).join('')).join('')}
+      </div>
+      <div class="btn-row"><button class="btn-primary orange" onclick="buildClock()">▶ Next Clock</button></div>
+    </div>`;
+}
+function drawClock(h,m) {
+  const cx=90,cy=90,r=80;
+  const mAngle=(m/60)*360-90, hAngle=((h%12+(m/60))/12)*360-90;
+  const mRad=mAngle*Math.PI/180, hRad=hAngle*Math.PI/180;
+  const mx=cx+65*Math.cos(mRad), my=cy+65*Math.sin(mRad);
+  const hx=cx+45*Math.cos(hRad), hy=cy+45*Math.sin(hRad);
+  let nums='';
+  for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="12" fill="#2D3561">${i}</text>`;}
+  return `<svg width="180" height="180" viewBox="0 0 180 180">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFEF7" stroke="#2D3561" stroke-width="4"/>
+    ${nums}
+    <line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#6EC6F5" stroke-width="4" stroke-linecap="round"/>
+    <line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#2D3561" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="5" fill="#2D3561"/>
+  </svg>`;
+}
+function checkClock(hh,mm) {
+  const fb = document.getElementById('bf');
+  if (hh===currentGameState.h && mm===currentGameState.m) {
+    fb.className='feedback good'; fb.textContent='🕐 Yes! '+hh+':'+String(mm).padStart(2,'0')+'!';
+    awardStars(currentGame,3); setTimeout(buildClock,1200);
+  } else {
+    fb.className='feedback bad'; fb.textContent='Look at the hands again! 🤔';
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-                // Level up on 3 correct streak
-                if (correctStreak >= 3 && difficulty < 3) {
-                    difficulty++;
-                    generateQuestions(currentGame);
-                }
-            } else {
-                wrongStreak++;
-                correctStreak = 0;
-                feedback.textContent = `❌ Oops! The answer is ${question.answer}`;
-                feedback.className = 'feedback show incorrect';
+// ===========================
+// 16. TALLY
+// ===========================
+function buildTally() {
+  const target = rnd(5,15);
+  currentGameState = { target, count:0 };
+  renderTally();
+}
+function renderTally() {
+  const s = currentGameState;
+  const fishes = Array.from({length:s.target},(_, i)=>`<div class="tally-fish" onclick="tapFish()" id="tf${i}">🐟</div>`).join('');
+  function makeTally(n) {
+    let t='',groups=Math.floor(n/5),rem=n%5;
+    for(let g=0;g<groups;g++) t+='||||̶ ';
+    t+='|'.repeat(rem);
+    return t||'—';
+  }
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🐟 Fish Counter</h2>
+    <div class="game-desc">Tap each fish as it swims by! Watch the tally marks appear!</div>
+    <div class="game-box">
+      <div class="tally-fish-row">${fishes}</div>
+      <div style="text-align:center;color:#888;font-size:.85rem;margin:4px 0">Tap the fish!</div>
+      <p style="text-align:center;color:#666;margin:8px 0;font-weight:700">Tally Marks:</p>
+      <div class="tally-marks" id="tallyMarks">${makeTally(s.count)}</div>
+      <div class="tally-count" id="tallyCount">Count: ${s.count}</div>
+      <div class="btn-row"><button class="btn-primary orange" onclick="buildTally()">↺ New School</button></div>
+    </div>`;
+  window._makeTally = makeTally;
+}
+function tapFish() {
+  const s = currentGameState;
+  if (s.count >= s.target) return;
+  s.count++;
+  document.getElementById('tallyMarks').textContent = window._makeTally(s.count);
+  document.getElementById('tallyCount').textContent = 'Count: '+s.count;
+  if (s.count===s.target) {
+    setTimeout(()=>showWin('You counted '+s.target+' fish!',3),400);
+  }
+}
 
-                // Show AI hint on wrong answer
-                await showAIHint(currentGame, question);
+// ===========================
+// 17. BAR GRAPH
+// ===========================
+function buildBarGraph() {
+  const items = [{e:'🐚',name:'Shell',col:'#FFD93D'},{e:'🦀',name:'Crab',col:'#FF6B6B'},{e:'⭐',name:'Star',col:'#6EC6F5'},{e:'🪸',name:'Coral',col:'#FF6B9D'}];
+  currentGameState = { items, counts:[0,0,0,0] };
+  renderBarGraph();
+}
+function renderBarGraph() {
+  const s = currentGameState;
+  const btns = s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join('');
+  const max = Math.max(...s.counts, 1);
+  const bars = s.items.map((it,i)=>{
+    const h = Math.round((s.counts[i]/Math.max(max,1))*120)+4;
+    return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:''}</div>`;
+  }).join('');
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>🐚 Shell Sort</h2>
+    <div class="game-desc">Press a shell to collect it! Watch your bar graph grow! 📊</div>
+    <div class="game-box">
+      <div class="graph-items">${btns}</div>
+      <div class="bar-graph">${bars}</div>
+      <div style="display:flex;justify-content:center;gap:14px;font-family:'Fredoka One',cursive;font-size:.85rem">
+        ${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join('')}
+      </div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear & Restart</button></div>
+    </div>`;
+}
+function addBar(i) {
+  currentGameState.counts[i]++;
+  const total = currentGameState.counts.reduce((a,b)=>a+b,0);
+  if (total >= 10) awardStars(currentGame, 3);
+  renderBarGraph();
+}
 
-                // Level down on 2 wrong streak
-                if (wrongStreak >= 2 && difficulty > 1) {
-                    difficulty--;
-                    generateQuestions(currentGame);
-                }
-            }
-            
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion >= questions.length) {
-                    showCompletion();
-                } else {
-                    showQuestion();
-                }
-            }, 2000);
-        }
+// ===========================
+// 18. WORD PROBLEMS
+// ===========================
+const problems = [
+  { text:'Emma has 🍎🍎🍎 3 apples. She picks 4 more apples. How many does she have now?', choices:[5,7,8,6], answer:7 },
+  { text:'Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many are left?', choices:[2,3,7,4], answer:3 },
+  { text:'There are 🐔🐔🐔 3 hens. Each hen lays 2 eggs 🥚🥚. How many eggs are there?', choices:[5,6,7,8], answer:6 },
+  { text:'Sara has 8 🎈 balloons. 3 float away. How many does she have?', choices:[4,5,6,11], answer:5 },
+  { text:'Jake has 🌟🌟 2 packs of stickers with 5 stickers each. How many stickers total?', choices:[7,10,12,15], answer:10 },
+  { text:'A pond has 🐸🐸🐸🐸 4 frogs. 3 more jump in. How many frogs now?', choices:[6,7,8,9], answer:7 },
+  { text:'Mia shared 12 🍬 candies equally among 3 friends. How many does each friend get?', choices:[3,4,6,9], answer:4 },
+];
+function buildWordProbs() {
+  const idx = rnd(0, problems.length-1);
+  const p = problems[idx];
+  currentGameState = { p };
+  const shuffled = shuffle([...p.choices]);
+  document.getElementById('gamePanel').innerHTML = `
+    <h2>📖 Story Problems</h2>
+    <div class="game-desc">Read the story and pick the right answer!</div>
+    <div class="game-box">
+      <div class="feedback" id="bf"></div>
+      <div class="wp-box"><p>${p.text}</p></div>
+      <div class="wp-choices">
+        ${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join('')}
+      </div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildWordProbs()">▶ Next Story</button></div>
+    </div>`;
+}
+function checkWP(n) {
+  const fb = document.getElementById('bf');
+  document.querySelectorAll('.wp-choice').forEach(b=>b.onclick=null);
+  if (n===currentGameState.p.answer) {
+    document.querySelectorAll('.wp-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('correct'); });
+    fb.className='feedback good'; fb.textContent='🎉 Correct! The answer is '+n+'!';
+    awardStars(currentGame,3); setTimeout(buildWordProbs,1200);
+  } else {
+    document.querySelectorAll('.wp-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('wrong'); });
+    fb.className='feedback bad'; fb.textContent='Try again! Read the story carefully! 📖';
+    setTimeout(()=>{document.querySelectorAll('.wp-choice').forEach(b=>{b.classList.remove('wrong');b.onclick=()=>checkWP(+b.textContent);});fb.textContent='';fb.className='feedback';},900);
+  }
+}
 
-        // AI Hint Function
-        async function showAIHint(gameName, question) {
-            const hintContainer = document.getElementById('aiHint');
-            
-            try {
-                let hintText = '';
-                
-                // Use local hints first (faster)
-                const hintKey = gameName.replace(/[0-9]/g, '');
-                if (hints[gameName]) {
-                    const hintList = hints[gameName];
-                    hintText = hintList[Math.floor(Math.random() * hintList.length)];
-                } else if (hints[hintKey]) {
-                    const hintList = hints[hintKey];
-                    hintText = hintList[Math.floor(Math.random() * hintList.length)];
-                } else {
-                    hintText = "Try counting on your fingers or using objects to help!";
-                }
-                
-                hintContainer.textContent = '💡 Hint: ' + hintText;
-                hintContainer.classList.add('show');
-            } catch (error) {
-                console.log('Hint system ready');
-            }
-        }
+// ===========================
+// UTILS
+// ===========================
+function rnd(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
-        // Multiple Choice Generator - Specialized version for Skip Counting
-        function generateSkipCountAnswers(correct, step, count = 4) {
-            const answers = new Set([correct]);
-            
-            // Add wrong answers based on the step
-            // Some are off by step, some are off by other amounts
-            const wrongOptions = [
-                correct + step,      // Next in sequence (wrong if already past)
-                correct - step,      // Previous in sequence (wrong)
-                correct + 1,         // Close but wrong
-                correct - 1,         // Close but wrong
-                correct + step + 1,  // Off pattern
-                correct + step - 1,  // Off pattern
-            ];
-            
-            for (let option of wrongOptions) {
-                if (answers.size < count && option > 0 && option !== correct) {
-                    answers.add(option);
-                }
-            }
-            
-            // If still need more, generate random
-            while (answers.size < count) {
-                const random = Math.floor(Math.random() * (correct + 10)) + 1;
-                if (random !== correct) {
-                    answers.add(random);
-                }
-            }
-            
-            return Array.from(answers).sort(() => Math.random() - 0.5);
-        }
+// Init
+updateStarsDisplay();
+</script>
 
-        // Multiple Choice Generator - Fixed to ensure correct answer is always included
-        function generateMultipleChoiceAnswers(correct, count = 4, max = 15) {
-            const answers = new Set([correct]);
-            
-            // Generate wrong answers smartly based on the correct answer
-            const wrongAnswers = new Set();
-            let attempts = 0;
-            
-            while (wrongAnswers.size < count - 1 && attempts < 50) {
-                let wrong;
-                
-                // Create varied wrong answers (some close, some far)
-                const variation = Math.floor(Math.random() * 4);
-                switch(variation) {
-                    case 0: wrong = correct + 1; break;
-                    case 1: wrong = correct - 1; break;
-                    case 2: wrong = correct + 2; break;
-                    case 3: wrong = correct - 2; break;
-                    default: wrong = Math.floor(Math.random() * max) + 1;
-                }
-                
-                // Ensure wrong answer is not negative and not the correct answer
-                if (wrong > 0 && wrong !== correct) {
-                    wrongAnswers.add(wrong);
-                }
-                attempts++;
-            }
-            
-            // Combine correct answer with wrong answers
-            const allAnswers = Array.from(answers).concat(Array.from(wrongAnswers)).slice(0, count);
-            
-            // If we don't have enough answers, fill with more options
-            while (allAnswers.length < count) {
-                const filler = Math.floor(Math.random() * (correct + 5)) + 1;
-                if (!allAnswers.includes(filler)) {
-                    allAnswers.push(filler);
-                }
-            }
-            
-            // Shuffle and return
-            return allAnswers.sort(() => Math.random() - 0.5);
-        }
-
-        // Show Completion
-        async function showCompletion() {
-            const questions = allQuestions[currentGame];
-            const percentage = Math.round((score / questions.length) * 100);
-            const game = games[currentGame];
-            
-            document.getElementById('finalScore').textContent = `Score: ${score}/${questions.length} (${percentage}%)`;
-            
-            // Get AI Message
-            let aiMessage = '';
-            if (percentage === 100) {
-                aiMessage = "Perfect! 🌟 You're a math superstar! Ready for harder challenges?";
-            } else if (percentage >= 80) {
-                aiMessage = "Excellent! 🎯 You're getting really good at this!";
-            } else if (percentage >= 60) {
-                aiMessage = "Great effort! 💪 Keep practicing and you'll master this!";
-            } else {
-                aiMessage = "Good start! 🌱 Practice makes perfect. Try again!";
-            }
-            
-            document.getElementById('completionMessage').textContent = 
-                difficulty === 3 ? "You completed Advanced Level!" :
-                difficulty === 2 ? "You completed Intermediate Level!" :
-                "You completed Beginner Level!";
-            document.getElementById('aiMessage').textContent = aiMessage;
-            document.getElementById('completionModal').classList.add('show');
-        }
-
-        // Go Back
-        function goBack() {
-            document.getElementById('completionModal').classList.remove('show');
-            document.getElementById('gameScreen').classList.remove('active');
-            document.getElementById('menuScreen').style.display = 'grid';
-            currentGame = null;
-        }
-    </script>
 </body>
 </html>
