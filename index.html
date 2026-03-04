@@ -10,16 +10,17 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --sky: #6EC6F5; --sun: #FFD93D; --grass: #6BCB77; --coral: #FF6B6B;
-    --purple: #A78BFA; --mint: #4ECDC4; --orange: #FF9F43; --pink: #FF6B9D;
-    --white: #FFFEF7; --dark: #2D3561; --card-bg: #FFFEF7;
-    --shadow: 0 6px 0 rgba(0,0,0,0.15); --radius: 20px;
-    font-size: 16px;
+    --sky: #3BAEFF; --sun: #FFD93D; --grass: #2ECC71; --coral: #FF4757;
+    --purple: #8B5CF6; --mint: #20C997; --orange: #FF7F50; --pink: #FF4D94;
+    --white: #FFFDF0; --dark: #1A1F4B; --card-bg: #FFFDF0;
+    --shadow: 0 8px 0 rgba(0,0,0,0.20); --radius: 24px;
+    --text-main: #1A1F4B;
+    font-size: 18px;
   }
   html, body { height: 100%; touch-action: pan-y; overscroll-behavior: contain; }
   body {
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(160deg, #E0F4FF 0%, #FFF9E6 50%, #E8FFE8 100%);
+    font-family: "Nunito", sans-serif;
+    background: linear-gradient(160deg, #BEE3F8 0%, #FEF9C3 50%, #BBF7D0 100%);
     min-height: 100vh; overflow-x: hidden; color: var(--dark);
   }
 
@@ -30,260 +31,261 @@
 
 /* ===== HEADER ===== */
 .site-header { text-align: center; padding: 24px 0 8px; }
-.site-header h1 { font-family:‘Fredoka One’,cursive; font-size: clamp(2rem,7vw,3.2rem); color: var(–dark); line-height:1.1; }
+.site-header h1 { font-family:“Fredoka One”,cursive; font-size: clamp(2.5rem,8vw,4rem); color: var(–dark); line-height:1.1; text-shadow: 3px 3px 0 rgba(0,0,0,0.1); }
 .site-header h1 span { color: var(–coral); }
-.site-header p { font-size: clamp(.9rem,3vw,1.1rem); color: #555; margin-top: 6px; }
-.stars-bar { font-size: 1.2rem; margin-top:6px; color: var(–sun); letter-spacing:2px; }
+.site-header p { font-size: clamp(1.1rem,4vw,1.4rem); color: #1A1F4B; margin-top: 8px; font-weight: 800; }
+.stars-bar { font-size: 1.4rem; margin-top:8px; color: #8B5000; letter-spacing:2px; background: var(–sun); display: inline-block; padding: 6px 20px; border-radius: 50px; border: 3px solid var(–dark); font-weight: 800; }
 
 /* ===== BACK BUTTON ===== */
 .back-btn {
-display: inline-flex; align-items:center; gap:6px;
-background: var(–white); border: 3px solid var(–dark);
-border-radius: 50px; padding: 8px 20px; font-family:‘Fredoka One’,cursive;
-font-size: 1rem; color: var(–dark); cursor: pointer;
+display: inline-flex; align-items:center; gap:8px;
+background: var(–white); border: 4px solid var(–dark);
+border-radius: 50px; padding: 12px 28px; font-family:“Fredoka One”,cursive;
+font-size: 1.3rem; color: var(–dark); cursor: pointer;
 box-shadow: var(–shadow); transition: transform .15s, box-shadow .15s;
 margin-bottom: 18px; touch-action: manipulation;
 }
-.back-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,.15); }
+.back-btn:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,.20); }
 
 /* ===== WORLD CARDS (Home) ===== */
-.world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; max-width: 900px; margin: 0 auto; padding-top: 12px; }
+.world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto; padding-top: 16px; }
 .world-card {
 background: var(–card-bg); border-radius: var(–radius);
-border: 3px solid var(–dark); box-shadow: var(–shadow);
-padding: 24px 20px; cursor: pointer; transition: transform .15s, box-shadow .15s;
+border: 4px solid var(–dark); box-shadow: var(–shadow);
+padding: 28px 22px; cursor: pointer; transition: transform .15s, box-shadow .15s;
 touch-action: manipulation; text-align: center;
 }
-.world-card:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.15); }
-.world-card .w-icon { font-size: 3rem; margin-bottom: 10px; display:block; }
-.world-card h2 { font-family:‘Fredoka One’,cursive; font-size: 1.4rem; color: var(–dark); }
-.world-card p { font-size:.9rem; color:#666; margin-top:4px; }
-.world-card .w-count { margin-top:10px; font-size:.85rem; font-weight:700; background:rgba(0,0,0,.06); border-radius:50px; padding:3px 12px; display:inline-block; }
-.world-card.c1 { border-color:#6BCB77; } .world-card.c1 .w-icon-bg { background:#E8FFE8; }
-.world-card.c2 { border-color:#FF6B6B; }
-.world-card.c3 { border-color:#A78BFA; }
-.world-card.c4 { border-color:#FF9F43; }
-.world-card.c5 { border-color:#4ECDC4; }
-.world-card.c6 { border-color:#FF6B9D; }
+.world-card:active { transform: translateY(6px); box-shadow: 0 2px 0 rgba(0,0,0,.20); }
+.world-card .w-icon { font-size: 3.5rem; margin-bottom: 10px; display:block; }
+.world-card h2 { font-family:“Fredoka One”,cursive; font-size: 1.6rem; color: var(–dark); }
+.world-card p { font-size:1rem; color: #2D3561; margin-top:6px; font-weight: 700; }
+.world-card .w-count { margin-top:12px; font-size:1rem; font-weight:800; background:rgba(0,0,0,.10); border-radius:50px; padding:5px 16px; display:inline-block; color: var(–dark); }
+.world-card.c1 { border-color:#2ECC71; background: #F0FFF4; }
+.world-card.c2 { border-color:#FF4757; background: #FFF0F1; }
+.world-card.c3 { border-color:#8B5CF6; background: #F5F0FF; }
+.world-card.c4 { border-color:#FF7F50; background: #FFF5F0; }
+.world-card.c5 { border-color:#3BAEFF; background: #F0F8FF; }
+.world-card.c6 { border-color:#FF4D94; background: #FFF0F7; }
 
 /* ===== LEVEL LIST ===== */
-.level-header { text-align:center; margin-bottom:20px; }
-.level-header .lh-icon { font-size:3rem; }
-.level-header h2 { font-family:‘Fredoka One’,cursive; font-size:clamp(1.5rem,5vw,2.2rem); color:var(–dark); }
-.level-header p { color:#555; font-size:.95rem; }
-.game-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; max-width:860px; margin:0 auto; }
+.level-header { text-align:center; margin-bottom:24px; }
+.level-header .lh-icon { font-size:3.5rem; }
+.level-header h2 { font-family:“Fredoka One”,cursive; font-size:clamp(1.8rem,5vw,2.6rem); color:var(–dark); }
+.level-header p { color: #2D3561; font-size:1.1rem; font-weight: 700; }
+.game-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; max-width:900px; margin:0 auto; }
 .game-btn {
-display:flex; align-items:center; gap:14px;
-background:var(–card-bg); border:3px solid var(–dark); border-radius:var(–radius);
-padding:16px 18px; cursor:pointer; text-align:left;
+display:flex; align-items:center; gap:16px;
+background:var(–card-bg); border:4px solid var(–dark); border-radius:var(–radius);
+padding:20px 22px; cursor:pointer; text-align:left;
 box-shadow:var(–shadow); transition:transform .15s,box-shadow .15s; touch-action:manipulation;
 }
-.game-btn:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.15); }
-.game-btn .g-icon { font-size:2rem; flex-shrink:0; }
-.game-btn .g-info h3 { font-family:‘Fredoka One’,cursive; font-size:1rem; color:var(–dark); }
-.game-btn .g-info p { font-size:.8rem; color:#666; }
-.game-btn .g-stars { font-size:.75rem; color:var(–sun); margin-top:2px; }
+.game-btn:active { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.20); }
+.game-btn .g-icon { font-size:2.5rem; flex-shrink:0; }
+.game-btn .g-info h3 { font-family:“Fredoka One”,cursive; font-size:1.2rem; color:var(–dark); }
+.game-btn .g-info p { font-size:.95rem; color: #2D3561; font-weight: 600; }
+.game-btn .g-stars { font-size:.9rem; color: #8B5000; margin-top:4px; }
 
 /* ===== GAME PANEL ===== */
-.game-panel { max-width:680px; margin:0 auto; }
-.game-panel h2 { font-family:‘Fredoka One’,cursive; font-size:clamp(1.4rem,5vw,2rem); color:var(–dark); text-align:center; margin-bottom:6px; }
-.game-panel .game-desc { text-align:center; color:#555; font-size:.95rem; margin-bottom:18px; line-height:1.5; }
+.game-panel { max-width:720px; margin:0 auto; }
+.game-panel h2 { font-family:“Fredoka One”,cursive; font-size:clamp(1.7rem,5vw,2.4rem); color:var(–dark); text-align:center; margin-bottom:8px; }
+.game-panel .game-desc { text-align:center; color: #1A1F4B; font-size:1.1rem; margin-bottom:20px; line-height:1.6; font-weight: 700; }
 
 /* ===== SHARED GAME UI ===== */
-.game-box { background:var(–white); border:3px solid var(–dark); border-radius:var(–radius); padding:24px 20px; box-shadow:var(–shadow); }
+.game-box { background:var(–white); border:4px solid var(–dark); border-radius:var(–radius); padding:28px 24px; box-shadow:var(–shadow); }
 .btn-primary {
-display:inline-flex; align-items:center; justify-content:center; gap:6px;
-background:var(–coral); color:#fff; border:3px solid var(–dark);
-border-radius:50px; padding:12px 28px; font-family:‘Fredoka One’,cursive;
-font-size:1.1rem; cursor:pointer; box-shadow:var(–shadow);
+display:inline-flex; align-items:center; justify-content:center; gap:8px;
+background:var(–coral); color:#fff; border:4px solid var(–dark);
+border-radius:50px; padding:14px 32px; font-family:“Fredoka One”,cursive;
+font-size:1.3rem; cursor:pointer; box-shadow:var(–shadow);
 transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px;
 }
-.btn-primary:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.15); }
+.btn-primary:active { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.20); }
 .btn-primary.green { background:var(–grass); }
 .btn-primary.purple { background:var(–purple); }
-.btn-primary.blue { background:var(–sky); color:var(–dark); }
+.btn-primary.blue { background:var(–sky); color:#fff; }
 .btn-primary.orange { background:var(–orange); }
-.btn-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:14px; }
-.score-badge { display:inline-block; background:var(–sun); border:2px solid var(–dark); border-radius:50px; padding:4px 14px; font-weight:800; font-size:.9rem; margin:4px; }
-.feedback { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.3rem; min-height:2rem; margin:10px 0; }
-.feedback.good { color: var(–grass); } .feedback.bad { color: var(–coral); }
-.progress-bar-outer { background:#eee; border-radius:50px; height:14px; border:2px solid var(–dark); overflow:hidden; margin:10px 0; }
+.btn-row { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:16px; }
+.score-badge { display:inline-block; background:var(–sun); border:3px solid var(–dark); border-radius:50px; padding:6px 18px; font-weight:800; font-size:1rem; margin:4px; color: #6B4200; }
+.feedback { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.5rem; min-height:2.2rem; margin:12px 0; }
+.feedback.good { color: #1A7A40; background: #C6F6D5; border-radius: 12px; padding: 6px 12px; }
+.feedback.bad { color: #C0392B; background: #FFDDD8; border-radius: 12px; padding: 6px 12px; }
+.progress-bar-outer { background:#DDD; border-radius:50px; height:18px; border:3px solid var(–dark); overflow:hidden; margin:12px 0; }
 .progress-bar-inner { height:100%; background:linear-gradient(90deg,var(–grass),var(–mint)); border-radius:50px; transition:width .4s; }
 
 /* WIN MODAL */
-.win-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:999; align-items:center; justify-content:center; padding:20px; }
+.win-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:999; align-items:center; justify-content:center; padding:20px; }
 .win-modal.open { display:flex; }
-.win-box { background:var(–white); border:4px solid var(–dark); border-radius:24px; padding:32px 28px; text-align:center; max-width:380px; width:100%; box-shadow:0 12px 0 rgba(0,0,0,.2); animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
+.win-box { background:var(–white); border:5px solid var(–dark); border-radius:28px; padding:36px 32px; text-align:center; max-width:400px; width:100%; box-shadow:0 16px 0 rgba(0,0,0,0.22); animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
 @keyframes popIn { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
-.win-box h2 { font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
-.win-box .stars { font-size:2.5rem; margin:10px 0; }
-.win-box p { color:#555; margin-bottom:14px; }
+.win-box h2 { font-family:“Fredoka One”,cursive; font-size:2.4rem; color:var(–dark); }
+.win-box .stars { font-size:3rem; margin:12px 0; }
+.win-box p { color:#2D3561; margin-bottom:16px; font-size:1.1rem; font-weight:700; }
 
 /* ===== INDIVIDUAL GAME STYLES ===== */
 
 /* Number Bonds */
-.bonds-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-.bond-btn { background:var(–sky); border:3px solid var(–dark); border-radius:14px; padding:14px 8px; font-family:‘Fredoka One’,cursive; font-size:1.1rem; cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center; }
+.bonds-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.bond-btn { background:var(–sky); border:4px solid var(–dark); border-radius:16px; padding:18px 8px; font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center; color: #fff; }
 .bond-btn:active { transform:translateY(2px); }
 .bond-btn.selected { background:var(–grass); color:#fff; }
 .bond-btn.wrong { background:var(–coral); color:#fff; }
-.bond-visual { display:flex; align-items:center; justify-content:center; gap:12px; font-size:2.5rem; font-family:‘Fredoka One’,cursive; color:var(–dark); margin:16px 0; }
+.bond-visual { display:flex; align-items:center; justify-content:center; gap:14px; font-size:3rem; font-family:“Fredoka One”,cursive; color:var(–dark); margin:18px 0; }
 
 /* Counting / Skip */
-.number-track { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
-.num-cell { width:48px; height:48px; border-radius:12px; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.1rem; background:var(–white); transition:.2s; }
+.number-track { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
+.num-cell { width:54px; height:54px; border-radius:14px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; background:var(–white); transition:.2s; color: var(–dark); }
 .num-cell.lit { background:var(–sun); }
-.num-cell.blank { background:#eee; color:#bbb; cursor:pointer; touch-action:manipulation; }
-.num-cell.blank:active { background:var(–sky); }
+.num-cell.blank { background:#E5E7EB; color:#9CA3AF; cursor:pointer; touch-action:manipulation; }
+.num-cell.blank:active { background:var(–sky); color: #fff; }
 .num-cell.correct { background:var(–grass); color:#fff; }
 .num-cell.wrong { background:var(–coral); color:#fff; }
 
 /* Balloons */
-.balloon-field { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:16px 0; min-height:120px; }
-.balloon { width:60px; height:72px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.3rem; cursor:pointer; touch-action:manipulation; transition:.2s; box-shadow:0 4px 0 rgba(0,0,0,.15); }
+.balloon-field { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:18px 0; min-height:120px; }
+.balloon { width:68px; height:80px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.5rem; cursor:pointer; touch-action:manipulation; transition:.2s; box-shadow:0 6px 0 rgba(0,0,0,.18); color: #fff; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
 .balloon:active { transform:scale(.9); }
 .balloon.popped { opacity:0; transform:scale(1.5); pointer-events:none; }
 
 /* Gator comparison */
-.gator-row { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
-.gator-num { background:var(–sky); border:3px solid var(–dark); border-radius:16px; padding:18px 28px; font-family:‘Fredoka One’,cursive; font-size:3rem; min-width:90px; text-align:center; }
-.gator-emoji { font-size:3.5rem; }
-.gator-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
-.gator-btn { background:var(–white); border:3px solid var(–dark); border-radius:12px; padding:14px 24px; font-family:‘Fredoka One’,cursive; font-size:1.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
-.gator-btn:active { background:var(–sun); transform:translateY(2px); }
+.gator-row { display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin:18px 0; }
+.gator-num { background:var(–sky); border:4px solid var(–dark); border-radius:20px; padding:20px 32px; font-family:“Fredoka One”,cursive; font-size:3.5rem; min-width:100px; text-align:center; color: #fff; box-shadow: var(–shadow); }
+.gator-emoji { font-size:4rem; }
+.gator-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
+.gator-btn { background:var(–white); border:4px solid var(–dark); border-radius:14px; padding:16px 28px; font-family:“Fredoka One”,cursive; font-size:1.8rem; cursor:pointer; touch-action:manipulation; transition:.15s; box-shadow: var(–shadow); }
+.gator-btn:active { background:var(–sun); transform:translateY(3px); }
 
 /* Frog */
-.frog-track { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:16px 0; overflow:hidden; }
-.frog-pad { width:44px; height:44px; border-radius:50%; border:3px solid var(–dark); background:#d4f0d4; display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:.85rem; transition:.3s; }
-.frog-pad.active { background:var(–grass); color:#fff; font-size:1.2rem; }
-.frog-pad.visited { background:#a8e6a8; }
+.frog-track { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
+.frog-pad { width:52px; height:52px; border-radius:50%; border:4px solid var(–dark); background:#BBF7D0; display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1rem; transition:.3s; color: var(–dark); }
+.frog-pad.active { background:var(–grass); color:#fff; font-size:1.4rem; }
+.frog-pad.visited { background:#86EFAC; }
 
 /* Smoothie / addition */
-.fruit-shelf { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:12px 0; }
-.fruit-item { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; border-radius:12px; padding:6px; border:3px solid transparent; }
-.fruit-item:active { transform:scale(1.2); border-color:var(–dark); }
-.blender { min-height:80px; border:3px dashed var(–dark); border-radius:16px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:10px; gap:6px; font-size:2rem; margin:12px 0; }
-.blend-total { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
+.fruit-shelf { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:14px 0; }
+.fruit-item { font-size:3rem; cursor:pointer; touch-action:manipulation; transition:.15s; border-radius:14px; padding:8px; border:4px solid transparent; }
+.fruit-item:active { transform:scale(1.25); border-color:var(–dark); }
+.blender { min-height:90px; border:4px dashed var(–dark); border-radius:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:12px; gap:8px; font-size:2.2rem; margin:14px 0; background: #F0F8FF; }
+.blend-total { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
 
 /* Cupcakes */
-.cupcake-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:16px 0; }
-.cupcake { font-size:2.2rem; transition:.3s; }
-.cupcake.paired { filter:brightness(.7); }
+.cupcake-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px 0; }
+.cupcake { font-size:2.5rem; transition:.3s; }
+.cupcake.paired { filter:brightness(.65); }
 
 /* Robot */
-.robot-groups { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
-.robot-group { border:3px dashed var(–purple); border-radius:16px; padding:10px 14px; display:flex; flex-wrap:wrap; gap:6px; min-width:80px; justify-content:center; }
-.wheel { font-size:1.6rem; }
+.robot-groups { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
+.robot-group { border:4px dashed var(–purple); border-radius:18px; padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; min-width:90px; justify-content:center; background: #F5F0FF; }
+.wheel { font-size:1.8rem; }
 
 /* Pizza */
-.pizza-container { position:relative; width:200px; height:200px; margin:16px auto; }
+.pizza-container { position:relative; width:220px; height:220px; margin:18px auto; }
 .pizza-svg { width:100%; height:100%; }
 .slice { cursor:pointer; touch-action:manipulation; transition:.2s; }
-.slice.served { opacity:.45; }
-.fraction-display { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.8rem; color:var(–dark); }
+.slice.served { opacity:.4; }
+.fraction-display { text-align:center; font-family:“Fredoka One”,cursive; font-size:2rem; color:var(–dark); }
 
 /* Shapes */
-.shape-options { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
-.shape-opt { background:var(–white); border:3px solid var(–dark); border-radius:14px; padding:14px 18px; cursor:pointer; touch-action:manipulation; font-size:1.5rem; transition:.15s; display:flex; flex-direction:column; align-items:center; gap:4px; }
-.shape-opt:active { background:var(–sky); transform:translateY(2px); }
-.shape-opt span { font-family:‘Fredoka One’,cursive; font-size:.8rem; }
-.toy-display { font-size:5rem; text-align:center; margin:12px 0; }
+.shape-options { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
+.shape-opt { background:var(–white); border:4px solid var(–dark); border-radius:16px; padding:18px 22px; cursor:pointer; touch-action:manipulation; font-size:1.8rem; transition:.15s; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow: var(–shadow); }
+.shape-opt:active { background:var(–sky); transform:translateY(3px); }
+.shape-opt span { font-family:“Fredoka One”,cursive; font-size:1rem; color: var(–dark); }
+.toy-display { font-size:6rem; text-align:center; margin:14px 0; }
 
 /* Clock */
-.clock-svg-wrap { display:flex; justify-content:center; margin:12px 0; }
-.time-display { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2.5rem; color:var(–dark); margin:8px 0; }
-.time-target { text-align:center; font-size:1rem; color:#666; margin-bottom:8px; }
-.clock-btns { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+.clock-svg-wrap { display:flex; justify-content:center; margin:14px 0; }
+.time-display { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.8rem; color:var(–dark); margin:10px 0; }
+.time-target { text-align:center; font-size:1.1rem; color:#2D3561; margin-bottom:10px; font-weight: 700; }
+.clock-btns { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
 
 /* Tally */
-.tally-fish-row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0; }
-.tally-fish { font-size:2rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
-.tally-fish:active { transform:scale(1.3); }
-.tally-marks { font-family:monospace; font-size:2rem; text-align:center; letter-spacing:4px; margin:10px 0; min-height:2.5rem; }
-.tally-count { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.5rem; }
+.tally-fish-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
+.tally-fish { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
+.tally-fish:active { transform:scale(1.4); }
+.tally-marks { font-family:monospace; font-size:2.2rem; text-align:center; letter-spacing:4px; margin:12px 0; min-height:3rem; color: var(–dark); }
+.tally-count { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color: var(–dark); }
 
 /* Graph */
-.graph-items { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
-.graph-item-btn { font-size:2rem; background:var(–white); border:3px solid var(–dark); border-radius:12px; padding:8px 14px; cursor:pointer; touch-action:manipulation; transition:.15s; }
-.graph-item-btn:active { background:var(–sun); transform:translateY(2px); }
-.bar-graph { display:flex; align-items:flex-end; justify-content:center; gap:14px; height:140px; border-bottom:3px solid var(–dark); border-left:3px solid var(–dark); padding:0 10px; margin:10px 0; }
-.bar { width:48px; border-radius:8px 8px 0 0; border:2px solid var(–dark); transition:height .3s; min-height:4px; display:flex; align-items:flex-start; justify-content:center; padding-top:4px; font-family:‘Fredoka One’,cursive; font-size:.9rem; }
+.graph-items { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
+.graph-item-btn { font-size:2.2rem; background:var(–white); border:4px solid var(–dark); border-radius:14px; padding:10px 16px; cursor:pointer; touch-action:manipulation; transition:.15s; box-shadow: var(–shadow); }
+.graph-item-btn:active { background:var(–sun); transform:translateY(3px); }
+.bar-graph { display:flex; align-items:flex-end; justify-content:center; gap:16px; height:160px; border-bottom:4px solid var(–dark); border-left:4px solid var(–dark); padding:0 12px; margin:12px 0; }
+.bar { width:54px; border-radius:10px 10px 0 0; border:3px solid var(–dark); transition:height .3s; min-height:6px; display:flex; align-items:flex-start; justify-content:center; padding-top:6px; font-family:“Fredoka One”,cursive; font-size:1rem; color: #fff; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
 
 /* Word Problems */
-.wp-box { background:linear-gradient(135deg,#E8F4FF,#FFF9E6); border:3px solid var(–dark); border-radius:var(–radius); padding:20px; margin:12px 0; }
-.wp-box p { font-size:1.05rem; line-height:1.6; }
-.wp-choices { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
-.wp-choice { background:var(–white); border:3px solid var(–dark); border-radius:14px; padding:12px; font-family:‘Fredoka One’,cursive; font-size:1.1rem; cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s; }
-.wp-choice:active { background:var(–sky); transform:translateY(2px); }
+.wp-box { background:linear-gradient(135deg,#DBEAFE,#FEF9C3); border:4px solid var(–dark); border-radius:var(–radius); padding:22px; margin:14px 0; }
+.wp-box p { font-size:1.15rem; line-height:1.7; color: var(–dark); font-weight: 700; }
+.wp-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+.wp-choice { background:var(–white); border:4px solid var(–dark); border-radius:16px; padding:16px; font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s; color: var(–dark); box-shadow: var(–shadow); }
+.wp-choice:active { background:var(–sky); color: #fff; transform:translateY(3px); }
 .wp-choice.correct { background:var(–grass); color:#fff; }
 .wp-choice.wrong { background:var(–coral); color:#fff; }
 
 /* Place value */
-.pv-display { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:16px 0; }
+.pv-display { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:18px 0; }
 .pv-col { text-align:center; }
-.pv-col label { font-family:‘Fredoka One’,cursive; font-size:1rem; display:block; margin-bottom:6px; color:#666; }
-.pv-blocks { display:flex; flex-wrap:wrap; gap:3px; justify-content:center; min-height:60px; width:100%; max-width:160px; }
-.pv-block { width:24px; height:24px; border:2px solid var(–dark); border-radius:4px; }
+.pv-col label { font-family:“Fredoka One”,cursive; font-size:1.2rem; display:block; margin-bottom:8px; color:var(–dark); font-weight: 800; }
+.pv-blocks { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; min-height:60px; width:100%; max-width:180px; }
+.pv-block { width:28px; height:28px; border:3px solid var(–dark); border-radius:6px; }
 .pv-block.ten { background:var(–sky); }
 .pv-block.one { background:var(–sun); }
-.pv-num { font-family:‘Fredoka One’,cursive; font-size:3rem; color:var(–dark); text-align:center; margin:8px 0; }
-.pv-input { width:70px; height:54px; font-family:‘Fredoka One’,cursive; font-size:1.8rem; border:3px solid var(–dark); border-radius:12px; text-align:center; margin:0 6px; }
+.pv-num { font-family:“Fredoka One”,cursive; font-size:4rem; color:var(–dark); text-align:center; margin:10px 0; }
+.pv-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; margin:0 8px; color: var(–dark); background: var(–white); }
 
 /* Commutative */
-.comm-eq { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:16px 0; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); }
-.comm-num { background:var(–sky); border:3px solid var(–dark); border-radius:12px; padding:6px 18px; min-width:60px; text-align:center; }
+.comm-eq { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:18px 0; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
+.comm-num { background:var(–sky); border:4px solid var(–dark); border-radius:14px; padding:8px 22px; min-width:68px; text-align:center; color: #fff; box-shadow: var(–shadow); }
 
 /* Missing bridge */
-.bridge-row { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
-.plank { width:52px; height:52px; border-radius:10px; border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:‘Fredoka One’,cursive; font-size:1.1rem; }
-.plank.filled { background:var(–orange); color:#fff; }
-.plank.gap { background:#eee; border-style:dashed; cursor:pointer; touch-action:manipulation; }
-.num-pad { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0; }
-.num-pad-btn { width:50px; height:50px; border-radius:10px; border:3px solid var(–dark); font-family:‘Fredoka One’,cursive; font-size:1.2rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; }
-.num-pad-btn:active { background:var(–sun); transform:translateY(2px); }
+.bridge-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
+.plank { width:60px; height:60px; border-radius:12px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; }
+.plank.filled { background:var(–orange); color:#fff; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
+.plank.gap { background:#E5E7EB; border-style:dashed; cursor:pointer; touch-action:manipulation; font-size:1.8rem; }
+.num-pad { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
+.num-pad-btn { width:58px; height:58px; border-radius:12px; border:4px solid var(–dark); font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; box-shadow: var(–shadow); color: var(–dark); }
+.num-pad-btn:active { background:var(–sun); transform:translateY(3px); }
 
 /* Toy shelf sequencing */
-.toy-shelf-area { background:#8B4513; border-radius:0 0 6px 6px; height:16px; margin-top:-4px; }
-.toy-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; min-height:60px; align-items:flex-end; margin:12px 0; }
-.toy-tap { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.3s; }
-.toy-tap.selected { transform:scale(1.3); filter:brightness(1.2); }
-.toy-tap.placed { opacity:.4; pointer-events:none; }
+.toy-shelf-area { background:#8B4513; border-radius:0 0 8px 8px; height:18px; margin-top:-4px; }
+.toy-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; min-height:70px; align-items:flex-end; margin:14px 0; }
+.toy-tap { font-size:3rem; cursor:pointer; touch-action:manipulation; transition:.3s; }
+.toy-tap.selected { transform:scale(1.35); filter:brightness(1.2); }
+.toy-tap.placed { opacity:.35; pointer-events:none; }
 
 /* Subtraction */
-.sub-vis { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
-.sub-item { font-size:2rem; transition:.3s; }
-.sub-item.gone { opacity:.15; text-decoration:line-through; }
-.sub-eq { text-align:center; font-family:‘Fredoka One’,cursive; font-size:2rem; color:var(–dark); margin:12px 0; }
-.sub-choices { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:10px 0; }
-.sub-choice { width:60px; height:60px; border-radius:12px; border:3px solid var(–dark); font-family:‘Fredoka One’,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; display:flex; align-items:center; justify-content:center; }
-.sub-choice:active { background:var(–sky); }
+.sub-vis { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
+.sub-item { font-size:2.2rem; transition:.3s; }
+.sub-item.gone { opacity:.12; text-decoration:line-through; }
+.sub-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); margin:14px 0; }
+.sub-choices { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0; }
+.sub-choice { width:70px; height:70px; border-radius:14px; border:4px solid var(–dark); font-family:“Fredoka One”,cursive; font-size:1.7rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; display:flex; align-items:center; justify-content:center; box-shadow: var(–shadow); color: var(–dark); }
+.sub-choice:active { background:var(–sky); color: #fff; }
 .sub-choice.correct { background:var(–grass); color:#fff; }
 .sub-choice.wrong { background:var(–coral); color:#fff; }
 
 /* Multiplication repeated addition */
-.mult-groups { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
-.mult-group { border:3px solid var(–purple); border-radius:14px; padding:10px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; min-width:70px; }
-.mult-dot { width:28px; height:28px; border-radius:50%; background:var(–purple); border:2px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.mult-eq { text-align:center; font-family:‘Fredoka One’,cursive; font-size:1.5rem; color:var(–dark); margin:12px 0; }
-.mult-input { width:70px; height:54px; font-family:‘Fredoka One’,cursive; font-size:2rem; border:3px solid var(–dark); border-radius:12px; text-align:center; }
+.mult-groups { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
+.mult-group { border:4px solid var(–purple); border-radius:16px; padding:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; min-width:80px; background: #F5F0FF; }
+.mult-dot { width:32px; height:32px; border-radius:50%; background:var(–purple); border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.mult-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color:var(–dark); margin:14px 0; }
+.mult-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2.2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; color: var(–dark); background: var(–white); }
 
 /* Addition strategies */
-.add-strat-box { background:linear-gradient(135deg,#FFF9E6,#E8F4FF); border:3px solid var(–dark); border-radius:var(–radius); padding:16px; margin:12px 0; }
-.add-strat-box h3 { font-family:‘Fredoka One’,cursive; font-size:1.1rem; margin-bottom:8px; color:var(–dark); }
-.add-strat-eq { font-size:1.6rem; font-family:‘Fredoka One’,cursive; text-align:center; margin:8px 0; }
-.num-dots { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; margin:6px 0; }
-.nd { width:28px; height:28px; border-radius:50%; background:var(–coral); border:2px solid var(–dark); display:inline-flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:800; color:#fff; }
+.add-strat-box { background:linear-gradient(135deg,#FEF9C3,#DBEAFE); border:4px solid var(–dark); border-radius:var(–radius); padding:18px; margin:14px 0; }
+.add-strat-box h3 { font-family:“Fredoka One”,cursive; font-size:1.2rem; margin-bottom:10px; color:var(–dark); }
+.add-strat-eq { font-size:1.8rem; font-family:“Fredoka One”,cursive; text-align:center; margin:10px 0; color: var(–dark); }
+.num-dots { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:8px 0; }
+.nd { width:32px; height:32px; border-radius:50%; background:var(–coral); border:3px solid var(–dark); display:inline-flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800; color:#fff; }
 .nd.b { background:var(–sky); }
 
 /* responsive */
 @media (max-width:480px) {
-.world-grid { grid-template-columns:1fr 1fr; gap:12px; }
+.world-grid { grid-template-columns:1fr 1fr; gap:14px; }
 .game-list { grid-template-columns:1fr; }
 .bonds-grid { grid-template-columns:repeat(2,1fr); }
-.gator-num { font-size:2.2rem; padding:12px 18px; }
-.comm-eq { font-size:1.5rem; }
+.gator-num { font-size:2.8rem; padding:14px 22px; }
+.comm-eq { font-size:1.7rem; }
 .wp-choices { grid-template-columns:1fr; }
-.pv-blocks { max-width:120px; }
+.pv-blocks { max-width:130px; }
 }
 @media (max-width:360px) {
 .world-grid { grid-template-columns:1fr; }
@@ -297,7 +299,7 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 
 <div class="win-modal" id="winModal">
   <div class="win-box">
-    <div style="font-size:3rem">🎉</div>
+    <div style="font-size:3.5rem">🎉</div>
     <h2>Amazing!</h2>
     <div class="stars" id="winStars">⭐⭐⭐</div>
     <p id="winMsg">You completed this game!</p>
@@ -320,37 +322,37 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
     <div class="world-card c1" onclick="goWorld('counting')">
       <span class="w-icon">🌳</span>
       <h2>Number Forest</h2>
-      <p>Counting, Number Sense & Patterns</p>
+      <p>Counting, Number Sense &amp; Patterns</p>
       <div class="w-count">6 games • Ages 4–6</div>
     </div>
     <div class="world-card c2" onclick="goWorld('operations')">
       <span class="w-icon">🌋</span>
       <h2>Operation Volcano</h2>
-      <p>Addition, Subtraction & Multiplication</p>
+      <p>Addition, Subtraction &amp; Multiplication</p>
       <div class="w-count">6 games • Ages 4–6</div>
     </div>
     <div class="world-card c3" onclick="goWorld('placevalue')">
       <span class="w-icon">🏰</span>
       <h2>Place Value Castle</h2>
-      <p>Tens, Ones & Number Building</p>
+      <p>Tens, Ones &amp; Number Building</p>
       <div class="w-count">2 games • Ages 4–6</div>
     </div>
     <div class="world-card c4" onclick="goWorld('geometry')">
       <span class="w-icon">🏜️</span>
       <h2>Shape Desert</h2>
-      <p>Shapes, Measurement & Time</p>
+      <p>Shapes, Measurement &amp; Time</p>
       <div class="w-count">2 games • Ages 5–7</div>
     </div>
     <div class="world-card c5" onclick="goWorld('data')">
       <span class="w-icon">🌊</span>
       <h2>Data Deep Sea</h2>
-      <p>Tallying, Graphs & Sorting</p>
+      <p>Tallying, Graphs &amp; Sorting</p>
       <div class="w-count">2 games • Ages 5–7</div>
     </div>
     <div class="world-card c6" onclick="goWorld('wordproblems')">
       <span class="w-icon">📖</span>
       <h2>Story Land</h2>
-      <p>Fun Word Problems & Real-World Math</p>
+      <p>Fun Word Problems &amp; Real-World Math</p>
       <div class="w-count">1 game • Ages 4–6</div>
     </div>
   </div>
@@ -375,8 +377,8 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 // ============================
 // STATE
 // ============================
-let currentWorld = '';
-let currentGame = '';
+let currentWorld = "";
+let currentGame = "";
 let totalStars = 0;
 let gameStars = {};
 let currentGameState = {};
@@ -386,52 +388,52 @@ let currentGameState = {};
 // ============================
 const worlds = {
   counting: {
-    icon: '🌳', name: 'Number Forest', desc: 'Counting, Number Sense & Patterns',
+    icon: "🌳", name: "Number Forest", desc: "Counting, Number Sense & Patterns",
     games: [
-      { id:'balloons', icon:'🎈', name:'Balloon Pop', desc:'Pop balloons 1–10 in order!', stars:0 },
-      { id:'bridge', icon:'🌉', name:'Missing Bridge', desc:'Fill in the missing numbers!', stars:0 },
-      { id:'frog', icon:'🐸', name:'Frog Jump', desc:'Skip count by 2s!', stars:0 },
-      { id:'toyshelf', icon:'🧸', name:'Toy Shelf', desc:'Put toys in order smallest → largest!', stars:0 },
-      { id:'gator', icon:'🐊', name:'Hungry Gator', desc:'Which is bigger? >, < or =?', stars:0 },
-      { id:'partyplanner', icon:'🧁', name:'Party Planner', desc:'Even or Odd numbers?', stars:0 },
+      { id:"balloons", icon:"🎈", name:"Balloon Pop", desc:"Pop balloons 1–10 in order!", stars:0 },
+      { id:"bridge", icon:"🌉", name:"Missing Bridge", desc:"Fill in the missing numbers!", stars:0 },
+      { id:"frog", icon:"🐸", name:"Frog Jump", desc:"Skip count by 2s!", stars:0 },
+      { id:"toyshelf", icon:"🧸", name:"Toy Shelf", desc:"Put toys in order smallest → largest!", stars:0 },
+      { id:"gator", icon:"🐊", name:"Hungry Gator", desc:"Which is bigger? >, < or =?", stars:0 },
+      { id:"partyplanner", icon:"🧁", name:"Party Planner", desc:"Even or Odd numbers?", stars:0 },
     ]
   },
   operations: {
-    icon: '🌋', name: 'Operation Volcano', desc: 'Addition, Subtraction & Multiplication',
+    icon: "🌋", name: "Operation Volcano", desc: "Addition, Subtraction & Multiplication",
     games: [
-      { id:'smoothie', icon:'🥤', name:'Fruit Smoothie', desc:'Add fruits and find the total!', stars:0 },
-      { id:'subtraction', icon:'➖', name:'Take Away Town', desc:'Subtraction is just the opposite!', stars:0 },
-      { id:'numberbonds5', icon:'🎯', name:'Number Bonds to 5', desc:'All ways to make 5!', stars:0 },
-      { id:'numberbonds10', icon:'🔟', name:'Number Bonds to 10', desc:'All ways to make 10!', stars:0 },
-      { id:'repeatedadd', icon:'🔄', name:'Repeated Addition', desc:'3+3+3 = 3 groups of 3!', stars:0 },
-      { id:'robot', icon:'🤖', name:'Robot Factory', desc:'Build groups – intro to multiplication!', stars:0 },
+      { id:"smoothie", icon:"🥤", name:"Fruit Smoothie", desc:"Add fruits and find the total!", stars:0 },
+      { id:"subtraction", icon:"➖", name:"Take Away Town", desc:"Subtraction is just the opposite!", stars:0 },
+      { id:"numberbonds5", icon:"🎯", name:"Number Bonds to 5", desc:"All ways to make 5!", stars:0 },
+      { id:"numberbonds10", icon:"🔟", name:"Number Bonds to 10", desc:"All ways to make 10!", stars:0 },
+      { id:"repeatedadd", icon:"🔄", name:"Repeated Addition", desc:"3+3+3 = 3 groups of 3!", stars:0 },
+      { id:"robot", icon:"🤖", name:"Robot Factory", desc:"Build groups – intro to multiplication!", stars:0 },
     ]
   },
   placevalue: {
-    icon: '🏰', name: 'Place Value Castle', desc: 'Tens, Ones & Number Building',
+    icon: "🏰", name: "Place Value Castle", desc: "Tens, Ones & Number Building",
     games: [
-      { id:'placevalue', icon:'🧩', name:'Place Value Builder', desc:'Build numbers with tens and ones!', stars:0 },
-      { id:'commutative', icon:'🔀', name:'Flip It!', desc:'3+4 = 4+3 – order doesn\'t matter!', stars:0 },
+      { id:"placevalue", icon:"🧩", name:"Place Value Builder", desc:"Build numbers with tens and ones!", stars:0 },
+      { id:"commutative", icon:"🔀", name:"Flip It!", desc:"3+4 = 4+3 – order doesn't matter!", stars:0 },
     ]
   },
   geometry: {
-    icon: '🏜️', name: 'Shape Desert', desc: 'Shapes, Measurement & Time',
+    icon: "🏜️", name: "Shape Desert", desc: "Shapes, Measurement & Time",
     games: [
-      { id:'shapes', icon:'🎁', name:'Gift Wrapper', desc:'Match the toy to its box shape!', stars:0 },
-      { id:'clock', icon:'☀️', name:'Sun & Moon', desc:'What time is it?', stars:0 },
+      { id:"shapes", icon:"🎁", name:"Gift Wrapper", desc:"Match the toy to its box shape!", stars:0 },
+      { id:"clock", icon:"☀️", name:"Sun & Moon", desc:"What time is it?", stars:0 },
     ]
   },
   data: {
-    icon: '🌊', name: 'Data Deep Sea', desc: 'Tallying, Graphs & Sorting',
+    icon: "🌊", name: "Data Deep Sea", desc: "Tallying, Graphs & Sorting",
     games: [
-      { id:'tally', icon:'🐟', name:'Fish Counter', desc:'Tap fish and make tally marks!', stars:0 },
-      { id:'bargraph', icon:'🐚', name:'Shell Sort', desc:'Collect shells and build a graph!', stars:0 },
+      { id:"tally", icon:"🐟", name:"Fish Counter", desc:"Tap fish and make tally marks!", stars:0 },
+      { id:"bargraph", icon:"🐚", name:"Shell Sort", desc:"Collect shells and build a graph!", stars:0 },
     ]
   },
   wordproblems: {
-    icon: '📖', name: 'Story Land', desc: 'Fun Word Problems & Real-World Math',
+    icon: "📖", name: "Story Land", desc: "Fun Word Problems & Real-World Math",
     games: [
-      { id:'wordprobs', icon:'📖', name:'Story Problems', desc:'Solve real-world math with Emma!', stars:0 },
+      { id:"wordprobs", icon:"📖", name:"Story Problems", desc:"Solve real-world math with Emma!", stars:0 },
     ]
   }
 };
@@ -440,26 +442,26 @@ const worlds = {
 // NAVIGATION
 // ============================
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + id).classList.add("active");
   window.scrollTo(0,0);
 }
 function showHome() {
-  showScreen('home');
+  showScreen("home");
   updateStarsDisplay();
 }
 function goWorld(wid) {
   currentWorld = wid;
   const w = worlds[wid];
-  document.getElementById('worldHeader').innerHTML = `
+  document.getElementById("worldHeader").innerHTML = `
     <div class="lh-icon">${w.icon}</div>
     <h2>${w.name}</h2>
     <p>${w.desc}</p>`;
-  const gl = document.getElementById('gameList');
-  gl.innerHTML = '';
+  const gl = document.getElementById("gameList");
+  gl.innerHTML = "";
   w.games.forEach(g => {
     const s = gameStars[g.id] || 0;
-    const stars = '⭐'.repeat(s) + '☆'.repeat(3-s);
+    const stars = "⭐".repeat(s) + "☆".repeat(3-s);
     gl.innerHTML += `<div class="game-btn" onclick="launchGame('${g.id}')">
       <div class="g-icon">${g.icon}</div>
       <div class="g-info">
@@ -469,21 +471,21 @@ function goWorld(wid) {
       </div>
     </div>`;
   });
-  showScreen('world');
+  showScreen("world");
 }
 function launchGame(gid) {
   currentGame = gid;
-  document.getElementById('gameBackBtn').onclick = goBack;
-  showScreen('game');
+  document.getElementById("gameBackBtn").onclick = goBack;
+  showScreen("game");
   buildGame(gid);
 }
 function goBack() {
-  showScreen('world');
+  showScreen("world");
   goWorld(currentWorld);
 }
 function updateStarsDisplay() {
   const t = Object.values(gameStars).reduce((a,b)=>a+b,0);
-  document.getElementById('totalStarsDisplay').textContent = '⭐ ' + t + ' Stars Collected';
+  document.getElementById("totalStarsDisplay").textContent = "⭐ " + t + " Stars Collected";
 }
 function awardStars(gid, count) {
   if ((gameStars[gid]||0) < count) gameStars[gid] = count;
@@ -496,19 +498,19 @@ function awardStars(gid, count) {
 function showWin(msg, stars) {
   stars = Math.min(3, Math.max(1, stars));
   awardStars(currentGame, stars);
-  document.getElementById('winStars').textContent = '⭐'.repeat(stars) + '☆'.repeat(3-stars);
-  document.getElementById('winMsg').textContent = msg || 'You completed this game!';
-  document.getElementById('winModal').classList.add('open');
+  document.getElementById("winStars").textContent = "⭐".repeat(stars) + "☆".repeat(3-stars);
+  document.getElementById("winMsg").textContent = msg || "You completed this game!";
+  document.getElementById("winModal").classList.add("open");
 }
-function closeWin() { document.getElementById('winModal').classList.remove('open'); }
+function closeWin() { document.getElementById("winModal").classList.remove("open"); }
 function playAgain() { closeWin(); buildGame(currentGame); }
 
 // ============================
 // GAME BUILDER
 // ============================
 function buildGame(gid) {
-  const panel = document.getElementById('gamePanel');
-  panel.innerHTML = '<p style="text-align:center;font-size:2rem;padding:40px">Loading... 🎮</p>';
+  const panel = document.getElementById("gamePanel");
+  panel.innerHTML = "<p style='text-align:center;font-size:2.5rem;padding:40px'>Loading... 🎮</p>";
   const builders = {
     balloons: buildBalloons,
     bridge: buildBridge,
@@ -532,14 +534,14 @@ function buildGame(gid) {
   };
   currentGameState = {};
   if (builders[gid]) builders[gid]();
-  else panel.innerHTML = '<p style="text-align:center;padding:40px">Coming Soon! 🚧</p>';
+  else panel.innerHTML = "<p style='text-align:center;padding:40px'>Coming Soon! 🚧</p>";
 }
 
 // ===========================
 // 1. BALLOON POP
 // ===========================
 function buildBalloons() {
-  const colors = ['#FF6B6B','#FFD93D','#6EC6F5','#6BCB77','#A78BFA','#FF9F43','#FF6B9D','#4ECDC4','#F7B2B7','#C3F0CA'];
+  const colors = ["#FF4757","#FFD93D","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997","#F7B2B7","#86EFAC"];
   const nums = shuffle([1,2,3,4,5,6,7,8,9,10]);
   currentGameState = { next:1, total:10, nums };
   const html = `
@@ -549,11 +551,11 @@ function buildBalloons() {
       <div class="feedback" id="bf"></div>
       <div class="balloon-field" id="balloonField"></div>
     </div>`;
-  document.getElementById('gamePanel').innerHTML = html;
-  const field = document.getElementById('balloonField');
+  document.getElementById("gamePanel").innerHTML = html;
+  const field = document.getElementById("balloonField");
   nums.forEach((n,i) => {
-    const b = document.createElement('div');
-    b.className = 'balloon'; b.id='b'+n;
+    const b = document.createElement("div");
+    b.className = "balloon"; b.id="b"+n;
     b.textContent = n;
     b.style.background = colors[n-1];
     b.onclick = () => popBalloon(n);
@@ -562,17 +564,17 @@ function buildBalloons() {
 }
 function popBalloon(n) {
   const s = currentGameState;
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (n === s.next) {
-    const el = document.getElementById('b'+n);
-    el.classList.add('popped');
-    el.textContent = '💥';
-    fb.className='feedback good'; fb.textContent='✅ Yes! '+n+'!';
+    const el = document.getElementById("b"+n);
+    el.classList.add("popped");
+    el.textContent = "💥";
+    fb.className="feedback good"; fb.textContent="✅ Yes! "+n+"!";
     s.next++;
-    if (s.next > s.total) { setTimeout(()=>showWin('You popped all the balloons!', 3),600); }
+    if (s.next > s.total) { setTimeout(()=>showWin("You popped all the balloons!", 3),600); }
   } else {
-    fb.className='feedback bad'; fb.textContent='Try '+s.next+' first!';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},1000);
+    fb.className="feedback bad"; fb.textContent="Try "+s.next+" first!";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);
   }
 }
 
@@ -593,29 +595,30 @@ function renderBridge() {
   let planks = s.seq.map((n,i) => {
     if (i===s.gapIdx) return `<div class="plank gap" id="gap-plank" onclick="selectGap()">❓</div>`;
     return `<div class="plank filled">${n}</div>`;
-  }).join('');
-  document.getElementById('gamePanel').innerHTML = `
+  }).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🌉 Missing Bridge</h2>
     <div class="game-desc">🐰 needs to cross! Fill in the missing number!</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="bridge-row">${planks}</div>
-      <p style="text-align:center;color:#666;margin:8px 0">Choose the missing number:</p>
-      <div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join('')}</div>
+      <p style="text-align:center;color:#2D3561;margin:10px 0;font-size:1.1rem;font-weight:800">Choose the missing number:</p>
+      <div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join("")}</div>
       <div class="btn-row"><button class="btn-primary orange" onclick="buildBridge()">Next Puzzle ▶</button></div>
     </div>`;
 }
 function checkBridge(n) {
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (n === currentGameState.answer) {
-    document.getElementById('gap-plank').textContent = n;
-    document.getElementById('gap-plank').style.background = '#6BCB77';
-    fb.className='feedback good'; fb.textContent='🎉 Correct! 🐰 can cross!';
+    document.getElementById("gap-plank").textContent = n;
+    document.getElementById("gap-plank").style.background = "#2ECC71";
+    document.getElementById("gap-plank").style.color = "#fff";
+    fb.className="feedback good"; fb.textContent="🎉 Correct! 🐰 can cross!";
     awardStars(currentGame, 3);
     setTimeout(buildBridge, 1200);
   } else {
-    fb.className='feedback bad'; fb.textContent='Try again! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Try again! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -623,7 +626,6 @@ function checkBridge(n) {
 // 3. FROG JUMP (skip by 2s)
 // ===========================
 function buildFrog() {
-  const start = 0;
   const pads = Array.from({length:11},(_,i)=>i*2);
   currentGameState = { pads, pos:0 };
   renderFrog();
@@ -631,17 +633,17 @@ function buildFrog() {
 function renderFrog() {
   const s = currentGameState;
   let cells = s.pads.map((n,i)=>{
-    let cls = 'frog-pad';
-    if (i < s.pos) cls += ' visited';
-    if (i === s.pos) cls += ' active';
-    return `<div class="${cls}" id="fp${i}">${i===s.pos?'🐸':n}</div>`;
-  }).join('');
-  document.getElementById('gamePanel').innerHTML = `
+    let cls = "frog-pad";
+    if (i < s.pos) cls += " visited";
+    if (i === s.pos) cls += " active";
+    return `<div class="${cls}" id="fp${i}">${i===s.pos?"🐸":n}</div>`;
+  }).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🐸 Frog Jump!</h2>
-    <div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump to the next number.</div>
+    <div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump!</div>
     <div class="game-box">
       <div class="frog-track">${cells}</div>
-      <div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--dark);margin:10px 0">
+      <div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.7rem;color:var(--dark);margin:12px 0">
         🐸 is on: <span style="color:var(--coral)">${s.pads[s.pos]}</span>
       </div>
       <div class="btn-row">
@@ -655,7 +657,7 @@ function hopFrog() {
   if (s.pos < s.pads.length - 1) {
     s.pos++;
     renderFrog();
-    if (s.pos === s.pads.length - 1) { setTimeout(()=>showWin('You counted all the way to '+s.pads[s.pads.length-1]+'!', 3),400); }
+    if (s.pos === s.pads.length - 1) { setTimeout(()=>showWin("You counted all the way to "+s.pads[s.pads.length-1]+"!", 3),400); }
   }
 }
 
@@ -663,7 +665,7 @@ function hopFrog() {
 // 4. TOY SHELF SEQUENCING
 // ===========================
 function buildToyShelf() {
-  const allToys = ['🐻','🦁','🐯','🐘','🦒','🐬','🦊','🐼'];
+  const allToys = ["🐻","🦁","🐯","🐘","🦒","🐬","🦊","🐼"];
   const toys = shuffle(allToys).slice(0,4);
   const sizes = shuffle([1,2,3,4]);
   const toyObjs = toys.map((t,i)=>({emoji:t, size:sizes[i]}));
@@ -676,18 +678,18 @@ function renderToyShelf() {
   const tapped = s.tapped.map(t=>t.emoji);
   const toys = s.toyObjs.map((t,i)=>{
     const placed = tapped.includes(t.emoji);
-    return `<div class="toy-tap${placed?' placed':''}" style="font-size:${1.2+t.size*.4}rem" onclick="tapToy(${i})">${t.emoji}</div>`;
-  }).join('');
-  const shelf = s.tapped.map(t=>`<div style="font-size:${1.2+t.size*.4}rem">${t.emoji}</div>`).join('');
-  document.getElementById('gamePanel').innerHTML = `
+    return `<div class="toy-tap${placed?" placed":""}" style="font-size:${1.4+t.size*.5}rem" onclick="tapToy(${i})">${t.emoji}</div>`;
+  }).join("");
+  const shelf = s.tapped.map(t=>`<div style="font-size:${1.4+t.size*.5}rem">${t.emoji}</div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🧸 Toy Shelf</h2>
     <div class="game-desc">Tap the toys from <b>Smallest → Largest</b> to put them on the shelf!</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
-      <p style="text-align:center;color:#888;font-size:.9rem;margin-bottom:6px">Tap in order:</p>
+      <p style="text-align:center;color:#2D3561;font-size:1rem;font-weight:800;margin-bottom:8px">Tap in order:</p>
       <div class="toy-row">${toys}</div>
-      <div style="background:#F5DEB3;border-radius:12px;padding:10px;margin:10px 0;min-height:60px;display:flex;align-items:flex-end;justify-content:center;gap:10px;border:3px solid var(--dark)">
-        ${shelf || '<span style="color:#bbb;font-size:.9rem;align-self:center">Shelf is empty</span>'}
+      <div style="background:#F5DEB3;border-radius:14px;padding:12px;margin:12px 0;min-height:70px;display:flex;align-items:flex-end;justify-content:center;gap:12px;border:4px solid var(--dark)">
+        ${shelf || "<span style='color:#9CA3AF;font-size:1rem;align-self:center;font-weight:700'>Shelf is empty</span>"}
       </div>
       <div class="toy-shelf-area"></div>
       <div class="btn-row"><button class="btn-primary orange" onclick="buildToyShelf()">↺ New Puzzle</button></div>
@@ -698,15 +700,15 @@ function tapToy(i) {
   const toy = s.toyObjs[i];
   if (s.tapped.find(t=>t.emoji===toy.emoji)) return;
   const expected = s.sorted[s.tapped.length];
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (toy.emoji === expected.emoji) {
     s.tapped.push(toy);
-    fb.className='feedback good'; fb.textContent='✅ Great!';
-    if (s.tapped.length === s.sorted.length) { setTimeout(()=>showWin('Shelf is sorted perfectly!', 3),500); return; }
+    fb.className="feedback good"; fb.textContent="✅ Great!";
+    if (s.tapped.length === s.sorted.length) { setTimeout(()=>showWin("Shelf is sorted perfectly!", 3),500); return; }
     renderToyShelf();
   } else {
-    fb.className='feedback bad'; fb.textContent='Not quite! Try the smallest one left! 🤔';
-    setTimeout(()=>{if(document.getElementById('bf'))document.getElementById('bf').textContent='';},1000);
+    fb.className="feedback bad"; fb.textContent="Not quite! Try the smallest one left! 🤔";
+    setTimeout(()=>{if(document.getElementById("bf"))document.getElementById("bf").textContent="";},1000);
   }
 }
 
@@ -716,12 +718,12 @@ function tapToy(i) {
 function buildGator() {
   let a = rnd(1,12), b = rnd(1,12);
   while (a===b) b = rnd(1,12);
-  currentGameState = { a, b, answer: a>b?'>':a<b?'<':'=' };
+  currentGameState = { a, b, answer: a>b?">":a<b?"<":"=" };
   renderGator();
 }
 function renderGator() {
   const s = currentGameState;
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🐊 Hungry Gator</h2>
     <div class="game-desc">The alligator always eats the <b>bigger</b> number! Pick the right symbol!</div>
     <div class="game-box">
@@ -739,14 +741,14 @@ function renderGator() {
     </div>`;
 }
 function checkGator(sym) {
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (sym===currentGameState.answer) {
-    fb.className='feedback good'; fb.textContent='🐊 Chomp! Correct!';
+    fb.className="feedback good"; fb.textContent="🐊 Chomp! Correct!";
     awardStars(currentGame, 3);
     setTimeout(buildGator, 1000);
   } else {
-    fb.className='feedback bad'; fb.textContent='Oops! Try again! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Oops! Try again! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -760,32 +762,31 @@ function buildPartyPlanner() {
 }
 function renderPartyPlanner() {
   const s = currentGameState;
-  const cups = Array.from({length:s.n},()=>'🧁').join(' ');
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🧁 Party Planner</h2>
     <div class="game-desc">Can ALL the cupcakes be paired up?<br>If yes → <b>Even!</b> If one is left alone → <b>Odd!</b></div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
-      <div style="text-align:center;font-size:1.8rem;margin:12px 0">There are <b>${s.n}</b> cupcakes</div>
-      <div class="cupcake-row">${'<span class="cupcake">🧁</span>'.repeat(s.n)}</div>
+      <div style="text-align:center;font-size:2rem;margin:14px 0;font-family:'Fredoka One',cursive;color:var(--dark)">There are <b>${s.n}</b> cupcakes</div>
+      <div class="cupcake-row">${"<span class='cupcake'>🧁</span>".repeat(s.n)}</div>
       <div class="btn-row">
         <button class="btn-primary green" onclick="checkEvenOdd('even')">✌️ Even</button>
-        <button class="btn-primary coral" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button>
+        <button class="btn-primary" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button>
       </div>
       <div class="btn-row"><button class="btn-primary blue" onclick="buildPartyPlanner()">▶ Next Cupcake!</button></div>
     </div>`;
 }
 function checkEvenOdd(ans) {
-  const fb = document.getElementById('bf');
-  const correct = currentGameState.n%2===0 ? 'even':'odd';
+  const fb = document.getElementById("bf");
+  const correct = currentGameState.n%2===0 ? "even":"odd";
   if (ans===correct) {
-    fb.className='feedback good';
-    fb.textContent = correct==='even' ? '🎉 Even! Every cupcake has a pair!' : '🎉 Odd! One cupcake is alone!';
+    fb.className="feedback good";
+    fb.textContent = correct==="even" ? "🎉 Even! Every cupcake has a pair!" : "🎉 Odd! One cupcake is alone!";
     awardStars(currentGame,3);
     setTimeout(buildPartyPlanner,1200);
   } else {
-    fb.className='feedback bad'; fb.textContent='Try pairing them up! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Try pairing them up! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -793,7 +794,7 @@ function checkEvenOdd(ans) {
 // 7. FRUIT SMOOTHIE (Addition)
 // ===========================
 function buildSmoothie() {
-  const fruits = ['🍓','🍌','🍊','🍇','🍎','🍑','🫐','🍒'];
+  const fruits = ["🍓","🍌","🍊","🍇","🍎","🍑","🫐","🍒"];
   const shelf = shuffle(fruits).slice(0,6);
   currentGameState = { shelf, basket:[] };
   renderSmoothie();
@@ -801,13 +802,13 @@ function buildSmoothie() {
 function renderSmoothie() {
   const s = currentGameState;
   const total = s.basket.length;
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🥤 Fruit Smoothie</h2>
     <div class="game-desc">Tap fruits to add them to the blender! Press <b>Blend!</b> to find the total! 🎯</div>
     <div class="game-box">
-      <div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join('')}</div>
-      <div class="blender">${s.basket.join(' ') || '<span style="color:#bbb">Drop fruits here! 🫙</span>'}</div>
-      <div class="blend-total" id="blendTotal">${total>0?'Count: '+total:''}</div>
+      <div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join("")}</div>
+      <div class="blender">${s.basket.join(" ") || "<span style='color:#9CA3AF;font-weight:700'>Drop fruits here! 🫙</span>"}</div>
+      <div class="blend-total" id="blendTotal">${total>0?"Count: "+total:""}</div>
       <div class="btn-row">
         <button class="btn-primary green" onclick="blendIt()">🌀 Blend!</button>
         <button class="btn-primary blue" onclick="buildSmoothie()">↺ New Recipe</button>
@@ -821,7 +822,7 @@ function addFruit(i) {
 function blendIt() {
   const n = currentGameState.basket.length;
   if (n===0) return;
-  document.getElementById('blendTotal').textContent = '🥤 Total = '+n+'! Great job!';
+  document.getElementById("blendTotal").textContent = "🥤 Total = "+n+"! Great job!";
   if(n>=3) { awardStars(currentGame, 3); }
 }
 
@@ -834,31 +835,31 @@ function buildSubtraction() {
   const ans = total-take;
   const choices = shuffle([ans, ans+1, ans-1, ans+2].filter(x=>x>=0 && x<=total));
   currentGameState = { total, take, ans };
-  const items = Array.from({length:total},()=>'⭐');
-  const vis = items.map((it,i)=>`<span class="sub-item${i>=ans?' gone':''}">${it}</span>`).join('');
-  document.getElementById('gamePanel').innerHTML = `
+  const items = Array.from({length:total},()=>"⭐");
+  const vis = items.map((it,i)=>`<span class="sub-item${i>=ans?" gone":""}">${it}</span>`).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>➖ Take Away Town!</h2>
     <div class="game-desc">We had <b>${total}</b> stars. We take away <b>${take}</b>. How many are left?</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="sub-vis">${vis}</div>
       <div class="sub-eq">${total} − ${take} = ?</div>
-      <div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join('')}</div>
+      <div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join("")}</div>
       <div class="btn-row"><button class="btn-primary blue" onclick="buildSubtraction()">▶ Next</button></div>
     </div>`;
 }
 function checkSub(n) {
-  const fb = document.getElementById('bf');
-  document.querySelectorAll('.sub-choice').forEach(b=>b.onclick=null);
+  const fb = document.getElementById("bf");
+  document.querySelectorAll(".sub-choice").forEach(b=>b.onclick=null);
   if (n===currentGameState.ans) {
-    document.querySelectorAll('.sub-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('correct'); });
-    fb.className='feedback good'; fb.textContent='🎉 Correct! '+currentGameState.total+' − '+currentGameState.take+' = '+n;
+    document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("correct"); });
+    fb.className="feedback good"; fb.textContent="🎉 Correct! "+currentGameState.total+" − "+currentGameState.take+" = "+n;
     awardStars(currentGame,3);
     setTimeout(buildSubtraction,1200);
   } else {
-    document.querySelectorAll('.sub-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('wrong'); });
-    fb.className='feedback bad'; fb.textContent='Try again! Count the bright stars! 🌟';
-    setTimeout(()=>{document.querySelectorAll('.sub-choice').forEach(b=>{b.classList.remove('wrong');b.onclick=()=>checkSub(+b.textContent);});fb.textContent='';fb.className='feedback';},900);
+    document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("wrong"); });
+    fb.className="feedback bad"; fb.textContent="Try again! Count the bright stars! 🌟";
+    setTimeout(()=>{document.querySelectorAll(".sub-choice").forEach(b=>{b.classList.remove("wrong");b.onclick=()=>checkSub(+b.textContent);});fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -874,24 +875,21 @@ function buildBonds(target) {
 function renderBond() {
   const s = currentGameState;
   const [a,b] = s.pairs[s.current];
-  const wrongA = rnd(0,s.target); const wrongB = s.target-wrongA;
-  const choices = shuffle([[a,b],[wrongA+1<=s.target?wrongA+1:0, s.target-(wrongA+1<=s.target?wrongA+1:0)]]).slice(0,4);
-  // just show number choices for b
-  const bChoices = shuffle([b, (b+1)%( s.target+1), (b+2)%(s.target+1), b===0?s.target:b-1]);
-  document.getElementById('gamePanel').innerHTML = `
+  const bChoices = shuffle([b, (b+1)%(s.target+1), (b+2)%(s.target+1), b===0?s.target:b-1]);
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🎯 Number Bonds to ${s.target}</h2>
     <div class="game-desc">Find ALL the ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="bond-visual">
-        <span style="font-size:3rem">${a}</span>
-        <span style="font-size:2rem">+</span>
-        <span style="background:var(--sun);border:3px solid var(--dark);border-radius:12px;padding:4px 16px;font-size:2rem">?</span>
-        <span style="font-size:2rem">=</span>
-        <span style="font-size:3rem">${s.target}</span>
+        <span style="font-size:3.5rem">${a}</span>
+        <span style="font-size:2.2rem">+</span>
+        <span style="background:var(--sun);border:4px solid var(--dark);border-radius:14px;padding:6px 20px;font-size:2.5rem;color:#6B4200">?</span>
+        <span style="font-size:2.2rem">=</span>
+        <span style="font-size:3.5rem">${s.target}</span>
       </div>
       <div class="bonds-grid">
-        ${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join('')}
+        ${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join("")}
       </div>
       <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(s.current/s.pairs.length)*100}%"></div></div>
     </div>`;
@@ -899,15 +897,16 @@ function renderBond() {
 function checkBond(n) {
   const s = currentGameState;
   const [a,b] = s.pairs[s.current];
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("fb") || document.getElementById("bf");
+  const fbEl = document.getElementById("bf");
   if (n===b) {
-    fb.className='feedback good'; fb.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`;
+    fbEl.className="feedback good"; fbEl.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`;
     s.current++;
-    if (s.current >= s.pairs.length) { setTimeout(()=>showWin('You found all bonds to '+s.target+'!',3),700); return; }
+    if (s.current >= s.pairs.length) { setTimeout(()=>showWin("You found all bonds to "+s.target+"!",3),700); return; }
     setTimeout(renderBond,900);
   } else {
-    fb.className='feedback bad'; fb.textContent='Try again! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},800);
+    fbEl.className="feedback bad"; fbEl.textContent="Try again! 🤔";
+    setTimeout(()=>{fbEl.textContent="";fbEl.className="feedback";},800);
   }
 }
 
@@ -921,12 +920,12 @@ function buildRepeatedAdd() {
 }
 function renderRepeatedAdd() {
   const s = currentGameState;
-  const addStr = Array.from({length:s.groups},()=>s.each).join('+');
+  const addStr = Array.from({length:s.groups},()=>s.each).join("+");
   const groupsHtml = Array.from({length:s.groups},(_,g)=>`
     <div class="mult-group">
-      ${Array.from({length:s.each},()=>'<div class="mult-dot">●</div>').join('')}
-    </div>`).join('');
-  document.getElementById('gamePanel').innerHTML = `
+      ${Array.from({length:s.each},()=>"<div class='mult-dot'>●</div>").join("")}
+    </div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🔄 Repeated Addition</h2>
     <div class="game-desc">${addStr} means <b>${s.groups} groups of ${s.each}</b>! What's the total?</div>
     <div class="game-box">
@@ -940,14 +939,14 @@ function renderRepeatedAdd() {
     </div>`;
 }
 function checkRA() {
-  const val = +document.getElementById('raInput').value;
-  const fb = document.getElementById('bf');
+  const val = +document.getElementById("raInput").value;
+  const fb = document.getElementById("bf");
   if (val===currentGameState.total) {
-    fb.className='feedback good'; fb.textContent='🎉 Correct! '+currentGameState.total+'!';
+    fb.className="feedback good"; fb.textContent="🎉 Correct! "+currentGameState.total+"!";
     awardStars(currentGame,3); setTimeout(buildRepeatedAdd,1000);
   } else {
-    fb.className='feedback bad'; fb.textContent='Try again! Count the dots! 🔴';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Try again! Count the dots! 🔴";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -963,9 +962,9 @@ function renderRobot() {
   const s = currentGameState;
   const groupsHtml = Array.from({length:s.groups},(_,g)=>`
     <div class="robot-group">
-      ${Array.from({length:s.wheels},()=>'<div class="wheel">⚙️</div>').join('')}
-    </div>`).join('');
-  document.getElementById('gamePanel').innerHTML = `
+      ${Array.from({length:s.wheels},()=>"<div class='wheel'>⚙️</div>").join("")}
+    </div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🤖 Robot Factory</h2>
     <div class="game-desc">Make <b>${s.groups} groups of ${s.wheels} wheels</b>! Count all the wheels!</div>
     <div class="game-box">
@@ -979,14 +978,14 @@ function renderRobot() {
     </div>`;
 }
 function checkRobot() {
-  const val = +document.getElementById('robotInput').value;
-  const fb = document.getElementById('bf');
+  const val = +document.getElementById("robotInput").value;
+  const fb = document.getElementById("bf");
   if (val===currentGameState.total) {
-    fb.className='feedback good'; fb.textContent='🤖 Factory complete! '+currentGameState.total+' wheels!';
+    fb.className="feedback good"; fb.textContent="🤖 Factory complete! "+currentGameState.total+" wheels!";
     awardStars(currentGame,3); setTimeout(buildRobot,1000);
   } else {
-    fb.className='feedback bad'; fb.textContent='Count the ⚙️ wheels again!';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Count the ⚙️ wheels again!";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -996,16 +995,16 @@ function checkRobot() {
 function buildPlaceValue() {
   const n = rnd(11,99);
   const tens = Math.floor(n/10), ones = n%10;
-  currentGameState = { n, tens, ones, phase:'show' };
+  currentGameState = { n, tens, ones, phase:"show" };
   renderPlaceValue();
 }
 function renderPlaceValue() {
   const s = currentGameState;
-  const tenBlocks = Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join('');
-  const oneBlocks = Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join('');
-  document.getElementById('gamePanel').innerHTML = `
+  const tenBlocks = Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join("");
+  const oneBlocks = Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🧩 Place Value Builder</h2>
-    <div class="game-desc">How many <span style="color:var(--sky);font-weight:800">tens</span> and <span style="color:var(--sun);font-weight:800">ones</span> make this number?</div>
+    <div class="game-desc">How many <span style="color:var(--sky);font-weight:900">tens</span> and <span style="color:#8B5000;font-weight:900">ones</span> make this number?</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="pv-num">${s.n}</div>
@@ -1013,7 +1012,7 @@ function renderPlaceValue() {
         <div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tenBlocks}</div></div>
         <div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${oneBlocks}</div></div>
       </div>
-      <div style="text-align:center;margin:14px 0;font-family:'Fredoka One',cursive;font-size:1.2rem">
+      <div style="text-align:center;margin:16px 0;font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--dark)">
         ${s.n} = <input class="pv-input" type="number" id="pvTens" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> tens + 
         <input class="pv-input" type="number" id="pvOnes" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> ones
       </div>
@@ -1024,15 +1023,15 @@ function renderPlaceValue() {
     </div>`;
 }
 function checkPV() {
-  const t = +document.getElementById('pvTens').value;
-  const o = +document.getElementById('pvOnes').value;
-  const fb = document.getElementById('bf');
+  const t = +document.getElementById("pvTens").value;
+  const o = +document.getElementById("pvOnes").value;
+  const fb = document.getElementById("bf");
   if (t===currentGameState.tens && o===currentGameState.ones) {
-    fb.className='feedback good'; fb.textContent='🎉 Yes! '+currentGameState.n+' = '+t+' tens + '+o+' ones!';
+    fb.className="feedback good"; fb.textContent="🎉 Yes! "+currentGameState.n+" = "+t+" tens + "+o+" ones!";
     awardStars(currentGame,3); setTimeout(buildPlaceValue,1200);
   } else {
-    fb.className='feedback bad'; fb.textContent='Count the blue blocks for tens, yellow for ones! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},1000);
+    fb.className="feedback bad"; fb.textContent="Count the blue blocks for tens, yellow for ones! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);
   }
 }
 
@@ -1042,25 +1041,25 @@ function checkPV() {
 function buildCommutative() {
   const a = rnd(1,9), b = rnd(1,9);
   currentGameState = { a, b };
-  const dotsA1 = Array.from({length:a},()=>'<div class="nd">●</div>').join('');
-  const dotsA2 = Array.from({length:b},()=>'<div class="nd b">●</div>').join('');
-  document.getElementById('gamePanel').innerHTML = `
+  const dotsA1 = Array.from({length:a},()=>"<div class='nd'>●</div>").join("");
+  const dotsA2 = Array.from({length:b},()=>"<div class='nd b'>●</div>").join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🔀 Flip It!</h2>
     <div class="game-desc">The order doesn't matter! Both ways give the same total!</div>
     <div class="game-box">
       <div class="comm-eq">
-        <div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun)">${a+b}</div>
+        <div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div>
       </div>
       <div class="num-dots">${dotsA1}${dotsA2}</div>
-      <div style="text-align:center;font-size:1.5rem;margin:8px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div>
+      <div style="text-align:center;font-size:1.7rem;margin:10px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div>
       <div class="comm-eq">
-        <div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun)">${a+b}</div>
+        <div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div>
       </div>
       <div class="num-dots">${dotsA2}${dotsA1}</div>
-      <div class="feedback good" style="display:block;margin-top:12px">✅ ${a}+${b} = ${b}+${a} = ${a+b} !</div>
-      <div class="btn-row"><button class="btn-primary green" onclick="()=>{awardStars(currentGame,3);buildCommutative()}">▶ See Another!</button></div>
+      <div class="feedback good" style="display:block;margin-top:14px">✅ ${a}+${b} = ${b}+${a} = ${a+b}!</div>
+      <div class="btn-row"><button class="btn-primary green" id="commNext">▶ See Another!</button></div>
     </div>`;
-  document.querySelector('.btn-primary.green').onclick = () => { awardStars(currentGame,3); buildCommutative(); };
+  document.getElementById("commNext").onclick = () => { awardStars(currentGame,3); buildCommutative(); };
 }
 
 // ===========================
@@ -1068,39 +1067,39 @@ function buildCommutative() {
 // ===========================
 function buildShapes() {
   const toys = [
-    {emoji:'⚽',shape:'sphere',name:'Sphere',opts:['Sphere','Cube','Cylinder','Cone']},
-    {emoji:'🎲',shape:'cube',name:'Cube',opts:['Sphere','Cube','Cylinder','Cone']},
-    {emoji:'🥫',shape:'cylinder',name:'Cylinder',opts:['Sphere','Cube','Cylinder','Cone']},
-    {emoji:'🍦',shape:'cone',name:'Cone',opts:['Sphere','Cube','Cylinder','Cone']},
-    {emoji:'📦',shape:'cube',name:'Cube',opts:['Sphere','Cube','Cylinder','Cone']},
-    {emoji:'🏀',shape:'sphere',name:'Sphere',opts:['Sphere','Cube','Cylinder','Cone']},
+    {emoji:"⚽",shape:"sphere",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🎲",shape:"cube",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🥫",shape:"cylinder",name:"Cylinder",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🍦",shape:"cone",name:"Cone",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"📦",shape:"cube",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🏀",shape:"sphere",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
   ];
   const toy = toys[rnd(0,toys.length-1)];
   currentGameState = { toy };
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🎁 Gift Wrapper</h2>
     <div class="game-desc">Pick the right box shape to wrap this toy! 🎁</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="toy-display">${toy.emoji}</div>
-      <p style="text-align:center;color:#666;margin-bottom:12px">What shape box do I need?</p>
+      <p style="text-align:center;color:#2D3561;margin-bottom:14px;font-size:1.1rem;font-weight:800">What shape box do I need?</p>
       <div class="shape-options">
         ${toy.opts.map(s=>`<div class="shape-opt" onclick="checkShape('${s}','${toy.name}')">
-          ${s==='Sphere'?'🔵':s==='Cube'?'📦':s==='Cylinder'?'🥫':'🍦'}
+          ${s==="Sphere"?"🔵":s==="Cube"?"📦":s==="Cylinder"?"🥫":"🍦"}
           <span>${s}</span>
-        </div>`).join('')}
+        </div>`).join("")}
       </div>
       <div class="btn-row"><button class="btn-primary blue" onclick="buildShapes()">▶ Next Toy</button></div>
     </div>`;
 }
 function checkShape(picked, answer) {
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (picked===answer) {
-    fb.className='feedback good'; fb.textContent='🎁 Perfect wrap! It\'s a '+answer+'!';
+    fb.className="feedback good"; fb.textContent="🎁 Perfect wrap! It's a "+answer+"!";
     awardStars(currentGame,3); setTimeout(buildShapes,1200);
   } else {
-    fb.className='feedback bad'; fb.textContent='Not quite! Think about the toy\'s shape! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Not quite! Think about the toy's shape! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -1112,7 +1111,7 @@ function buildClock() {
   currentGameState = { h, m };
   const mChoices = [0,15,30,45];
   const hChoices = shuffle([h, h%12+1, (h+2)%12||12, (h+10)%12||12]).slice(0,3);
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>☀️ Sun & Moon – Tell the Time!</h2>
     <div class="game-desc">Look at the clock! What time is it?</div>
     <div class="game-box">
@@ -1120,7 +1119,7 @@ function buildClock() {
       <div class="clock-svg-wrap">${drawClock(h,m)}</div>
       <div class="time-target">What time does the clock show?</div>
       <div class="btn-row">
-        ${hChoices.map(hh=>mChoices.map(mm=>`<button class="btn-primary blue" style="font-size:.95rem;padding:10px 14px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,'0')}</button>`).join('')).join('')}
+        ${hChoices.map(hh=>mChoices.map(mm=>`<button class="btn-primary blue" style="font-size:1.1rem;padding:12px 16px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,"0")}</button>`).join("")).join("")}
       </div>
       <div class="btn-row"><button class="btn-primary orange" onclick="buildClock()">▶ Next Clock</button></div>
     </div>`;
@@ -1131,24 +1130,24 @@ function drawClock(h,m) {
   const mRad=mAngle*Math.PI/180, hRad=hAngle*Math.PI/180;
   const mx=cx+65*Math.cos(mRad), my=cy+65*Math.sin(mRad);
   const hx=cx+45*Math.cos(hRad), hy=cy+45*Math.sin(hRad);
-  let nums='';
-  for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="12" fill="#2D3561">${i}</text>`;}
-  return `<svg width="180" height="180" viewBox="0 0 180 180">
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFEF7" stroke="#2D3561" stroke-width="4"/>
+  let nums="";
+  for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="13" fill="#1A1F4B" font-weight="bold">${i}</text>`;}
+  return `<svg width="200" height="200" viewBox="0 0 180 180">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFDF0" stroke="#1A1F4B" stroke-width="5"/>
     ${nums}
-    <line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#6EC6F5" stroke-width="4" stroke-linecap="round"/>
-    <line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#2D3561" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="${cx}" cy="${cy}" r="5" fill="#2D3561"/>
+    <line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#3BAEFF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#1A1F4B" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="6" fill="#1A1F4B"/>
   </svg>`;
 }
 function checkClock(hh,mm) {
-  const fb = document.getElementById('bf');
+  const fb = document.getElementById("bf");
   if (hh===currentGameState.h && mm===currentGameState.m) {
-    fb.className='feedback good'; fb.textContent='🕐 Yes! '+hh+':'+String(mm).padStart(2,'0')+'!';
+    fb.className="feedback good"; fb.textContent="🕐 Yes! "+hh+":"+String(mm).padStart(2,"0")+"!";
     awardStars(currentGame,3); setTimeout(buildClock,1200);
   } else {
-    fb.className='feedback bad'; fb.textContent='Look at the hands again! 🤔';
-    setTimeout(()=>{fb.textContent='';fb.className='feedback';},900);
+    fb.className="feedback bad"; fb.textContent="Look at the hands again! 🤔";
+    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
@@ -1162,20 +1161,20 @@ function buildTally() {
 }
 function renderTally() {
   const s = currentGameState;
-  const fishes = Array.from({length:s.target},(_, i)=>`<div class="tally-fish" onclick="tapFish()" id="tf${i}">🐟</div>`).join('');
+  const fishes = Array.from({length:s.target},(_, i)=>`<div class="tally-fish" onclick="tapFish()" id="tf${i}">🐟</div>`).join("");
   function makeTally(n) {
-    let t='',groups=Math.floor(n/5),rem=n%5;
-    for(let g=0;g<groups;g++) t+='||||̶ ';
-    t+='|'.repeat(rem);
-    return t||'—';
+    let t="",groups=Math.floor(n/5),rem=n%5;
+    for(let g=0;g<groups;g++) t+="||||̶ ";
+    t+="|".repeat(rem);
+    return t||"—";
   }
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🐟 Fish Counter</h2>
     <div class="game-desc">Tap each fish as it swims by! Watch the tally marks appear!</div>
     <div class="game-box">
       <div class="tally-fish-row">${fishes}</div>
-      <div style="text-align:center;color:#888;font-size:.85rem;margin:4px 0">Tap the fish!</div>
-      <p style="text-align:center;color:#666;margin:8px 0;font-weight:700">Tally Marks:</p>
+      <div style="text-align:center;color:#2D3561;font-size:1rem;margin:6px 0;font-weight:700">Tap the fish!</div>
+      <p style="text-align:center;color:#2D3561;margin:10px 0;font-size:1.1rem;font-weight:800">Tally Marks:</p>
       <div class="tally-marks" id="tallyMarks">${makeTally(s.count)}</div>
       <div class="tally-count" id="tallyCount">Count: ${s.count}</div>
       <div class="btn-row"><button class="btn-primary orange" onclick="buildTally()">↺ New School</button></div>
@@ -1186,10 +1185,10 @@ function tapFish() {
   const s = currentGameState;
   if (s.count >= s.target) return;
   s.count++;
-  document.getElementById('tallyMarks').textContent = window._makeTally(s.count);
-  document.getElementById('tallyCount').textContent = 'Count: '+s.count;
+  document.getElementById("tallyMarks").textContent = window._makeTally(s.count);
+  document.getElementById("tallyCount").textContent = "Count: "+s.count;
   if (s.count===s.target) {
-    setTimeout(()=>showWin('You counted '+s.target+' fish!',3),400);
+    setTimeout(()=>showWin("You counted "+s.target+" fish!",3),400);
   }
 }
 
@@ -1197,28 +1196,28 @@ function tapFish() {
 // 17. BAR GRAPH
 // ===========================
 function buildBarGraph() {
-  const items = [{e:'🐚',name:'Shell',col:'#FFD93D'},{e:'🦀',name:'Crab',col:'#FF6B6B'},{e:'⭐',name:'Star',col:'#6EC6F5'},{e:'🪸',name:'Coral',col:'#FF6B9D'}];
+  const items = [{e:"🐚",name:"Shell",col:"#FFD93D"},{e:"🦀",name:"Crab",col:"#FF4757"},{e:"⭐",name:"Star",col:"#3BAEFF"},{e:"🪸",name:"Coral",col:"#FF4D94"}];
   currentGameState = { items, counts:[0,0,0,0] };
   renderBarGraph();
 }
 function renderBarGraph() {
   const s = currentGameState;
-  const btns = s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join('');
+  const btns = s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join("");
   const max = Math.max(...s.counts, 1);
   const bars = s.items.map((it,i)=>{
-    const h = Math.round((s.counts[i]/Math.max(max,1))*120)+4;
-    return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:''}</div>`;
-  }).join('');
-  document.getElementById('gamePanel').innerHTML = `
+    const h = Math.round((s.counts[i]/Math.max(max,1))*130)+6;
+    return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:""}</div>`;
+  }).join("");
+  document.getElementById("gamePanel").innerHTML = `
     <h2>🐚 Shell Sort</h2>
     <div class="game-desc">Press a shell to collect it! Watch your bar graph grow! 📊</div>
     <div class="game-box">
       <div class="graph-items">${btns}</div>
       <div class="bar-graph">${bars}</div>
-      <div style="display:flex;justify-content:center;gap:14px;font-family:'Fredoka One',cursive;font-size:.85rem">
-        ${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join('')}
+      <div style="display:flex;justify-content:center;gap:16px;font-family:'Fredoka One',cursive;font-size:1rem;flex-wrap:wrap;color:var(--dark)">
+        ${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join("")}
       </div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear & Restart</button></div>
+      <div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear &amp; Restart</button></div>
     </div>`;
 }
 function addBar(i) {
@@ -1232,42 +1231,42 @@ function addBar(i) {
 // 18. WORD PROBLEMS
 // ===========================
 const problems = [
-  { text:'Emma has 🍎🍎🍎 3 apples. She picks 4 more apples. How many does she have now?', choices:[5,7,8,6], answer:7 },
-  { text:'Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many are left?', choices:[2,3,7,4], answer:3 },
-  { text:'There are 🐔🐔🐔 3 hens. Each hen lays 2 eggs 🥚🥚. How many eggs are there?', choices:[5,6,7,8], answer:6 },
-  { text:'Sara has 8 🎈 balloons. 3 float away. How many does she have?', choices:[4,5,6,11], answer:5 },
-  { text:'Jake has 🌟🌟 2 packs of stickers with 5 stickers each. How many stickers total?', choices:[7,10,12,15], answer:10 },
-  { text:'A pond has 🐸🐸🐸🐸 4 frogs. 3 more jump in. How many frogs now?', choices:[6,7,8,9], answer:7 },
-  { text:'Mia shared 12 🍬 candies equally among 3 friends. How many does each friend get?', choices:[3,4,6,9], answer:4 },
+  { text:"Emma has 🍎🍎🍎 3 apples. She picks 4 more apples. How many does she have now?", choices:[5,7,8,6], answer:7 },
+  { text:"Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many are left?", choices:[2,3,7,4], answer:3 },
+  { text:"There are 🐔🐔🐔 3 hens. Each hen lays 2 eggs 🥚🥚. How many eggs are there?", choices:[5,6,7,8], answer:6 },
+  { text:"Sara has 8 🎈 balloons. 3 float away. How many does she have?", choices:[4,5,6,11], answer:5 },
+  { text:"Jake has 🌟🌟 2 packs of stickers with 5 stickers each. How many stickers total?", choices:[7,10,12,15], answer:10 },
+  { text:"A pond has 🐸🐸🐸🐸 4 frogs. 3 more jump in. How many frogs now?", choices:[6,7,8,9], answer:7 },
+  { text:"Mia shared 12 🍬 candies equally among 3 friends. How many does each friend get?", choices:[3,4,6,9], answer:4 },
 ];
 function buildWordProbs() {
   const idx = rnd(0, problems.length-1);
   const p = problems[idx];
   currentGameState = { p };
   const shuffled = shuffle([...p.choices]);
-  document.getElementById('gamePanel').innerHTML = `
+  document.getElementById("gamePanel").innerHTML = `
     <h2>📖 Story Problems</h2>
     <div class="game-desc">Read the story and pick the right answer!</div>
     <div class="game-box">
       <div class="feedback" id="bf"></div>
       <div class="wp-box"><p>${p.text}</p></div>
       <div class="wp-choices">
-        ${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join('')}
+        ${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join("")}
       </div>
       <div class="btn-row"><button class="btn-primary blue" onclick="buildWordProbs()">▶ Next Story</button></div>
     </div>`;
 }
 function checkWP(n) {
-  const fb = document.getElementById('bf');
-  document.querySelectorAll('.wp-choice').forEach(b=>b.onclick=null);
+  const fb = document.getElementById("bf");
+  document.querySelectorAll(".wp-choice").forEach(b=>b.onclick=null);
   if (n===currentGameState.p.answer) {
-    document.querySelectorAll('.wp-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('correct'); });
-    fb.className='feedback good'; fb.textContent='🎉 Correct! The answer is '+n+'!';
+    document.querySelectorAll(".wp-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("correct"); });
+    fb.className="feedback good"; fb.textContent="🎉 Correct! The answer is "+n+"!";
     awardStars(currentGame,3); setTimeout(buildWordProbs,1200);
   } else {
-    document.querySelectorAll('.wp-choice').forEach(b=>{ if(+b.textContent===n) b.classList.add('wrong'); });
-    fb.className='feedback bad'; fb.textContent='Try again! Read the story carefully! 📖';
-    setTimeout(()=>{document.querySelectorAll('.wp-choice').forEach(b=>{b.classList.remove('wrong');b.onclick=()=>checkWP(+b.textContent);});fb.textContent='';fb.className='feedback';},900);
+    document.querySelectorAll(".wp-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("wrong"); });
+    fb.className="feedback bad"; fb.textContent="Try again! Read the story carefully! 📖";
+    setTimeout(()=>{document.querySelectorAll(".wp-choice").forEach(b=>{b.classList.remove("wrong");b.onclick=()=>checkWP(+b.textContent);});fb.textContent="";fb.className="feedback";},900);
   }
 }
 
