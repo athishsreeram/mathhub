@@ -829,17 +829,21 @@
                 }
             } else if (gameName.startsWith('skipCount')) {
                 const step = game.step;
-                const sequence = Array.from({ length: 12 }, (_, i) => (i + 1) * step);
+                const maxNumbers = 12;
                 
-                for (let i = 0; i < Math.min(sequence.length - 1, 10); i++) {
-                    const seqLength = Math.min(i + 3, 5);
+                // Generate questions with correct sequences
+                for (let startPos = 0; startPos < 8; startPos++) {
+                    // Start from different positions to create variety
+                    const seqLength = (startPos % 3) + 2; // 2, 3, or 4 numbers shown
+                    const sequence = Array.from({ length: seqLength + 1 }, (_, i) => (startPos + i + 1) * step);
+                    
                     questions.push({
                         type: 'skipCount',
                         step,
                         sequence: sequence.slice(0, seqLength),
-                        display: `What comes next? ${sequence.slice(0, seqLength - 1).join(', ')}, ?`,
-                        answer: sequence[seqLength - 1],
-                        difficulty: seqLength === 3 ? 1 : seqLength === 4 ? 2 : 3
+                        display: `What comes next? ${sequence.slice(0, seqLength).join(', ')}, ?`,
+                        answer: sequence[seqLength], // Next number in sequence
+                        difficulty: seqLength === 2 ? 1 : seqLength === 3 ? 2 : 3
                     });
                 }
             } else if (gameName === 'additionStrategies') {
@@ -1047,7 +1051,7 @@
         }
 
         function renderSkipCountQuestion(q, container) {
-            const answers = generateMultipleChoiceAnswers(q.answer, 4);
+            const answers = generateSkipCountAnswers(q.answer, q.step, 4);
             container.innerHTML = `
                 <div class="instruction-box">🎵 What number comes next?</div>
                 <div class="skip-count-display">
@@ -1256,6 +1260,38 @@
             } catch (error) {
                 console.log('Hint system ready');
             }
+        }
+
+        // Multiple Choice Generator - Specialized version for Skip Counting
+        function generateSkipCountAnswers(correct, step, count = 4) {
+            const answers = new Set([correct]);
+            
+            // Add wrong answers based on the step
+            // Some are off by step, some are off by other amounts
+            const wrongOptions = [
+                correct + step,      // Next in sequence (wrong if already past)
+                correct - step,      // Previous in sequence (wrong)
+                correct + 1,         // Close but wrong
+                correct - 1,         // Close but wrong
+                correct + step + 1,  // Off pattern
+                correct + step - 1,  // Off pattern
+            ];
+            
+            for (let option of wrongOptions) {
+                if (answers.size < count && option > 0 && option !== correct) {
+                    answers.add(option);
+                }
+            }
+            
+            // If still need more, generate random
+            while (answers.size < count) {
+                const random = Math.floor(Math.random() * (correct + 10)) + 1;
+                if (random !== correct) {
+                    answers.add(random);
+                }
+            }
+            
+            return Array.from(answers).sort(() => Math.random() - 0.5);
         }
 
         // Multiple Choice Generator - Fixed to ensure correct answer is always included
