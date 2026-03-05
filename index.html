@@ -3,349 +3,323 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🌟 MathHub – Fun Math for Kids!</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  :root {
-    --sky: #3BAEFF; --sun: #FFD93D; --grass: #2ECC71; --coral: #FF4757;
-    --purple: #8B5CF6; --mint: #20C997; --orange: #FF7F50; --pink: #FF4D94;
-    --white: #FFFDF0; --dark: #1A1F4B; --card-bg: #FFFDF0;
-    --shadow: 0 8px 0 rgba(0,0,0,0.20); --radius: 24px;
-    --text-main: #1A1F4B;
-    font-size: 18px;
-  }
-  html, body { height: 100%; touch-action: pan-y; overscroll-behavior: contain; }
-  body {
-    font-family: "Nunito", sans-serif;
-    background: linear-gradient(160deg, #BEE3F8 0%, #FEF9C3 50%, #BBF7D0 100%);
-    min-height: 100vh; overflow-x: hidden; color: var(--dark);
-  }
-
-/* ===== SCREENS ===== */
-.screen { display: none; min-height: 100vh; padding: 20px 16px 40px; animation: fadeIn .35s ease; }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
-
-/* ===== HEADER ===== */
-.site-header { text-align: center; padding: 24px 0 8px; }
-.site-header h1 { font-family:“Fredoka One”,cursive; font-size: clamp(2.5rem,8vw,4rem); color: var(–dark); line-height:1.1; text-shadow: 3px 3px 0 rgba(0,0,0,0.1); }
-.site-header h1 span { color: var(–coral); }
-.site-header p { font-size: clamp(1.1rem,4vw,1.4rem); color: #1A1F4B; margin-top: 8px; font-weight: 800; }
-.stars-bar { font-size: 1.4rem; margin-top:8px; color: #8B5000; letter-spacing:2px; background: var(–sun); display: inline-block; padding: 6px 20px; border-radius: 50px; border: 3px solid var(–dark); font-weight: 800; }
-
-/* ===== BACK BUTTON ===== */
-.back-btn {
-display: inline-flex; align-items:center; gap:8px;
-background: var(–white); border: 4px solid var(–dark);
-border-radius: 50px; padding: 12px 28px; font-family:“Fredoka One”,cursive;
-font-size: 1.3rem; color: var(–dark); cursor: pointer;
-box-shadow: var(–shadow); transition: transform .15s, box-shadow .15s;
-margin-bottom: 18px; touch-action: manipulation;
-}
-.back-btn:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,.20); }
-
-/* ===== WORLD CARDS (Home) ===== */
-.world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto; padding-top: 16px; }
-.world-card {
-background: var(–card-bg); border-radius: var(–radius);
-border: 4px solid var(–dark); box-shadow: var(–shadow);
-padding: 28px 22px; cursor: pointer; transition: transform .15s, box-shadow .15s;
-touch-action: manipulation; text-align: center;
-}
-.world-card:active { transform: translateY(6px); box-shadow: 0 2px 0 rgba(0,0,0,.20); }
-.world-card .w-icon { font-size: 3.5rem; margin-bottom: 10px; display:block; }
-.world-card h2 { font-family:“Fredoka One”,cursive; font-size: 1.6rem; color: var(–dark); }
-.world-card p { font-size:1rem; color: #2D3561; margin-top:6px; font-weight: 700; }
-.world-card .w-count { margin-top:12px; font-size:1rem; font-weight:800; background:rgba(0,0,0,.10); border-radius:50px; padding:5px 16px; display:inline-block; color: var(–dark); }
-.world-card.c1 { border-color:#2ECC71; background: #F0FFF4; }
-.world-card.c2 { border-color:#FF4757; background: #FFF0F1; }
-.world-card.c3 { border-color:#8B5CF6; background: #F5F0FF; }
-.world-card.c4 { border-color:#FF7F50; background: #FFF5F0; }
-.world-card.c5 { border-color:#3BAEFF; background: #F0F8FF; }
-.world-card.c6 { border-color:#FF4D94; background: #FFF0F7; }
-
-/* ===== LEVEL LIST ===== */
-.level-header { text-align:center; margin-bottom:24px; }
-.level-header .lh-icon { font-size:3.5rem; }
-.level-header h2 { font-family:“Fredoka One”,cursive; font-size:clamp(1.8rem,5vw,2.6rem); color:var(–dark); }
-.level-header p { color: #2D3561; font-size:1.1rem; font-weight: 700; }
-.game-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; max-width:900px; margin:0 auto; }
-.game-btn {
-display:flex; align-items:center; gap:16px;
-background:var(–card-bg); border:4px solid var(–dark); border-radius:var(–radius);
-padding:20px 22px; cursor:pointer; text-align:left;
-box-shadow:var(–shadow); transition:transform .15s,box-shadow .15s; touch-action:manipulation;
-}
-.game-btn:active { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.20); }
-.game-btn .g-icon { font-size:2.5rem; flex-shrink:0; }
-.game-btn .g-info h3 { font-family:“Fredoka One”,cursive; font-size:1.2rem; color:var(–dark); }
-.game-btn .g-info p { font-size:.95rem; color: #2D3561; font-weight: 600; }
-.game-btn .g-stars { font-size:.9rem; color: #8B5000; margin-top:4px; }
-
-/* ===== GAME PANEL ===== */
-.game-panel { max-width:720px; margin:0 auto; }
-.game-panel h2 { font-family:“Fredoka One”,cursive; font-size:clamp(1.7rem,5vw,2.4rem); color:var(–dark); text-align:center; margin-bottom:8px; }
-.game-panel .game-desc { text-align:center; color: #1A1F4B; font-size:1.1rem; margin-bottom:20px; line-height:1.6; font-weight: 700; }
-
-/* ===== SHARED GAME UI ===== */
-.game-box { background:var(–white); border:4px solid var(–dark); border-radius:var(–radius); padding:28px 24px; box-shadow:var(–shadow); }
-.btn-primary {
-display:inline-flex; align-items:center; justify-content:center; gap:8px;
-background:var(–coral); color:#fff; border:4px solid var(–dark);
-border-radius:50px; padding:14px 32px; font-family:“Fredoka One”,cursive;
-font-size:1.3rem; cursor:pointer; box-shadow:var(–shadow);
-transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px;
-}
-.btn-primary:active { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.20); }
-.btn-primary.green { background:var(–grass); color:#fff; }
-.btn-primary.purple { background:var(–purple); color:#fff; }
-.btn-primary.blue { background:var(–sky); color:#fff; }
-.btn-primary.orange { background:var(–orange); color:#fff; }
-.btn-row { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:16px; }
-.score-badge { display:inline-block; background:var(–sun); border:3px solid var(–dark); border-radius:50px; padding:6px 18px; font-weight:800; font-size:1rem; margin:4px; color: #6B4200; }
-.feedback { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.5rem; min-height:2.2rem; margin:12px 0; }
-.feedback.good { color: #1A7A40; background: #C6F6D5; border-radius: 12px; padding: 6px 12px; }
-.feedback.bad { color: #C0392B; background: #FFDDD8; border-radius: 12px; padding: 6px 12px; }
-.progress-bar-outer { background:#DDD; border-radius:50px; height:18px; border:3px solid var(–dark); overflow:hidden; margin:12px 0; }
-.progress-bar-inner { height:100%; background:linear-gradient(90deg,var(–grass),var(–mint)); border-radius:50px; transition:width .4s; }
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{--sky:#3BAEFF;--sun:#FFD93D;--grass:#2ECC71;--coral:#FF4757;--purple:#8B5CF6;--mint:#20C997;--orange:#FF7F50;--pink:#FF4D94;--white:#FFFDF0;--dark:#1A1F4B;--shadow:0 8px 0 rgba(0,0,0,.20);--radius:24px;}
+html,body{height:100%;touch-action:pan-y;overscroll-behavior:contain;}
+body{font-family:"Nunito",sans-serif;background:linear-gradient(160deg,#BEE3F8 0%,#FEF9C3 50%,#BBF7D0 100%);min-height:100vh;overflow-x:hidden;color:var(--dark);}
+.screen{display:none;min-height:100vh;padding:20px 16px 40px;animation:fadeIn .3s ease;}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* HEADER */
+.site-header{text-align:center;padding:20px 0 8px;}
+.site-header h1{font-family:"Fredoka One",cursive;font-size:clamp(2.4rem,8vw,3.8rem);color:var(--dark);text-shadow:3px 3px 0 rgba(0,0,0,.1);}
+.site-header h1 span{color:var(--coral);}
+.site-header p{font-size:clamp(1rem,3.5vw,1.25rem);color:#1A1F4B;margin-top:6px;font-weight:800;}
+.stars-bar{margin-top:8px;color:#8B5000;background:var(--sun);display:inline-block;padding:6px 20px;border-radius:50px;border:3px solid var(--dark);font-weight:800;font-size:1.1rem;}
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:4px solid var(--dark);border-radius:50px;padding:11px 26px;font-family:"Fredoka One",cursive;font-size:1.15rem;color:var(--dark);cursor:pointer;box-shadow:var(--shadow);margin-bottom:16px;touch-action:manipulation;transition:transform .15s,box-shadow .15s;}
+.back-btn:active{transform:translateY(4px);box-shadow:0 4px 0 rgba(0,0,0,.2);}
+/* WORLD GRID */
+.world-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;max-width:1100px;margin:0 auto;padding-top:14px;}
+.world-card{background:var(--white);border-radius:var(--radius);border:4px solid var(--dark);box-shadow:var(--shadow);padding:22px 18px;cursor:pointer;text-align:center;touch-action:manipulation;transition:transform .15s,box-shadow .15s;}
+.world-card:active{transform:translateY(6px);box-shadow:0 2px 0 rgba(0,0,0,.2);}
+.world-card .wi{font-size:2.8rem;display:block;margin-bottom:6px;}
+.world-card h2{font-family:"Fredoka One",cursive;font-size:1.35rem;color:var(--dark);}
+.world-card p{font-size:.88rem;color:#2D3561;margin-top:4px;font-weight:700;}
+.world-card .wc{margin-top:8px;font-size:.88rem;font-weight:800;background:rgba(0,0,0,.1);border-radius:50px;padding:3px 12px;display:inline-block;color:var(--dark);}
+.c1{border-color:#2ECC71;background:#F0FFF4;}.c2{border-color:#FF4757;background:#FFF0F1;}
+.c3{border-color:#8B5CF6;background:#F5F0FF;}.c4{border-color:#FF7F50;background:#FFF5F0;}
+.c5{border-color:#3BAEFF;background:#F0F8FF;}.c6{border-color:#FF4D94;background:#FFF0F7;}
+.c7{border-color:#20C997;background:#F0FFFA;}.c8{border-color:#FFD93D;background:#FFFBF0;}
+.c9{border-color:#FF7F50;background:#FFF8F0;}.c10{border-color:#8B5CF6;background:#F8F0FF;}
+/* LEVEL LIST */
+.level-header{text-align:center;margin-bottom:20px;}
+.level-header .li{font-size:3.2rem;}
+.level-header h2{font-family:"Fredoka One",cursive;font-size:clamp(1.7rem,5vw,2.4rem);color:var(--dark);}
+.level-header p{color:#2D3561;font-size:1.05rem;font-weight:700;}
+.game-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;max-width:960px;margin:0 auto;}
+.game-btn{display:flex;align-items:center;gap:14px;background:var(--white);border:4px solid var(--dark);border-radius:var(--radius);padding:17px 18px;cursor:pointer;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .15s,box-shadow .15s;}
+.game-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2);}
+.game-btn .gi{font-size:2.1rem;flex-shrink:0;}
+.game-btn .ginfo h3{font-family:"Fredoka One",cursive;font-size:1.1rem;color:var(--dark);}
+.game-btn .ginfo p{font-size:.86rem;color:#2D3561;font-weight:600;}
+.game-btn .gstars{font-size:.82rem;color:#8B5000;margin-top:2px;}
+/* GAME PANEL */
+.game-panel{max-width:700px;margin:0 auto;}
+.game-panel h2{font-family:"Fredoka One",cursive;font-size:clamp(1.55rem,5vw,2.1rem);color:var(--dark);text-align:center;margin-bottom:7px;}
+.gdesc{text-align:center;color:#1A1F4B;font-size:1rem;margin-bottom:16px;line-height:1.6;font-weight:700;}
+.game-box{background:var(--white);border:4px solid var(--dark);border-radius:var(--radius);padding:22px 18px;box-shadow:var(--shadow);}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--coral);color:#fff;border:4px solid var(--dark);border-radius:50px;padding:12px 26px;font-family:"Fredoka One",cursive;font-size:1.15rem;cursor:pointer;box-shadow:var(--shadow);margin:5px;touch-action:manipulation;transition:transform .15s,box-shadow .15s;}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2);}
+.btn.g{background:var(--grass);}.btn.b{background:var(--sky);}.btn.p{background:var(--purple);}
+.btn.o{background:var(--orange);}.btn.pk{background:var(--pink);}.btn.m{background:var(--mint);}
+.btn.sun{background:var(--sun);color:#6B4200;}
+.btn-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px;}
+/* FEEDBACK */
+.fb{text-align:center;font-family:"Fredoka One",cursive;font-size:1.35rem;min-height:1.9rem;margin:9px 0;}
+.fb.ok{color:#1A7A40;background:#C6F6D5;border-radius:10px;padding:5px 10px;}
+.fb.no{color:#C0392B;background:#FFDDD8;border-radius:10px;padding:5px 10px;}
+/* PROGRESS */
+.prog-out{background:#DDD;border-radius:50px;height:15px;border:3px solid var(--dark);overflow:hidden;margin:9px 0;}
+.prog-in{height:100%;background:linear-gradient(90deg,var(--grass),var(--mint));border-radius:50px;transition:width .4s;}
 /* WIN MODAL */
-.win-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:999; align-items:center; justify-content:center; padding:20px; }
-.win-modal.open { display:flex; }
-.win-box { background:var(–white); border:5px solid var(–dark); border-radius:28px; padding:36px 32px; text-align:center; max-width:400px; width:100%; box-shadow:0 16px 0 rgba(0,0,0,0.22); animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
-@keyframes popIn { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
-.win-box h2 { font-family:“Fredoka One”,cursive; font-size:2.4rem; color:var(–dark); }
-.win-box .stars { font-size:3rem; margin:12px 0; }
-.win-box p { color:#2D3561; margin-bottom:16px; font-size:1.1rem; font-weight:700; }
-
-/* ===== INDIVIDUAL GAME STYLES ===== */
-
-/* Number Bonds */
-.bonds-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-.bond-btn {
-background:var(–sky); border:4px solid var(–dark); border-radius:16px;
-padding:18px 8px; font-family:“Fredoka One”,cursive; font-size:1.6rem;
-cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center;
-color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.25);
-box-shadow:0 5px 0 rgba(0,0,0,0.2);
-}
-.bond-btn:active { transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,0.2); }
-.bond-btn.selected { background:var(–grass); color:#fff; }
-.bond-btn.wrong { background:var(–coral); color:#fff; }
-.bond-visual { display:flex; align-items:center; justify-content:center; gap:14px; font-size:3rem; font-family:“Fredoka One”,cursive; color:var(–dark); margin:18px 0; }
-
-/* Counting / Skip */
-.number-track { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
-.num-cell { width:54px; height:54px; border-radius:14px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; background:var(–white); transition:.2s; color:var(–dark); }
-.num-cell.lit { background:var(–sun); color:#6B4200; }
-.num-cell.blank { background:#E5E7EB; color:#555; cursor:pointer; touch-action:manipulation; }
-.num-cell.blank:active { background:var(–sky); color:#fff; }
-.num-cell.correct { background:var(–grass); color:#fff; }
-.num-cell.wrong { background:var(–coral); color:#fff; }
-
+.win-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;padding:20px;}
+.win-modal.open{display:flex;}
+.win-box{background:var(--white);border:5px solid var(--dark);border-radius:28px;padding:30px;text-align:center;max-width:380px;width:100%;box-shadow:0 16px 0 rgba(0,0,0,.22);animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.win-box h2{font-family:"Fredoka One",cursive;font-size:2.1rem;color:var(--dark);}
+.win-box .ws{font-size:2.6rem;margin:8px 0;}
+.win-box p{color:#2D3561;margin-bottom:12px;font-size:1rem;font-weight:700;}
+/* ===== GAME-SPECIFIC ===== */
 /* Balloons */
-.balloon-field { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:18px 0; min-height:120px; }
-.balloon {
-width:68px; height:80px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
-border:4px solid var(–dark); display:flex; align-items:center; justify-content:center;
-font-family:“Fredoka One”,cursive; font-size:1.6rem; cursor:pointer; touch-action:manipulation;
-transition:.2s; box-shadow:0 6px 0 rgba(0,0,0,.18); color:#fff;
-text-shadow:2px 2px 0 rgba(0,0,0,0.35);
-}
-.balloon:active { transform:scale(.9); }
-.balloon.popped { opacity:0; transform:scale(1.5); pointer-events:none; }
-
-/* Gator comparison */
-.gator-row { display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin:18px 0; }
-.gator-num { background:var(–sky); border:4px solid var(–dark); border-radius:20px; padding:20px 32px; font-family:“Fredoka One”,cursive; font-size:3.5rem; min-width:100px; text-align:center; color:#fff; box-shadow:var(–shadow); text-shadow:2px 2px 0 rgba(0,0,0,0.2); }
-.gator-emoji { font-size:4rem; }
-.gator-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
-.gator-btn {
-background:var(–sun); border:4px solid var(–dark); border-radius:14px;
-padding:16px 28px; font-family:“Fredoka One”,cursive; font-size:2rem;
-cursor:pointer; touch-action:manipulation; transition:.15s;
-box-shadow:var(–shadow); color:#6B4200; font-weight:900;
-}
-.gator-btn:active { background:var(–orange); color:#fff; transform:translateY(3px); }
-
+.balloon-field{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin:15px 0;min-height:100px;}
+.balloon{width:62px;height:74px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;border:4px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:1.45rem;cursor:pointer;touch-action:manipulation;transition:.2s;box-shadow:0 5px 0 rgba(0,0,0,.18);color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.35);}
+.balloon:active{transform:scale(.9);}.balloon.popped{opacity:0;transform:scale(1.5);pointer-events:none;}
+/* Number track */
+.num-track{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0;}
+.nc{width:50px;height:50px;border-radius:12px;border:4px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:1.15rem;background:var(--white);color:var(--dark);transition:.2s;}
+.nc.lit{background:var(--sun);color:#6B4200;}.nc.blank{background:#E5E7EB;color:#555;cursor:pointer;touch-action:manipulation;}
+.nc.blank:active{background:var(--sky);color:#fff;}.nc.ok{background:var(--grass);color:#fff;}.nc.no{background:var(--coral);color:#fff;}
+/* Bridge */
+.bridge-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:15px 0;}
+.plank{width:54px;height:54px;border-radius:10px;border:4px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:1.15rem;}
+.plank.f{background:var(--orange);color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+.plank.gap{background:#E5E7EB;border-style:dashed;font-size:1.6rem;color:#555;}
+.numpad{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:11px 0;}
+.npb{width:52px;height:52px;border-radius:10px;border:4px solid var(--dark);font-family:"Fredoka One",cursive;font-size:1.45rem;cursor:pointer;touch-action:manipulation;background:var(--sky);color:#fff;box-shadow:var(--shadow);transition:.15s;}
+.npb:active{background:var(--grass);transform:translateY(3px);}
 /* Frog */
-.frog-track { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.frog-pad { width:52px; height:52px; border-radius:50%; border:4px solid var(–dark); background:#BBF7D0; display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1rem; transition:.3s; color:var(–dark); font-weight:800; }
-.frog-pad.active { background:var(–grass); color:#fff; font-size:1.4rem; }
-.frog-pad.visited { background:#86EFAC; color:#1A5C30; }
-
-/* Smoothie / addition */
-.fruit-shelf { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:14px 0; }
-.fruit-item { font-size:3rem; cursor:pointer; touch-action:manipulation; transition:.15s; border-radius:14px; padding:8px; border:4px solid transparent; }
-.fruit-item:active { transform:scale(1.25); border-color:var(–dark); }
-.blender { min-height:90px; border:4px dashed var(–dark); border-radius:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:12px; gap:8px; font-size:2.2rem; margin:14px 0; background:#F0F8FF; }
-.blend-total { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
-
-/* Cupcakes */
-.cupcake-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px 0; }
-.cupcake { font-size:2.5rem; transition:.3s; }
-.cupcake.paired { filter:brightness(.65); }
-
-/* Robot */
-.robot-groups { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.robot-group { border:4px dashed var(–purple); border-radius:18px; padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; min-width:90px; justify-content:center; background:#F5F0FF; }
-.wheel { font-size:1.8rem; }
-
+.frog-track{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:15px 0;}
+.fp{width:48px;height:48px;border-radius:50%;border:4px solid var(--dark);background:#BBF7D0;display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.9rem;color:var(--dark);font-weight:800;transition:.3s;}
+.fp.active{background:var(--grass);color:#fff;font-size:1.3rem;}.fp.vis{background:#86EFAC;color:#1A5C30;}
+/* Gator */
+.gator-num{background:var(--sky);border:4px solid var(--dark);border-radius:16px;padding:16px 26px;font-family:"Fredoka One",cursive;font-size:2.8rem;text-align:center;color:#fff;box-shadow:var(--shadow);}
+.gator-btn{background:var(--sun);border:4px solid var(--dark);border-radius:12px;padding:13px 22px;font-family:"Fredoka One",cursive;font-size:1.8rem;cursor:pointer;touch-action:manipulation;box-shadow:var(--shadow);color:#6B4200;font-weight:900;transition:.15s;}
+.gator-btn:active{background:var(--orange);color:#fff;transform:translateY(3px);}
+/* Smoothie */
+.fruit-shelf{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:11px 0;}
+.fruit-item{font-size:2.7rem;cursor:pointer;touch-action:manipulation;border-radius:12px;padding:7px;border:4px solid transparent;transition:.15s;}
+.fruit-item:active{transform:scale(1.25);border-color:var(--dark);}
+.blender{min-height:78px;border:4px dashed var(--dark);border-radius:15px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;padding:9px;gap:5px;font-size:1.9rem;margin:11px 0;background:#F0F8FF;}
+.blend-total{text-align:center;font-family:"Fredoka One",cursive;font-size:1.9rem;color:var(--dark);}
+/* Sub */
+.sub-vis{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:14px 0;}
+.si{font-size:1.9rem;transition:.3s;}.si.gone{opacity:.12;text-decoration:line-through;}
+.sub-eq{text-align:center;font-family:"Fredoka One",cursive;font-size:2.1rem;color:var(--dark);margin:11px 0;}
+/* Choice buttons shared */
+.choices{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:10px 0;}
+.ch{width:74px;height:74px;border-radius:14px;border:4px solid var(--dark);font-family:"Fredoka One",cursive;font-size:1.85rem;cursor:pointer;touch-action:manipulation;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);text-shadow:1px 1px 0 rgba(0,0,0,.2);transition:.15s;}
+.ch:active{background:var(--purple);}.ch.ok{background:var(--grass);}.ch.no{background:var(--coral);}
+/* WP / wide choices */
+.wp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0;}
+.wc-btn{background:var(--sky);border:4px solid var(--dark);border-radius:13px;padding:13px 8px;font-family:"Fredoka One",cursive;font-size:1.65rem;cursor:pointer;touch-action:manipulation;text-align:center;color:#fff;box-shadow:var(--shadow);text-shadow:1px 1px 0 rgba(0,0,0,.2);transition:.15s;}
+.wc-btn:active{background:var(--purple);transform:translateY(3px);}.wc-btn.ok{background:var(--grass);}.wc-btn.no{background:var(--coral);}
+/* Bonds */
+.bonds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.bond-btn{background:var(--sky);border:4px solid var(--dark);border-radius:13px;padding:15px 5px;font-family:"Fredoka One",cursive;font-size:1.45rem;cursor:pointer;touch-action:manipulation;text-align:center;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.25);box-shadow:0 5px 0 rgba(0,0,0,.2);transition:.15s;}
+.bond-btn:active{transform:translateY(2px);}.bond-btn.ok{background:var(--grass);}.bond-btn.no{background:var(--coral);}
+.bond-vis{display:flex;align-items:center;justify-content:center;gap:11px;font-size:2.6rem;font-family:"Fredoka One",cursive;color:var(--dark);margin:15px 0;}
+/* Mult */
+.mgroups{display:flex;gap:13px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+.mgroup{border:4px solid var(--purple);border-radius:13px;padding:9px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center;min-width:68px;background:#F5F0FF;}
+.mdot{width:28px;height:28px;border-radius:50%;background:var(--purple);border:3px solid var(--dark);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.95rem;}
+.meq{text-align:center;font-family:"Fredoka One",cursive;font-size:1.5rem;color:var(--dark);margin:11px 0;}
+.minput{width:74px;height:56px;font-family:"Fredoka One",cursive;font-size:1.9rem;border:4px solid var(--dark);border-radius:11px;text-align:center;color:var(--dark);background:var(--white);}
 /* Shapes */
-.shape-options { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.shape-opt {
-background:var(–sky); border:4px solid var(–dark); border-radius:16px;
-padding:18px 22px; cursor:pointer; touch-action:manipulation; font-size:1.8rem;
-transition:.15s; display:flex; flex-direction:column; align-items:center; gap:6px;
-box-shadow:var(–shadow); color:#fff;
-}
-.shape-opt:active { background:var(–purple); transform:translateY(3px); }
-.shape-opt span { font-family:“Fredoka One”,cursive; font-size:1.1rem; color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
-.toy-display { font-size:6rem; text-align:center; margin:14px 0; }
-
+.shape-opts{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+.sopt{background:var(--sky);border:4px solid var(--dark);border-radius:13px;padding:15px 18px;cursor:pointer;touch-action:manipulation;font-size:1.65rem;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow);color:#fff;transition:.15s;}
+.sopt:active{background:var(--purple);transform:translateY(3px);}
+.sopt span{font-family:"Fredoka One",cursive;font-size:.95rem;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
 /* Clock */
-.clock-svg-wrap { display:flex; justify-content:center; margin:14px 0; }
-.time-display { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.8rem; color:var(–dark); margin:10px 0; }
-.time-target { text-align:center; font-size:1.1rem; color:#2D3561; margin-bottom:10px; font-weight:700; }
-.clock-btns { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
-
+.clock-wrap{display:flex;justify-content:center;margin:11px 0;}
 /* Tally */
-.tally-fish-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
-.tally-fish { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
-.tally-fish:active { transform:scale(1.4); }
-.tally-marks { font-family:monospace; font-size:2.2rem; text-align:center; letter-spacing:4px; margin:12px 0; min-height:3rem; color:var(–dark); }
-.tally-count { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color:var(–dark); }
-
-/* Graph */
-.graph-items { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-.graph-item-btn {
-font-size:2.2rem; background:var(–sun); border:4px solid var(–dark);
-border-radius:14px; padding:10px 16px; cursor:pointer; touch-action:manipulation;
-transition:.15s; box-shadow:var(–shadow); color:#6B4200;
+.tally-fish-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:11px 0;}
+.tf{font-size:2.2rem;cursor:pointer;touch-action:manipulation;transition:.15s;}
+.tf:active{transform:scale(1.4);}
+.tmarks{font-family:monospace;font-size:1.9rem;text-align:center;letter-spacing:4px;margin:9px 0;min-height:2.6rem;color:var(--dark);}
+/* Bar graph */
+.graph-items{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:11px 0;}
+.gib{font-size:1.9rem;background:var(--sun);border:4px solid var(--dark);border-radius:11px;padding:8px 13px;cursor:pointer;touch-action:manipulation;box-shadow:var(--shadow);color:#6B4200;transition:.15s;}
+.gib:active{background:var(--orange);color:#fff;transform:translateY(3px);}
+.bar-graph{display:flex;align-items:flex-end;justify-content:center;gap:13px;height:145px;border-bottom:4px solid var(--dark);border-left:4px solid var(--dark);padding:0 9px;margin:9px 0;}
+.bar{width:48px;border-radius:7px 7px 0 0;border:3px solid var(--dark);transition:height .3s;min-height:6px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;font-family:"Fredoka One",cursive;font-size:.95rem;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.3);}
+/* PV */
+.pv-num{font-family:"Fredoka One",cursive;font-size:3.6rem;color:var(--dark);text-align:center;margin:7px 0;}
+.pv-disp{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:14px 0;}
+.pv-col{text-align:center;}
+.pv-col label{font-family:"Fredoka One",cursive;font-size:1.05rem;display:block;margin-bottom:5px;color:var(--dark);}
+.pv-blocks{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:54px;max-width:165px;}
+.pvb{width:25px;height:25px;border:3px solid var(--dark);border-radius:5px;}
+.pvb.ten{background:var(--sky);}.pvb.one{background:var(--sun);}
+.pv-input{width:74px;height:56px;font-family:"Fredoka One",cursive;font-size:1.85rem;border:4px solid var(--dark);border-radius:11px;text-align:center;margin:0 6px;color:var(--dark);background:var(--white);}
+/* Comm */
+.comm-eq{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0;font-family:"Fredoka One",cursive;font-size:1.9rem;color:var(--dark);}
+.comm-n{background:var(--sky);border:4px solid var(--dark);border-radius:11px;padding:6px 18px;min-width:60px;text-align:center;color:#fff;box-shadow:var(--shadow);}
+/* Toy shelf */
+.toy-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;min-height:62px;align-items:flex-end;margin:11px 0;}
+.toy-tap{font-size:2.7rem;cursor:pointer;touch-action:manipulation;transition:.3s;}
+.toy-tap.placed{opacity:.35;pointer-events:none;}
+/* Cupcakes */
+.cupcake-row{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:14px 0;}
+/* Robot */
+.rgroups{display:flex;gap:13px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+.rgroup{border:4px dashed var(--purple);border-radius:14px;padding:9px 13px;display:flex;flex-wrap:wrap;gap:6px;min-width:78px;justify-content:center;background:#F5F0FF;}
+/* WP box */
+.wp-box{background:linear-gradient(135deg,#DBEAFE,#FEF9C3);border:4px solid var(--dark);border-radius:var(--radius);padding:18px;margin:11px 0;}
+.wp-box p{font-size:1.1rem;line-height:1.75;color:var(--dark);font-weight:800;}
+/* ===== NEW GAMES ===== */
+/* Hundred chart */
+.hgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:11px 0;}
+.hcell{aspect-ratio:1;border-radius:6px;border:2px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.66rem;cursor:pointer;touch-action:manipulation;background:var(--white);color:var(--dark);transition:.2s;}
+.hcell.s2{background:#FFD93D;color:#6B4200;}.hcell.s5{background:#FF7F50;color:#fff;}.hcell.s10{background:#3BAEFF;color:#fff;}
+.hcell.tapped{background:var(--grass);color:#fff;}
+/* Number line */
+.nl{display:flex;align-items:center;gap:0;margin:14px 0;overflow-x:auto;padding:8px 0;}
+.nl-tick{display:flex;flex-direction:column;align-items:center;min-width:42px;}
+.nl-dot{width:34px;height:34px;border-radius:50%;border:4px solid var(--dark);background:var(--white);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.78rem;cursor:pointer;touch-action:manipulation;color:var(--dark);transition:.2s;}
+.nl-dot.placed{background:var(--coral);color:#fff;}.nl-dot.ok{background:var(--grass);color:#fff;}.nl-dot.no{background:var(--coral);color:#fff;}
+.nl-line{flex:1;height:4px;background:var(--dark);min-width:14px;}
+/* Caterpillar */
+.cater{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:13px 0;align-items:center;}
+.cseg{width:48px;height:48px;border-radius:50%;border:4px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.95rem;color:#fff;font-weight:800;box-shadow:0 3px 0 rgba(0,0,0,.15);transition:.2s;}
+.cseg.blank{background:#E5E7EB;color:#555;cursor:pointer;touch-action:manipulation;}
+.cseg.blank:active{background:var(--sky);}.cseg.ok{background:var(--grass);color:#fff;}.cseg.no{background:var(--coral);color:#fff;}
+/* Array */
+.arr-grid{display:flex;flex-direction:column;gap:5px;align-items:center;margin:13px 0;}
+.arr-row{display:flex;gap:5px;}
+.adot{width:28px;height:28px;border-radius:50%;background:var(--coral);border:3px solid var(--dark);}
+/* Bingo */
+.bingo-card{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:270px;margin:11px auto;}
+.bcell{aspect-ratio:1;border:3px solid var(--dark);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.88rem;background:var(--white);color:var(--dark);cursor:pointer;touch-action:manipulation;transition:.2s;}
+.bcell:active{transform:scale(.9);}.bcell.marked{background:var(--coral);color:#fff;}.bcell.bingo{background:var(--grass);color:#fff;}
+.bq{text-align:center;font-family:"Fredoka One",cursive;font-size:1.9rem;color:var(--dark);margin:9px 0;background:var(--sun);border-radius:11px;padding:7px 14px;}
+/* Fraction shade */
+.frac-pieces{display:flex;flex-wrap:wrap;gap:3px;border:4px solid var(--dark);border-radius:11px;padding:7px;background:var(--white);box-shadow:var(--shadow);display:inline-flex;}
+.fp-piece{width:42px;height:42px;border-radius:5px;border:3px solid var(--dark);background:#E5E7EB;transition:.3s;cursor:pointer;touch-action:manipulation;}
+.fp-piece.shaded{background:var(--coral);}
+/* Fraction match */
+.fmgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:13px 0;}
+.fmcard{border:4px solid var(--dark);border-radius:13px;padding:13px 9px;text-align:center;cursor:pointer;touch-action:manipulation;background:var(--white);box-shadow:var(--shadow);font-family:"Fredoka One",cursive;font-size:1.45rem;color:var(--dark);transition:.2s;}
+.fmcard:active{background:var(--sky);color:#fff;}.fmcard.sel{background:var(--sun);border-color:var(--orange);}.fmcard.ok{background:var(--grass);color:#fff;}.fmcard.no{background:var(--coral);color:#fff;}
+/* Shape sorter */
+.ssort{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin:13px 0;}
+.sbin{flex:1;min-width:115px;max-width:155px;border:4px solid var(--dark);border-radius:13px;padding:9px;text-align:center;min-height:78px;background:var(--white);}
+.sbin-lbl{font-family:"Fredoka One",cursive;font-size:.95rem;color:var(--dark);margin-bottom:7px;}
+.sbin-items{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;font-size:1.75rem;min-height:38px;}
+/* Symmetry */
+.sym-wrap{margin:11px auto;width:fit-content;}
+/* Tangram */
+.tpieces{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:11px 0;}
+.tpiece{font-size:2.9rem;cursor:pointer;touch-action:manipulation;background:var(--white);border:4px solid var(--dark);border-radius:11px;padding:7px;box-shadow:var(--shadow);transition:.15s;}
+.tpiece:active{transform:scale(1.2);}.tpiece.used{opacity:.3;pointer-events:none;}
+.tboard{width:170px;height:170px;border:4px solid var(--dark);border-radius:11px;background:#F5F0FF;margin:11px auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;font-size:1.95rem;padding:7px;}
+/* Ruler */
+.ruler{background:#FFD93D;border:4px solid var(--dark);border-radius:11px;padding:9px 14px;margin:13px 0;overflow-x:auto;}
+.ruler-marks{display:flex;align-items:flex-end;}
+.rcm{min-width:34px;height:28px;border-left:3px solid var(--dark);display:flex;align-items:flex-end;padding-bottom:2px;padding-left:2px;font-family:"Fredoka One",cursive;font-size:.65rem;color:var(--dark);}
+/* Scale */
+.scale-pans{display:flex;justify-content:center;gap:18px;margin:14px 0;}
+.span{width:115px;min-height:68px;border:4px solid var(--dark);border-radius:11px;background:#FEF9C3;display:flex;align-items:center;justify-content:center;font-size:1.75rem;}
+/* Jug */
+.jug-wrap{display:flex;gap:18px;justify-content:center;margin:14px 0;}
+.jug{width:78px;position:relative;border:4px solid var(--dark);border-radius:0 0 15px 15px;overflow:hidden;height:135px;background:#fff;box-shadow:var(--shadow);}
+.jug-water{position:absolute;bottom:0;left:0;right:0;background:var(--sky);transition:height .4s;opacity:.8;}
+.jug-label{text-align:center;font-family:"Fredoka One",cursive;font-size:.88rem;color:var(--dark);margin-top:4px;}
+/* Coins */
+.coin-shelf{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:11px 0;}
+.coin-btn{width:62px;height:62px;border-radius:50%;border:4px solid var(--dark);font-family:"Fredoka One",cursive;font-size:.8rem;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 0 rgba(0,0,0,.2);color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.3);transition:.15s;}
+.coin-btn:active{transform:translateY(3px);}
+.coin-btn.penny{background:#b87333;}.coin-btn.nickel{background:#9090a0;}.coin-btn.dime{background:#a0b0c8;}.coin-btn.quarter{background:#d4af37;}
+/* Shop */
+.shop-big{text-align:center;font-size:3.8rem;margin:9px 0;}
+.shop-txt{text-align:center;font-family:"Fredoka One",cursive;font-size:1.75rem;color:var(--dark);margin:5px 0;}
+/* Piggy */
+.piggy-bar{width:100%;background:#E5E7EB;border-radius:50px;height:20px;border:3px solid var(--dark);overflow:hidden;margin:11px 0;}
+.piggy-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:50px;transition:width .4s;}
+.piggy-amt{text-align:center;font-family:"Fredoka One",cursive;font-size:1.9rem;color:var(--dark);margin:7px 0;}
+/* Calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:11px 0;}
+.cal-hdr{text-align:center;font-family:"Fredoka One",cursive;font-size:.78rem;color:var(--dark);padding:5px 2px;background:var(--sun);border-radius:7px;}
+.cal-day{text-align:center;font-family:"Fredoka One",cursive;font-size:.92rem;padding:6px 3px;border-radius:7px;border:3px solid transparent;cursor:pointer;touch-action:manipulation;background:var(--white);color:var(--dark);transition:.15s;box-shadow:0 2px 0 rgba(0,0,0,.1);}
+.cal-day:active{background:var(--sky);color:#fff;}.cal-day.today{background:var(--coral);color:#fff;border-color:var(--dark);}
+.cal-day.empty{background:transparent;box-shadow:none;pointer-events:none;}
+/* Schedule */
+.sched-slot{display:flex;align-items:center;gap:9px;background:var(--white);border:3px solid var(--dark);border-radius:11px;padding:9px 13px;margin-bottom:7px;}
+.sched-time{font-family:"Fredoka One",cursive;font-size:.95rem;color:var(--dark);min-width:68px;}
+.sched-drop{flex:1;min-height:38px;border:3px dashed #ccc;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;background:#F9FAFB;font-family:"Fredoka One",cursive;color:#9CA3AF;}
+.sched-drop.filled{border-color:var(--grass);background:#F0FFF4;color:var(--dark);}
+.sched-items{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:9px 0;}
+.sched-item{font-size:1.45rem;background:var(--sun);border:4px solid var(--dark);border-radius:9px;padding:5px 9px;cursor:pointer;touch-action:manipulation;box-shadow:var(--shadow);font-family:"Fredoka One",cursive;transition:.15s;}
+.sched-item:active{transform:scale(1.15);}.sched-item.used{opacity:.3;pointer-events:none;}
+/* Pattern */
+.pat-row{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;align-items:center;margin:14px 0;}
+.pat-item{font-size:2.1rem;}
+.pat-ch{font-size:2.1rem;background:var(--white);border:4px solid var(--dark);border-radius:11px;padding:7px 11px;cursor:pointer;touch-action:manipulation;box-shadow:var(--shadow);transition:.15s;}
+.pat-ch:active{background:var(--sky);}.pat-ch.ok{background:var(--grass);color:#fff;}.pat-ch.no{background:var(--coral);color:#fff;}
+/* Maze */
+.maze{display:grid;gap:2px;margin:11px auto;width:fit-content;}
+.mc{width:42px;height:42px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:"Fredoka One",cursive;font-size:.82rem;font-weight:800;}
+.mc.wall{background:var(--dark);}.mc.path{background:#E5E7EB;color:var(--dark);cursor:pointer;touch-action:manipulation;transition:.2s;}
+.mc.path:active{background:var(--sky);}.mc.player{background:var(--grass);color:#fff;font-size:1.15rem;}
+.mc.goal{background:var(--sun);color:var(--dark);font-size:1.15rem;}.mc.vis{background:#86EFAC;}
+.mc.rm{background:#DBEAFE;}
+/* Star challenge */
+.scq{text-align:center;font-family:"Fredoka One",cursive;font-size:2.4rem;color:var(--dark);margin:13px 0;min-height:58px;}
+.sc-ch{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0;}
+.scc{background:var(--sky);border:4px solid var(--dark);border-radius:13px;padding:13px;font-family:"Fredoka One",cursive;font-size:1.75rem;cursor:pointer;touch-action:manipulation;text-align:center;color:#fff;box-shadow:var(--shadow);transition:.15s;}
+.scc:active{background:var(--purple);transform:translateY(3px);}.scc.ok{background:var(--grass);}.scc.no{background:var(--coral);}
+.sc-timer{text-align:center;font-family:"Fredoka One",cursive;font-size:1.25rem;color:var(--coral);margin:5px 0;}
+.sc-score{font-family:"Fredoka One",cursive;font-size:1.15rem;color:var(--dark);background:var(--sun);border-radius:50px;padding:4px 16px;display:inline-block;margin:5px 0;}
+/* Daily puzzle */
+.dp-badge{display:inline-block;background:var(--purple);color:#fff;border-radius:50px;padding:4px 15px;font-family:"Fredoka One",cursive;font-size:.95rem;margin-bottom:11px;}
+/* 2-player */
+.twop{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.tpp{border:4px solid var(--dark);border-radius:15px;padding:13px;text-align:center;}
+.tpp.p1{background:#FFF0F8;}.tpp.p2{background:#F0F8FF;}
+.tpp-name{font-family:"Fredoka One",cursive;font-size:1.15rem;margin-bottom:7px;color:var(--dark);}
+.tpp-score{font-family:"Fredoka One",cursive;font-size:2.4rem;color:var(--dark);}
+/* Fruit splitter */
+.split-disp{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin:13px 0;}
+.split-p{text-align:center;border:4px solid var(--dark);border-radius:13px;padding:9px 13px;background:var(--white);min-width:78px;}
+.split-icon{font-size:1.9rem;margin-bottom:3px;}
+.split-items{font-size:1.45rem;min-height:28px;}
+.split-lbl{font-family:"Fredoka One",cursive;font-size:.88rem;color:var(--dark);}
+/* Magic doubles */
+.dbox{border:4px solid var(--dark);border-radius:13px;padding:11px 15px;text-align:center;background:var(--white);}
+.dlabel{font-family:"Fredoka One",cursive;font-size:.95rem;color:var(--dark);}
+/* Responsive */
+@media(max-width:480px){
+  .world-grid{grid-template-columns:1fr 1fr;gap:11px;}
+  .game-list{grid-template-columns:1fr;}
+  .bonds-grid{grid-template-columns:repeat(2,1fr);}
+  .wp-grid,.sc-ch{grid-template-columns:1fr;}
+  .twop{grid-template-columns:1fr;}
+  .hgrid{gap:2px;}.hcell{font-size:.58rem;}
+  .fmgrid{grid-template-columns:1fr 1fr;}
 }
-.graph-item-btn:active { background:var(–orange); color:#fff; transform:translateY(3px); }
-.bar-graph { display:flex; align-items:flex-end; justify-content:center; gap:16px; height:160px; border-bottom:4px solid var(–dark); border-left:4px solid var(–dark); padding:0 12px; margin:12px 0; }
-.bar { width:54px; border-radius:10px 10px 0 0; border:3px solid var(–dark); transition:height .3s; min-height:6px; display:flex; align-items:flex-start; justify-content:center; padding-top:6px; font-family:“Fredoka One”,cursive; font-size:1.1rem; color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.3); font-weight:900; }
-
-/* Word Problems */
-.wp-box { background:linear-gradient(135deg,#DBEAFE,#FEF9C3); border:4px solid var(–dark); border-radius:var(–radius); padding:22px; margin:14px 0; }
-.wp-box p { font-size:1.2rem; line-height:1.8; color:var(–dark); font-weight:800; }
-.wp-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-.wp-choice {
-background:var(–sky); border:4px solid var(–dark); border-radius:16px;
-padding:16px; font-family:“Fredoka One”,cursive; font-size:1.8rem;
-cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s;
-color:#fff; box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
-}
-.wp-choice:active { background:var(–purple); color:#fff; transform:translateY(3px); }
-.wp-choice.correct { background:var(–grass); color:#fff; }
-.wp-choice.wrong { background:var(–coral); color:#fff; }
-
-/* Place value */
-.pv-display { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:18px 0; }
-.pv-col { text-align:center; }
-.pv-col label { font-family:“Fredoka One”,cursive; font-size:1.2rem; display:block; margin-bottom:8px; color:var(–dark); font-weight:800; }
-.pv-blocks { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; min-height:60px; width:100%; max-width:180px; }
-.pv-block { width:28px; height:28px; border:3px solid var(–dark); border-radius:6px; }
-.pv-block.ten { background:var(–sky); }
-.pv-block.one { background:var(–sun); }
-.pv-num { font-family:“Fredoka One”,cursive; font-size:4rem; color:var(–dark); text-align:center; margin:10px 0; }
-.pv-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; margin:0 8px; color:var(–dark); background:var(–white); }
-
-/* Commutative */
-.comm-eq { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:18px 0; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
-.comm-num { background:var(–sky); border:4px solid var(–dark); border-radius:14px; padding:8px 22px; min-width:68px; text-align:center; color:#fff; box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
-
-/* Missing bridge */
-.bridge-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.plank { width:60px; height:60px; border-radius:12px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; }
-.plank.filled { background:var(–orange); color:#fff; box-shadow:0 4px 0 rgba(0,0,0,0.2); text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
-.plank.gap { background:#E5E7EB; border-style:dashed; cursor:pointer; touch-action:manipulation; font-size:1.8rem; color:#555; }
-.num-pad { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
-.num-pad-btn {
-width:58px; height:58px; border-radius:12px; border:4px solid var(–dark);
-font-family:“Fredoka One”,cursive; font-size:1.6rem; cursor:pointer; touch-action:manipulation;
-background:var(–sky); color:#fff; transition:.15s; box-shadow:var(–shadow);
-text-shadow:1px 1px 0 rgba(0,0,0,0.2);
-}
-.num-pad-btn:active { background:var(–grass); transform:translateY(3px); }
-
-/* Toy shelf sequencing */
-.toy-shelf-area { background:#8B4513; border-radius:0 0 8px 8px; height:18px; margin-top:-4px; }
-.toy-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; min-height:70px; align-items:flex-end; margin:14px 0; }
-.toy-tap { font-size:3rem; cursor:pointer; touch-action:manipulation; transition:.3s; }
-.toy-tap.selected { transform:scale(1.35); filter:brightness(1.2); }
-.toy-tap.placed { opacity:.35; pointer-events:none; }
-
-/* Subtraction */
-.sub-vis { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
-.sub-item { font-size:2.2rem; transition:.3s; }
-.sub-item.gone { opacity:.12; text-decoration:line-through; }
-.sub-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.4rem; color:var(–dark); margin:14px 0; }
-.sub-choices { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0; }
-.sub-choice {
-width:80px; height:80px; border-radius:14px; border:4px solid var(–dark);
-font-family:“Fredoka One”,cursive; font-size:2rem; cursor:pointer; touch-action:manipulation;
-background:var(–sky); color:#fff; transition:.15s;
-display:flex; align-items:center; justify-content:center;
-box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
-}
-.sub-choice:active { background:var(–purple); color:#fff; }
-.sub-choice.correct { background:var(–grass); color:#fff; }
-.sub-choice.wrong { background:var(–coral); color:#fff; }
-
-/* Multiplication repeated addition */
-.mult-groups { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.mult-group { border:4px solid var(–purple); border-radius:16px; padding:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; min-width:80px; background:#F5F0FF; }
-.mult-dot { width:32px; height:32px; border-radius:50%; background:var(–purple); border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#fff; }
-.mult-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color:var(–dark); margin:14px 0; }
-.mult-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2.2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; color:var(–dark); background:var(–white); }
-
-/* Addition strategies */
-.add-strat-box { background:linear-gradient(135deg,#FEF9C3,#DBEAFE); border:4px solid var(–dark); border-radius:var(–radius); padding:18px; margin:14px 0; }
-.add-strat-box h3 { font-family:“Fredoka One”,cursive; font-size:1.2rem; margin-bottom:10px; color:var(–dark); }
-.add-strat-eq { font-size:1.8rem; font-family:“Fredoka One”,cursive; text-align:center; margin:10px 0; color:var(–dark); }
-.num-dots { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:8px 0; }
-.nd { width:32px; height:32px; border-radius:50%; background:var(–coral); border:3px solid var(–dark); display:inline-flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800; color:#fff; }
-.nd.b { background:var(–sky); }
-
-/* responsive */
-@media (max-width:480px) {
-.world-grid { grid-template-columns:1fr 1fr; gap:14px; }
-.game-list { grid-template-columns:1fr; }
-.bonds-grid { grid-template-columns:repeat(2,1fr); }
-.gator-num { font-size:2.8rem; padding:14px 22px; }
-.comm-eq { font-size:1.7rem; }
-.wp-choices { grid-template-columns:1fr; }
-.pv-blocks { max-width:130px; }
-}
-@media (max-width:360px) {
-.world-grid { grid-template-columns:1fr; }
-}
+@media(max-width:360px){.world-grid{grid-template-columns:1fr;}}
 </style>
-
 </head>
 <body>
 
-<!-- ===== WIN MODAL ===== -->
-
 <div class="win-modal" id="winModal">
   <div class="win-box">
-    <div style="font-size:3.5rem">🎉</div>
-    <h2>Amazing!</h2>
-    <div class="stars" id="winStars">⭐⭐⭐</div>
+    <div style="font-size:3rem">🎉</div><h2>Amazing!</h2>
+    <div class="ws" id="winStars">⭐⭐⭐</div>
     <p id="winMsg">You completed this game!</p>
     <div class="btn-row">
-      <button class="btn-primary green" onclick="playAgain()">▶ Play Again</button>
-      <button class="btn-primary blue" onclick="goBack()">🏠 Back</button>
+      <button class="btn g" onclick="playAgain()">▶ Play Again</button>
+      <button class="btn b" onclick="goBack()">🏠 Back</button>
     </div>
   </div>
 </div>
 
-<!-- ===== SCREEN: HOME ===== -->
+<!-- HOME -->
 
 <div class="screen active" id="screen-home">
   <div class="site-header">
@@ -354,46 +328,22 @@ box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
     <div class="stars-bar" id="totalStarsDisplay">⭐ 0 Stars Collected</div>
   </div>
   <div class="world-grid">
-    <div class="world-card c1" onclick="goWorld('counting')">
-      <span class="w-icon">🌳</span>
-      <h2>Number Forest</h2>
-      <p>Counting, Number Sense &amp; Patterns</p>
-      <div class="w-count">6 games • Ages 4–6</div>
-    </div>
-    <div class="world-card c2" onclick="goWorld('operations')">
-      <span class="w-icon">🌋</span>
-      <h2>Operation Volcano</h2>
-      <p>Addition, Subtraction &amp; Multiplication</p>
-      <div class="w-count">6 games • Ages 4–6</div>
-    </div>
-    <div class="world-card c3" onclick="goWorld('placevalue')">
-      <span class="w-icon">🏰</span>
-      <h2>Place Value Castle</h2>
-      <p>Tens, Ones &amp; Number Building</p>
-      <div class="w-count">2 games • Ages 4–6</div>
-    </div>
-    <div class="world-card c4" onclick="goWorld('geometry')">
-      <span class="w-icon">🏜️</span>
-      <h2>Shape Desert</h2>
-      <p>Shapes, Measurement &amp; Time</p>
-      <div class="w-count">2 games • Ages 5–7</div>
-    </div>
-    <div class="world-card c5" onclick="goWorld('data')">
-      <span class="w-icon">🌊</span>
-      <h2>Data Deep Sea</h2>
-      <p>Tallying, Graphs &amp; Sorting</p>
-      <div class="w-count">2 games • Ages 5–7</div>
-    </div>
-    <div class="world-card c6" onclick="goWorld('wordproblems')">
-      <span class="w-icon">📖</span>
-      <h2>Story Land</h2>
-      <p>Fun Word Problems &amp; Real-World Math</p>
-      <div class="w-count">1 game • Ages 4–6</div>
-    </div>
+    <div class="world-card c1" onclick="goWorld('counting')"><span class="wi">🌳</span><h2>Number Forest</h2><p>Counting, Sense & Patterns</p><div class="wc">10 games</div></div>
+    <div class="world-card c2" onclick="goWorld('operations')"><span class="wi">🌋</span><h2>Operation Volcano</h2><p>Addition, Subtraction & Multiplication</p><div class="wc">11 games</div></div>
+    <div class="world-card c3" onclick="goWorld('placevalue')"><span class="wi">🏰</span><h2>Place Value Castle</h2><p>Tens, Ones & Number Building</p><div class="wc">2 games</div></div>
+    <div class="world-card c4" onclick="goWorld('fractions')"><span class="wi">🍕</span><h2>Fraction Kingdom</h2><p>Halves, Quarters & Splitting</p><div class="wc">3 games</div></div>
+    <div class="world-card c5" onclick="goWorld('geometry')"><span class="wi">🏜️</span><h2>Shape Desert</h2><p>Shapes, Symmetry & Tangrams</p><div class="wc">4 games</div></div>
+    <div class="world-card c6" onclick="goWorld('measurement')"><span class="wi">📏</span><h2>Measure Jungle</h2><p>Length, Weight & Capacity</p><div class="wc">3 games</div></div>
+    <div class="world-card c7" onclick="goWorld('money')"><span class="wi">💰</span><h2>Money Market</h2><p>Coins, Change & Saving</p><div class="wc">3 games</div></div>
+    <div class="world-card c8" onclick="goWorld('time')"><span class="wi">⏰</span><h2>Time Town</h2><p>Clocks, Calendar & Schedules</p><div class="wc">3 games</div></div>
+    <div class="world-card c9" onclick="goWorld('data')"><span class="wi">🌊</span><h2>Data Deep Sea</h2><p>Tallying, Graphs & Sorting</p><div class="wc">2 games</div></div>
+    <div class="world-card c2" onclick="goWorld('wordproblems')"><span class="wi">📖</span><h2>Story Land</h2><p>Word Problems & Real-World Math</p><div class="wc">1 game</div></div>
+    <div class="world-card c3" onclick="goWorld('logic')"><span class="wi">🧠</span><h2>Logic Lab</h2><p>Patterns, Sorting & Brain Puzzles</p><div class="wc">3 games</div></div>
+    <div class="world-card c10" onclick="goWorld('bonus')"><span class="wi">🚀</span><h2>Bonus Zone</h2><p>Star Challenge, Daily & 2-Player</p><div class="wc">3 games</div></div>
   </div>
 </div>
 
-<!-- ===== SCREEN: WORLD LEVEL LIST ===== -->
+<!-- WORLD -->
 
 <div class="screen" id="screen-world">
   <button class="back-btn" onclick="showHome()">← Back to Worlds</button>
@@ -401,7 +351,7 @@ box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
   <div class="game-list" id="gameList"></div>
 </div>
 
-<!-- ===== SCREEN: GAME ===== -->
+<!-- GAME -->
 
 <div class="screen" id="screen-game">
   <button class="back-btn" id="gameBackBtn" onclick="goBack()">← Back</button>
@@ -409,439 +359,785 @@ box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
 </div>
 
 <script>
-let currentWorld = "";
-let currentGame = "";
-let totalStars = 0;
-let gameStars = {};
-let currentGameState = {};
-
-const worlds = {
-  counting: {
-    icon: "🌳", name: "Number Forest", desc: "Counting, Number Sense & Patterns",
-    games: [
-      { id:"balloons", icon:"🎈", name:"Balloon Pop", desc:"Pop balloons 1–10 in order!", stars:0 },
-      { id:"bridge", icon:"🌉", name:"Missing Bridge", desc:"Fill in the missing numbers!", stars:0 },
-      { id:"frog", icon:"🐸", name:"Frog Jump", desc:"Skip count by 2s!", stars:0 },
-      { id:"toyshelf", icon:"🧸", name:"Toy Shelf", desc:"Put toys in order smallest → largest!", stars:0 },
-      { id:"gator", icon:"🐊", name:"Hungry Gator", desc:"Which is bigger? >, < or =?", stars:0 },
-      { id:"partyplanner", icon:"🧁", name:"Party Planner", desc:"Even or Odd numbers?", stars:0 },
-    ]
-  },
-  operations: {
-    icon: "🌋", name: "Operation Volcano", desc: "Addition, Subtraction & Multiplication",
-    games: [
-      { id:"smoothie", icon:"🥤", name:"Fruit Smoothie", desc:"Add fruits and find the total!", stars:0 },
-      { id:"subtraction", icon:"➖", name:"Take Away Town", desc:"Subtraction is just the opposite!", stars:0 },
-      { id:"numberbonds5", icon:"🎯", name:"Number Bonds to 5", desc:"All ways to make 5!", stars:0 },
-      { id:"numberbonds10", icon:"🔟", name:"Number Bonds to 10", desc:"All ways to make 10!", stars:0 },
-      { id:"repeatedadd", icon:"🔄", name:"Repeated Addition", desc:"3+3+3 = 3 groups of 3!", stars:0 },
-      { id:"robot", icon:"🤖", name:"Robot Factory", desc:"Build groups – intro to multiplication!", stars:0 },
-    ]
-  },
-  placevalue: {
-    icon: "🏰", name: "Place Value Castle", desc: "Tens, Ones & Number Building",
-    games: [
-      { id:"placevalue", icon:"🧩", name:"Place Value Builder", desc:"Build numbers with tens and ones!", stars:0 },
-      { id:"commutative", icon:"🔀", name:"Flip It!", desc:"3+4 = 4+3 – order doesn't matter!", stars:0 },
-    ]
-  },
-  geometry: {
-    icon: "🏜️", name: "Shape Desert", desc: "Shapes, Measurement & Time",
-    games: [
-      { id:"shapes", icon:"🎁", name:"Gift Wrapper", desc:"Match the toy to its box shape!", stars:0 },
-      { id:"clock", icon:"☀️", name:"Sun & Moon", desc:"What time is it?", stars:0 },
-    ]
-  },
-  data: {
-    icon: "🌊", name: "Data Deep Sea", desc: "Tallying, Graphs & Sorting",
-    games: [
-      { id:"tally", icon:"🐟", name:"Fish Counter", desc:"Tap fish and make tally marks!", stars:0 },
-      { id:"bargraph", icon:"🐚", name:"Shell Sort", desc:"Collect shells and build a graph!", stars:0 },
-    ]
-  },
-  wordproblems: {
-    icon: "📖", name: "Story Land", desc: "Fun Word Problems & Real-World Math",
-    games: [
-      { id:"wordprobs", icon:"📖", name:"Story Problems", desc:"Solve real-world math with Emma!", stars:0 },
-    ]
-  }
+// ============ STATE ============
+let currentWorld="",currentGame="",gameStars={},currentGameState={};
+const worlds={
+  counting:{icon:"🌳",name:"Number Forest",desc:"Counting, Number Sense & Patterns",games:[
+    {id:"balloons",icon:"🎈",name:"Balloon Pop",desc:"Pop balloons 1-10 in order!"},
+    {id:"bridge",icon:"🌉",name:"Missing Bridge",desc:"Fill in the missing numbers!"},
+    {id:"frog",icon:"🐸",name:"Frog Jump",desc:"Skip count by 2s!"},
+    {id:"toyshelf",icon:"🧸",name:"Toy Shelf",desc:"Order toys smallest to largest!"},
+    {id:"gator",icon:"🐊",name:"Hungry Gator",desc:"Which is bigger?"},
+    {id:"partyplanner",icon:"🧁",name:"Party Planner",desc:"Even or Odd?"},
+    {id:"treasure",icon:"💎",name:"Treasure Chest",desc:"Count coins to the target!"},
+    {id:"hundred",icon:"💯",name:"Hundred Chart",desc:"Explore patterns on a 100-grid!"},
+    {id:"numberline",icon:"📍",name:"Number Line Jump",desc:"Place numbers on the line!"},
+    {id:"caterpillar",icon:"🐛",name:"Caterpillar Count",desc:"Fill the sequence gaps!"},
+  ]},
+  operations:{icon:"🌋",name:"Operation Volcano",desc:"Addition, Subtraction & Multiplication",games:[
+    {id:"smoothie",icon:"🥤",name:"Fruit Smoothie",desc:"Add fruits and find the total!"},
+    {id:"subtraction",icon:"➖",name:"Take Away Town",desc:"Subtraction fun!"},
+    {id:"numberbonds5",icon:"🎯",name:"Number Bonds to 5",desc:"All ways to make 5!"},
+    {id:"numberbonds10",icon:"🔟",name:"Number Bonds to 10",desc:"All ways to make 10!"},
+    {id:"repeatedadd",icon:"🔄",name:"Repeated Addition",desc:"3+3+3 = 3 groups of 3!"},
+    {id:"robot",icon:"🤖",name:"Robot Factory",desc:"Intro to multiplication!"},
+    {id:"magic_doubles",icon:"✨",name:"Magic Doubles",desc:"6+6, 7+7 doubles!"},
+    {id:"spacerocket",icon:"🚀",name:"Space Rescue",desc:"Solve additions to fuel the rocket!"},
+    {id:"cookiefactory",icon:"🍪",name:"Cookie Array",desc:"Rows of cookies = multiplication!"},
+    {id:"timetable_bingo",icon:"🎰",name:"Times Table Bingo",desc:"Tap the right answer!"},
+    {id:"mult_mountain",icon:"⛰️",name:"Multiplication Mountain",desc:"Climb the times tables!"},
+  ]},
+  placevalue:{icon:"🏰",name:"Place Value Castle",desc:"Tens, Ones & Number Building",games:[
+    {id:"placevalue",icon:"🧩",name:"Place Value Builder",desc:"Build numbers with tens and ones!"},
+    {id:"commutative",icon:"🔀",name:"Flip It!",desc:"3+4 = 4+3!"},
+  ]},
+  fractions:{icon:"🍕",name:"Fraction Kingdom",desc:"Halves, Quarters & Splitting",games:[
+    {id:"fraction_shade",icon:"🎨",name:"Fraction Shading",desc:"Shade half, quarter, third!"},
+    {id:"fruit_splitter",icon:"🍎",name:"Fruit Splitter",desc:"Share fruit equally!"},
+    {id:"fraction_match",icon:"🃏",name:"Fraction Match",desc:"Match fractions to pictures!"},
+  ]},
+  geometry:{icon:"🏜️",name:"Shape Desert",desc:"Shapes, Symmetry & Tangrams",games:[
+    {id:"shapes",icon:"🎁",name:"Gift Wrapper",desc:"Match toy to box shape!"},
+    {id:"shape_sorter",icon:"🗂️",name:"Shape Sorter",desc:"Sort 2D vs 3D shapes!"},
+    {id:"symmetry",icon:"🦋",name:"Mirror Me",desc:"Complete the butterfly symmetry!"},
+    {id:"tangram",icon:"🔷",name:"Tangram Puzzles",desc:"Arrange shapes to fill outline!"},
+  ]},
+  measurement:{icon:"📏",name:"Measure Jungle",desc:"Length, Weight & Capacity",games:[
+    {id:"ruler",icon:"📐",name:"Ruler Race",desc:"Measure objects in cm!"},
+    {id:"balance",icon:"⚖️",name:"Heavy or Light?",desc:"Which weighs more?"},
+    {id:"jug",icon:"🫙",name:"Fill the Jug",desc:"Full, half, empty!"},
+  ]},
+  money:{icon:"💰",name:"Money Market",desc:"Coins, Change & Saving",games:[
+    {id:"coin_counter",icon:"🪙",name:"Coin Counter",desc:"Make the exact amount!"},
+    {id:"shopkeeper",icon:"🛍️",name:"Shop Keeper",desc:"Work out the change!"},
+    {id:"piggybank",icon:"🐷",name:"Piggy Bank",desc:"Save up to your goal!"},
+  ]},
+  time:{icon:"⏰",name:"Time Town",desc:"Clocks, Calendar & Schedules",games:[
+    {id:"clock",icon:"🕐",name:"Sun & Moon",desc:"What time is it?"},
+    {id:"calendar",icon:"📅",name:"Calendar Questions",desc:"Days, weeks and months!"},
+    {id:"schedule",icon:"📋",name:"Daily Schedule",desc:"Put activities in order!"},
+  ]},
+  data:{icon:"🌊",name:"Data Deep Sea",desc:"Tallying, Graphs & Sorting",games:[
+    {id:"tally",icon:"🐟",name:"Fish Counter",desc:"Tap fish and make tally marks!"},
+    {id:"bargraph",icon:"🐚",name:"Shell Sort",desc:"Collect shells and build a graph!"},
+  ]},
+  wordproblems:{icon:"📖",name:"Story Land",desc:"Fun Word Problems",games:[
+    {id:"wordprobs",icon:"📖",name:"Story Problems",desc:"Solve real-world math!"},
+  ]},
+  logic:{icon:"🧠",name:"Logic Lab",desc:"Patterns, Sorting & Brain Puzzles",games:[
+    {id:"pattern",icon:"🔵",name:"What Comes Next?",desc:"Extend the pattern!"},
+    {id:"oddoneout",icon:"🔍",name:"Odd One Out",desc:"Spot what doesn't belong!"},
+    {id:"maze",icon:"🗺️",name:"Brain Maze",desc:"Follow number rules to escape!"},
+  ]},
+  bonus:{icon:"🚀",name:"Bonus Zone",desc:"Extra fun challenges",games:[
+    {id:"starchallenge",icon:"⭐",name:"Star Challenge",desc:"Timed questions - beat your score!"},
+    {id:"dailypuzzle",icon:"🗓️",name:"Daily Puzzle",desc:"One special puzzle per session!"},
+    {id:"twoplayer",icon:"👥",name:"2-Player Battle",desc:"Race a friend on the same screen!"},
+  ]},
 };
-
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById("screen-" + id).classList.add("active");
-  window.scrollTo(0,0);
-}
-function showHome() { showScreen("home"); updateStarsDisplay(); }
-function goWorld(wid) {
-  currentWorld = wid;
-  const w = worlds[wid];
-  document.getElementById("worldHeader").innerHTML = `<div class="lh-icon">${w.icon}</div><h2>${w.name}</h2><p>${w.desc}</p>`;
-  const gl = document.getElementById("gameList");
-  gl.innerHTML = "";
-  w.games.forEach(g => {
-    const s = gameStars[g.id] || 0;
-    const stars = "⭐".repeat(s) + "☆".repeat(3-s);
-    gl.innerHTML += `<div class="game-btn" onclick="launchGame('${g.id}')"><div class="g-icon">${g.icon}</div><div class="g-info"><h3>${g.name}</h3><p>${g.desc}</p><div class="g-stars">${stars}</div></div></div>`;
-  });
+// ============ NAV ============
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById("screen-"+id).classList.add("active");window.scrollTo(0,0);}
+function showHome(){showScreen("home");updateStarsDisplay();}
+function goWorld(wid){
+  currentWorld=wid;const w=worlds[wid];
+  document.getElementById("worldHeader").innerHTML=`<div class="li">${w.icon}</div><h2>${w.name}</h2><p>${w.desc}</p>`;
+  const gl=document.getElementById("gameList");gl.innerHTML="";
+  w.games.forEach(g=>{const s=gameStars[g.id]||0;const st="⭐".repeat(s)+"☆".repeat(3-s);gl.innerHTML+=`<div class="game-btn" onclick="launchGame('${g.id}')"><div class="gi">${g.icon}</div><div class="ginfo"><h3>${g.name}</h3><p>${g.desc}</p><div class="gstars">${st}</div></div></div>`;});
   showScreen("world");
 }
-function launchGame(gid) {
-  currentGame = gid;
-  document.getElementById("gameBackBtn").onclick = goBack;
-  showScreen("game");
-  buildGame(gid);
-}
-function goBack() { showScreen("world"); goWorld(currentWorld); }
-function updateStarsDisplay() {
-  const t = Object.values(gameStars).reduce((a,b)=>a+b,0);
-  document.getElementById("totalStarsDisplay").textContent = "⭐ " + t + " Stars Collected";
-}
-function awardStars(gid, count) {
-  if ((gameStars[gid]||0) < count) gameStars[gid] = count;
-  updateStarsDisplay();
-}
-function showWin(msg, stars) {
-  stars = Math.min(3, Math.max(1, stars));
-  awardStars(currentGame, stars);
-  document.getElementById("winStars").textContent = "⭐".repeat(stars) + "☆".repeat(3-stars);
-  document.getElementById("winMsg").textContent = msg || "You completed this game!";
-  document.getElementById("winModal").classList.add("open");
-}
-function closeWin() { document.getElementById("winModal").classList.remove("open"); }
-function playAgain() { closeWin(); buildGame(currentGame); }
-
-function buildGame(gid) {
-  const panel = document.getElementById("gamePanel");
-  panel.innerHTML = "<p style='text-align:center;font-size:2.5rem;padding:40px'>Loading... 🎮</p>";
-  const builders = {
-    balloons: buildBalloons, bridge: buildBridge, frog: buildFrog,
-    toyshelf: buildToyShelf, gator: buildGator, partyplanner: buildPartyPlanner,
-    smoothie: buildSmoothie, subtraction: buildSubtraction,
-    numberbonds5: () => buildBonds(5), numberbonds10: () => buildBonds(10),
-    repeatedadd: buildRepeatedAdd, robot: buildRobot,
-    placevalue: buildPlaceValue, commutative: buildCommutative,
-    shapes: buildShapes, clock: buildClock, tally: buildTally,
-    bargraph: buildBarGraph, wordprobs: buildWordProbs,
-  };
-  currentGameState = {};
-  if (builders[gid]) builders[gid]();
-  else panel.innerHTML = "<p style='text-align:center;padding:40px'>Coming Soon! 🚧</p>";
-}
-
-function buildBalloons() {
-  const colors = ["#FF4757","#e6a800","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997","#e05070","#1a9c50"];
-  const nums = shuffle([1,2,3,4,5,6,7,8,9,10]);
-  currentGameState = { next:1, total:10, nums };
-  document.getElementById("gamePanel").innerHTML = `<h2>🎈 Balloon Pop!</h2><div class="game-desc">Pop the balloons in order from <b>1 to 10</b>!<br>Tap the smallest number first! 🎯</div><div class="game-box"><div class="feedback" id="bf"></div><div class="balloon-field" id="balloonField"></div></div>`;
-  const field = document.getElementById("balloonField");
-  nums.forEach(n => {
-    const b = document.createElement("div");
-    b.className = "balloon"; b.id="b"+n; b.textContent = n;
-    b.style.background = colors[n-1]; b.onclick = () => popBalloon(n);
-    field.appendChild(b);
-  });
-}
-function popBalloon(n) {
-  const s = currentGameState; const fb = document.getElementById("bf");
-  if (n === s.next) {
-    const el = document.getElementById("b"+n); el.classList.add("popped"); el.textContent = "💥";
-    fb.className="feedback good"; fb.textContent="✅ Yes! "+n+"!"; s.next++;
-    if (s.next > s.total) setTimeout(()=>showWin("You popped all the balloons!", 3),600);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Try "+s.next+" first!";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);
-  }
-}
-
-function buildBridge() {
-  const start = rnd(1,8), len = 7;
-  const seq = Array.from({length:len},(_,i)=>start+i);
-  const gapIdx = rnd(1, len-2);
-  currentGameState = { seq, gapIdx, answer: seq[gapIdx] };
-  renderBridge();
-}
-function renderBridge() {
-  const s = currentGameState;
-  const choices = shuffle([s.answer, s.answer+1, s.answer-1, s.answer+2].filter(x=>x>0));
-  let planks = s.seq.map((n,i) => i===s.gapIdx ? `<div class="plank gap" id="gap-plank">❓</div>` : `<div class="plank filled">${n}</div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🌉 Missing Bridge</h2><div class="game-desc">🐰 needs to cross! Fill in the missing number!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="bridge-row">${planks}</div><p style="text-align:center;color:#1A1F4B;margin:10px 0;font-size:1.2rem;font-weight:800">Choose the missing number:</p><div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join("")}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildBridge()">Next Puzzle ▶</button></div></div>`;
-}
-function checkBridge(n) {
-  const fb = document.getElementById("bf");
-  if (n === currentGameState.answer) {
-    const gp = document.getElementById("gap-plank");
-    gp.textContent = n; gp.style.background = "#2ECC71"; gp.style.color = "#fff";
-    fb.className="feedback good"; fb.textContent="🎉 Correct! 🐰 can cross!";
-    awardStars(currentGame, 3); setTimeout(buildBridge, 1200);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Try again! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
-}
-
-function buildFrog() { currentGameState = { pads: Array.from({length:11},(_,i)=>i*2), pos:0 }; renderFrog(); }
-function renderFrog() {
-  const s = currentGameState;
-  let cells = s.pads.map((n,i)=>{
-    let cls="frog-pad"; if(i<s.pos) cls+=" visited"; if(i===s.pos) cls+=" active";
-    return `<div class="${cls}">${i===s.pos?"🐸":n}</div>`;
-  }).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🐸 Frog Jump!</h2><div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump!</div><div class="game-box"><div class="frog-track">${cells}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.7rem;color:var(--dark);margin:12px 0">🐸 is on: <span style="color:var(--coral)">${s.pads[s.pos]}</span></div><div class="btn-row"><button class="btn-primary green" onclick="hopFrog()">🐸 Hop!</button><button class="btn-primary blue" onclick="buildFrog()">↺ Reset</button></div></div>`;
-}
-function hopFrog() {
-  const s = currentGameState;
-  if (s.pos < s.pads.length-1) { s.pos++; renderFrog(); if(s.pos===s.pads.length-1) setTimeout(()=>showWin("You counted all the way to "+s.pads[s.pads.length-1]+"!",3),400); }
-}
-
-function buildToyShelf() {
-  const toys = shuffle(["🐻","🦁","🐯","🐘","🦒","🐬","🦊","🐼"]).slice(0,4);
-  const sizes = shuffle([1,2,3,4]);
-  const toyObjs = toys.map((t,i)=>({emoji:t,size:sizes[i]}));
-  currentGameState = { toyObjs, sorted:[...toyObjs].sort((a,b)=>a.size-b.size), tapped:[] };
-  renderToyShelf();
-}
-function renderToyShelf() {
-  const s = currentGameState;
-  const tapped = s.tapped.map(t=>t.emoji);
-  const toys = s.toyObjs.map((t,i)=>`<div class="toy-tap${tapped.includes(t.emoji)?" placed":""}" style="font-size:${1.4+t.size*.5}rem" onclick="tapToy(${i})">${t.emoji}</div>`).join("");
-  const shelf = s.tapped.map(t=>`<div style="font-size:${1.4+t.size*.5}rem">${t.emoji}</div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🧸 Toy Shelf</h2><div class="game-desc">Tap the toys from <b>Smallest → Largest</b> to put them on the shelf!</div><div class="game-box"><div class="feedback" id="bf"></div><p style="text-align:center;color:#1A1F4B;font-size:1.1rem;font-weight:800;margin-bottom:8px">Tap in order:</p><div class="toy-row">${toys}</div><div style="background:#F5DEB3;border-radius:14px;padding:12px;margin:12px 0;min-height:70px;display:flex;align-items:flex-end;justify-content:center;gap:12px;border:4px solid var(--dark)">${shelf||"<span style='color:#9CA3AF;font-size:1rem;align-self:center;font-weight:700'>Shelf is empty</span>"}</div><div class="toy-shelf-area"></div><div class="btn-row"><button class="btn-primary orange" onclick="buildToyShelf()">↺ New Puzzle</button></div></div>`;
-}
-function tapToy(i) {
-  const s = currentGameState; const toy = s.toyObjs[i];
-  if (s.tapped.find(t=>t.emoji===toy.emoji)) return;
-  const fb = document.getElementById("bf");
-  if (toy.emoji === s.sorted[s.tapped.length].emoji) {
-    s.tapped.push(toy); fb.className="feedback good"; fb.textContent="✅ Great!";
-    if (s.tapped.length===s.sorted.length) { setTimeout(()=>showWin("Shelf is sorted perfectly!",3),500); return; }
-    renderToyShelf();
-  } else {
-    fb.className="feedback bad"; fb.textContent="Not quite! Try the smallest one left! 🤔";
-    setTimeout(()=>{if(document.getElementById("bf"))document.getElementById("bf").textContent="";},1000);
-  }
-}
-
-function buildGator() {
-  let a=rnd(1,12), b=rnd(1,12); while(a===b) b=rnd(1,12);
-  currentGameState = { a, b, answer: a>b?">":a<b?"<":"=" }; renderGator();
-}
-function renderGator() {
-  const s = currentGameState;
-  document.getElementById("gamePanel").innerHTML = `<h2>🐊 Hungry Gator</h2><div class="game-desc">The alligator always eats the <b>bigger</b> number! Pick the right symbol!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="gator-row"><div class="gator-num">${s.a}</div><div class="gator-emoji">🐊</div><div class="gator-num">${s.b}</div></div><div class="gator-btns"><button class="gator-btn" onclick="checkGator('>')">&gt;</button><button class="gator-btn" onclick="checkGator('=')">=</button><button class="gator-btn" onclick="checkGator('<')">&lt;</button></div></div>`;
-}
-function checkGator(sym) {
-  const fb = document.getElementById("bf");
-  if (sym===currentGameState.answer) { fb.className="feedback good"; fb.textContent="🐊 Chomp! Correct!"; awardStars(currentGame,3); setTimeout(buildGator,1000); }
-  else { fb.className="feedback bad"; fb.textContent="Oops! Try again! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},900); }
-}
-
-function buildPartyPlanner() { currentGameState = { n:rnd(2,16) }; renderPartyPlanner(); }
-function renderPartyPlanner() {
-  const s = currentGameState;
-  document.getElementById("gamePanel").innerHTML = `<h2>🧁 Party Planner</h2><div class="game-desc">Can ALL the cupcakes be paired up?<br>If yes → <b>Even!</b> If one is left alone → <b>Odd!</b></div><div class="game-box"><div class="feedback" id="bf"></div><div style="text-align:center;font-size:2rem;margin:14px 0;font-family:'Fredoka One',cursive;color:var(--dark)">There are <b>${s.n}</b> cupcakes</div><div class="cupcake-row">${"<span class='cupcake'>🧁</span>".repeat(s.n)}</div><div class="btn-row"><button class="btn-primary green" onclick="checkEvenOdd('even')">✌️ Even</button><button class="btn-primary" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button></div><div class="btn-row"><button class="btn-primary blue" onclick="buildPartyPlanner()">▶ Next Cupcake!</button></div></div>`;
-}
-function checkEvenOdd(ans) {
-  const fb = document.getElementById("bf"); const correct = currentGameState.n%2===0?"even":"odd";
-  if (ans===correct) { fb.className="feedback good"; fb.textContent=correct==="even"?"🎉 Even! Every cupcake has a pair!":"🎉 Odd! One cupcake is alone!"; awardStars(currentGame,3); setTimeout(buildPartyPlanner,1200); }
-  else { fb.className="feedback bad"; fb.textContent="Try pairing them up! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},900); }
-}
-
-function buildSmoothie() {
-  currentGameState = { shelf:shuffle(["🍓","🍌","🍊","🍇","🍎","🍑","🫐","🍒"]).slice(0,6), basket:[] }; renderSmoothie();
-}
-function renderSmoothie() {
-  const s = currentGameState;
-  document.getElementById("gamePanel").innerHTML = `<h2>🥤 Fruit Smoothie</h2><div class="game-desc">Tap fruits to add them to the blender! Press <b>Blend!</b> to find the total! 🎯</div><div class="game-box"><div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join("")}</div><div class="blender">${s.basket.join(" ")||"<span style='color:#6B7280;font-weight:700'>Drop fruits here! 🫙</span>"}</div><div class="blend-total" id="blendTotal">${s.basket.length>0?"Count: "+s.basket.length:""}</div><div class="btn-row"><button class="btn-primary green" onclick="blendIt()">🌀 Blend!</button><button class="btn-primary blue" onclick="buildSmoothie()">↺ New Recipe</button></div></div>`;
-}
-function addFruit(i) { currentGameState.basket.push(currentGameState.shelf[i]); renderSmoothie(); }
-function blendIt() { const n=currentGameState.basket.length; if(!n) return; document.getElementById("blendTotal").textContent="🥤 Total = "+n+"! Great job!"; if(n>=3) awardStars(currentGame,3); }
-
-function buildSubtraction() {
-  const total=rnd(4,10), take=rnd(1,total-1), ans=total-take;
-  const choices=shuffle([ans,ans+1,ans-1,ans+2].filter(x=>x>=0&&x<=total));
-  currentGameState = { total, take, ans };
-  const vis=Array.from({length:total},(_,i)=>`<span class="sub-item${i>=ans?" gone":""}">⭐</span>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>➖ Take Away Town!</h2><div class="game-desc">We had <b>${total}</b> stars. We take away <b>${take}</b>. How many are left?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="sub-vis">${vis}</div><div class="sub-eq">${total} − ${take} = ?</div><div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildSubtraction()">▶ Next</button></div></div>`;
-}
-function checkSub(n) {
-  const fb=document.getElementById("bf"); document.querySelectorAll(".sub-choice").forEach(b=>b.onclick=null);
-  if (n===currentGameState.ans) {
-    document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("correct"); });
-    fb.className="feedback good"; fb.textContent="🎉 Correct! "+currentGameState.total+" − "+currentGameState.take+" = "+n;
-    awardStars(currentGame,3); setTimeout(buildSubtraction,1200);
-  } else {
-    document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("wrong"); });
-    fb.className="feedback bad"; fb.textContent="Try again! Count the bright stars! 🌟";
-    setTimeout(()=>{document.querySelectorAll(".sub-choice").forEach(b=>{b.classList.remove("wrong");b.onclick=()=>checkSub(+b.textContent);});fb.textContent="";fb.className="feedback";},900);
-  }
-}
-
-function buildBonds(target) {
-  const pairs=[]; for(let i=0;i<=target;i++) pairs.push([i,target-i]);
-  currentGameState = { target, pairs, current:0 }; renderBond();
-}
-function renderBond() {
-  const s=currentGameState; const [a,b]=s.pairs[s.current];
-  const bChoices=shuffle([b,(b+1)%(s.target+1),(b+2)%(s.target+1),b===0?s.target:b-1]);
-  document.getElementById("gamePanel").innerHTML = `<h2>🎯 Number Bonds to ${s.target}</h2><div class="game-desc">Find ALL the ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div><div class="game-box"><div class="feedback" id="bf"></div><div class="bond-visual"><span style="font-size:3.5rem">${a}</span><span style="font-size:2.2rem">+</span><span style="background:var(--sun);border:4px solid var(--dark);border-radius:14px;padding:6px 20px;font-size:2.5rem;color:#6B4200">?</span><span style="font-size:2.2rem">=</span><span style="font-size:3.5rem">${s.target}</span></div><div class="bonds-grid">${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join("")}</div><div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(s.current/s.pairs.length)*100}%"></div></div></div>`;
-}
-function checkBond(n) {
-  const s=currentGameState; const [a,b]=s.pairs[s.current]; const fb=document.getElementById("bf");
-  if (n===b) { fb.className="feedback good"; fb.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`; s.current++; if(s.current>=s.pairs.length){setTimeout(()=>showWin("You found all bonds to "+s.target+"!",3),700);return;} setTimeout(renderBond,900); }
-  else { fb.className="feedback bad"; fb.textContent="Try again! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},800); }
-}
-
-function buildRepeatedAdd() {
-  const groups=rnd(2,5), each=rnd(2,6);
-  currentGameState = { groups, each, total:groups*each }; renderRepeatedAdd();
-}
-function renderRepeatedAdd() {
-  const s=currentGameState; const addStr=Array.from({length:s.groups},()=>s.each).join("+");
-  const groupsHtml=Array.from({length:s.groups},()=>`<div class="mult-group">${Array.from({length:s.each},()=>"<div class='mult-dot'>●</div>").join("")}</div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🔄 Repeated Addition</h2><div class="game-desc">${addStr} means <b>${s.groups} groups of ${s.each}</b>! What's the total?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="mult-groups">${groupsHtml}</div><div class="mult-eq">${addStr} = ${s.groups} × ${s.each} = <input class="mult-input" type="number" id="raInput" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn-primary green" onclick="checkRA()">✅ Check!</button><button class="btn-primary blue" onclick="buildRepeatedAdd()">▶ Next</button></div></div>`;
-}
-function checkRA() {
-  const val=+document.getElementById("raInput").value; const fb=document.getElementById("bf");
-  if(val===currentGameState.total){fb.className="feedback good";fb.textContent="🎉 Correct! "+currentGameState.total+"!";awardStars(currentGame,3);setTimeout(buildRepeatedAdd,1000);}
-  else{fb.className="feedback bad";fb.textContent="Try again! Count the dots! 🔴";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
-}
-
-function buildRobot() {
-  const groups=rnd(2,4), wheels=rnd(2,5);
-  currentGameState = { groups, wheels, total:groups*wheels }; renderRobot();
-}
-function renderRobot() {
-  const s=currentGameState;
-  const groupsHtml=Array.from({length:s.groups},()=>`<div class="robot-group">${Array.from({length:s.wheels},()=>"<div class='wheel'>⚙️</div>").join("")}</div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🤖 Robot Factory</h2><div class="game-desc">Make <b>${s.groups} groups of ${s.wheels} wheels</b>! Count all the wheels!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="robot-groups">${groupsHtml}</div><div class="mult-eq">${s.groups} × ${s.wheels} = <input class="mult-input" type="number" id="robotInput" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn-primary green" onclick="checkRobot()">⚙️ Build It!</button><button class="btn-primary blue" onclick="buildRobot()">▶ Next</button></div></div>`;
-}
-function checkRobot() {
-  const val=+document.getElementById("robotInput").value; const fb=document.getElementById("bf");
-  if(val===currentGameState.total){fb.className="feedback good";fb.textContent="🤖 Factory complete! "+currentGameState.total+" wheels!";awardStars(currentGame,3);setTimeout(buildRobot,1000);}
-  else{fb.className="feedback bad";fb.textContent="Count the ⚙️ wheels again!";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
-}
-
-function buildPlaceValue() {
-  const n=rnd(11,99), tens=Math.floor(n/10), ones=n%10;
-  currentGameState = { n, tens, ones }; renderPlaceValue();
-}
-function renderPlaceValue() {
-  const s=currentGameState;
-  const tenBlocks=Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join("");
-  const oneBlocks=Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🧩 Place Value Builder</h2><div class="game-desc">How many <span style="color:var(--sky);font-weight:900">tens</span> and <span style="color:#8B5000;font-weight:900">ones</span> make this number?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="pv-num">${s.n}</div><div class="pv-display"><div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tenBlocks}</div></div><div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${oneBlocks}</div></div></div><div style="text-align:center;margin:16px 0;font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--dark)">${s.n} = <input class="pv-input" type="number" id="pvTens" min="0" max="9" inputmode="numeric" placeholder="?"> tens + <input class="pv-input" type="number" id="pvOnes" min="0" max="9" inputmode="numeric" placeholder="?"> ones</div><div class="btn-row"><button class="btn-primary green" onclick="checkPV()">✅ Check!</button><button class="btn-primary blue" onclick="buildPlaceValue()">▶ Next Number</button></div></div>`;
-}
-function checkPV() {
-  const t=+document.getElementById("pvTens").value, o=+document.getElementById("pvOnes").value; const fb=document.getElementById("bf");
-  if(t===currentGameState.tens&&o===currentGameState.ones){fb.className="feedback good";fb.textContent="🎉 Yes! "+currentGameState.n+" = "+t+" tens + "+o+" ones!";awardStars(currentGame,3);setTimeout(buildPlaceValue,1200);}
-  else{fb.className="feedback bad";fb.textContent="Count the blue blocks for tens, yellow for ones! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);}
-}
-
-function buildCommutative() {
-  const a=rnd(1,9), b=rnd(1,9); currentGameState = { a, b };
-  const d1=Array.from({length:a},()=>"<div class='nd'>●</div>").join("");
-  const d2=Array.from({length:b},()=>"<div class='nd b'>●</div>").join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🔀 Flip It!</h2><div class="game-desc">The order doesn't matter! Both ways give the same total!</div><div class="game-box"><div class="comm-eq"><div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="num-dots">${d1}${d2}</div><div style="text-align:center;font-size:1.7rem;margin:10px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div><div class="comm-eq"><div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="num-dots">${d2}${d1}</div><div class="feedback good" style="display:block;margin-top:14px">✅ ${a}+${b} = ${b}+${a} = ${a+b}!</div><div class="btn-row"><button class="btn-primary green" id="commNext">▶ See Another!</button></div></div>`;
-  document.getElementById("commNext").onclick = () => { awardStars(currentGame,3); buildCommutative(); };
-}
-
-function buildShapes() {
-  const toys = [
-    {emoji:"⚽",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🎲",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🥫",name:"Cylinder",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🍦",name:"Cone",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"📦",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🏀",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
-  ];
-  const toy = toys[rnd(0,toys.length-1)]; currentGameState = { toy };
-  document.getElementById("gamePanel").innerHTML = `<h2>🎁 Gift Wrapper</h2><div class="game-desc">Pick the right box shape to wrap this toy! 🎁</div><div class="game-box"><div class="feedback" id="bf"></div><div class="toy-display">${toy.emoji}</div><p style="text-align:center;color:#1A1F4B;margin-bottom:14px;font-size:1.2rem;font-weight:800">What shape box do I need?</p><div class="shape-options">${toy.opts.map(s=>`<div class="shape-opt" onclick="checkShape('${s}','${toy.name}')">${s==="Sphere"?"🔵":s==="Cube"?"📦":s==="Cylinder"?"🥫":"🍦"}<span>${s}</span></div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildShapes()">▶ Next Toy</button></div></div>`;
-}
-function checkShape(picked, answer) {
-  const fb=document.getElementById("bf");
-  if(picked===answer){fb.className="feedback good";fb.textContent="🎁 Perfect wrap! It's a "+answer+"!";awardStars(currentGame,3);setTimeout(buildShapes,1200);}
-  else{fb.className="feedback bad";fb.textContent="Not quite! Think about the toy's shape! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
-}
-
-function buildClock() {
-  const h=rnd(1,12), m=[0,15,30,45][rnd(0,3)]; currentGameState = { h, m };
-  const hChoices=shuffle([h,h%12+1,(h+2)%12||12,(h+10)%12||12]).slice(0,3);
-  document.getElementById("gamePanel").innerHTML = `<h2>☀️ Sun & Moon – Tell the Time!</h2><div class="game-desc">Look at the clock! What time is it?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="clock-svg-wrap">${drawClock(h,m)}</div><div class="time-target">What time does the clock show?</div><div class="btn-row">${hChoices.map(hh=>[0,15,30,45].map(mm=>`<button class="btn-primary blue" style="font-size:1.1rem;padding:12px 16px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,"0")}</button>`).join("")).join("")}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildClock()">▶ Next Clock</button></div></div>`;
-}
-function drawClock(h,m) {
-  const cx=90,cy=90,r=80,mAngle=(m/60)*360-90,hAngle=((h%12+(m/60))/12)*360-90;
-  const mRad=mAngle*Math.PI/180,hRad=hAngle*Math.PI/180;
-  const mx=cx+65*Math.cos(mRad),my=cy+65*Math.sin(mRad),hx=cx+45*Math.cos(hRad),hy=cy+45*Math.sin(hRad);
-  let nums=""; for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="13" fill="#1A1F4B" font-weight="bold">${i}</text>`;}
-  return `<svg width="200" height="200" viewBox="0 0 180 180"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFDF0" stroke="#1A1F4B" stroke-width="5"/>${nums}<line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#3BAEFF" stroke-width="5" stroke-linecap="round"/><line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#1A1F4B" stroke-width="7" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="6" fill="#1A1F4B"/></svg>`;
-}
-function checkClock(hh,mm) {
-  const fb=document.getElementById("bf");
-  if(hh===currentGameState.h&&mm===currentGameState.m){fb.className="feedback good";fb.textContent="🕐 Yes! "+hh+":"+String(mm).padStart(2,"0")+"!";awardStars(currentGame,3);setTimeout(buildClock,1200);}
-  else{fb.className="feedback bad";fb.textContent="Look at the hands again! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
-}
-
-function buildTally() { currentGameState = { target:rnd(5,15), count:0 }; renderTally(); }
-function renderTally() {
-  const s=currentGameState;
-  function makeTally(n){let t="",g=Math.floor(n/5),r=n%5;for(let i=0;i<g;i++)t+="||||̶ ";t+="|".repeat(r);return t||"—";}
-  document.getElementById("gamePanel").innerHTML = `<h2>🐟 Fish Counter</h2><div class="game-desc">Tap each fish as it swims by! Watch the tally marks appear!</div><div class="game-box"><div class="tally-fish-row">${Array.from({length:s.target},(_,i)=>`<div class="tally-fish" onclick="tapFish()">🐟</div>`).join("")}</div><div style="text-align:center;color:#1A1F4B;font-size:1rem;margin:6px 0;font-weight:700">Tap the fish!</div><p style="text-align:center;color:#1A1F4B;margin:10px 0;font-size:1.1rem;font-weight:800">Tally Marks:</p><div class="tally-marks" id="tallyMarks">${makeTally(s.count)}</div><div class="tally-count" id="tallyCount">Count: ${s.count}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildTally()">↺ New School</button></div></div>`;
-  window._makeTally=makeTally;
-}
-function tapFish() {
-  const s=currentGameState; if(s.count>=s.target) return; s.count++;
-  document.getElementById("tallyMarks").textContent=window._makeTally(s.count);
-  document.getElementById("tallyCount").textContent="Count: "+s.count;
-  if(s.count===s.target) setTimeout(()=>showWin("You counted "+s.target+" fish!",3),400);
-}
-
-function buildBarGraph() {
-  currentGameState = { items:[{e:"🐚",name:"Shell",col:"#FFD93D"},{e:"🦀",name:"Crab",col:"#FF4757"},{e:"⭐",name:"Star",col:"#3BAEFF"},{e:"🪸",name:"Coral",col:"#FF4D94"}], counts:[0,0,0,0] }; renderBarGraph();
-}
-function renderBarGraph() {
-  const s=currentGameState;
-  const btns=s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join("");
-  const max=Math.max(...s.counts,1);
-  const bars=s.items.map((it,i)=>{const h=Math.round((s.counts[i]/max)*130)+6;return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:""}</div>`;}).join("");
-  document.getElementById("gamePanel").innerHTML = `<h2>🐚 Shell Sort</h2><div class="game-desc">Press a shell to collect it! Watch your bar graph grow! 📊</div><div class="game-box"><div class="graph-items">${btns}</div><div class="bar-graph">${bars}</div><div style="display:flex;justify-content:center;gap:16px;font-family:'Fredoka One',cursive;font-size:1rem;flex-wrap:wrap;color:var(--dark)">${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear &amp; Restart</button></div></div>`;
-}
-function addBar(i) {
-  currentGameState.counts[i]++;
-  if(currentGameState.counts.reduce((a,b)=>a+b,0)>=10) awardStars(currentGame,3);
-  renderBarGraph();
-}
-
-const problems = [
-  { text:"Emma has 🍎🍎🍎 3 apples. She picks 4 more apples. How many does she have now?", choices:[5,7,8,6], answer:7 },
-  { text:"Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many are left?", choices:[2,3,7,4], answer:3 },
-  { text:"There are 🐔🐔🐔 3 hens. Each hen lays 2 eggs 🥚🥚. How many eggs are there?", choices:[5,6,7,8], answer:6 },
-  { text:"Sara has 8 🎈 balloons. 3 float away. How many does she have?", choices:[4,5,6,11], answer:5 },
-  { text:"Jake has 🌟🌟 2 packs of stickers with 5 stickers each. How many stickers total?", choices:[7,10,12,15], answer:10 },
-  { text:"A pond has 🐸🐸🐸🐸 4 frogs. 3 more jump in. How many frogs now?", choices:[6,7,8,9], answer:7 },
-  { text:"Mia shared 12 🍬 candies equally among 3 friends. How many does each friend get?", choices:[3,4,6,9], answer:4 },
-];
-function buildWordProbs() {
-  const p=problems[rnd(0,problems.length-1)]; currentGameState = { p };
-  const shuffled=shuffle([...p.choices]);
-  document.getElementById("gamePanel").innerHTML = `<h2>📖 Story Problems</h2><div class="game-desc">Read the story and pick the right answer!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="wp-box"><p>${p.text}</p></div><div class="wp-choices">${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildWordProbs()">▶ Next Story</button></div></div>`;
-}
-function checkWP(n) {
-  const fb=document.getElementById("bf"); document.querySelectorAll(".wp-choice").forEach(b=>b.onclick=null);
-  if(n===currentGameState.p.answer){
-    document.querySelectorAll(".wp-choice").forEach(b=>{if(+b.textContent===n)b.classList.add("correct");});
-    fb.className="feedback good"; fb.textContent="🎉 Correct! The answer is "+n+"!";
-    awardStars(currentGame,3); setTimeout(buildWordProbs,1200);
-  } else {
-    document.querySelectorAll(".wp-choice").forEach(b=>{if(+b.textContent===n)b.classList.add("wrong");});
-    fb.className="feedback bad"; fb.textContent="Try again! Read the story carefully! 📖";
-    setTimeout(()=>{document.querySelectorAll(".wp-choice").forEach(b=>{b.classList.remove("wrong");b.onclick=()=>checkWP(+b.textContent);});fb.textContent="";fb.className="feedback";},900);
-  }
-}
-
+function launchGame(gid){currentGame=gid;document.getElementById("gameBackBtn").onclick=goBack;showScreen("game");buildGame(gid);}
+function goBack(){showScreen("world");goWorld(currentWorld);}
+function updateStarsDisplay(){const t=Object.values(gameStars).reduce((a,b)=>a+b,0);document.getElementById("totalStarsDisplay").textContent="⭐ "+t+" Stars Collected";}
+function awardStars(gid,count){if((gameStars[gid]||0)<count)gameStars[gid]=count;updateStarsDisplay();}
+function showWin(msg,stars){stars=Math.min(3,Math.max(1,stars));awardStars(currentGame,stars);document.getElementById("winStars").textContent="⭐".repeat(stars)+"☆".repeat(3-stars);document.getElementById("winMsg").textContent=msg||"You completed this game!";document.getElementById("winModal").classList.add("open");}
+function closeWin(){document.getElementById("winModal").classList.remove("open");}
+function playAgain(){closeWin();buildGame(currentGame);}
+// ============ UTILS ============
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
+function P(id){return document.getElementById(id);}
+function SP(html){P("gamePanel").innerHTML=html;}
+function good(msg){const f=P("bf");if(f){f.className="fb ok";f.textContent=msg;}}
+function bad(msg){const f=P("bf");if(f){f.className="fb no";f.textContent=msg;setTimeout(()=>{if(P("bf")){P("bf").textContent="";P("bf").className="fb";}},950);}}
+// ============ GAME BUILDER ============
+function buildGame(gid){
+  SP("<p style='text-align:center;font-size:2.5rem;padding:40px'>Loading 🎮</p>");
+  currentGameState={};
+  const map={
+    balloons:buildBalloons,bridge:buildBridge,frog:buildFrog,toyshelf:buildToyShelf,
+    gator:buildGator,partyplanner:buildPartyPlanner,treasure:buildTreasure,
+    hundred:buildHundred,numberline:buildNumberLine,caterpillar:buildCaterpillar,
+    smoothie:buildSmoothie,subtraction:buildSubtraction,
+    numberbonds5:()=>buildBonds(5),numberbonds10:()=>buildBonds(10),
+    repeatedadd:buildRepeatedAdd,robot:buildRobot,magic_doubles:buildMagicDoubles,
+    spacerocket:buildSpaceRocket,cookiefactory:buildCookieArray,
+    timetable_bingo:buildBingo,mult_mountain:buildMultMountain,
+    placevalue:buildPlaceValue,commutative:buildCommutative,
+    fraction_shade:buildFractionShade,fruit_splitter:buildFruitSplitter,fraction_match:buildFractionMatch,
+    shapes:buildShapes,shape_sorter:buildShapeSorter,symmetry:buildSymmetry,tangram:buildTangram,
+    ruler:buildRuler,balance:buildBalance,jug:buildJug,
+    coin_counter:buildCoinCounter,shopkeeper:buildShopkeeper,piggybank:buildPiggyBank,
+    clock:buildClock,calendar:buildCalendar,schedule:buildSchedule,
+    tally:buildTally,bargraph:buildBarGraph,wordprobs:buildWordProbs,
+    pattern:buildPattern,oddoneout:buildOddOneOut,maze:buildMaze,
+    starchallenge:buildStarChallenge,dailypuzzle:buildDailyPuzzle,twoplayer:buildTwoPlayer,
+  };
+  if(map[gid])map[gid]();else SP("<p style='text-align:center;padding:40px'>Coming Soon 🚧</p>");
+}
+// =========================================
+// BALLOON POP
+// =========================================
+function buildBalloons(){
+  const cols=["#FF4757","#c8940a","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997","#b03060","#1a9c50"];
+  const nums=shuffle([1,2,3,4,5,6,7,8,9,10]);
+  currentGameState={next:1,total:10};
+  SP(`<h2>🎈 Balloon Pop!</h2><div class="gdesc">Pop balloons in order <b>1 to 10</b>! Tap the smallest number first!</div><div class="game-box"><div class="fb" id="bf"></div><div class="balloon-field" id="bField"></div></div>`);
+  const f=P("bField");
+  nums.forEach(n=>{const b=document.createElement("div");b.className="balloon";b.id="b"+n;b.textContent=n;b.style.background=cols[n-1];b.onclick=()=>popBalloon(n);f.appendChild(b);});
+}
+function popBalloon(n){const s=currentGameState;if(n===s.next){const el=P("b"+n);el.classList.add("popped");el.textContent="💥";good("✅ Yes! "+n+"!");s.next++;if(s.next>s.total)setTimeout(()=>showWin("All balloons popped!",3),600);}else bad("Try "+s.next+" first!");}
+// =========================================
+// MISSING BRIDGE
+// =========================================
+function buildBridge(){
+  const start=rnd(1,8),len=7,seq=Array.from({length:len},(_,i)=>start+i),gi=rnd(1,len-2);
+  currentGameState={seq,gi,answer:seq[gi]};renderBridge();
+}
+function renderBridge(){
+  const s=currentGameState,ch=shuffle([s.answer,s.answer+1,s.answer-1,s.answer+2].filter(x=>x>0));
+  const planks=s.seq.map((n,i)=>i===s.gi?`<div class="plank gap" id="gp">❓</div>`:`<div class="plank f">${n}</div>`).join("");
+  SP(`<h2>🌉 Missing Bridge</h2><div class="gdesc">Fill in the missing number to help 🐰 cross!</div><div class="game-box"><div class="fb" id="bf"></div><div class="bridge-row">${planks}</div><p style="text-align:center;color:#1A1F4B;margin:9px 0;font-size:1.05rem;font-weight:800">Choose:</p><div class="numpad">${ch.map(c=>`<button class="npb" onclick="checkBridge(${c})">${c}</button>`).join("")}</div><div class="btn-row"><button class="btn o" onclick="buildBridge()">Next ▶</button></div></div>`);
+}
+function checkBridge(n){if(n===currentGameState.answer){const gp=P("gp");gp.textContent=n;gp.style.background="#2ECC71";gp.style.color="#fff";good("🎉 Correct! 🐰 can cross!");awardStars(currentGame,3);setTimeout(buildBridge,1200);}else bad("Try again! 🤔");}
+// =========================================
+// FROG JUMP
+// =========================================
+function buildFrog(){currentGameState={pads:Array.from({length:11},(_,i)=>i*2),pos:0};renderFrog();}
+function renderFrog(){
+  const s=currentGameState,cells=s.pads.map((n,i)=>{let c="fp";if(i<s.pos)c+=" vis";if(i===s.pos)c+=" active";return`<div class="${c}">${i===s.pos?"🐸":n}</div>`;}).join("");
+  SP(`<h2>🐸 Frog Jump!</h2><div class="gdesc">Skip count by <b>2s</b>! Press Hop!</div><div class="game-box"><div class="frog-track">${cells}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.55rem;color:var(--dark);margin:9px 0">🐸 on: <span style="color:var(--coral)">${s.pads[s.pos]}</span></div><div class="btn-row"><button class="btn g" onclick="hopFrog()">🐸 Hop!</button><button class="btn b" onclick="buildFrog()">↺ Reset</button></div></div>`);
+}
+function hopFrog(){const s=currentGameState;if(s.pos<s.pads.length-1){s.pos++;renderFrog();if(s.pos===s.pads.length-1)setTimeout(()=>showWin("Counted to "+s.pads[s.pads.length-1]+"!",3),400);}}
+// =========================================
+// TOY SHELF
+// =========================================
+function buildToyShelf(){
+  const toyEmojis=shuffle(["🐻","🦁","🐯","🐘","🦒","🐬","🦊","🐼"]).slice(0,4);
+  const sizes=shuffle([1,2,3,4]),toyObjs=toyEmojis.map((t,i)=>({emoji:t,size:sizes[i]}));
+  currentGameState={toyObjs,sorted:[...toyObjs].sort((a,b)=>a.size-b.size),tapped:[]};renderToyShelf();
+}
+function renderToyShelf(){
+  const s=currentGameState,tapped=s.tapped.map(t=>t.emoji);
+  const toys=s.toyObjs.map((t,i)=>`<div class="toy-tap${tapped.includes(t.emoji)?" placed":""}" style="font-size:${1.3+t.size*.45}rem" onclick="tapToy(${i})">${t.emoji}</div>`).join("");
+  const shelf=s.tapped.map(t=>`<div style="font-size:${1.3+t.size*.45}rem">${t.emoji}</div>`).join("");
+  SP(`<h2>🧸 Toy Shelf</h2><div class="gdesc">Tap toys <b>Smallest → Largest</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div class="toy-row">${toys}</div><div style="background:#F5DEB3;border-radius:13px;padding:9px;margin:9px 0;min-height:58px;display:flex;align-items:flex-end;justify-content:center;gap:9px;border:4px solid var(--dark)">${shelf||"<span style='color:#9CA3AF;font-size:.88rem;align-self:center;font-weight:700'>Shelf empty</span>"}</div><div style="background:#8B4513;border-radius:0 0 7px 7px;height:15px;margin-top:-3px"></div><div class="btn-row"><button class="btn o" onclick="buildToyShelf()">↺ New Puzzle</button></div></div>`);
+}
+function tapToy(i){const s=currentGameState,toy=s.toyObjs[i];if(s.tapped.find(t=>t.emoji===toy.emoji))return;if(toy.emoji===s.sorted[s.tapped.length].emoji){s.tapped.push(toy);good("✅ Great!");if(s.tapped.length===s.sorted.length){setTimeout(()=>showWin("Shelf sorted!",3),500);return;}renderToyShelf();}else bad("Try the smallest one left!");}
+// =========================================
+// HUNGRY GATOR
+// =========================================
+function buildGator(){let a=rnd(1,15),b=rnd(1,15);while(a===b)b=rnd(1,15);currentGameState={a,b,answer:a>b?">":a<b?"<":"="};renderGator();}
+function renderGator(){const s=currentGameState;SP(`<h2>🐊 Hungry Gator</h2><div class="gdesc">The gator always eats the <b>bigger</b> number!</div><div class="game-box"><div class="fb" id="bf"></div><div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:14px 0"><div class="gator-num">${s.a}</div><div style="font-size:3.3rem">🐊</div><div class="gator-num">${s.b}</div></div><div style="display:flex;gap:11px;justify-content:center;margin-top:11px"><button class="gator-btn" onclick="checkGator('>')">&gt;</button><button class="gator-btn" onclick="checkGator('=')">=</button><button class="gator-btn" onclick="checkGator('<')">&lt;</button></div></div>`);}
+function checkGator(sym){if(sym===currentGameState.answer){good("🐊 Chomp! Correct!");awardStars(currentGame,3);setTimeout(buildGator,1000);}else bad("Oops! Try again!");}
+// =========================================
+// PARTY PLANNER
+// =========================================
+function buildPartyPlanner(){currentGameState={n:rnd(2,18)};renderPartyPlanner();}
+function renderPartyPlanner(){const s=currentGameState;SP(`<h2>🧁 Party Planner</h2><div class="gdesc">Can ALL cupcakes be paired? Yes → <b>Even</b>, leftover → <b>Odd</b></div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:1.85rem;margin:11px 0;font-family:'Fredoka One',cursive;color:var(--dark)">There are <b>${s.n}</b> cupcakes</div><div class="cupcake-row">${"<span style='font-size:2.2rem'>🧁</span>".repeat(s.n)}</div><div class="btn-row"><button class="btn g" onclick="checkEO('even')">✌️ Even</button><button class="btn" style="background:var(--coral)" onclick="checkEO('odd')">☝️ Odd</button></div><div class="btn-row"><button class="btn b" onclick="buildPartyPlanner()">▶ Next</button></div></div>`);}
+function checkEO(ans){const c=currentGameState.n%2===0?"even":"odd";if(ans===c){good(c==="even"?"🎉 Even! All paired!":"🎉 Odd! One alone!");awardStars(currentGame,3);setTimeout(buildPartyPlanner,1200);}else bad("Try pairing them up!");}
+// =========================================
+// TREASURE CHEST
+// =========================================
+function buildTreasure(){const target=rnd(10,35);currentGameState={target,total:0};renderTreasure();}
+function renderTreasure(){
+  const s=currentGameState,pct=Math.min(100,(s.total/s.target)*100);
+  SP(`<h2>💎 Treasure Chest</h2><div class="gdesc">Tap coins to make exactly <b>${s.target}¢</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.35rem;color:var(--purple);margin:7px 0">🎯 Target: ${s.target}¢</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:2rem;color:var(--dark);margin:7px 0" id="coinTotal">You have: ${s.total}¢</div><div class="prog-out"><div class="prog-in" style="width:${pct}%"></div></div><div class="coin-shelf"><button class="coin-btn penny" onclick="addTreasure(1)">1¢<br>Penny</button><button class="coin-btn nickel" onclick="addTreasure(5)">5¢<br>Nickel</button><button class="coin-btn dime" onclick="addTreasure(10)">10¢<br>Dime</button><button class="coin-btn quarter" onclick="addTreasure(25)">25¢<br>Quarter</button></div><div class="btn-row"><button class="btn o" onclick="{currentGameState.total=0;renderTreasure()}">🗑️ Clear</button><button class="btn b" onclick="buildTreasure()">↺ New</button></div></div>`);
+}
+function addTreasure(v){
+  const s=currentGameState;s.total+=v;
+  if(s.total===s.target){good("🎉 Exactly "+s.target+"¢! Treasure unlocked!");awardStars(currentGame,3);setTimeout(buildTreasure,1500);}
+  else if(s.total>s.target){bad("Too much ("+s.total+"¢)! Clear and try again!");s.total=0;}
+  else good(s.total+"¢ so far! Keep going!");
+  renderTreasure();
+}
+// =========================================
+// HUNDRED CHART
+// =========================================
+function buildHundred(){
+  const modes=[{label:"Skip by 2s",skip:2,cls:"s2"},{label:"Skip by 5s",skip:5,cls:"s5"},{label:"Skip by 10s",skip:10,cls:"s10"}];
+  const mode=modes[rnd(0,2)];currentGameState={mode,tapped:new Set()};
+  const cells=Array.from({length:100},(_,i)=>{const n=i+1,isSk=n%mode.skip===0;return`<div class="hcell${isSk?" "+mode.cls:""}" id="hc${n}" onclick="tapHC(${n})">${n}</div>`;}).join("");
+  SP(`<h2>💯 Hundred Chart!</h2><div class="gdesc">Tap all the <b>${mode.label}</b> numbers! They're already coloured!</div><div class="game-box"><div class="fb" id="bf"></div><div class="hgrid">${cells}</div><div class="btn-row"><button class="btn b" onclick="buildHundred()">↺ New Pattern</button></div></div>`);
+}
+function tapHC(n){
+  const s=currentGameState;
+  if(n%s.mode.skip===0){s.tapped.add(n);P("hc"+n).classList.add("tapped");const tot=100/s.mode.skip;if(s.tapped.size===tot){good("🎉 All "+s.mode.skip+"s found! Amazing!");awardStars(currentGame,3);}else good(s.tapped.size+"/"+tot+" found!");}
+  else bad("That's not in the "+s.mode.skip+"s!");
+}
+// =========================================
+// NUMBER LINE
+// =========================================
+function buildNumberLine(){const max=rnd(8,15),target=rnd(1,max-1);currentGameState={max,target,placed:null};renderNL();}
+function renderNL(){
+  const s=currentGameState;
+  const ticks=Array.from({length:s.max+1},(_,i)=>{
+    const placed=s.placed===i,lbl=(i===0||i===s.max||i%5===0)?i:"";
+    let cls="nl-dot";if(placed)cls+=s.placed===s.target?" ok":" no";
+    return`<div class="nl-tick"><div class="${cls}" onclick="placeNL(${i})">${placed?"📍":lbl}</div></div>${i<s.max?`<div class="nl-line"></div>`:""}`;
+  }).join("");
+  SP(`<h2>📍 Number Line Jump!</h2><div class="gdesc">Where does <b style="color:var(--coral);font-size:1.25rem">${s.target}</b> go? Tap to place it!</div><div class="game-box"><div class="fb" id="bf"></div><div style="overflow-x:auto"><div class="nl">${ticks}</div></div><div style="display:flex;justify-content:space-between;padding:0 3px;font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--dark)"><span>0</span><span>${s.max}</span></div><div class="btn-row"><button class="btn b" onclick="buildNumberLine()">▶ Next</button></div></div>`);
+}
+function placeNL(i){const s=currentGameState;s.placed=i;if(i===s.target){good("📍 Correct! "+s.target+" goes right there!");awardStars(currentGame,3);setTimeout(buildNumberLine,1200);}else bad("Not quite! "+s.target+" is "+(s.target>i?"higher":"lower")+"!");renderNL();}
+// =========================================
+// CATERPILLAR
+// =========================================
+function buildCaterpillar(){
+  const start=rnd(1,10),step=rnd(1,3),len=8;
+  const seq=Array.from({length:len},(_,i)=>start+i*step);
+  const gaps=new Set(shuffle([1,2,3,4,5,6]).slice(0,2));
+  currentGameState={seq,gaps,correct:new Set(),gapList:[...gaps]};renderCater();
+}
+function renderCater(){
+  const s=currentGameState;
+  const cols=["#FF4757","#c8940a","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997"];
+  const segs=s.seq.map((n,i)=>{
+    const isGap=s.gaps.has(i),isDone=s.correct.has(i);
+    if(isGap&&!isDone)return`<div class="cseg blank" onclick="pickCG(${i})">?</div>`;
+    return`<div class="cseg${isDone?" ok":""}" style="background:${isDone?"#2ECC71":cols[i%8]}">${n}</div>`;
+  }).join('<span style="font-size:.65rem;align-self:center;margin:0 1px">→</span>');
+  const pending=[...s.gaps].filter(i=>!s.correct.has(i));
+  let chHtml="";
+  if(pending.length>0){
+    const gi=pending[0],ans=s.seq[gi],ch=shuffle([ans,ans+step||ans+1,ans-(s.seq[1]-s.seq[0]),ans+2].filter(x=>x>0));
+    chHtml=`<p style="text-align:center;font-weight:800;font-size:1rem;color:#1A1F4B;margin:8px 0">What goes in the gap?</p><div class="numpad">${ch.map(c=>`<button class="npb" onclick="checkCG(${gi},${c})">${c}</button>`).join("")}</div>`;
+  }
+  SP(`<h2>🐛 Caterpillar Count!</h2><div class="gdesc">Fill in the missing segments!</div><div class="game-box"><div class="fb" id="bf"></div><div class="cater"><span style="font-size:2.1rem">🐛</span>${segs}</div>${chHtml}<div class="btn-row"><button class="btn o" onclick="buildCaterpillar()">↺ New</button></div></div>`);
+  currentGameState._step=s.seq[1]-s.seq[0];
+}
+function pickCG(){}
+function checkCG(idx,val){const s=currentGameState;if(val===s.seq[idx]){s.correct.add(idx);good("✅ Correct! "+val+"!");if(s.correct.size===s.gaps.size){setTimeout(()=>showWin("Caterpillar complete!",3),500);return;}renderCater();}else bad("Not that one! Look at the pattern!");}
+// =========================================
+// FRUIT SMOOTHIE
+// =========================================
+function buildSmoothie(){currentGameState={shelf:shuffle(["🍓","🍌","🍊","🍇","🍎","🍑","🫐","🍒"]).slice(0,6),basket:[]};renderSmoothie();}
+function renderSmoothie(){const s=currentGameState;SP(`<h2>🥤 Fruit Smoothie</h2><div class="gdesc">Tap fruits, then press <b>Blend!</b></div><div class="game-box"><div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join("")}</div><div class="blender">${s.basket.join(" ")||"<span style='color:#6B7280;font-weight:700'>Drop fruits here 🫙</span>"}</div><div class="blend-total" id="bTotal">${s.basket.length?"Count: "+s.basket.length:""}</div><div class="btn-row"><button class="btn g" onclick="blendIt()">🌀 Blend!</button><button class="btn b" onclick="buildSmoothie()">↺ New</button></div></div>`);}
+function addFruit(i){currentGameState.basket.push(currentGameState.shelf[i]);renderSmoothie();}
+function blendIt(){const n=currentGameState.basket.length;if(!n)return;P("bTotal").textContent="🥤 Total = "+n+"! Great job!";if(n>=3)awardStars(currentGame,3);}
+// =========================================
+// SUBTRACTION
+// =========================================
+function buildSubtraction(){
+  const total=rnd(4,12),take=rnd(1,total-1),ans=total-take;
+  const ch=shuffle([ans,ans+1,ans-1,ans+2].filter(x=>x>=0&&x<=total));
+  currentGameState={total,take,ans};
+  const vis=Array.from({length:total},(_,i)=>`<span class="si${i>=ans?" gone":""}">⭐</span>`).join("");
+  SP(`<h2>➖ Take Away Town!</h2><div class="gdesc">Had <b>${total}</b> stars, take away <b>${take}</b>. How many left?</div><div class="game-box"><div class="fb" id="bf"></div><div class="sub-vis">${vis}</div><div class="sub-eq">${total} − ${take} = ?</div><div class="choices">${ch.map(c=>`<div class="ch" onclick="checkSub(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildSubtraction()">▶ Next</button></div></div>`);
+}
+function checkSub(n){
+  document.querySelectorAll(".ch").forEach(b=>b.onclick=null);
+  if(n===currentGameState.ans){document.querySelectorAll(".ch").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("🎉 Correct! "+currentGameState.total+"−"+currentGameState.take+"="+n);awardStars(currentGame,3);setTimeout(buildSubtraction,1200);}
+  else{document.querySelectorAll(".ch").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Count the bright stars!");setTimeout(()=>{document.querySelectorAll(".ch").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkSub(+b.textContent);});},950);}
+}
+// =========================================
+// NUMBER BONDS
+// =========================================
+function buildBonds(target){const pairs=[];for(let i=0;i<=target;i++)pairs.push([i,target-i]);currentGameState={target,pairs,current:0};renderBond();}
+function renderBond(){
+  const s=currentGameState,[a,b]=s.pairs[s.current];
+  const ch=shuffle([b,(b+1)%(s.target+1),(b+2)%(s.target+1),b===0?s.target:b-1]);
+  SP(`<h2>🎯 Number Bonds to ${s.target}</h2><div class="gdesc">Find all ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div><div class="game-box"><div class="fb" id="bf"></div><div class="bond-vis"><span>${a}</span><span style="font-size:1.75rem">+</span><span style="background:var(--sun);border:4px solid var(--dark);border-radius:11px;padding:5px 16px;font-size:2rem;color:#6B4200">?</span><span style="font-size:1.75rem">=</span><span>${s.target}</span></div><div class="bonds-grid">${ch.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join("")}</div><div class="prog-out"><div class="prog-in" style="width:${(s.current/s.pairs.length)*100}%"></div></div></div>`);
+}
+function checkBond(n){const s=currentGameState,[a,b]=s.pairs[s.current];if(n===b){good(`✅ ${a}+${n}=${s.target}!`);s.current++;if(s.current>=s.pairs.length){setTimeout(()=>showWin("All bonds to "+s.target+"!",3),700);return;}setTimeout(renderBond,900);}else bad("Try again!");}
+// =========================================
+// REPEATED ADDITION
+// =========================================
+function buildRepeatedAdd(){const groups=rnd(2,5),each=rnd(2,6);currentGameState={groups,each,total:groups*each};renderRA();}
+function renderRA(){
+  const s=currentGameState,str=Array.from({length:s.groups},()=>s.each).join("+");
+  const gh=Array.from({length:s.groups},()=>`<div class="mgroup">${Array.from({length:s.each},()=>"<div class='mdot'>●</div>").join("")}</div>`).join("");
+  SP(`<h2>🔄 Repeated Addition</h2><div class="gdesc">${str} = <b>${s.groups} groups of ${s.each}</b>! Total?</div><div class="game-box"><div class="fb" id="bf"></div><div class="mgroups">${gh}</div><div class="meq">${str} = <input class="minput" type="number" id="raIn" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn g" onclick="checkRA()">✅ Check!</button><button class="btn b" onclick="buildRepeatedAdd()">▶ Next</button></div></div>`);
+}
+function checkRA(){const v=+P("raIn").value;if(v===currentGameState.total){good("🎉 Correct! "+currentGameState.total+"!");awardStars(currentGame,3);setTimeout(buildRepeatedAdd,1000);}else bad("Count the dots again! 🔴");}
+// =========================================
+// ROBOT FACTORY
+// =========================================
+function buildRobot(){const groups=rnd(2,4),wheels=rnd(2,5);currentGameState={groups,wheels,total:groups*wheels};renderRobot();}
+function renderRobot(){
+  const s=currentGameState;
+  const gh=Array.from({length:s.groups},()=>`<div class="rgroup">${Array.from({length:s.wheels},()=>"<span style='font-size:1.75rem'>⚙️</span>").join("")}</div>`).join("");
+  SP(`<h2>🤖 Robot Factory</h2><div class="gdesc"><b>${s.groups} groups of ${s.wheels} wheels</b> – count them all!</div><div class="game-box"><div class="fb" id="bf"></div><div class="rgroups">${gh}</div><div class="meq">${s.groups} × ${s.wheels} = <input class="minput" type="number" id="robIn" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn g" onclick="checkRobot()">⚙️ Build!</button><button class="btn b" onclick="buildRobot()">▶ Next</button></div></div>`);
+}
+function checkRobot(){const v=+P("robIn").value;if(v===currentGameState.total){good("🤖 Done! "+currentGameState.total+" wheels!");awardStars(currentGame,3);setTimeout(buildRobot,1000);}else bad("Count the ⚙️ again!");}
+// =========================================
+// MAGIC DOUBLES
+// =========================================
+function buildMagicDoubles(){
+  const n=rnd(1,10),isNear=rnd(0,1)===0;
+  const q=isNear?`${n} + ${n+1} = ?`:`${n} + ${n} = ?`;
+  const a=isNear?n*2+1:n*2;
+  const ch=shuffle([a,a+1,a-1,a+2].filter(x=>x>0));
+  currentGameState={q,a};
+  const d1=Array.from({length:n},()=>"<div class='mdot' style='background:var(--coral)'>●</div>").join("");
+  const d2=Array.from({length:isNear?n+1:n},()=>"<div class='mdot' style='background:var(--sky)'>●</div>").join("");
+  SP(`<h2>✨ Magic Doubles!</h2><div class="gdesc">${isNear?"Near doubles – add 1 to the double!":"Just add the same number twice!"}</div><div class="game-box"><div class="fb" id="bf"></div><div style="display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin:14px 0"><div class="dbox"><div class="mgroups" style="margin:5px 0">${d1}</div><div class="dlabel">${n}</div></div><span style="font-family:'Fredoka One',cursive;font-size:1.9rem;align-self:center">+</span><div class="dbox"><div class="mgroups" style="margin:5px 0">${d2}</div><div class="dlabel">${isNear?n+1:n}</div></div></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:2rem;color:var(--dark);margin:11px 0">${q}</div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkWB(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildMagicDoubles()">▶ Next</button></div></div>`);
+}
+function checkWB(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.a){document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("✨ Correct! "+currentGameState.q.replace("?",n));awardStars(currentGame,3);setTimeout(buildMagicDoubles,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Try again!");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkWB(+b.textContent);});},950);}
+}
+// =========================================
+// SPACE ROCKET
+// =========================================
+function buildSpaceRocket(){
+  const a=rnd(5,15),b=rnd(5,15),ans=a+b;
+  const ch=shuffle([ans,ans+1,ans-1,ans+2]);
+  currentGameState={a,b,ans};
+  SP(`<h2>🚀 Space Rescue!</h2><div class="gdesc">Solve the addition to fuel the rocket! 🛸</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:4.8rem;margin:9px 0" id="rocketE">🚀</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:2.4rem;color:var(--dark);margin:11px 0">${a} + ${b} = ?</div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkRocket(${c})">${c}</div>`).join("")}</div></div>`);
+}
+function checkRocket(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.ans){document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("🚀 Blast off! "+currentGameState.a+"+"+currentGameState.b+"="+n);P("rocketE").textContent="🛸";awardStars(currentGame,3);setTimeout(buildSpaceRocket,1300);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Not enough fuel! Try again!");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkRocket(+b.textContent);});},950);}
+}
+// =========================================
+// COOKIE ARRAY
+// =========================================
+function buildCookieArray(){
+  const rows=rnd(2,5),cols=rnd(2,5),ans=rows*cols;
+  const ch=shuffle([ans,ans+1,ans-1,ans+rows].filter(x=>x>0));
+  currentGameState={rows,cols,ans};
+  const grid=Array.from({length:rows},()=>`<div class="arr-row">${Array.from({length:cols},()=>"<div class='adot'></div>").join("")}</div>`).join("");
+  SP(`<h2>🍪 Cookie Array!</h2><div class="gdesc"><b>${rows} rows</b> of <b>${cols} cookies</b> = how many total?</div><div class="game-box"><div class="fb" id="bf"></div><div class="arr-grid">${grid}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.75rem;color:var(--dark);margin:11px 0">${rows} × ${cols} = ?</div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkArr(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildCookieArray()">▶ Next</button></div></div>`);
+}
+function checkArr(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.ans){document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("🍪 "+currentGameState.rows+"×"+currentGameState.cols+"="+n+"!");awardStars(currentGame,3);setTimeout(buildCookieArray,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Count each row! 🍪");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkArr(+b.textContent);});},950);}
+}
+// =========================================
+// TIMES TABLE BINGO
+// =========================================
+function buildBingo(){
+  const table=rnd(2,5);
+  if(!currentGameState.board){
+    const correct=Array.from({length:table*10},(_,i)=>(i+1)*table);
+    const extra=Array.from({length:10},()=>rnd(2,table*12));
+    currentGameState={table,board:shuffle([...new Set([...correct,...extra])]).slice(0,25),marked:new Set(),question:null};
+  }
+  renderBingo();
+}
+function renderBingo(){
+  const s=currentGameState;
+  const qHtml=s.question?`<div class="bq">${s.question.a} × ${s.question.b} = ?</div>`:`<div class="bq">🎲 Press Roll for a question!</div>`;
+  const cells=s.board.map(n=>`<div class="bcell${s.marked.has(n)?" marked":""}" onclick="markBingo(${n})">${n}</div>`).join("");
+  SP(`<h2>🎰 Times Table Bingo!</h2><div class="gdesc">${s.table}× table – answer the question then tap the answer!</div><div class="game-box"><div class="fb" id="bf"></div>${qHtml}<div class="bingo-card">${cells}</div><div class="btn-row"><button class="btn p" onclick="rollBingo()">🎲 Roll!</button><button class="btn b" onclick="{currentGameState={};buildBingo()}">↺ New Game</button></div></div>`);
+}
+function rollBingo(){const s=currentGameState,b=rnd(1,10);s.question={a:s.table,b,ans:s.table*b};renderBingo();}
+function markBingo(n){const s=currentGameState;if(!s.question){bad("Press Roll first!");return;}if(n===s.question.ans){s.marked.add(n);good("✅ "+s.question.a+"×"+s.question.b+"="+n+"!");s.question=null;awardStars(currentGame,Math.min(3,Math.floor(s.marked.size/3)+1));}else bad("That's not "+s.question.a+"×"+s.question.b+"!");renderBingo();}
+// =========================================
+// MULTIPLICATION MOUNTAIN
+// =========================================
+function buildMultMountain(){
+  const table=rnd(2,10),level=rnd(1,10),ans=table*level;
+  const ch=shuffle([ans,ans+table,ans-table,ans+1].filter(x=>x>0));
+  currentGameState={table,level,ans};
+  SP(`<h2>⛰️ Multiplication Mountain!</h2><div class="gdesc">Climb the <b>${table}× table</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:2.8rem;margin:9px 0">🧗</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:2.4rem;color:var(--dark);margin:13px 0">${table} × ${level} = ?</div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkMT(${c})">${c}</div>`).join("")}</div><div class="prog-out"><div class="prog-in" style="width:${level*10}%"></div></div><div class="btn-row"><button class="btn b" onclick="buildMultMountain()">▶ Next</button></div></div>`);
+}
+function checkMT(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.ans){document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("🧗 "+currentGameState.table+"×"+currentGameState.level+"="+n+"!");awardStars(currentGame,3);setTimeout(buildMultMountain,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Keep climbing! Try again!");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkMT(+b.textContent);});},950);}
+}
+// =========================================
+// PLACE VALUE
+// =========================================
+function buildPlaceValue(){const n=rnd(11,99),tens=Math.floor(n/10),ones=n%10;currentGameState={n,tens,ones};renderPV();}
+function renderPV(){
+  const s=currentGameState;
+  const tb=Array.from({length:s.tens},()=>`<div class="pvb ten"></div>`).join("");
+  const ob=Array.from({length:s.ones},()=>`<div class="pvb one"></div>`).join("");
+  SP(`<h2>🧩 Place Value Builder</h2><div class="gdesc">How many <span style="color:var(--sky);font-weight:900">tens</span> and <span style="color:#8B5000;font-weight:900">ones</span>?</div><div class="game-box"><div class="fb" id="bf"></div><div class="pv-num">${s.n}</div><div class="pv-disp"><div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tb}</div></div><div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${ob}</div></div></div><div style="text-align:center;margin:13px 0;font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--dark)">${s.n} = <input class="pv-input" type="number" id="pvT" min="0" max="9" inputmode="numeric" placeholder="?"> tens + <input class="pv-input" type="number" id="pvO" min="0" max="9" inputmode="numeric" placeholder="?"> ones</div><div class="btn-row"><button class="btn g" onclick="checkPV()">✅ Check!</button><button class="btn b" onclick="buildPlaceValue()">▶ Next</button></div></div>`);
+}
+function checkPV(){const t=+P("pvT").value,o=+P("pvO").value;if(t===currentGameState.tens&&o===currentGameState.ones){good("🎉 "+currentGameState.n+"="+t+"tens+"+o+"ones!");awardStars(currentGame,3);setTimeout(buildPlaceValue,1200);}else bad("Count blue=tens, yellow=ones!");}
+// =========================================
+// COMMUTATIVE
+// =========================================
+function buildCommutative(){
+  const a=rnd(1,9),b=rnd(1,9);currentGameState={a,b};
+  const d1=Array.from({length:a},()=>"<div class='mdot' style='background:var(--coral)'>●</div>").join("");
+  const d2=Array.from({length:b},()=>"<div class='mdot' style='background:var(--sky)'>●</div>").join("");
+  SP(`<h2>🔀 Flip It!</h2><div class="gdesc">Order doesn't matter – same total both ways!</div><div class="game-box"><div class="comm-eq"><div class="comm-n">${a}</div><span>+</span><div class="comm-n">${b}</div><span>=</span><div class="comm-n" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="mgroups" style="margin:7px 0">${d1}${d2}</div><div style="text-align:center;font-size:1.55rem;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div><div class="comm-eq"><div class="comm-n">${b}</div><span>+</span><div class="comm-n">${a}</div><span>=</span><div class="comm-n" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="mgroups" style="margin:7px 0">${d2}${d1}</div><div class="fb ok" style="display:block;margin-top:11px">✅ ${a}+${b} = ${b}+${a} = ${a+b}!</div><div class="btn-row"><button class="btn g" id="commNext">▶ Another!</button></div></div>`);
+  P("commNext").onclick=()=>{awardStars(currentGame,3);buildCommutative();};
+}
+// =========================================
+// FRACTION SHADING
+// =========================================
+function buildFractionShade(){
+  const fracs=[{num:1,den:2,label:"½"},{num:1,den:4,label:"¼"},{num:1,den:3,label:"⅓"},{num:3,den:4,label:"¾"},{num:2,den:3,label:"⅔"}];
+  const frac=fracs[rnd(0,fracs.length-1)];currentGameState={frac,shaded:new Set()};renderFS();
+}
+function renderFS(){
+  const s=currentGameState,{num,den,label}=s.frac;
+  const pieces=Array.from({length:den},(_,i)=>`<div class="fp-piece${s.shaded.has(i)?" shaded":""}" onclick="shadeP(${i})"></div>`).join("");
+  SP(`<h2>🎨 Fraction Shading!</h2><div class="gdesc">Shade <b>${label}</b> of the shape!</div><div class="game-box"><div class="fb" id="bf"></div><div style="display:flex;flex-direction:column;align-items:center;margin:13px 0"><div class="frac-pieces">${pieces}</div><div style="font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--dark);margin-top:5px">${label} = ${num} out of ${den} parts</div></div><p style="text-align:center;color:#1A1F4B;font-weight:800;margin:7px 0">Tap <b>${num}</b> piece${num>1?"s":""} to shade</p><div class="btn-row"><button class="btn g" onclick="checkFS()">✅ Check!</button><button class="btn b" onclick="buildFractionShade()">↺ New</button></div></div>`);
+}
+function shadeP(i){const s=currentGameState;if(s.shaded.has(i))s.shaded.delete(i);else s.shaded.add(i);renderFS();}
+function checkFS(){const s=currentGameState;if(s.shaded.size===s.frac.num){good("🎨 Correct! "+s.frac.label+" shaded!");awardStars(currentGame,3);setTimeout(buildFractionShade,1200);}else bad("Need exactly "+s.frac.num+" piece(s) shaded!");}
+// =========================================
+// FRUIT SPLITTER
+// =========================================
+function buildFruitSplitter(){
+  const fruits=["🍎","🍌","🍊","🍇","🍓","🍑"];
+  const fruit=fruits[rnd(0,fruits.length-1)],people=rnd(2,4),total=people*rnd(1,4),each=total/people;
+  currentGameState={fruit,people,total,each,given:Array.from({length:people},()=>0)};renderSplit();
+}
+function renderSplit(){
+  const s=currentGameState,icons=["👧","👦","🧒","👶"].slice(0,s.people);
+  const panels=icons.map((p,i)=>`<div class="split-p"><div class="split-icon">${p}</div><div class="split-items">${s.fruit.repeat(s.given[i])}</div><div class="split-lbl">Gets: ${s.given[i]}</div></div>`).join("");
+  const rem=s.total-s.given.reduce((a,b)=>a+b,0);
+  SP(`<h2>🍎 Fruit Splitter!</h2><div class="gdesc">Share <b>${s.total} ${s.fruit}</b> equally among <b>${s.people} friends</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.35rem;color:var(--dark);margin:7px 0">Remaining: ${rem} ${s.fruit}</div><div class="split-disp">${panels}</div>${rem>0?`<div class="btn-row">${icons.map((_,i)=>`<button class="btn${i%2===0?" g":" b"}" onclick="giveF(${i})">Give to ${["A","B","C","D"][i]}</button>`).join("")}</div>`:""}<div class="btn-row"><button class="btn o" onclick="checkSplit()">✅ Check!</button><button class="btn" onclick="buildFruitSplitter()">↺ New</button></div></div>`);
+}
+function giveF(i){const s=currentGameState,rem=s.total-s.given.reduce((a,b)=>a+b,0);if(rem>0){s.given[i]++;renderSplit();}}
+function checkSplit(){const s=currentGameState;if(s.given.every(g=>g===s.each)){good("🍎 Perfect! Each gets "+s.each+"!");awardStars(currentGame,3);setTimeout(buildFruitSplitter,1300);}else bad("Not equal yet! Each should get "+s.each+"!");}
+// =========================================
+// FRACTION MATCH
+// =========================================
+function buildFractionMatch(){
+  const all=[{val:"½",pic:"◑ Half"},{val:"¼",pic:"◔ Quarter"},{val:"¾",pic:"◕ 3 Quarters"},{val:"⅓",pic:"⅓ Third"},{val:"⅔",pic:"⅔ Two Thirds"}];
+  const picked=shuffle(all).slice(0,3);
+  const cards=shuffle([...picked.map(f=>({type:"sym",val:f.val,text:f.val})),...picked.map(f=>({type:"pic",val:f.val,text:f.pic}))]);
+  currentGameState={cards,selected:null,matched:new Set()};renderFM();
+}
+function renderFM(){
+  const s=currentGameState;
+  const grid=s.cards.map((c,i)=>{let cls="fmcard";if(s.matched.has(i))cls+=" ok";else if(s.selected===i)cls+=" sel";return`<div class="${cls}" onclick="pickFM(${i})">${c.text}</div>`;}).join("");
+  SP(`<h2>🃏 Fraction Match!</h2><div class="gdesc">Tap two cards that go together!</div><div class="game-box"><div class="fb" id="bf"></div><div class="fmgrid">${grid}</div><div class="btn-row"><button class="btn b" onclick="buildFractionMatch()">↺ New Game</button></div></div>`);
+}
+function pickFM(i){
+  const s=currentGameState;if(s.matched.has(i))return;
+  if(s.selected===null){s.selected=i;renderFM();}
+  else{const a=s.cards[s.selected],b=s.cards[i];if(a.val===b.val&&s.selected!==i){s.matched.add(s.selected);s.matched.add(i);good("✅ Matched "+a.val+"!");s.selected=null;if(s.matched.size===s.cards.length)setTimeout(()=>showWin("All fractions matched!",3),700);else renderFM();}else{bad("Not a match! Try again!");s.selected=null;setTimeout(renderFM,600);}}
+}
+// =========================================
+// GIFT WRAPPER (SHAPES)
+// =========================================
+function buildShapes(){
+  const toys=[{emoji:"⚽",name:"Sphere"},{emoji:"🎲",name:"Cube"},{emoji:"🥫",name:"Cylinder"},{emoji:"🍦",name:"Cone"},{emoji:"📦",name:"Cube"},{emoji:"🏀",name:"Sphere"}];
+  const toy=toys[rnd(0,toys.length-1)];currentGameState={toy};
+  SP(`<h2>🎁 Gift Wrapper</h2><div class="gdesc">Pick the right box shape to wrap this toy!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:5.2rem;margin:11px 0">${toy.emoji}</div><div class="shape-opts">${["Sphere","Cube","Cylinder","Cone"].map(s=>`<div class="sopt" onclick="checkShape('${s}','${toy.name}')">${s==="Sphere"?"🔵":s==="Cube"?"📦":s==="Cylinder"?"🥫":"🍦"}<span>${s}</span></div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildShapes()">▶ Next</button></div></div>`);
+}
+function checkShape(p,a){if(p===a){good("🎁 "+a+"! Perfect!");awardStars(currentGame,3);setTimeout(buildShapes,1200);}else bad("Think about the shape! 🤔");}
+// =========================================
+// SHAPE SORTER
+// =========================================
+function buildShapeSorter(){
+  const s2D=["⭕","🔺","🟥","⭐","💠"],s3D=["🏀","📦","🥫","🍦","🎲"];
+  const items=shuffle([...s2D.slice(0,3).map(e=>({emoji:e,type:"2D"})),...s3D.slice(0,3).map(e=>({emoji:e,type:"3D"}))]);
+  currentGameState={items,bins:{twoD:[],threeD:[]},remaining:[...items]};renderSS();
+}
+function renderSS(){
+  const s=currentGameState;
+  const its=s.remaining.map((it,i)=>`<div class="sort-item" onclick="sortS(${i},'2D')" oncontextmenu="event.preventDefault();sortS(${i},'3D')">${it.emoji}</div>`).join("");
+  SP(`<h2>🗂️ Shape Sorter!</h2><div class="gdesc">Tap → <b>2D Flat</b> · Long-press → <b>3D Solid</b></div><div class="game-box"><div class="fb" id="bf"></div><div style="display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:13px 0">${its}</div><div class="ssort"><div class="sbin" style="border-color:#3BAEFF"><div class="sbin-lbl">🔵 2D Flat</div><div class="sbin-items">${s.bins.twoD.join(" ")}</div></div><div class="sbin" style="border-color:#FF7F50"><div class="sbin-lbl">📦 3D Solid</div><div class="sbin-items">${s.bins.threeD.join(" ")}</div></div></div><div class="btn-row"><button class="btn b" onclick="buildShapeSorter()">↺ New Sort</button><button class="btn g" onclick="checkSS()">✅ Check!</button></div></div>`);
+}
+function sortS(i,type){const s=currentGameState;if(i>=s.remaining.length)return;const item=s.remaining.splice(i,1)[0];if(type==="2D")s.bins.twoD.push(item.emoji);else s.bins.threeD.push(item.emoji);if(s.remaining.length===0)checkSS();else renderSS();}
+function checkSS(){const s=currentGameState;const flat=["⭕","🔺","🟥","⭐","💠"],solid=["🏀","📦","🥫","🍦","🎲"];const ok=s.bins.twoD.every(e=>flat.includes(e))&&s.bins.threeD.every(e=>solid.includes(e));if(ok){good("🎉 Perfect sorting!");awardStars(currentGame,3);setTimeout(buildShapeSorter,1300);}else bad("Some shapes are in the wrong bin!");}
+// =========================================
+// SYMMETRY
+// =========================================
+function buildSymmetry(){
+  const sz=6,half=Array.from({length:sz},()=>Array.from({length:sz/2},()=>rnd(0,1)===1));
+  currentGameState={sz,half,mirror:Array.from({length:sz},()=>Array(sz/2).fill(false))};renderSym();
+}
+function renderSym(){
+  const s=currentGameState;let cells="";
+  for(let r=0;r<s.sz;r++){
+    for(let c=0;c<s.sz/2;c++)cells+=`<div class="sym-cell${s.half[r][c]?" filled":""}"></div>`;
+    cells+=`<div style="width:5px;height:36px;background:var(--dark);border-radius:3px;display:flex;align-self:center"></div>`;
+    for(let c=0;c<s.sz/2;c++)cells+=`<div class="sym-cell${s.mirror[r][c]?" mirror":""}" onclick="tapSym(${r},${c})"></div>`;
+  }
+  SP(`<h2>🦋 Mirror Me!</h2><div class="gdesc">Tap the right side to mirror the left pattern!</div><div class="game-box"><div class="fb" id="bf"></div><div class="sym-wrap" style="display:grid;grid-template-columns:repeat(${s.sz+1},36px);gap:3px">${cells}</div><div class="btn-row"><button class="btn g" onclick="checkSym()">✅ Check!</button><button class="btn b" onclick="buildSymmetry()">↺ New</button></div></div>`);
+}
+function tapSym(r,c){const s=currentGameState;s.mirror[r][c]=!s.mirror[r][c];renderSym();}
+function checkSym(){
+  const s=currentGameState;let ok=true;
+  for(let r=0;r<s.sz;r++)for(let c=0;c<s.sz/2;c++)if(s.half[r][c]!==s.mirror[r][s.sz/2-1-c]){ok=false;break;}
+  if(ok){good("🦋 Perfect symmetry!");awardStars(currentGame,3);setTimeout(buildSymmetry,1300);}else bad("Not quite! Think mirror image!");
+}
+// =========================================
+// TANGRAM
+// =========================================
+function buildTangram(){
+  const puzs=[{name:"House 🏠",target:["🔺","🟥","🔷","◼"],pieces:["🔺","🟥","🔷","◼","🔶"]},{name:"Boat ⛵",target:["🔺","🔷","🟦"],pieces:["🔺","🔷","🟦","🔶","🟥"]},{name:"Cat 🐱",target:["🔺","🔺","🟥","◼"],pieces:["🔺","🔺","🟥","◼","🔷"]}];
+  const puz=puzs[rnd(0,puzs.length-1)];currentGameState={puz,placed:[]};renderTan();
+}
+function renderTan(){
+  const s=currentGameState;
+  const pieces=s.puz.pieces.map((p,i)=>`<div class="tpiece${s.placed.includes(i)?" used":""}" onclick="placeTan(${i})">${p}</div>`).join("");
+  const board=s.placed.map(i=>s.puz.pieces[i]).join(" ");
+  SP(`<h2>🔷 Tangram!</h2><div class="gdesc">Build the <b>${s.puz.name}</b>! Tap pieces to place!</div><div class="game-box"><div class="fb" id="bf"></div><div class="tboard">${board||"<span style='color:#9CA3AF;font-size:.88rem'>Tap pieces below</span>"}</div><div class="tpieces">${pieces}</div><div class="btn-row"><button class="btn g" onclick="checkTan()">✅ Check!</button><button class="btn b" onclick="buildTangram()">↺ New</button></div></div>`);
+}
+function placeTan(i){const s=currentGameState;if(!s.placed.includes(i)){s.placed.push(i);renderTan();}}
+function checkTan(){const s=currentGameState;const placed=s.placed.map(i=>s.puz.pieces[i]).sort().join(","),target=[...s.puz.target].sort().join(",");if(placed===target){good("🔷 "+s.puz.name+" complete!");awardStars(currentGame,3);setTimeout(buildTangram,1300);}else if(s.placed.length>=s.puz.target.length)bad("Not the right pieces! Try different ones!");else bad("Keep adding pieces!");}
+// =========================================
+// RULER
+// =========================================
+function buildRuler(){
+  const objs=[{emoji:"✏️",name:"pencil",len:rnd(5,15)},{emoji:"🍌",name:"banana",len:rnd(8,18)},{emoji:"📱",name:"phone",len:rnd(10,20)},{emoji:"🥕",name:"carrot",len:rnd(6,14)}];
+  const obj=objs[rnd(0,objs.length-1)];currentGameState={obj};
+  const ch=shuffle([obj.len,obj.len+1,obj.len-1,obj.len+2].filter(x=>x>0));
+  SP(`<h2>📐 Ruler Race!</h2><div class="gdesc">How many centimetres long is the ${obj.name}?</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:3.8rem;margin:9px 0">${obj.emoji}</div><div class="ruler"><div class="ruler-marks">${Array.from({length:obj.len+1},(_,i)=>`<div class="rcm">${i}</div>`).join("")}</div></div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkRuler(${c})">${c} cm</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildRuler()">▶ Next</button></div></div>`);
+}
+function checkRuler(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.obj.len){document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===n+" cm")b.classList.add("ok");});good("📐 Correct! "+n+" cm!");awardStars(currentGame,3);setTimeout(buildRuler,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===n+" cm")b.classList.add("no");});bad("Count the marks carefully!");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkRuler(+b.textContent);});},950);}
+}
+// =========================================
+// BALANCE SCALE
+// =========================================
+function buildBalance(){
+  const items=[{emoji:"🍎",w:3},{emoji:"🍊",w:2},{emoji:"🥦",w:4},{emoji:"🍋",w:1},{emoji:"🥝",w:2},{emoji:"🍇",w:5}];
+  const a=items[rnd(0,items.length-1)],b=items[rnd(0,items.length-1)];
+  currentGameState={a,b,ans:a.w>b.w?"left":a.w<b.w?"right":"equal"};
+  SP(`<h2>⚖️ Heavy or Light?</h2><div class="gdesc">Which side is heavier? Or are they equal?</div><div class="game-box"><div class="fb" id="bf"></div><div class="scale-pans"><div class="span">${a.emoji}</div><div style="width:14px;height:78px;background:var(--dark);border-radius:7px;margin:0 5px;align-self:flex-end"></div><div class="span">${b.emoji}</div></div><div class="btn-row"><button class="btn b" onclick="checkBal('left')">⬅ Left heavier</button><button class="btn g" onclick="checkBal('equal')">=&nbsp;Equal</button><button class="btn o" onclick="checkBal('right')">Right heavier ➡</button></div></div>`);
+}
+function checkBal(p){if(p===currentGameState.ans){good("⚖️ Correct!");awardStars(currentGame,3);setTimeout(buildBalance,1200);}else bad("Think about which looks heavier!");}
+// =========================================
+// FILL THE JUG
+// =========================================
+function buildJug(){
+  const targets=[{level:100,label:"Full"},{level:50,label:"Half Full"},{level:0,label:"Empty"},{level:75,label:"¾ Full"},{level:25,label:"¼ Full"}];
+  const target=targets[rnd(0,targets.length-1)];currentGameState={target,current:0};renderJug();
+}
+function renderJug(){
+  const s=currentGameState,pct=s.current;
+  SP(`<h2>🫙 Fill the Jug!</h2><div class="gdesc">Fill the jug to make it <b>${s.target.label}</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div class="jug-wrap"><div><div class="jug"><div class="jug-water" style="height:${pct*1.35}px"></div></div><div class="jug-label">${pct}%</div></div></div><div class="btn-row"><button class="btn b" onclick="pourJ(25)">+25%</button><button class="btn g" onclick="pourJ(10)">+10%</button><button class="btn o" onclick="pourJ(-25)">-25%</button></div><div class="btn-row"><button class="btn p" onclick="checkJug()">✅ Check!</button><button class="btn" onclick="{currentGameState.current=0;renderJug()}">↺ Empty</button></div></div>`);
+}
+function pourJ(amt){const s=currentGameState;s.current=Math.max(0,Math.min(100,s.current+amt));renderJug();}
+function checkJug(){const s=currentGameState;if(s.current===s.target.level){good("🫙 "+s.target.label+"! Perfect!");awardStars(currentGame,3);setTimeout(buildJug,1300);}else bad("Not quite "+s.target.label+"! Adjust the level!");}
+// =========================================
+// COIN COUNTER
+// =========================================
+function buildCoinCounter(){const target=rnd(5,50);currentGameState={target,total:0};renderCC();}
+function renderCC(){
+  const s=currentGameState,pct=Math.min(100,(s.total/s.target)*100);
+  SP(`<h2>🪙 Coin Counter!</h2><div class="gdesc">Tap coins to make exactly <b>${s.target}¢</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.35rem;color:var(--purple);margin:7px 0">🎯 Target: ${s.target}¢</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.95rem;color:var(--dark);margin:7px 0">You have: ${s.total}¢</div><div class="prog-out"><div class="prog-in" style="width:${pct}%"></div></div><div class="coin-shelf"><button class="coin-btn penny" onclick="addCC(1)">1¢</button><button class="coin-btn nickel" onclick="addCC(5)">5¢</button><button class="coin-btn dime" onclick="addCC(10)">10¢</button><button class="coin-btn quarter" onclick="addCC(25)">25¢</button></div><div class="btn-row"><button class="btn o" onclick="{currentGameState.total=0;renderCC()}">🗑️ Reset</button><button class="btn b" onclick="buildCoinCounter()">↺ New</button></div></div>`);
+}
+function addCC(v){const s=currentGameState;s.total+=v;if(s.total===s.target){good("🎉 Exactly "+s.target+"¢!");awardStars(currentGame,3);setTimeout(buildCoinCounter,1500);}else if(s.total>s.target){bad("Too much! Reset and try again!");s.total=0;}renderCC();}
+// =========================================
+// SHOPKEEPER
+// =========================================
+function buildShopkeeper(){
+  const shop=[{emoji:"🍦",name:"Ice Cream",price:15},{emoji:"🎈",name:"Balloon",price:10},{emoji:"🍭",name:"Lollipop",price:7},{emoji:"📚",name:"Book",price:20},{emoji:"🧸",name:"Teddy",price:25}];
+  const item=shop[rnd(0,shop.length-1)],paid=item.price+rnd(1,4)*5,change=paid-item.price;
+  currentGameState={item,paid,change};
+  const ch=shuffle([change,change+5,change-5,change+10].filter(x=>x>=0));
+  SP(`<h2>🛍️ Shop Keeper!</h2><div class="gdesc">Work out the change!</div><div class="game-box"><div class="fb" id="bf"></div><div class="shop-big">${item.emoji}</div><div class="shop-txt">${item.name} costs <b>${item.price}¢</b></div><div class="shop-txt">Customer pays <b>${paid}¢</b></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.45rem;color:var(--purple);margin:7px 0">Change = ?</div><div class="wp-grid">${ch.map(c=>`<div class="wc-btn" onclick="checkShop(${c})">${c}¢</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildShopkeeper()">▶ Next Customer</button></div></div>`);
+}
+function checkShop(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.change){document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===n+"¢")b.classList.add("ok");});good("🛍️ Correct! "+n+"¢ change!");awardStars(currentGame,3);setTimeout(buildShopkeeper,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===n+"¢")b.classList.add("no");});bad(currentGameState.paid+"¢ − "+currentGameState.item.price+"¢ = ?");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkShop(+b.textContent);});},950);}
+}
+// =========================================
+// PIGGY BANK
+// =========================================
+function buildPiggyBank(){const goal=rnd(4,10)*10;currentGameState={goal,saved:0};renderPiggy();}
+function renderPiggy(){
+  const s=currentGameState,pct=Math.min(100,(s.saved/s.goal)*100);
+  SP(`<h2>🐷 Piggy Bank!</h2><div class="gdesc">Save up to <b>${s.goal}¢</b>!</div><div class="game-box"><div class="fb" id="bf"></div><div style="text-align:center;font-size:3.8rem;margin:7px 0">🐷</div><div class="piggy-amt">Saved: ${s.saved}¢ / ${s.goal}¢</div><div class="piggy-bar"><div class="piggy-fill" style="width:${pct}%"></div></div><div class="coin-shelf"><button class="coin-btn penny" onclick="saveP(1)">1¢</button><button class="coin-btn nickel" onclick="saveP(5)">5¢</button><button class="coin-btn dime" onclick="saveP(10)">10¢</button><button class="coin-btn quarter" onclick="saveP(25)">25¢</button></div><div class="btn-row"><button class="btn b" onclick="buildPiggyBank()">↺ New Goal</button></div></div>`);
+}
+function saveP(amt){const s=currentGameState;s.saved=Math.min(s.goal,s.saved+amt);if(s.saved===s.goal){good("🐷 Goal reached! "+s.goal+"¢!");awardStars(currentGame,3);setTimeout(buildPiggyBank,1500);}renderPiggy();}
+// =========================================
+// CLOCK
+// =========================================
+function buildClock(){
+  const h=rnd(1,12),m=[0,15,30,45][rnd(0,3)];currentGameState={h,m};
+  const hC=shuffle([h,h%12+1,(h+2)%12||12,(h+10)%12||12]).slice(0,3);
+  SP(`<h2>🕐 Sun & Moon!</h2><div class="gdesc">What time does the clock show?</div><div class="game-box"><div class="fb" id="bf"></div><div class="clock-wrap">${drawClock(h,m)}</div><div class="btn-row">${hC.map(hh=>[0,15,30,45].map(mm=>`<button class="btn b" style="font-size:1rem;padding:10px 13px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,"0")}</button>`).join("")).join("")}</div><div class="btn-row"><button class="btn o" onclick="buildClock()">▶ Next</button></div></div>`);
+}
+function drawClock(h,m){
+  const cx=90,cy=90,r=78,mA=(m/60)*360-90,hA=((h%12+m/60)/12)*360-90;
+  const mR=mA*Math.PI/180,hR=hA*Math.PI/180;
+  const mx=cx+63*Math.cos(mR),my=cy+63*Math.sin(mR),hx=cx+44*Math.cos(hR),hy=cy+44*Math.sin(hR);
+  let ns="";for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;ns+=`<text x="${cx+66*Math.cos(a)}" y="${cy+66*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One" font-size="12" fill="#1A1F4B" font-weight="bold">${i}</text>`;}
+  return`<svg width="185" height="185" viewBox="0 0 180 180"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFDF0" stroke="#1A1F4B" stroke-width="5"/>${ns}<line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#3BAEFF" stroke-width="5" stroke-linecap="round"/><line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#1A1F4B" stroke-width="7" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="5" fill="#1A1F4B"/></svg>`;
+}
+function checkClock(hh,mm){if(hh===currentGameState.h&&mm===currentGameState.m){good("🕐 "+hh+":"+String(mm).padStart(2,"0")+"! Correct!");awardStars(currentGame,3);setTimeout(buildClock,1200);}else bad("Look at the hands again!");}
+// =========================================
+// CALENDAR
+// =========================================
+function buildCalendar(){
+  const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const month=rnd(0,11),year=2025;
+  const firstDay=new Date(year,month,1).getDay(),dim=new Date(year,month+1,0).getDate(),today=rnd(1,dim);
+  const qs=[{q:`What day of the week is the ${today}?`,a:days[(firstDay+today-1)%7]},{q:"How many days in this month?",a:String(dim)},{q:"Month after "+months[month]+"?",a:months[(month+1)%12]}];
+  const q=qs[rnd(0,qs.length-1)];currentGameState={q};
+  const cells=Array.from({length:firstDay},()=>`<div class="cal-day empty"></div>`).join("")+Array.from({length:dim},(_,i)=>`<div class="cal-day${i+1===today?" today":""}">${i+1}</div>`).join("");
+  const hdrs=days.map(d=>`<div class="cal-hdr">${d}</div>`).join("");
+  const aCh=q.q.includes("day of week")?shuffle([q.a,...days.filter(d=>d!==q.a).slice(0,3)]):q.q.includes("days in")?shuffle([q.a,...[28,29,30,31].filter(x=>x!==+q.a).map(String)]):shuffle([q.a,...months.filter(m=>m!==q.a).slice(0,3)]);
+  SP(`<h2>📅 Calendar!</h2><div class="gdesc">${months[month]} ${year}</div><div class="game-box"><div class="fb" id="bf"></div><div class="cal-grid">${hdrs}${cells}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--dark);margin:11px 0;background:var(--sun);border-radius:11px;padding:9px">${q.q}</div><div class="numpad">${aCh.map(c=>`<button class="btn b" style="font-size:.95rem;padding:9px 13px" onclick="checkCal('${c}','${q.a}')">${c}</button>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildCalendar()">▶ Next</button></div></div>`);
+}
+function checkCal(p,a){if(p===a){good("📅 Correct! "+a+"!");awardStars(currentGame,3);setTimeout(buildCalendar,1200);}else bad("Look at the calendar carefully!");}
+// =========================================
+// SCHEDULE
+// =========================================
+function buildSchedule(){
+  const acts=[{emoji:"🍳",name:"Breakfast",time:"7:00 AM"},{emoji:"🏫",name:"School",time:"8:30 AM"},{emoji:"🍔",name:"Lunch",time:"12:00 PM"},{emoji:"⚽",name:"Sport",time:"3:30 PM"},{emoji:"📚",name:"Homework",time:"5:00 PM"},{emoji:"🛁",name:"Bath",time:"7:00 PM"},{emoji:"😴",name:"Bedtime",time:"8:00 PM"}];
+  const picked=shuffle(acts).slice(0,4),sorted=[...picked].sort((a,b)=>acts.indexOf(a)-acts.indexOf(b));
+  currentGameState={acts:picked,sorted,placed:[]};renderSched();
+}
+function renderSched(){
+  const s=currentGameState;
+  const items=s.acts.map((a,i)=>`<div class="sched-item${s.placed.includes(i)?" used":""}" onclick="placeAct(${i})">${a.emoji} ${a.name}</div>`).join("");
+  const slots=s.sorted.map((a,i)=>`<div class="sched-slot"><div class="sched-time">${a.time}</div><div class="sched-drop${s.placed[i]!==undefined?" filled":""}">${s.placed[i]!==undefined?s.acts[s.placed[i]].emoji+" "+s.acts[s.placed[i]].name:"?"}</div></div>`).join("");
+  SP(`<h2>📋 Daily Schedule!</h2><div class="gdesc">Tap activities to place them in the right time slot!</div><div class="game-box"><div class="fb" id="bf"></div><div class="sched-items">${items}</div>${slots}<div class="btn-row"><button class="btn g" onclick="checkSched()">✅ Check!</button><button class="btn b" onclick="buildSchedule()">↺ New Day</button></div></div>`);
+}
+function placeAct(i){const s=currentGameState;if(s.placed.includes(i))return;const slot=s.placed.length;if(slot>=s.sorted.length)return;s.placed.push(i);renderSched();if(s.placed.length===s.sorted.length)setTimeout(checkSched,300);}
+function checkSched(){const s=currentGameState;const ok=s.placed.every((ai,si)=>s.acts[ai].name===s.sorted[si].name);if(ok){good("📋 Perfect schedule!");awardStars(currentGame,3);setTimeout(buildSchedule,1300);}else bad("Some are in the wrong order! Check the times!");}
+// =========================================
+// TALLY
+// =========================================
+function buildTally(){currentGameState={target:rnd(5,15),count:0};renderTally();}
+function renderTally(){
+  const s=currentGameState;
+  function mk(n){let t="",g=Math.floor(n/5),r=n%5;for(let i=0;i<g;i++)t+="||||̶ ";t+="|".repeat(r);return t||"—";}
+  SP(`<h2>🐟 Fish Counter</h2><div class="gdesc">Tap each fish! Watch tally marks appear!</div><div class="game-box"><div class="tally-fish-row">${Array.from({length:s.target},()=>`<div class="tf" onclick="tapFish()">🐟</div>`).join("")}</div><p style="text-align:center;font-weight:800;color:#1A1F4B;margin:7px 0">Tally Marks:</p><div class="tmarks" id="tmarks">${mk(s.count)}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--dark)" id="tcount">Count: ${s.count}</div><div class="btn-row"><button class="btn o" onclick="buildTally()">↺ New</button></div></div>`);
+  window._mk=mk;
+}
+function tapFish(){const s=currentGameState;if(s.count>=s.target)return;s.count++;P("tmarks").textContent=window._mk(s.count);P("tcount").textContent="Count: "+s.count;if(s.count===s.target)setTimeout(()=>showWin("Counted "+s.target+" fish!",3),400);}
+// =========================================
+// BAR GRAPH
+// =========================================
+function buildBarGraph(){currentGameState={items:[{e:"🐚",name:"Shell",col:"#FFD93D"},{e:"🦀",name:"Crab",col:"#FF4757"},{e:"⭐",name:"Star",col:"#3BAEFF"},{e:"🪸",name:"Coral",col:"#FF4D94"}],counts:[0,0,0,0]};renderBG();}
+function renderBG(){
+  const s=currentGameState,max=Math.max(...s.counts,1);
+  const btns=s.items.map((it,i)=>`<button class="gib" onclick="addBar(${i})">${it.e}</button>`).join("");
+  const bars=s.items.map((it,i)=>{const h=Math.round((s.counts[i]/max)*130)+6;return`<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:""}</div>`;}).join("");
+  SP(`<h2>🐚 Shell Sort</h2><div class="gdesc">Press a shell to collect it! Watch your graph grow! 📊</div><div class="game-box"><div class="graph-items">${btns}</div><div class="bar-graph">${bars}</div><div style="display:flex;justify-content:center;gap:13px;font-family:'Fredoka One',cursive;font-size:.9rem;flex-wrap:wrap;color:var(--dark)">${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildBarGraph()">↺ Restart</button></div></div>`);
+}
+function addBar(i){currentGameState.counts[i]++;if(currentGameState.counts.reduce((a,b)=>a+b,0)>=10)awardStars(currentGame,3);renderBG();}
+// =========================================
+// WORD PROBLEMS
+// =========================================
+const WPS=[{text:"Emma has 🍎🍎🍎 3 apples. She picks 4 more. How many now?",choices:[5,7,8,6],answer:7},{text:"Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many left?",choices:[2,3,7,4],answer:3},{text:"3 hens 🐔🐔🐔 each lay 2 eggs. How many eggs total?",choices:[5,6,7,8],answer:6},{text:"Sara has 8 🎈. 3 float away. How many left?",choices:[4,5,6,11],answer:5},{text:"Jake has 2 packs of 5 stickers 🌟. How many total?",choices:[7,10,12,15],answer:10},{text:"4 frogs 🐸 in a pond. 3 more jump in. How many now?",choices:[6,7,8,9],answer:7},{text:"12 🍬 candies shared among 3 friends. Each gets?",choices:[3,4,6,9],answer:4}];
+function buildWordProbs(){const p=WPS[rnd(0,WPS.length-1)];currentGameState={p};const sh=shuffle([...p.choices]);SP(`<h2>📖 Story Problems</h2><div class="gdesc">Read the story and pick the right answer!</div><div class="game-box"><div class="fb" id="bf"></div><div class="wp-box"><p>${p.text}</p></div><div class="wp-grid">${sh.map(c=>`<div class="wc-btn" onclick="checkWP(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildWordProbs()">▶ Next Story</button></div></div>`);}
+function checkWP(n){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(n===currentGameState.p.answer){document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("ok");});good("🎉 Correct! "+n+"!");awardStars(currentGame,3);setTimeout(buildWordProbs,1200);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(+b.textContent===n)b.classList.add("no");});bad("Read carefully! 📖");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkWP(+b.textContent);});},950);}
+}
+// =========================================
+// PATTERN
+// =========================================
+function buildPattern(){
+  const sets=[{items:["🔵","🔴"],type:"AB"},{items:["🔵","🔵","🔴"],type:"AAB"},{items:["🔵","🔴","🟡"],type:"ABC"},{items:["🔵","🔵","🔴","🔴"],type:"AABB"},{items:["⭐","🌙","☀️"],type:"ABC"},{items:["🐶","🐱","🐶","🐱"],type:"ABAB"}];
+  const set=sets[rnd(0,sets.length-1)];
+  const seq=[];for(let i=0;i<3*set.items.length;i++)seq.push(set.items[i%set.items.length]);
+  const next=set.items[seq.length%set.items.length];
+  const wrong=set.items.filter(x=>x!==next);
+  const ch=shuffle([next,...wrong.slice(0,3)]);
+  currentGameState={seq,next,ch};
+  SP(`<h2>🔵 What Comes Next?</h2><div class="gdesc">Find the pattern and choose what comes next!</div><div class="game-box"><div class="fb" id="bf"></div><div class="pat-row">${seq.map(s=>`<span class="pat-item">${s}</span>`).join("")}<span style="font-family:'Fredoka One',cursive;font-size:1.95rem">→ ?</span></div><div style="display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:13px 0">${ch.map(c=>`<div class="pat-ch" onclick="checkPat('${c}')">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildPattern()">▶ New Pattern</button></div></div>`);
+}
+function checkPat(c){
+  document.querySelectorAll(".pat-ch").forEach(b=>b.onclick=null);
+  if(c===currentGameState.next){document.querySelectorAll(".pat-ch").forEach(b=>{if(b.textContent===c)b.classList.add("ok");});good("✅ Correct! "+c+" comes next!");awardStars(currentGame,3);setTimeout(buildPattern,1200);}
+  else{document.querySelectorAll(".pat-ch").forEach(b=>{if(b.textContent===c)b.classList.add("no");});bad("Look at the repeating pattern!");setTimeout(()=>{document.querySelectorAll(".pat-ch").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkPat(b.textContent);});},950);}
+}
+// =========================================
+// ODD ONE OUT
+// =========================================
+function buildOddOneOut(){
+  const sets=[{items:["🐶","🐱","🐦","🚗"],odd:"🚗",reason:"not an animal"},{items:["🍎","🍌","🍊","🥦"],odd:"🥦",reason:"not a fruit"},{items:["2","4","6","7"],odd:"7",reason:"not even"},{items:["🔵","🔵","🔵","🔴"],odd:"🔴",reason:"different colour"},{items:["5","10","15","17"],odd:"17",reason:"not in the 5s"},{items:["🟥","🔺","⭕","🍕"],odd:"🍕",reason:"not a shape"}];
+  const set=sets[rnd(0,sets.length-1)];currentGameState={set};
+  SP(`<h2>🔍 Odd One Out!</h2><div class="gdesc">Which one doesn't belong? Tap it!</div><div class="game-box"><div class="fb" id="bf"></div><div style="display:flex;gap:11px;flex-wrap:wrap;justify-content:center;margin:14px 0">${shuffle(set.items).map(it=>`<div class="sort-item" onclick="checkOdd('${it}')">${it}</div>`).join("")}</div><div class="btn-row"><button class="btn b" onclick="buildOddOneOut()">▶ Next</button></div></div>`);
+}
+function checkOdd(item){const s=currentGameState.set;if(item===s.odd){good("🎉 Correct! "+s.odd+" is "+s.reason+"!");awardStars(currentGame,3);setTimeout(buildOddOneOut,1300);}else bad("Not that one! Think about what makes them the same!");}
+// =========================================
+// BRAIN MAZE
+// =========================================
+function buildMaze(){
+  const rule=rnd(2,5),sz=5,walls=new Set([1,3,6,8,11,13,18]);
+  currentGameState={rule,sz,pos:20,goal:4,walls,nums:{}};
+  // assign random numbers to path cells
+  for(let i=0;i<sz*sz;i++){if(!walls.has(i)&&i!==4&&i!==20)currentGameState.nums[i]=rnd(2,rule*6);}
+  renderMaze();
+}
+function renderMaze(){
+  const s=currentGameState;let cells="";
+  for(let i=0;i<s.sz*s.sz;i++){
+    const isW=s.walls.has(i),isP=i===s.pos,isG=i===s.goal;
+    const num=s.nums[i]||"";const rm=(!isW&&!isP&&!isG&&num%s.rule===0);
+    let cls="mc ";
+    if(isW)cls+="wall";else if(isP)cls+="player";else if(isG)cls+="goal";else cls+="path"+(rm?" rm":"");
+    cells+=`<div class="${cls}" ${!isW&&!isP&&!isG?`onclick="mvMaze(${i})"`:""}>${isP?"🧒":isG?"🏆":isW?"":num}</div>`;
+  }
+  SP(`<h2>🗺️ Brain Maze!</h2><div class="gdesc">Step only on multiples of <b>${s.rule}</b> to reach 🏆!</div><div class="game-box"><div class="fb" id="bf"></div><div class="maze" style="grid-template-columns:repeat(${s.sz},42px)">${cells}</div><p style="text-align:center;color:#2D3561;font-size:.88rem;font-weight:700;margin:7px 0">Blue cells = multiples of ${s.rule}</p><div class="btn-row"><button class="btn b" onclick="buildMaze()">↺ New Maze</button></div></div>`);
+}
+function mvMaze(i){
+  const s=currentGameState,row=Math.floor(i/s.sz),col=i%s.sz,pr=Math.floor(s.pos/s.sz),pc=s.pos%s.sz;
+  if(Math.abs(row-pr)+Math.abs(col-pc)!==1){bad("Move one step at a time!");return;}
+  if(s.walls.has(i)){bad("That's a wall!");return;}
+  if(i===s.goal){s.pos=i;good("🏆 You made it!");awardStars(currentGame,3);setTimeout(buildMaze,1300);return;}
+  const num=s.nums[i]||0;
+  if(num%s.rule===0){s.pos=i;good("✅ "+num+" is a multiple of "+s.rule+"!");renderMaze();}
+  else bad(num+" is NOT a multiple of "+s.rule+"! Pick a blue cell!");}
+// =========================================
+// STAR CHALLENGE
+// =========================================
+let scInterval=null;
+function buildStarChallenge(){
+  if(scInterval)clearInterval(scInterval);
+  currentGameState={score:0,timeLeft:30,q:null};
+  SP(`<h2>⭐ Star Challenge!</h2><div class="gdesc">Answer as many as you can in 30 seconds!</div><div class="game-box"><div class="sc-timer" id="scTimer">⏱ 30s</div><div style="text-align:center"><span class="sc-score" id="scScore">Score: 0</span></div><div class="scq" id="scQ">Get ready...</div><div class="sc-ch" id="scC"></div><div class="fb" id="bf"></div></div>`);
+  scInterval=setInterval(()=>{currentGameState.timeLeft--;if(P("scTimer"))P("scTimer").textContent="⏱ "+currentGameState.timeLeft+"s";if(currentGameState.timeLeft<=0){clearInterval(scInterval);scInterval=null;const sc=currentGameState.score;showWin("You scored "+sc+" points! "+(sc>=10?"🌟 Amazing!":sc>=5?"👍 Good!":"Keep practising!"),sc>=10?3:sc>=5?2:1);}},1000);
+  nextSCQ();
+}
+function nextSCQ(){if(!P("scQ"))return;const types=["add","sub","mult"],type=types[rnd(0,2)];let q,a;if(type==="add"){const x=rnd(1,15),y=rnd(1,15);q=x+" + "+y;a=x+y;}else if(type==="sub"){const x=rnd(5,15),y=rnd(1,x-1);q=x+" − "+y;a=x-y;}else{const x=rnd(2,5),y=rnd(1,10);q=x+" × "+y;a=x*y;}currentGameState.q={q,a};if(P("scQ"))P("scQ").textContent=q;const ch=shuffle([a,a+1,a-1,a+rnd(2,4)].filter(x=>x>=0));if(P("scC"))P("scC").innerHTML=ch.map(c=>`<div class="scc" onclick="ansSC(${c})">${c}</div>`).join("");}
+function ansSC(n){const s=currentGameState;if(n===s.q.a){s.score++;if(P("scScore"))P("scScore").textContent="Score: "+s.score;good("✅ +1!");setTimeout(nextSCQ,350);}else{bad("❌ Was "+s.q.a);setTimeout(nextSCQ,550);}}
+// =========================================
+// DAILY PUZZLE
+// =========================================
+function buildDailyPuzzle(){
+  const puzzles=[{q:"I am more than 10, less than 20, even, and my digits add up to 6. What am I?",a:"12",choices:["12","14","16","18"]},{q:"I am the missing number: 5, 10, ?, 20, 25",a:"15",choices:["12","15","18","14"]},{q:"Double me and add 3 to get 11. What am I?",a:"4",choices:["3","4","5","6"]},{q:"I am an odd number between 7 and 11.",a:"9",choices:["8","9","10","7"]},{q:"I have 4 equal sides but I'm not a rectangle. What shape am I?",a:"Square",choices:["Square","Rectangle","Circle","Triangle"]}];
+  const today=new Date().getDate(),puz=puzzles[today%puzzles.length];currentGameState={puz};
+  SP(`<h2>🗓️ Daily Puzzle!</h2><div class="gdesc">One special brain-teaser for today!</div><div class="game-box"><div class="dp-badge">Today's Special ✨</div><div class="wp-box"><p>${puz.q}</p></div><div class="fb" id="bf"></div><div class="wp-grid">${shuffle(puz.choices).map(c=>`<div class="wc-btn" onclick="checkDP('${c}')">${c}</div>`).join("")}</div></div>`);
+}
+function checkDP(c){
+  document.querySelectorAll(".wc-btn").forEach(b=>b.onclick=null);
+  if(c===currentGameState.puz.a){document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===c)b.classList.add("ok");});good("🌟 Brilliant! "+c+" is correct!");awardStars(currentGame,3);}
+  else{document.querySelectorAll(".wc-btn").forEach(b=>{if(b.textContent===c)b.classList.add("no");});bad("Think again – read the clues! 🧩");setTimeout(()=>{document.querySelectorAll(".wc-btn").forEach(b=>{b.classList.remove("no");b.onclick=()=>checkDP(b.textContent);});},950);}
+}
+// =========================================
+// 2-PLAYER BATTLE
+// =========================================
+let twoP={scores:[0,0],turn:0,q:null};
+function buildTwoPlayer(){twoP={scores:[0,0],turn:0,q:null};renderTP();nextTPQ();}
+function renderTP(){
+  SP(`<h2>👥 2-Player Battle!</h2><div class="gdesc">Take turns! First to 5 wins! 🏆</div><div class="game-box"><div class="twop"><div class="tpp p1"><div class="tpp-name">👧 Player 1</div><div class="tpp-score" id="tp1">${twoP.scores[0]}</div></div><div class="tpp p2"><div class="tpp-name">👦 Player 2</div><div class="tpp-score" id="tp2">${twoP.scores[1]}</div></div></div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.15rem;color:var(--dark);margin:9px 0" id="tpTurn">${twoP.turn===0?"👧 Player 1's turn!":"👦 Player 2's turn!"}</div><div class="scq" id="tpQ">Loading...</div><div class="sc-ch" id="tpC"></div><div class="fb" id="bf"></div></div>`);
+}
+function nextTPQ(){
+  const x=rnd(1,12),y=rnd(1,12),ops=["+","-","×"],op=ops[rnd(0,2)];let q,a;
+  if(op==="+"){q=x+" + "+y;a=x+y;}else if(op==="-"){const b=Math.max(x,y),sm=Math.min(x,y);q=b+" − "+sm;a=b-sm;}else{q=Math.min(x,5)+" × "+Math.min(y,5);a=Math.min(x,5)*Math.min(y,5);}
+  twoP.q={q,a};
+  if(P("tpQ"))P("tpQ").textContent=q;
+  if(P("tpTurn"))P("tpTurn").textContent=twoP.turn===0?"👧 Player 1's turn!":"👦 Player 2's turn!";
+  const ch=shuffle([a,a+1,a-1,a+2].filter(n=>n>=0));
+  if(P("tpC"))P("tpC").innerHTML=ch.map(c=>`<div class="scc" onclick="ansTP(${c})">${c}</div>`).join("");
+}
+function ansTP(n){
+  const p=twoP.turn;
+  document.querySelectorAll(".scc").forEach(b=>b.onclick=null);
+  if(n===twoP.q.a){twoP.scores[p]++;if(P("tp"+(p+1)))P("tp"+(p+1)).textContent=twoP.scores[p];good("✅ Player "+(p+1)+" scores!");if(twoP.scores[p]>=5){setTimeout(()=>showWin("Player "+(p+1)+" wins! 🏆",3),600);return;}}
+  else bad("❌ Wrong! Was "+twoP.q.a);
+  twoP.turn=1-twoP.turn;
+  setTimeout(()=>{if(P("tpQ")){document.querySelectorAll(".scc").forEach(b=>{b.classList.remove("ok","no");});nextTPQ();}},650);
+}
+// Init
 updateStarsDisplay();
 </script>
 
