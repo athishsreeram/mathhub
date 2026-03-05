@@ -100,10 +100,10 @@ font-size:1.3rem; cursor:pointer; box-shadow:var(–shadow);
 transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px;
 }
 .btn-primary:active { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.20); }
-.btn-primary.green { background:var(–grass); }
-.btn-primary.purple { background:var(–purple); }
+.btn-primary.green { background:var(–grass); color:#fff; }
+.btn-primary.purple { background:var(–purple); color:#fff; }
 .btn-primary.blue { background:var(–sky); color:#fff; }
-.btn-primary.orange { background:var(–orange); }
+.btn-primary.orange { background:var(–orange); color:#fff; }
 .btn-row { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:16px; }
 .score-badge { display:inline-block; background:var(–sun); border:3px solid var(–dark); border-radius:50px; padding:6px 18px; font-weight:800; font-size:1rem; margin:4px; color: #6B4200; }
 .feedback { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.5rem; min-height:2.2rem; margin:12px 0; }
@@ -125,46 +125,63 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 
 /* Number Bonds */
 .bonds-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-.bond-btn { background:var(–sky); border:4px solid var(–dark); border-radius:16px; padding:18px 8px; font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center; color: #fff; }
-.bond-btn:active { transform:translateY(2px); }
+.bond-btn {
+background:var(–sky); border:4px solid var(–dark); border-radius:16px;
+padding:18px 8px; font-family:“Fredoka One”,cursive; font-size:1.6rem;
+cursor:pointer; touch-action:manipulation; transition:.15s; text-align:center;
+color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.25);
+box-shadow:0 5px 0 rgba(0,0,0,0.2);
+}
+.bond-btn:active { transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,0.2); }
 .bond-btn.selected { background:var(–grass); color:#fff; }
 .bond-btn.wrong { background:var(–coral); color:#fff; }
 .bond-visual { display:flex; align-items:center; justify-content:center; gap:14px; font-size:3rem; font-family:“Fredoka One”,cursive; color:var(–dark); margin:18px 0; }
 
 /* Counting / Skip */
 .number-track { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
-.num-cell { width:54px; height:54px; border-radius:14px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; background:var(–white); transition:.2s; color: var(–dark); }
-.num-cell.lit { background:var(–sun); }
-.num-cell.blank { background:#E5E7EB; color:#9CA3AF; cursor:pointer; touch-action:manipulation; }
-.num-cell.blank:active { background:var(–sky); color: #fff; }
+.num-cell { width:54px; height:54px; border-radius:14px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; background:var(–white); transition:.2s; color:var(–dark); }
+.num-cell.lit { background:var(–sun); color:#6B4200; }
+.num-cell.blank { background:#E5E7EB; color:#555; cursor:pointer; touch-action:manipulation; }
+.num-cell.blank:active { background:var(–sky); color:#fff; }
 .num-cell.correct { background:var(–grass); color:#fff; }
 .num-cell.wrong { background:var(–coral); color:#fff; }
 
 /* Balloons */
 .balloon-field { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:18px 0; min-height:120px; }
-.balloon { width:68px; height:80px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.5rem; cursor:pointer; touch-action:manipulation; transition:.2s; box-shadow:0 6px 0 rgba(0,0,0,.18); color: #fff; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
+.balloon {
+width:68px; height:80px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+border:4px solid var(–dark); display:flex; align-items:center; justify-content:center;
+font-family:“Fredoka One”,cursive; font-size:1.6rem; cursor:pointer; touch-action:manipulation;
+transition:.2s; box-shadow:0 6px 0 rgba(0,0,0,.18); color:#fff;
+text-shadow:2px 2px 0 rgba(0,0,0,0.35);
+}
 .balloon:active { transform:scale(.9); }
 .balloon.popped { opacity:0; transform:scale(1.5); pointer-events:none; }
 
 /* Gator comparison */
 .gator-row { display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin:18px 0; }
-.gator-num { background:var(–sky); border:4px solid var(–dark); border-radius:20px; padding:20px 32px; font-family:“Fredoka One”,cursive; font-size:3.5rem; min-width:100px; text-align:center; color: #fff; box-shadow: var(–shadow); }
+.gator-num { background:var(–sky); border:4px solid var(–dark); border-radius:20px; padding:20px 32px; font-family:“Fredoka One”,cursive; font-size:3.5rem; min-width:100px; text-align:center; color:#fff; box-shadow:var(–shadow); text-shadow:2px 2px 0 rgba(0,0,0,0.2); }
 .gator-emoji { font-size:4rem; }
 .gator-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
-.gator-btn { background:var(–white); border:4px solid var(–dark); border-radius:14px; padding:16px 28px; font-family:“Fredoka One”,cursive; font-size:1.8rem; cursor:pointer; touch-action:manipulation; transition:.15s; box-shadow: var(–shadow); }
-.gator-btn:active { background:var(–sun); transform:translateY(3px); }
+.gator-btn {
+background:var(–sun); border:4px solid var(–dark); border-radius:14px;
+padding:16px 28px; font-family:“Fredoka One”,cursive; font-size:2rem;
+cursor:pointer; touch-action:manipulation; transition:.15s;
+box-shadow:var(–shadow); color:#6B4200; font-weight:900;
+}
+.gator-btn:active { background:var(–orange); color:#fff; transform:translateY(3px); }
 
 /* Frog */
 .frog-track { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.frog-pad { width:52px; height:52px; border-radius:50%; border:4px solid var(–dark); background:#BBF7D0; display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1rem; transition:.3s; color: var(–dark); }
+.frog-pad { width:52px; height:52px; border-radius:50%; border:4px solid var(–dark); background:#BBF7D0; display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1rem; transition:.3s; color:var(–dark); font-weight:800; }
 .frog-pad.active { background:var(–grass); color:#fff; font-size:1.4rem; }
-.frog-pad.visited { background:#86EFAC; }
+.frog-pad.visited { background:#86EFAC; color:#1A5C30; }
 
 /* Smoothie / addition */
 .fruit-shelf { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:14px 0; }
 .fruit-item { font-size:3rem; cursor:pointer; touch-action:manipulation; transition:.15s; border-radius:14px; padding:8px; border:4px solid transparent; }
 .fruit-item:active { transform:scale(1.25); border-color:var(–dark); }
-.blender { min-height:90px; border:4px dashed var(–dark); border-radius:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:12px; gap:8px; font-size:2.2rem; margin:14px 0; background: #F0F8FF; }
+.blender { min-height:90px; border:4px dashed var(–dark); border-radius:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:12px; gap:8px; font-size:2.2rem; margin:14px 0; background:#F0F8FF; }
 .blend-total { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
 
 /* Cupcakes */
@@ -174,75 +191,87 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 
 /* Robot */
 .robot-groups { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.robot-group { border:4px dashed var(–purple); border-radius:18px; padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; min-width:90px; justify-content:center; background: #F5F0FF; }
+.robot-group { border:4px dashed var(–purple); border-radius:18px; padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; min-width:90px; justify-content:center; background:#F5F0FF; }
 .wheel { font-size:1.8rem; }
-
-/* Pizza */
-.pizza-container { position:relative; width:220px; height:220px; margin:18px auto; }
-.pizza-svg { width:100%; height:100%; }
-.slice { cursor:pointer; touch-action:manipulation; transition:.2s; }
-.slice.served { opacity:.4; }
-.fraction-display { text-align:center; font-family:“Fredoka One”,cursive; font-size:2rem; color:var(–dark); }
 
 /* Shapes */
 .shape-options { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.shape-opt { background:var(–white); border:4px solid var(–dark); border-radius:16px; padding:18px 22px; cursor:pointer; touch-action:manipulation; font-size:1.8rem; transition:.15s; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow: var(–shadow); }
-.shape-opt:active { background:var(–sky); transform:translateY(3px); }
-.shape-opt span { font-family:“Fredoka One”,cursive; font-size:1rem; color: var(–dark); }
+.shape-opt {
+background:var(–sky); border:4px solid var(–dark); border-radius:16px;
+padding:18px 22px; cursor:pointer; touch-action:manipulation; font-size:1.8rem;
+transition:.15s; display:flex; flex-direction:column; align-items:center; gap:6px;
+box-shadow:var(–shadow); color:#fff;
+}
+.shape-opt:active { background:var(–purple); transform:translateY(3px); }
+.shape-opt span { font-family:“Fredoka One”,cursive; font-size:1.1rem; color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
 .toy-display { font-size:6rem; text-align:center; margin:14px 0; }
 
 /* Clock */
 .clock-svg-wrap { display:flex; justify-content:center; margin:14px 0; }
 .time-display { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.8rem; color:var(–dark); margin:10px 0; }
-.time-target { text-align:center; font-size:1.1rem; color:#2D3561; margin-bottom:10px; font-weight: 700; }
+.time-target { text-align:center; font-size:1.1rem; color:#2D3561; margin-bottom:10px; font-weight:700; }
 .clock-btns { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
 
 /* Tally */
 .tally-fish-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
 .tally-fish { font-size:2.5rem; cursor:pointer; touch-action:manipulation; transition:.15s; }
 .tally-fish:active { transform:scale(1.4); }
-.tally-marks { font-family:monospace; font-size:2.2rem; text-align:center; letter-spacing:4px; margin:12px 0; min-height:3rem; color: var(–dark); }
-.tally-count { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color: var(–dark); }
+.tally-marks { font-family:monospace; font-size:2.2rem; text-align:center; letter-spacing:4px; margin:12px 0; min-height:3rem; color:var(–dark); }
+.tally-count { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color:var(–dark); }
 
 /* Graph */
 .graph-items { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-.graph-item-btn { font-size:2.2rem; background:var(–white); border:4px solid var(–dark); border-radius:14px; padding:10px 16px; cursor:pointer; touch-action:manipulation; transition:.15s; box-shadow: var(–shadow); }
-.graph-item-btn:active { background:var(–sun); transform:translateY(3px); }
+.graph-item-btn {
+font-size:2.2rem; background:var(–sun); border:4px solid var(–dark);
+border-radius:14px; padding:10px 16px; cursor:pointer; touch-action:manipulation;
+transition:.15s; box-shadow:var(–shadow); color:#6B4200;
+}
+.graph-item-btn:active { background:var(–orange); color:#fff; transform:translateY(3px); }
 .bar-graph { display:flex; align-items:flex-end; justify-content:center; gap:16px; height:160px; border-bottom:4px solid var(–dark); border-left:4px solid var(–dark); padding:0 12px; margin:12px 0; }
-.bar { width:54px; border-radius:10px 10px 0 0; border:3px solid var(–dark); transition:height .3s; min-height:6px; display:flex; align-items:flex-start; justify-content:center; padding-top:6px; font-family:“Fredoka One”,cursive; font-size:1rem; color: #fff; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); }
+.bar { width:54px; border-radius:10px 10px 0 0; border:3px solid var(–dark); transition:height .3s; min-height:6px; display:flex; align-items:flex-start; justify-content:center; padding-top:6px; font-family:“Fredoka One”,cursive; font-size:1.1rem; color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,0.3); font-weight:900; }
 
 /* Word Problems */
 .wp-box { background:linear-gradient(135deg,#DBEAFE,#FEF9C3); border:4px solid var(–dark); border-radius:var(–radius); padding:22px; margin:14px 0; }
-.wp-box p { font-size:1.15rem; line-height:1.7; color: var(–dark); font-weight: 700; }
+.wp-box p { font-size:1.2rem; line-height:1.8; color:var(–dark); font-weight:800; }
 .wp-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-.wp-choice { background:var(–white); border:4px solid var(–dark); border-radius:16px; padding:16px; font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s; color: var(–dark); box-shadow: var(–shadow); }
-.wp-choice:active { background:var(–sky); color: #fff; transform:translateY(3px); }
+.wp-choice {
+background:var(–sky); border:4px solid var(–dark); border-radius:16px;
+padding:16px; font-family:“Fredoka One”,cursive; font-size:1.8rem;
+cursor:pointer; touch-action:manipulation; text-align:center; transition:.15s;
+color:#fff; box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
+}
+.wp-choice:active { background:var(–purple); color:#fff; transform:translateY(3px); }
 .wp-choice.correct { background:var(–grass); color:#fff; }
 .wp-choice.wrong { background:var(–coral); color:#fff; }
 
 /* Place value */
 .pv-display { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:18px 0; }
 .pv-col { text-align:center; }
-.pv-col label { font-family:“Fredoka One”,cursive; font-size:1.2rem; display:block; margin-bottom:8px; color:var(–dark); font-weight: 800; }
+.pv-col label { font-family:“Fredoka One”,cursive; font-size:1.2rem; display:block; margin-bottom:8px; color:var(–dark); font-weight:800; }
 .pv-blocks { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; min-height:60px; width:100%; max-width:180px; }
 .pv-block { width:28px; height:28px; border:3px solid var(–dark); border-radius:6px; }
 .pv-block.ten { background:var(–sky); }
 .pv-block.one { background:var(–sun); }
 .pv-num { font-family:“Fredoka One”,cursive; font-size:4rem; color:var(–dark); text-align:center; margin:10px 0; }
-.pv-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; margin:0 8px; color: var(–dark); background: var(–white); }
+.pv-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; margin:0 8px; color:var(–dark); background:var(–white); }
 
 /* Commutative */
 .comm-eq { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:18px 0; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); }
-.comm-num { background:var(–sky); border:4px solid var(–dark); border-radius:14px; padding:8px 22px; min-width:68px; text-align:center; color: #fff; box-shadow: var(–shadow); }
+.comm-num { background:var(–sky); border:4px solid var(–dark); border-radius:14px; padding:8px 22px; min-width:68px; text-align:center; color:#fff; box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
 
 /* Missing bridge */
 .bridge-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
 .plank { width:60px; height:60px; border-radius:12px; border:4px solid var(–dark); display:flex; align-items:center; justify-content:center; font-family:“Fredoka One”,cursive; font-size:1.3rem; }
-.plank.filled { background:var(–orange); color:#fff; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
-.plank.gap { background:#E5E7EB; border-style:dashed; cursor:pointer; touch-action:manipulation; font-size:1.8rem; }
+.plank.filled { background:var(–orange); color:#fff; box-shadow:0 4px 0 rgba(0,0,0,0.2); text-shadow:1px 1px 0 rgba(0,0,0,0.2); }
+.plank.gap { background:#E5E7EB; border-style:dashed; cursor:pointer; touch-action:manipulation; font-size:1.8rem; color:#555; }
 .num-pad { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0; }
-.num-pad-btn { width:58px; height:58px; border-radius:12px; border:4px solid var(–dark); font-family:“Fredoka One”,cursive; font-size:1.4rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; box-shadow: var(–shadow); color: var(–dark); }
-.num-pad-btn:active { background:var(–sun); transform:translateY(3px); }
+.num-pad-btn {
+width:58px; height:58px; border-radius:12px; border:4px solid var(–dark);
+font-family:“Fredoka One”,cursive; font-size:1.6rem; cursor:pointer; touch-action:manipulation;
+background:var(–sky); color:#fff; transition:.15s; box-shadow:var(–shadow);
+text-shadow:1px 1px 0 rgba(0,0,0,0.2);
+}
+.num-pad-btn:active { background:var(–grass); transform:translateY(3px); }
 
 /* Toy shelf sequencing */
 .toy-shelf-area { background:#8B4513; border-radius:0 0 8px 8px; height:18px; margin-top:-4px; }
@@ -255,24 +284,30 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 .sub-vis { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
 .sub-item { font-size:2.2rem; transition:.3s; }
 .sub-item.gone { opacity:.12; text-decoration:line-through; }
-.sub-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.2rem; color:var(–dark); margin:14px 0; }
+.sub-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:2.4rem; color:var(–dark); margin:14px 0; }
 .sub-choices { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0; }
-.sub-choice { width:70px; height:70px; border-radius:14px; border:4px solid var(–dark); font-family:“Fredoka One”,cursive; font-size:1.7rem; cursor:pointer; touch-action:manipulation; background:var(–white); transition:.15s; display:flex; align-items:center; justify-content:center; box-shadow: var(–shadow); color: var(–dark); }
-.sub-choice:active { background:var(–sky); color: #fff; }
+.sub-choice {
+width:80px; height:80px; border-radius:14px; border:4px solid var(–dark);
+font-family:“Fredoka One”,cursive; font-size:2rem; cursor:pointer; touch-action:manipulation;
+background:var(–sky); color:#fff; transition:.15s;
+display:flex; align-items:center; justify-content:center;
+box-shadow:var(–shadow); text-shadow:1px 1px 0 rgba(0,0,0,0.2);
+}
+.sub-choice:active { background:var(–purple); color:#fff; }
 .sub-choice.correct { background:var(–grass); color:#fff; }
 .sub-choice.wrong { background:var(–coral); color:#fff; }
 
 /* Multiplication repeated addition */
 .mult-groups { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin:18px 0; }
-.mult-group { border:4px solid var(–purple); border-radius:16px; padding:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; min-width:80px; background: #F5F0FF; }
-.mult-dot { width:32px; height:32px; border-radius:50%; background:var(–purple); border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.mult-group { border:4px solid var(–purple); border-radius:16px; padding:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; min-width:80px; background:#F5F0FF; }
+.mult-dot { width:32px; height:32px; border-radius:50%; background:var(–purple); border:3px solid var(–dark); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#fff; }
 .mult-eq { text-align:center; font-family:“Fredoka One”,cursive; font-size:1.7rem; color:var(–dark); margin:14px 0; }
-.mult-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2.2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; color: var(–dark); background: var(–white); }
+.mult-input { width:80px; height:62px; font-family:“Fredoka One”,cursive; font-size:2.2rem; border:4px solid var(–dark); border-radius:14px; text-align:center; color:var(–dark); background:var(–white); }
 
 /* Addition strategies */
 .add-strat-box { background:linear-gradient(135deg,#FEF9C3,#DBEAFE); border:4px solid var(–dark); border-radius:var(–radius); padding:18px; margin:14px 0; }
 .add-strat-box h3 { font-family:“Fredoka One”,cursive; font-size:1.2rem; margin-bottom:10px; color:var(–dark); }
-.add-strat-eq { font-size:1.8rem; font-family:“Fredoka One”,cursive; text-align:center; margin:10px 0; color: var(–dark); }
+.add-strat-eq { font-size:1.8rem; font-family:“Fredoka One”,cursive; text-align:center; margin:10px 0; color:var(–dark); }
 .num-dots { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:8px 0; }
 .nd { width:32px; height:32px; border-radius:50%; background:var(–coral); border:3px solid var(–dark); display:inline-flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800; color:#fff; }
 .nd.b { background:var(–sky); }
@@ -374,18 +409,12 @@ transition:transform .15s,box-shadow .15s; touch-action:manipulation; margin:6px
 </div>
 
 <script>
-// ============================
-// STATE
-// ============================
 let currentWorld = "";
 let currentGame = "";
 let totalStars = 0;
 let gameStars = {};
 let currentGameState = {};
 
-// ============================
-// WORLD DEFINITIONS
-// ============================
 const worlds = {
   counting: {
     icon: "🌳", name: "Number Forest", desc: "Counting, Number Sense & Patterns",
@@ -438,38 +467,22 @@ const worlds = {
   }
 };
 
-// ============================
-// NAVIGATION
-// ============================
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen-" + id).classList.add("active");
   window.scrollTo(0,0);
 }
-function showHome() {
-  showScreen("home");
-  updateStarsDisplay();
-}
+function showHome() { showScreen("home"); updateStarsDisplay(); }
 function goWorld(wid) {
   currentWorld = wid;
   const w = worlds[wid];
-  document.getElementById("worldHeader").innerHTML = `
-    <div class="lh-icon">${w.icon}</div>
-    <h2>${w.name}</h2>
-    <p>${w.desc}</p>`;
+  document.getElementById("worldHeader").innerHTML = `<div class="lh-icon">${w.icon}</div><h2>${w.name}</h2><p>${w.desc}</p>`;
   const gl = document.getElementById("gameList");
   gl.innerHTML = "";
   w.games.forEach(g => {
     const s = gameStars[g.id] || 0;
     const stars = "⭐".repeat(s) + "☆".repeat(3-s);
-    gl.innerHTML += `<div class="game-btn" onclick="launchGame('${g.id}')">
-      <div class="g-icon">${g.icon}</div>
-      <div class="g-info">
-        <h3>${g.name}</h3>
-        <p>${g.desc}</p>
-        <div class="g-stars">${stars}</div>
-      </div>
-    </div>`;
+    gl.innerHTML += `<div class="game-btn" onclick="launchGame('${g.id}')"><div class="g-icon">${g.icon}</div><div class="g-info"><h3>${g.name}</h3><p>${g.desc}</p><div class="g-stars">${stars}</div></div></div>`;
   });
   showScreen("world");
 }
@@ -479,10 +492,7 @@ function launchGame(gid) {
   showScreen("game");
   buildGame(gid);
 }
-function goBack() {
-  showScreen("world");
-  goWorld(currentWorld);
-}
+function goBack() { showScreen("world"); goWorld(currentWorld); }
 function updateStarsDisplay() {
   const t = Object.values(gameStars).reduce((a,b)=>a+b,0);
   document.getElementById("totalStarsDisplay").textContent = "⭐ " + t + " Stars Collected";
@@ -491,10 +501,6 @@ function awardStars(gid, count) {
   if ((gameStars[gid]||0) < count) gameStars[gid] = count;
   updateStarsDisplay();
 }
-
-// ============================
-// WIN MODAL
-// ============================
 function showWin(msg, stars) {
   stars = Math.min(3, Math.max(1, stars));
   awardStars(currentGame, stars);
@@ -505,206 +511,110 @@ function showWin(msg, stars) {
 function closeWin() { document.getElementById("winModal").classList.remove("open"); }
 function playAgain() { closeWin(); buildGame(currentGame); }
 
-// ============================
-// GAME BUILDER
-// ============================
 function buildGame(gid) {
   const panel = document.getElementById("gamePanel");
   panel.innerHTML = "<p style='text-align:center;font-size:2.5rem;padding:40px'>Loading... 🎮</p>";
   const builders = {
-    balloons: buildBalloons,
-    bridge: buildBridge,
-    frog: buildFrog,
-    toyshelf: buildToyShelf,
-    gator: buildGator,
-    partyplanner: buildPartyPlanner,
-    smoothie: buildSmoothie,
-    subtraction: buildSubtraction,
-    numberbonds5: () => buildBonds(5),
-    numberbonds10: () => buildBonds(10),
-    repeatedadd: buildRepeatedAdd,
-    robot: buildRobot,
-    placevalue: buildPlaceValue,
-    commutative: buildCommutative,
-    shapes: buildShapes,
-    clock: buildClock,
-    tally: buildTally,
-    bargraph: buildBarGraph,
-    wordprobs: buildWordProbs,
+    balloons: buildBalloons, bridge: buildBridge, frog: buildFrog,
+    toyshelf: buildToyShelf, gator: buildGator, partyplanner: buildPartyPlanner,
+    smoothie: buildSmoothie, subtraction: buildSubtraction,
+    numberbonds5: () => buildBonds(5), numberbonds10: () => buildBonds(10),
+    repeatedadd: buildRepeatedAdd, robot: buildRobot,
+    placevalue: buildPlaceValue, commutative: buildCommutative,
+    shapes: buildShapes, clock: buildClock, tally: buildTally,
+    bargraph: buildBarGraph, wordprobs: buildWordProbs,
   };
   currentGameState = {};
   if (builders[gid]) builders[gid]();
   else panel.innerHTML = "<p style='text-align:center;padding:40px'>Coming Soon! 🚧</p>";
 }
 
-// ===========================
-// 1. BALLOON POP
-// ===========================
 function buildBalloons() {
-  const colors = ["#FF4757","#FFD93D","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997","#F7B2B7","#86EFAC"];
+  const colors = ["#FF4757","#e6a800","#3BAEFF","#2ECC71","#8B5CF6","#FF7F50","#FF4D94","#20C997","#e05070","#1a9c50"];
   const nums = shuffle([1,2,3,4,5,6,7,8,9,10]);
   currentGameState = { next:1, total:10, nums };
-  const html = `
-    <h2>🎈 Balloon Pop!</h2>
-    <div class="game-desc">Pop the balloons in order from <b>1 to 10</b>!<br>Tap the smallest number first! 🎯</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="balloon-field" id="balloonField"></div>
-    </div>`;
-  document.getElementById("gamePanel").innerHTML = html;
+  document.getElementById("gamePanel").innerHTML = `<h2>🎈 Balloon Pop!</h2><div class="game-desc">Pop the balloons in order from <b>1 to 10</b>!<br>Tap the smallest number first! 🎯</div><div class="game-box"><div class="feedback" id="bf"></div><div class="balloon-field" id="balloonField"></div></div>`;
   const field = document.getElementById("balloonField");
-  nums.forEach((n,i) => {
+  nums.forEach(n => {
     const b = document.createElement("div");
-    b.className = "balloon"; b.id="b"+n;
-    b.textContent = n;
-    b.style.background = colors[n-1];
-    b.onclick = () => popBalloon(n);
+    b.className = "balloon"; b.id="b"+n; b.textContent = n;
+    b.style.background = colors[n-1]; b.onclick = () => popBalloon(n);
     field.appendChild(b);
   });
 }
 function popBalloon(n) {
-  const s = currentGameState;
-  const fb = document.getElementById("bf");
+  const s = currentGameState; const fb = document.getElementById("bf");
   if (n === s.next) {
-    const el = document.getElementById("b"+n);
-    el.classList.add("popped");
-    el.textContent = "💥";
-    fb.className="feedback good"; fb.textContent="✅ Yes! "+n+"!";
-    s.next++;
-    if (s.next > s.total) { setTimeout(()=>showWin("You popped all the balloons!", 3),600); }
+    const el = document.getElementById("b"+n); el.classList.add("popped"); el.textContent = "💥";
+    fb.className="feedback good"; fb.textContent="✅ Yes! "+n+"!"; s.next++;
+    if (s.next > s.total) setTimeout(()=>showWin("You popped all the balloons!", 3),600);
   } else {
     fb.className="feedback bad"; fb.textContent="Try "+s.next+" first!";
     setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);
   }
 }
 
-// ===========================
-// 2. MISSING BRIDGE
-// ===========================
 function buildBridge() {
-  const start = rnd(1,8);
-  const len = 7;
+  const start = rnd(1,8), len = 7;
   const seq = Array.from({length:len},(_,i)=>start+i);
   const gapIdx = rnd(1, len-2);
-  currentGameState = { seq, gapIdx, answer: seq[gapIdx], selected:null };
+  currentGameState = { seq, gapIdx, answer: seq[gapIdx] };
   renderBridge();
 }
 function renderBridge() {
   const s = currentGameState;
   const choices = shuffle([s.answer, s.answer+1, s.answer-1, s.answer+2].filter(x=>x>0));
-  let planks = s.seq.map((n,i) => {
-    if (i===s.gapIdx) return `<div class="plank gap" id="gap-plank" onclick="selectGap()">❓</div>`;
-    return `<div class="plank filled">${n}</div>`;
-  }).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🌉 Missing Bridge</h2>
-    <div class="game-desc">🐰 needs to cross! Fill in the missing number!</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="bridge-row">${planks}</div>
-      <p style="text-align:center;color:#2D3561;margin:10px 0;font-size:1.1rem;font-weight:800">Choose the missing number:</p>
-      <div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join("")}</div>
-      <div class="btn-row"><button class="btn-primary orange" onclick="buildBridge()">Next Puzzle ▶</button></div>
-    </div>`;
+  let planks = s.seq.map((n,i) => i===s.gapIdx ? `<div class="plank gap" id="gap-plank">❓</div>` : `<div class="plank filled">${n}</div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🌉 Missing Bridge</h2><div class="game-desc">🐰 needs to cross! Fill in the missing number!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="bridge-row">${planks}</div><p style="text-align:center;color:#1A1F4B;margin:10px 0;font-size:1.2rem;font-weight:800">Choose the missing number:</p><div class="num-pad">${choices.map(c=>`<button class="num-pad-btn" onclick="checkBridge(${c})">${c}</button>`).join("")}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildBridge()">Next Puzzle ▶</button></div></div>`;
 }
 function checkBridge(n) {
   const fb = document.getElementById("bf");
   if (n === currentGameState.answer) {
-    document.getElementById("gap-plank").textContent = n;
-    document.getElementById("gap-plank").style.background = "#2ECC71";
-    document.getElementById("gap-plank").style.color = "#fff";
+    const gp = document.getElementById("gap-plank");
+    gp.textContent = n; gp.style.background = "#2ECC71"; gp.style.color = "#fff";
     fb.className="feedback good"; fb.textContent="🎉 Correct! 🐰 can cross!";
-    awardStars(currentGame, 3);
-    setTimeout(buildBridge, 1200);
+    awardStars(currentGame, 3); setTimeout(buildBridge, 1200);
   } else {
     fb.className="feedback bad"; fb.textContent="Try again! 🤔";
     setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
   }
 }
 
-// ===========================
-// 3. FROG JUMP (skip by 2s)
-// ===========================
-function buildFrog() {
-  const pads = Array.from({length:11},(_,i)=>i*2);
-  currentGameState = { pads, pos:0 };
-  renderFrog();
-}
+function buildFrog() { currentGameState = { pads: Array.from({length:11},(_,i)=>i*2), pos:0 }; renderFrog(); }
 function renderFrog() {
   const s = currentGameState;
   let cells = s.pads.map((n,i)=>{
-    let cls = "frog-pad";
-    if (i < s.pos) cls += " visited";
-    if (i === s.pos) cls += " active";
-    return `<div class="${cls}" id="fp${i}">${i===s.pos?"🐸":n}</div>`;
+    let cls="frog-pad"; if(i<s.pos) cls+=" visited"; if(i===s.pos) cls+=" active";
+    return `<div class="${cls}">${i===s.pos?"🐸":n}</div>`;
   }).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🐸 Frog Jump!</h2>
-    <div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump!</div>
-    <div class="game-box">
-      <div class="frog-track">${cells}</div>
-      <div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.7rem;color:var(--dark);margin:12px 0">
-        🐸 is on: <span style="color:var(--coral)">${s.pads[s.pos]}</span>
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="hopFrog()">🐸 Hop!</button>
-        <button class="btn-primary blue" onclick="buildFrog()">↺ Reset</button>
-      </div>
-    </div>`;
+  document.getElementById("gamePanel").innerHTML = `<h2>🐸 Frog Jump!</h2><div class="game-desc">Help the frog skip count by <b>2s</b>! Press <b>Hop!</b> to jump!</div><div class="game-box"><div class="frog-track">${cells}</div><div style="text-align:center;font-family:'Fredoka One',cursive;font-size:1.7rem;color:var(--dark);margin:12px 0">🐸 is on: <span style="color:var(--coral)">${s.pads[s.pos]}</span></div><div class="btn-row"><button class="btn-primary green" onclick="hopFrog()">🐸 Hop!</button><button class="btn-primary blue" onclick="buildFrog()">↺ Reset</button></div></div>`;
 }
 function hopFrog() {
   const s = currentGameState;
-  if (s.pos < s.pads.length - 1) {
-    s.pos++;
-    renderFrog();
-    if (s.pos === s.pads.length - 1) { setTimeout(()=>showWin("You counted all the way to "+s.pads[s.pads.length-1]+"!", 3),400); }
-  }
+  if (s.pos < s.pads.length-1) { s.pos++; renderFrog(); if(s.pos===s.pads.length-1) setTimeout(()=>showWin("You counted all the way to "+s.pads[s.pads.length-1]+"!",3),400); }
 }
 
-// ===========================
-// 4. TOY SHELF SEQUENCING
-// ===========================
 function buildToyShelf() {
-  const allToys = ["🐻","🦁","🐯","🐘","🦒","🐬","🦊","🐼"];
-  const toys = shuffle(allToys).slice(0,4);
+  const toys = shuffle(["🐻","🦁","🐯","🐘","🦒","🐬","🦊","🐼"]).slice(0,4);
   const sizes = shuffle([1,2,3,4]);
-  const toyObjs = toys.map((t,i)=>({emoji:t, size:sizes[i]}));
-  const sorted = [...toyObjs].sort((a,b)=>a.size-b.size);
-  currentGameState = { toyObjs, sorted, tapped:[], order:0 };
+  const toyObjs = toys.map((t,i)=>({emoji:t,size:sizes[i]}));
+  currentGameState = { toyObjs, sorted:[...toyObjs].sort((a,b)=>a.size-b.size), tapped:[] };
   renderToyShelf();
 }
 function renderToyShelf() {
   const s = currentGameState;
   const tapped = s.tapped.map(t=>t.emoji);
-  const toys = s.toyObjs.map((t,i)=>{
-    const placed = tapped.includes(t.emoji);
-    return `<div class="toy-tap${placed?" placed":""}" style="font-size:${1.4+t.size*.5}rem" onclick="tapToy(${i})">${t.emoji}</div>`;
-  }).join("");
+  const toys = s.toyObjs.map((t,i)=>`<div class="toy-tap${tapped.includes(t.emoji)?" placed":""}" style="font-size:${1.4+t.size*.5}rem" onclick="tapToy(${i})">${t.emoji}</div>`).join("");
   const shelf = s.tapped.map(t=>`<div style="font-size:${1.4+t.size*.5}rem">${t.emoji}</div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🧸 Toy Shelf</h2>
-    <div class="game-desc">Tap the toys from <b>Smallest → Largest</b> to put them on the shelf!</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <p style="text-align:center;color:#2D3561;font-size:1rem;font-weight:800;margin-bottom:8px">Tap in order:</p>
-      <div class="toy-row">${toys}</div>
-      <div style="background:#F5DEB3;border-radius:14px;padding:12px;margin:12px 0;min-height:70px;display:flex;align-items:flex-end;justify-content:center;gap:12px;border:4px solid var(--dark)">
-        ${shelf || "<span style='color:#9CA3AF;font-size:1rem;align-self:center;font-weight:700'>Shelf is empty</span>"}
-      </div>
-      <div class="toy-shelf-area"></div>
-      <div class="btn-row"><button class="btn-primary orange" onclick="buildToyShelf()">↺ New Puzzle</button></div>
-    </div>`;
+  document.getElementById("gamePanel").innerHTML = `<h2>🧸 Toy Shelf</h2><div class="game-desc">Tap the toys from <b>Smallest → Largest</b> to put them on the shelf!</div><div class="game-box"><div class="feedback" id="bf"></div><p style="text-align:center;color:#1A1F4B;font-size:1.1rem;font-weight:800;margin-bottom:8px">Tap in order:</p><div class="toy-row">${toys}</div><div style="background:#F5DEB3;border-radius:14px;padding:12px;margin:12px 0;min-height:70px;display:flex;align-items:flex-end;justify-content:center;gap:12px;border:4px solid var(--dark)">${shelf||"<span style='color:#9CA3AF;font-size:1rem;align-self:center;font-weight:700'>Shelf is empty</span>"}</div><div class="toy-shelf-area"></div><div class="btn-row"><button class="btn-primary orange" onclick="buildToyShelf()">↺ New Puzzle</button></div></div>`;
 }
 function tapToy(i) {
-  const s = currentGameState;
-  const toy = s.toyObjs[i];
+  const s = currentGameState; const toy = s.toyObjs[i];
   if (s.tapped.find(t=>t.emoji===toy.emoji)) return;
-  const expected = s.sorted[s.tapped.length];
   const fb = document.getElementById("bf");
-  if (toy.emoji === expected.emoji) {
-    s.tapped.push(toy);
-    fb.className="feedback good"; fb.textContent="✅ Great!";
-    if (s.tapped.length === s.sorted.length) { setTimeout(()=>showWin("Shelf is sorted perfectly!", 3),500); return; }
+  if (toy.emoji === s.sorted[s.tapped.length].emoji) {
+    s.tapped.push(toy); fb.className="feedback good"; fb.textContent="✅ Great!";
+    if (s.tapped.length===s.sorted.length) { setTimeout(()=>showWin("Shelf is sorted perfectly!",3),500); return; }
     renderToyShelf();
   } else {
     fb.className="feedback bad"; fb.textContent="Not quite! Try the smallest one left! 🤔";
@@ -712,150 +622,54 @@ function tapToy(i) {
   }
 }
 
-// ===========================
-// 5. HUNGRY GATOR
-// ===========================
 function buildGator() {
-  let a = rnd(1,12), b = rnd(1,12);
-  while (a===b) b = rnd(1,12);
-  currentGameState = { a, b, answer: a>b?">":a<b?"<":"=" };
-  renderGator();
+  let a=rnd(1,12), b=rnd(1,12); while(a===b) b=rnd(1,12);
+  currentGameState = { a, b, answer: a>b?">":a<b?"<":"=" }; renderGator();
 }
 function renderGator() {
   const s = currentGameState;
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🐊 Hungry Gator</h2>
-    <div class="game-desc">The alligator always eats the <b>bigger</b> number! Pick the right symbol!</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="gator-row">
-        <div class="gator-num">${s.a}</div>
-        <div class="gator-emoji">🐊</div>
-        <div class="gator-num">${s.b}</div>
-      </div>
-      <div class="gator-btns">
-        <button class="gator-btn" onclick="checkGator('>')"> &gt; </button>
-        <button class="gator-btn" onclick="checkGator('=')"> = </button>
-        <button class="gator-btn" onclick="checkGator('<')"> &lt; </button>
-      </div>
-    </div>`;
+  document.getElementById("gamePanel").innerHTML = `<h2>🐊 Hungry Gator</h2><div class="game-desc">The alligator always eats the <b>bigger</b> number! Pick the right symbol!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="gator-row"><div class="gator-num">${s.a}</div><div class="gator-emoji">🐊</div><div class="gator-num">${s.b}</div></div><div class="gator-btns"><button class="gator-btn" onclick="checkGator('>')">&gt;</button><button class="gator-btn" onclick="checkGator('=')">=</button><button class="gator-btn" onclick="checkGator('<')">&lt;</button></div></div>`;
 }
 function checkGator(sym) {
   const fb = document.getElementById("bf");
-  if (sym===currentGameState.answer) {
-    fb.className="feedback good"; fb.textContent="🐊 Chomp! Correct!";
-    awardStars(currentGame, 3);
-    setTimeout(buildGator, 1000);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Oops! Try again! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  if (sym===currentGameState.answer) { fb.className="feedback good"; fb.textContent="🐊 Chomp! Correct!"; awardStars(currentGame,3); setTimeout(buildGator,1000); }
+  else { fb.className="feedback bad"; fb.textContent="Oops! Try again! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},900); }
 }
 
-// ===========================
-// 6. PARTY PLANNER (Even/Odd)
-// ===========================
-function buildPartyPlanner() {
-  const n = rnd(2,16);
-  currentGameState = { n };
-  renderPartyPlanner();
-}
+function buildPartyPlanner() { currentGameState = { n:rnd(2,16) }; renderPartyPlanner(); }
 function renderPartyPlanner() {
   const s = currentGameState;
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🧁 Party Planner</h2>
-    <div class="game-desc">Can ALL the cupcakes be paired up?<br>If yes → <b>Even!</b> If one is left alone → <b>Odd!</b></div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div style="text-align:center;font-size:2rem;margin:14px 0;font-family:'Fredoka One',cursive;color:var(--dark)">There are <b>${s.n}</b> cupcakes</div>
-      <div class="cupcake-row">${"<span class='cupcake'>🧁</span>".repeat(s.n)}</div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="checkEvenOdd('even')">✌️ Even</button>
-        <button class="btn-primary" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button>
-      </div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildPartyPlanner()">▶ Next Cupcake!</button></div>
-    </div>`;
+  document.getElementById("gamePanel").innerHTML = `<h2>🧁 Party Planner</h2><div class="game-desc">Can ALL the cupcakes be paired up?<br>If yes → <b>Even!</b> If one is left alone → <b>Odd!</b></div><div class="game-box"><div class="feedback" id="bf"></div><div style="text-align:center;font-size:2rem;margin:14px 0;font-family:'Fredoka One',cursive;color:var(--dark)">There are <b>${s.n}</b> cupcakes</div><div class="cupcake-row">${"<span class='cupcake'>🧁</span>".repeat(s.n)}</div><div class="btn-row"><button class="btn-primary green" onclick="checkEvenOdd('even')">✌️ Even</button><button class="btn-primary" style="background:var(--coral)" onclick="checkEvenOdd('odd')">☝️ Odd</button></div><div class="btn-row"><button class="btn-primary blue" onclick="buildPartyPlanner()">▶ Next Cupcake!</button></div></div>`;
 }
 function checkEvenOdd(ans) {
-  const fb = document.getElementById("bf");
-  const correct = currentGameState.n%2===0 ? "even":"odd";
-  if (ans===correct) {
-    fb.className="feedback good";
-    fb.textContent = correct==="even" ? "🎉 Even! Every cupcake has a pair!" : "🎉 Odd! One cupcake is alone!";
-    awardStars(currentGame,3);
-    setTimeout(buildPartyPlanner,1200);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Try pairing them up! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  const fb = document.getElementById("bf"); const correct = currentGameState.n%2===0?"even":"odd";
+  if (ans===correct) { fb.className="feedback good"; fb.textContent=correct==="even"?"🎉 Even! Every cupcake has a pair!":"🎉 Odd! One cupcake is alone!"; awardStars(currentGame,3); setTimeout(buildPartyPlanner,1200); }
+  else { fb.className="feedback bad"; fb.textContent="Try pairing them up! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},900); }
 }
 
-// ===========================
-// 7. FRUIT SMOOTHIE (Addition)
-// ===========================
 function buildSmoothie() {
-  const fruits = ["🍓","🍌","🍊","🍇","🍎","🍑","🫐","🍒"];
-  const shelf = shuffle(fruits).slice(0,6);
-  currentGameState = { shelf, basket:[] };
-  renderSmoothie();
+  currentGameState = { shelf:shuffle(["🍓","🍌","🍊","🍇","🍎","🍑","🫐","🍒"]).slice(0,6), basket:[] }; renderSmoothie();
 }
 function renderSmoothie() {
   const s = currentGameState;
-  const total = s.basket.length;
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🥤 Fruit Smoothie</h2>
-    <div class="game-desc">Tap fruits to add them to the blender! Press <b>Blend!</b> to find the total! 🎯</div>
-    <div class="game-box">
-      <div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join("")}</div>
-      <div class="blender">${s.basket.join(" ") || "<span style='color:#9CA3AF;font-weight:700'>Drop fruits here! 🫙</span>"}</div>
-      <div class="blend-total" id="blendTotal">${total>0?"Count: "+total:""}</div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="blendIt()">🌀 Blend!</button>
-        <button class="btn-primary blue" onclick="buildSmoothie()">↺ New Recipe</button>
-      </div>
-    </div>`;
+  document.getElementById("gamePanel").innerHTML = `<h2>🥤 Fruit Smoothie</h2><div class="game-desc">Tap fruits to add them to the blender! Press <b>Blend!</b> to find the total! 🎯</div><div class="game-box"><div class="fruit-shelf">${s.shelf.map((f,i)=>`<div class="fruit-item" onclick="addFruit(${i})">${f}</div>`).join("")}</div><div class="blender">${s.basket.join(" ")||"<span style='color:#6B7280;font-weight:700'>Drop fruits here! 🫙</span>"}</div><div class="blend-total" id="blendTotal">${s.basket.length>0?"Count: "+s.basket.length:""}</div><div class="btn-row"><button class="btn-primary green" onclick="blendIt()">🌀 Blend!</button><button class="btn-primary blue" onclick="buildSmoothie()">↺ New Recipe</button></div></div>`;
 }
-function addFruit(i) {
-  currentGameState.basket.push(currentGameState.shelf[i]);
-  renderSmoothie();
-}
-function blendIt() {
-  const n = currentGameState.basket.length;
-  if (n===0) return;
-  document.getElementById("blendTotal").textContent = "🥤 Total = "+n+"! Great job!";
-  if(n>=3) { awardStars(currentGame, 3); }
-}
+function addFruit(i) { currentGameState.basket.push(currentGameState.shelf[i]); renderSmoothie(); }
+function blendIt() { const n=currentGameState.basket.length; if(!n) return; document.getElementById("blendTotal").textContent="🥤 Total = "+n+"! Great job!"; if(n>=3) awardStars(currentGame,3); }
 
-// ===========================
-// 8. SUBTRACTION
-// ===========================
 function buildSubtraction() {
-  const total = rnd(4,10);
-  const take = rnd(1,total-1);
-  const ans = total-take;
-  const choices = shuffle([ans, ans+1, ans-1, ans+2].filter(x=>x>=0 && x<=total));
+  const total=rnd(4,10), take=rnd(1,total-1), ans=total-take;
+  const choices=shuffle([ans,ans+1,ans-1,ans+2].filter(x=>x>=0&&x<=total));
   currentGameState = { total, take, ans };
-  const items = Array.from({length:total},()=>"⭐");
-  const vis = items.map((it,i)=>`<span class="sub-item${i>=ans?" gone":""}">${it}</span>`).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>➖ Take Away Town!</h2>
-    <div class="game-desc">We had <b>${total}</b> stars. We take away <b>${take}</b>. How many are left?</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="sub-vis">${vis}</div>
-      <div class="sub-eq">${total} − ${take} = ?</div>
-      <div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join("")}</div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildSubtraction()">▶ Next</button></div>
-    </div>`;
+  const vis=Array.from({length:total},(_,i)=>`<span class="sub-item${i>=ans?" gone":""}">⭐</span>`).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>➖ Take Away Town!</h2><div class="game-desc">We had <b>${total}</b> stars. We take away <b>${take}</b>. How many are left?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="sub-vis">${vis}</div><div class="sub-eq">${total} − ${take} = ?</div><div class="sub-choices">${choices.map(c=>`<div class="sub-choice" onclick="checkSub(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildSubtraction()">▶ Next</button></div></div>`;
 }
 function checkSub(n) {
-  const fb = document.getElementById("bf");
-  document.querySelectorAll(".sub-choice").forEach(b=>b.onclick=null);
+  const fb=document.getElementById("bf"); document.querySelectorAll(".sub-choice").forEach(b=>b.onclick=null);
   if (n===currentGameState.ans) {
     document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("correct"); });
     fb.className="feedback good"; fb.textContent="🎉 Correct! "+currentGameState.total+" − "+currentGameState.take+" = "+n;
-    awardStars(currentGame,3);
-    setTimeout(buildSubtraction,1200);
+    awardStars(currentGame,3); setTimeout(buildSubtraction,1200);
   } else {
     document.querySelectorAll(".sub-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("wrong"); });
     fb.className="feedback bad"; fb.textContent="Try again! Count the bright stars! 🌟";
@@ -863,373 +677,141 @@ function checkSub(n) {
   }
 }
 
-// ===========================
-// 9. NUMBER BONDS
-// ===========================
 function buildBonds(target) {
-  const pairs = [];
-  for(let i=0;i<=target;i++) pairs.push([i,target-i]);
-  currentGameState = { target, pairs, current:0, score:0 };
-  renderBond();
+  const pairs=[]; for(let i=0;i<=target;i++) pairs.push([i,target-i]);
+  currentGameState = { target, pairs, current:0 }; renderBond();
 }
 function renderBond() {
-  const s = currentGameState;
-  const [a,b] = s.pairs[s.current];
-  const bChoices = shuffle([b, (b+1)%(s.target+1), (b+2)%(s.target+1), b===0?s.target:b-1]);
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🎯 Number Bonds to ${s.target}</h2>
-    <div class="game-desc">Find ALL the ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="bond-visual">
-        <span style="font-size:3.5rem">${a}</span>
-        <span style="font-size:2.2rem">+</span>
-        <span style="background:var(--sun);border:4px solid var(--dark);border-radius:14px;padding:6px 20px;font-size:2.5rem;color:#6B4200">?</span>
-        <span style="font-size:2.2rem">=</span>
-        <span style="font-size:3.5rem">${s.target}</span>
-      </div>
-      <div class="bonds-grid">
-        ${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join("")}
-      </div>
-      <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(s.current/s.pairs.length)*100}%"></div></div>
-    </div>`;
+  const s=currentGameState; const [a,b]=s.pairs[s.current];
+  const bChoices=shuffle([b,(b+1)%(s.target+1),(b+2)%(s.target+1),b===0?s.target:b-1]);
+  document.getElementById("gamePanel").innerHTML = `<h2>🎯 Number Bonds to ${s.target}</h2><div class="game-desc">Find ALL the ways to make <b>${s.target}</b>! (${s.current+1}/${s.pairs.length})</div><div class="game-box"><div class="feedback" id="bf"></div><div class="bond-visual"><span style="font-size:3.5rem">${a}</span><span style="font-size:2.2rem">+</span><span style="background:var(--sun);border:4px solid var(--dark);border-radius:14px;padding:6px 20px;font-size:2.5rem;color:#6B4200">?</span><span style="font-size:2.2rem">=</span><span style="font-size:3.5rem">${s.target}</span></div><div class="bonds-grid">${bChoices.map(c=>`<button class="bond-btn" onclick="checkBond(${c})">${c}</button>`).join("")}</div><div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(s.current/s.pairs.length)*100}%"></div></div></div>`;
 }
 function checkBond(n) {
-  const s = currentGameState;
-  const [a,b] = s.pairs[s.current];
-  const fb = document.getElementById("fb") || document.getElementById("bf");
-  const fbEl = document.getElementById("bf");
-  if (n===b) {
-    fbEl.className="feedback good"; fbEl.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`;
-    s.current++;
-    if (s.current >= s.pairs.length) { setTimeout(()=>showWin("You found all bonds to "+s.target+"!",3),700); return; }
-    setTimeout(renderBond,900);
-  } else {
-    fbEl.className="feedback bad"; fbEl.textContent="Try again! 🤔";
-    setTimeout(()=>{fbEl.textContent="";fbEl.className="feedback";},800);
-  }
+  const s=currentGameState; const [a,b]=s.pairs[s.current]; const fb=document.getElementById("bf");
+  if (n===b) { fb.className="feedback good"; fb.textContent=`✅ ${a} + ${n} = ${s.target}! 🎉`; s.current++; if(s.current>=s.pairs.length){setTimeout(()=>showWin("You found all bonds to "+s.target+"!",3),700);return;} setTimeout(renderBond,900); }
+  else { fb.className="feedback bad"; fb.textContent="Try again! 🤔"; setTimeout(()=>{fb.textContent="";fb.className="feedback";},800); }
 }
 
-// ===========================
-// 10. REPEATED ADDITION
-// ===========================
 function buildRepeatedAdd() {
-  const groups = rnd(2,5), each = rnd(2,6);
-  currentGameState = { groups, each, total: groups*each };
-  renderRepeatedAdd();
+  const groups=rnd(2,5), each=rnd(2,6);
+  currentGameState = { groups, each, total:groups*each }; renderRepeatedAdd();
 }
 function renderRepeatedAdd() {
-  const s = currentGameState;
-  const addStr = Array.from({length:s.groups},()=>s.each).join("+");
-  const groupsHtml = Array.from({length:s.groups},(_,g)=>`
-    <div class="mult-group">
-      ${Array.from({length:s.each},()=>"<div class='mult-dot'>●</div>").join("")}
-    </div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🔄 Repeated Addition</h2>
-    <div class="game-desc">${addStr} means <b>${s.groups} groups of ${s.each}</b>! What's the total?</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="mult-groups">${groupsHtml}</div>
-      <div class="mult-eq">${addStr} = ${s.groups} × ${s.each} = <input class="mult-input" type="number" id="raInput" min="0" max="50" inputmode="numeric" pattern="[0-9]*"></div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="checkRA()">✅ Check!</button>
-        <button class="btn-primary blue" onclick="buildRepeatedAdd()">▶ Next</button>
-      </div>
-    </div>`;
+  const s=currentGameState; const addStr=Array.from({length:s.groups},()=>s.each).join("+");
+  const groupsHtml=Array.from({length:s.groups},()=>`<div class="mult-group">${Array.from({length:s.each},()=>"<div class='mult-dot'>●</div>").join("")}</div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🔄 Repeated Addition</h2><div class="game-desc">${addStr} means <b>${s.groups} groups of ${s.each}</b>! What's the total?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="mult-groups">${groupsHtml}</div><div class="mult-eq">${addStr} = ${s.groups} × ${s.each} = <input class="mult-input" type="number" id="raInput" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn-primary green" onclick="checkRA()">✅ Check!</button><button class="btn-primary blue" onclick="buildRepeatedAdd()">▶ Next</button></div></div>`;
 }
 function checkRA() {
-  const val = +document.getElementById("raInput").value;
-  const fb = document.getElementById("bf");
-  if (val===currentGameState.total) {
-    fb.className="feedback good"; fb.textContent="🎉 Correct! "+currentGameState.total+"!";
-    awardStars(currentGame,3); setTimeout(buildRepeatedAdd,1000);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Try again! Count the dots! 🔴";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  const val=+document.getElementById("raInput").value; const fb=document.getElementById("bf");
+  if(val===currentGameState.total){fb.className="feedback good";fb.textContent="🎉 Correct! "+currentGameState.total+"!";awardStars(currentGame,3);setTimeout(buildRepeatedAdd,1000);}
+  else{fb.className="feedback bad";fb.textContent="Try again! Count the dots! 🔴";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
 }
 
-// ===========================
-// 11. ROBOT FACTORY
-// ===========================
 function buildRobot() {
   const groups=rnd(2,4), wheels=rnd(2,5);
-  currentGameState = { groups, wheels, total: groups*wheels, built:0 };
-  renderRobot();
+  currentGameState = { groups, wheels, total:groups*wheels }; renderRobot();
 }
 function renderRobot() {
-  const s = currentGameState;
-  const groupsHtml = Array.from({length:s.groups},(_,g)=>`
-    <div class="robot-group">
-      ${Array.from({length:s.wheels},()=>"<div class='wheel'>⚙️</div>").join("")}
-    </div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🤖 Robot Factory</h2>
-    <div class="game-desc">Make <b>${s.groups} groups of ${s.wheels} wheels</b>! Count all the wheels!</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="robot-groups">${groupsHtml}</div>
-      <div class="mult-eq">${s.groups} × ${s.wheels} = <input class="mult-input" type="number" id="robotInput" min="0" max="50" inputmode="numeric" pattern="[0-9]*"></div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="checkRobot()">⚙️ Build It!</button>
-        <button class="btn-primary blue" onclick="buildRobot()">▶ Next</button>
-      </div>
-    </div>`;
+  const s=currentGameState;
+  const groupsHtml=Array.from({length:s.groups},()=>`<div class="robot-group">${Array.from({length:s.wheels},()=>"<div class='wheel'>⚙️</div>").join("")}</div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🤖 Robot Factory</h2><div class="game-desc">Make <b>${s.groups} groups of ${s.wheels} wheels</b>! Count all the wheels!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="robot-groups">${groupsHtml}</div><div class="mult-eq">${s.groups} × ${s.wheels} = <input class="mult-input" type="number" id="robotInput" min="0" max="50" inputmode="numeric"></div><div class="btn-row"><button class="btn-primary green" onclick="checkRobot()">⚙️ Build It!</button><button class="btn-primary blue" onclick="buildRobot()">▶ Next</button></div></div>`;
 }
 function checkRobot() {
-  const val = +document.getElementById("robotInput").value;
-  const fb = document.getElementById("bf");
-  if (val===currentGameState.total) {
-    fb.className="feedback good"; fb.textContent="🤖 Factory complete! "+currentGameState.total+" wheels!";
-    awardStars(currentGame,3); setTimeout(buildRobot,1000);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Count the ⚙️ wheels again!";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  const val=+document.getElementById("robotInput").value; const fb=document.getElementById("bf");
+  if(val===currentGameState.total){fb.className="feedback good";fb.textContent="🤖 Factory complete! "+currentGameState.total+" wheels!";awardStars(currentGame,3);setTimeout(buildRobot,1000);}
+  else{fb.className="feedback bad";fb.textContent="Count the ⚙️ wheels again!";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
 }
 
-// ===========================
-// 12. PLACE VALUE
-// ===========================
 function buildPlaceValue() {
-  const n = rnd(11,99);
-  const tens = Math.floor(n/10), ones = n%10;
-  currentGameState = { n, tens, ones, phase:"show" };
-  renderPlaceValue();
+  const n=rnd(11,99), tens=Math.floor(n/10), ones=n%10;
+  currentGameState = { n, tens, ones }; renderPlaceValue();
 }
 function renderPlaceValue() {
-  const s = currentGameState;
-  const tenBlocks = Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join("");
-  const oneBlocks = Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🧩 Place Value Builder</h2>
-    <div class="game-desc">How many <span style="color:var(--sky);font-weight:900">tens</span> and <span style="color:#8B5000;font-weight:900">ones</span> make this number?</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="pv-num">${s.n}</div>
-      <div class="pv-display">
-        <div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tenBlocks}</div></div>
-        <div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${oneBlocks}</div></div>
-      </div>
-      <div style="text-align:center;margin:16px 0;font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--dark)">
-        ${s.n} = <input class="pv-input" type="number" id="pvTens" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> tens + 
-        <input class="pv-input" type="number" id="pvOnes" min="0" max="9" inputmode="numeric" pattern="[0-9]*" placeholder="?"> ones
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary green" onclick="checkPV()">✅ Check!</button>
-        <button class="btn-primary blue" onclick="buildPlaceValue()">▶ Next Number</button>
-      </div>
-    </div>`;
+  const s=currentGameState;
+  const tenBlocks=Array.from({length:s.tens},()=>`<div class="pv-block ten"></div>`).join("");
+  const oneBlocks=Array.from({length:s.ones},()=>`<div class="pv-block one"></div>`).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🧩 Place Value Builder</h2><div class="game-desc">How many <span style="color:var(--sky);font-weight:900">tens</span> and <span style="color:#8B5000;font-weight:900">ones</span> make this number?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="pv-num">${s.n}</div><div class="pv-display"><div class="pv-col"><label>🔵 Tens</label><div class="pv-blocks">${tenBlocks}</div></div><div class="pv-col"><label>🟡 Ones</label><div class="pv-blocks">${oneBlocks}</div></div></div><div style="text-align:center;margin:16px 0;font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--dark)">${s.n} = <input class="pv-input" type="number" id="pvTens" min="0" max="9" inputmode="numeric" placeholder="?"> tens + <input class="pv-input" type="number" id="pvOnes" min="0" max="9" inputmode="numeric" placeholder="?"> ones</div><div class="btn-row"><button class="btn-primary green" onclick="checkPV()">✅ Check!</button><button class="btn-primary blue" onclick="buildPlaceValue()">▶ Next Number</button></div></div>`;
 }
 function checkPV() {
-  const t = +document.getElementById("pvTens").value;
-  const o = +document.getElementById("pvOnes").value;
-  const fb = document.getElementById("bf");
-  if (t===currentGameState.tens && o===currentGameState.ones) {
-    fb.className="feedback good"; fb.textContent="🎉 Yes! "+currentGameState.n+" = "+t+" tens + "+o+" ones!";
-    awardStars(currentGame,3); setTimeout(buildPlaceValue,1200);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Count the blue blocks for tens, yellow for ones! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);
-  }
+  const t=+document.getElementById("pvTens").value, o=+document.getElementById("pvOnes").value; const fb=document.getElementById("bf");
+  if(t===currentGameState.tens&&o===currentGameState.ones){fb.className="feedback good";fb.textContent="🎉 Yes! "+currentGameState.n+" = "+t+" tens + "+o+" ones!";awardStars(currentGame,3);setTimeout(buildPlaceValue,1200);}
+  else{fb.className="feedback bad";fb.textContent="Count the blue blocks for tens, yellow for ones! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},1000);}
 }
 
-// ===========================
-// 13. COMMUTATIVE PROPERTY
-// ===========================
 function buildCommutative() {
-  const a = rnd(1,9), b = rnd(1,9);
-  currentGameState = { a, b };
-  const dotsA1 = Array.from({length:a},()=>"<div class='nd'>●</div>").join("");
-  const dotsA2 = Array.from({length:b},()=>"<div class='nd b'>●</div>").join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🔀 Flip It!</h2>
-    <div class="game-desc">The order doesn't matter! Both ways give the same total!</div>
-    <div class="game-box">
-      <div class="comm-eq">
-        <div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div>
-      </div>
-      <div class="num-dots">${dotsA1}${dotsA2}</div>
-      <div style="text-align:center;font-size:1.7rem;margin:10px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div>
-      <div class="comm-eq">
-        <div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div>
-      </div>
-      <div class="num-dots">${dotsA2}${dotsA1}</div>
-      <div class="feedback good" style="display:block;margin-top:14px">✅ ${a}+${b} = ${b}+${a} = ${a+b}!</div>
-      <div class="btn-row"><button class="btn-primary green" id="commNext">▶ See Another!</button></div>
-    </div>`;
+  const a=rnd(1,9), b=rnd(1,9); currentGameState = { a, b };
+  const d1=Array.from({length:a},()=>"<div class='nd'>●</div>").join("");
+  const d2=Array.from({length:b},()=>"<div class='nd b'>●</div>").join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🔀 Flip It!</h2><div class="game-desc">The order doesn't matter! Both ways give the same total!</div><div class="game-box"><div class="comm-eq"><div class="comm-num">${a}</div><span>+</span><div class="comm-num">${b}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="num-dots">${d1}${d2}</div><div style="text-align:center;font-size:1.7rem;margin:10px;color:var(--grass);font-family:'Fredoka One',cursive">⬇ Flip it! ⬇</div><div class="comm-eq"><div class="comm-num">${b}</div><span>+</span><div class="comm-num">${a}</div><span>=</span><div class="comm-num" style="background:var(--sun);color:#6B4200">${a+b}</div></div><div class="num-dots">${d2}${d1}</div><div class="feedback good" style="display:block;margin-top:14px">✅ ${a}+${b} = ${b}+${a} = ${a+b}!</div><div class="btn-row"><button class="btn-primary green" id="commNext">▶ See Another!</button></div></div>`;
   document.getElementById("commNext").onclick = () => { awardStars(currentGame,3); buildCommutative(); };
 }
 
-// ===========================
-// 14. SHAPES
-// ===========================
 function buildShapes() {
   const toys = [
-    {emoji:"⚽",shape:"sphere",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🎲",shape:"cube",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🥫",shape:"cylinder",name:"Cylinder",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🍦",shape:"cone",name:"Cone",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"📦",shape:"cube",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
-    {emoji:"🏀",shape:"sphere",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"⚽",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🎲",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🥫",name:"Cylinder",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🍦",name:"Cone",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"📦",name:"Cube",opts:["Sphere","Cube","Cylinder","Cone"]},
+    {emoji:"🏀",name:"Sphere",opts:["Sphere","Cube","Cylinder","Cone"]},
   ];
-  const toy = toys[rnd(0,toys.length-1)];
-  currentGameState = { toy };
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🎁 Gift Wrapper</h2>
-    <div class="game-desc">Pick the right box shape to wrap this toy! 🎁</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="toy-display">${toy.emoji}</div>
-      <p style="text-align:center;color:#2D3561;margin-bottom:14px;font-size:1.1rem;font-weight:800">What shape box do I need?</p>
-      <div class="shape-options">
-        ${toy.opts.map(s=>`<div class="shape-opt" onclick="checkShape('${s}','${toy.name}')">
-          ${s==="Sphere"?"🔵":s==="Cube"?"📦":s==="Cylinder"?"🥫":"🍦"}
-          <span>${s}</span>
-        </div>`).join("")}
-      </div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildShapes()">▶ Next Toy</button></div>
-    </div>`;
+  const toy = toys[rnd(0,toys.length-1)]; currentGameState = { toy };
+  document.getElementById("gamePanel").innerHTML = `<h2>🎁 Gift Wrapper</h2><div class="game-desc">Pick the right box shape to wrap this toy! 🎁</div><div class="game-box"><div class="feedback" id="bf"></div><div class="toy-display">${toy.emoji}</div><p style="text-align:center;color:#1A1F4B;margin-bottom:14px;font-size:1.2rem;font-weight:800">What shape box do I need?</p><div class="shape-options">${toy.opts.map(s=>`<div class="shape-opt" onclick="checkShape('${s}','${toy.name}')">${s==="Sphere"?"🔵":s==="Cube"?"📦":s==="Cylinder"?"🥫":"🍦"}<span>${s}</span></div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildShapes()">▶ Next Toy</button></div></div>`;
 }
 function checkShape(picked, answer) {
-  const fb = document.getElementById("bf");
-  if (picked===answer) {
-    fb.className="feedback good"; fb.textContent="🎁 Perfect wrap! It's a "+answer+"!";
-    awardStars(currentGame,3); setTimeout(buildShapes,1200);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Not quite! Think about the toy's shape! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  const fb=document.getElementById("bf");
+  if(picked===answer){fb.className="feedback good";fb.textContent="🎁 Perfect wrap! It's a "+answer+"!";awardStars(currentGame,3);setTimeout(buildShapes,1200);}
+  else{fb.className="feedback bad";fb.textContent="Not quite! Think about the toy's shape! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
 }
 
-// ===========================
-// 15. CLOCK
-// ===========================
 function buildClock() {
-  const h = rnd(1,12), m = [0,15,30,45][rnd(0,3)];
-  currentGameState = { h, m };
-  const mChoices = [0,15,30,45];
-  const hChoices = shuffle([h, h%12+1, (h+2)%12||12, (h+10)%12||12]).slice(0,3);
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>☀️ Sun & Moon – Tell the Time!</h2>
-    <div class="game-desc">Look at the clock! What time is it?</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="clock-svg-wrap">${drawClock(h,m)}</div>
-      <div class="time-target">What time does the clock show?</div>
-      <div class="btn-row">
-        ${hChoices.map(hh=>mChoices.map(mm=>`<button class="btn-primary blue" style="font-size:1.1rem;padding:12px 16px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,"0")}</button>`).join("")).join("")}
-      </div>
-      <div class="btn-row"><button class="btn-primary orange" onclick="buildClock()">▶ Next Clock</button></div>
-    </div>`;
+  const h=rnd(1,12), m=[0,15,30,45][rnd(0,3)]; currentGameState = { h, m };
+  const hChoices=shuffle([h,h%12+1,(h+2)%12||12,(h+10)%12||12]).slice(0,3);
+  document.getElementById("gamePanel").innerHTML = `<h2>☀️ Sun & Moon – Tell the Time!</h2><div class="game-desc">Look at the clock! What time is it?</div><div class="game-box"><div class="feedback" id="bf"></div><div class="clock-svg-wrap">${drawClock(h,m)}</div><div class="time-target">What time does the clock show?</div><div class="btn-row">${hChoices.map(hh=>[0,15,30,45].map(mm=>`<button class="btn-primary blue" style="font-size:1.1rem;padding:12px 16px" onclick="checkClock(${hh},${mm})">${hh}:${String(mm).padStart(2,"0")}</button>`).join("")).join("")}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildClock()">▶ Next Clock</button></div></div>`;
 }
 function drawClock(h,m) {
-  const cx=90,cy=90,r=80;
-  const mAngle=(m/60)*360-90, hAngle=((h%12+(m/60))/12)*360-90;
-  const mRad=mAngle*Math.PI/180, hRad=hAngle*Math.PI/180;
-  const mx=cx+65*Math.cos(mRad), my=cy+65*Math.sin(mRad);
-  const hx=cx+45*Math.cos(hRad), hy=cy+45*Math.sin(hRad);
-  let nums="";
-  for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="13" fill="#1A1F4B" font-weight="bold">${i}</text>`;}
-  return `<svg width="200" height="200" viewBox="0 0 180 180">
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFDF0" stroke="#1A1F4B" stroke-width="5"/>
-    ${nums}
-    <line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#3BAEFF" stroke-width="5" stroke-linecap="round"/>
-    <line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#1A1F4B" stroke-width="7" stroke-linecap="round"/>
-    <circle cx="${cx}" cy="${cy}" r="6" fill="#1A1F4B"/>
-  </svg>`;
+  const cx=90,cy=90,r=80,mAngle=(m/60)*360-90,hAngle=((h%12+(m/60))/12)*360-90;
+  const mRad=mAngle*Math.PI/180,hRad=hAngle*Math.PI/180;
+  const mx=cx+65*Math.cos(mRad),my=cy+65*Math.sin(mRad),hx=cx+45*Math.cos(hRad),hy=cy+45*Math.sin(hRad);
+  let nums=""; for(let i=1;i<=12;i++){const a=(i/12)*2*Math.PI-Math.PI/2;nums+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-family="Fredoka One,cursive" font-size="13" fill="#1A1F4B" font-weight="bold">${i}</text>`;}
+  return `<svg width="200" height="200" viewBox="0 0 180 180"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFDF0" stroke="#1A1F4B" stroke-width="5"/>${nums}<line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#3BAEFF" stroke-width="5" stroke-linecap="round"/><line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#1A1F4B" stroke-width="7" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="6" fill="#1A1F4B"/></svg>`;
 }
 function checkClock(hh,mm) {
-  const fb = document.getElementById("bf");
-  if (hh===currentGameState.h && mm===currentGameState.m) {
-    fb.className="feedback good"; fb.textContent="🕐 Yes! "+hh+":"+String(mm).padStart(2,"0")+"!";
-    awardStars(currentGame,3); setTimeout(buildClock,1200);
-  } else {
-    fb.className="feedback bad"; fb.textContent="Look at the hands again! 🤔";
-    setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);
-  }
+  const fb=document.getElementById("bf");
+  if(hh===currentGameState.h&&mm===currentGameState.m){fb.className="feedback good";fb.textContent="🕐 Yes! "+hh+":"+String(mm).padStart(2,"0")+"!";awardStars(currentGame,3);setTimeout(buildClock,1200);}
+  else{fb.className="feedback bad";fb.textContent="Look at the hands again! 🤔";setTimeout(()=>{fb.textContent="";fb.className="feedback";},900);}
 }
 
-// ===========================
-// 16. TALLY
-// ===========================
-function buildTally() {
-  const target = rnd(5,15);
-  currentGameState = { target, count:0 };
-  renderTally();
-}
+function buildTally() { currentGameState = { target:rnd(5,15), count:0 }; renderTally(); }
 function renderTally() {
-  const s = currentGameState;
-  const fishes = Array.from({length:s.target},(_, i)=>`<div class="tally-fish" onclick="tapFish()" id="tf${i}">🐟</div>`).join("");
-  function makeTally(n) {
-    let t="",groups=Math.floor(n/5),rem=n%5;
-    for(let g=0;g<groups;g++) t+="||||̶ ";
-    t+="|".repeat(rem);
-    return t||"—";
-  }
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🐟 Fish Counter</h2>
-    <div class="game-desc">Tap each fish as it swims by! Watch the tally marks appear!</div>
-    <div class="game-box">
-      <div class="tally-fish-row">${fishes}</div>
-      <div style="text-align:center;color:#2D3561;font-size:1rem;margin:6px 0;font-weight:700">Tap the fish!</div>
-      <p style="text-align:center;color:#2D3561;margin:10px 0;font-size:1.1rem;font-weight:800">Tally Marks:</p>
-      <div class="tally-marks" id="tallyMarks">${makeTally(s.count)}</div>
-      <div class="tally-count" id="tallyCount">Count: ${s.count}</div>
-      <div class="btn-row"><button class="btn-primary orange" onclick="buildTally()">↺ New School</button></div>
-    </div>`;
-  window._makeTally = makeTally;
+  const s=currentGameState;
+  function makeTally(n){let t="",g=Math.floor(n/5),r=n%5;for(let i=0;i<g;i++)t+="||||̶ ";t+="|".repeat(r);return t||"—";}
+  document.getElementById("gamePanel").innerHTML = `<h2>🐟 Fish Counter</h2><div class="game-desc">Tap each fish as it swims by! Watch the tally marks appear!</div><div class="game-box"><div class="tally-fish-row">${Array.from({length:s.target},(_,i)=>`<div class="tally-fish" onclick="tapFish()">🐟</div>`).join("")}</div><div style="text-align:center;color:#1A1F4B;font-size:1rem;margin:6px 0;font-weight:700">Tap the fish!</div><p style="text-align:center;color:#1A1F4B;margin:10px 0;font-size:1.1rem;font-weight:800">Tally Marks:</p><div class="tally-marks" id="tallyMarks">${makeTally(s.count)}</div><div class="tally-count" id="tallyCount">Count: ${s.count}</div><div class="btn-row"><button class="btn-primary orange" onclick="buildTally()">↺ New School</button></div></div>`;
+  window._makeTally=makeTally;
 }
 function tapFish() {
-  const s = currentGameState;
-  if (s.count >= s.target) return;
-  s.count++;
-  document.getElementById("tallyMarks").textContent = window._makeTally(s.count);
-  document.getElementById("tallyCount").textContent = "Count: "+s.count;
-  if (s.count===s.target) {
-    setTimeout(()=>showWin("You counted "+s.target+" fish!",3),400);
-  }
+  const s=currentGameState; if(s.count>=s.target) return; s.count++;
+  document.getElementById("tallyMarks").textContent=window._makeTally(s.count);
+  document.getElementById("tallyCount").textContent="Count: "+s.count;
+  if(s.count===s.target) setTimeout(()=>showWin("You counted "+s.target+" fish!",3),400);
 }
 
-// ===========================
-// 17. BAR GRAPH
-// ===========================
 function buildBarGraph() {
-  const items = [{e:"🐚",name:"Shell",col:"#FFD93D"},{e:"🦀",name:"Crab",col:"#FF4757"},{e:"⭐",name:"Star",col:"#3BAEFF"},{e:"🪸",name:"Coral",col:"#FF4D94"}];
-  currentGameState = { items, counts:[0,0,0,0] };
-  renderBarGraph();
+  currentGameState = { items:[{e:"🐚",name:"Shell",col:"#FFD93D"},{e:"🦀",name:"Crab",col:"#FF4757"},{e:"⭐",name:"Star",col:"#3BAEFF"},{e:"🪸",name:"Coral",col:"#FF4D94"}], counts:[0,0,0,0] }; renderBarGraph();
 }
 function renderBarGraph() {
-  const s = currentGameState;
-  const btns = s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join("");
-  const max = Math.max(...s.counts, 1);
-  const bars = s.items.map((it,i)=>{
-    const h = Math.round((s.counts[i]/Math.max(max,1))*130)+6;
-    return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:""}</div>`;
-  }).join("");
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>🐚 Shell Sort</h2>
-    <div class="game-desc">Press a shell to collect it! Watch your bar graph grow! 📊</div>
-    <div class="game-box">
-      <div class="graph-items">${btns}</div>
-      <div class="bar-graph">${bars}</div>
-      <div style="display:flex;justify-content:center;gap:16px;font-family:'Fredoka One',cursive;font-size:1rem;flex-wrap:wrap;color:var(--dark)">
-        ${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join("")}
-      </div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear &amp; Restart</button></div>
-    </div>`;
+  const s=currentGameState;
+  const btns=s.items.map((it,i)=>`<button class="graph-item-btn" onclick="addBar(${i})">${it.e}</button>`).join("");
+  const max=Math.max(...s.counts,1);
+  const bars=s.items.map((it,i)=>{const h=Math.round((s.counts[i]/max)*130)+6;return `<div class="bar" style="height:${h}px;background:${it.col}">${s.counts[i]>0?s.counts[i]:""}</div>`;}).join("");
+  document.getElementById("gamePanel").innerHTML = `<h2>🐚 Shell Sort</h2><div class="game-desc">Press a shell to collect it! Watch your bar graph grow! 📊</div><div class="game-box"><div class="graph-items">${btns}</div><div class="bar-graph">${bars}</div><div style="display:flex;justify-content:center;gap:16px;font-family:'Fredoka One',cursive;font-size:1rem;flex-wrap:wrap;color:var(--dark)">${s.items.map((it,i)=>`<span>${it.e} ${it.name}: ${s.counts[i]}</span>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildBarGraph()">↺ Clear &amp; Restart</button></div></div>`;
 }
 function addBar(i) {
   currentGameState.counts[i]++;
-  const total = currentGameState.counts.reduce((a,b)=>a+b,0);
-  if (total >= 10) awardStars(currentGame, 3);
+  if(currentGameState.counts.reduce((a,b)=>a+b,0)>=10) awardStars(currentGame,3);
   renderBarGraph();
 }
 
-// ===========================
-// 18. WORD PROBLEMS
-// ===========================
 const problems = [
   { text:"Emma has 🍎🍎🍎 3 apples. She picks 4 more apples. How many does she have now?", choices:[5,7,8,6], answer:7 },
   { text:"Tom has 🍪🍪🍪🍪🍪 5 cookies. He eats 2. How many are left?", choices:[2,3,7,4], answer:3 },
@@ -1240,43 +822,26 @@ const problems = [
   { text:"Mia shared 12 🍬 candies equally among 3 friends. How many does each friend get?", choices:[3,4,6,9], answer:4 },
 ];
 function buildWordProbs() {
-  const idx = rnd(0, problems.length-1);
-  const p = problems[idx];
-  currentGameState = { p };
-  const shuffled = shuffle([...p.choices]);
-  document.getElementById("gamePanel").innerHTML = `
-    <h2>📖 Story Problems</h2>
-    <div class="game-desc">Read the story and pick the right answer!</div>
-    <div class="game-box">
-      <div class="feedback" id="bf"></div>
-      <div class="wp-box"><p>${p.text}</p></div>
-      <div class="wp-choices">
-        ${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join("")}
-      </div>
-      <div class="btn-row"><button class="btn-primary blue" onclick="buildWordProbs()">▶ Next Story</button></div>
-    </div>`;
+  const p=problems[rnd(0,problems.length-1)]; currentGameState = { p };
+  const shuffled=shuffle([...p.choices]);
+  document.getElementById("gamePanel").innerHTML = `<h2>📖 Story Problems</h2><div class="game-desc">Read the story and pick the right answer!</div><div class="game-box"><div class="feedback" id="bf"></div><div class="wp-box"><p>${p.text}</p></div><div class="wp-choices">${shuffled.map(c=>`<div class="wp-choice" onclick="checkWP(${c})">${c}</div>`).join("")}</div><div class="btn-row"><button class="btn-primary blue" onclick="buildWordProbs()">▶ Next Story</button></div></div>`;
 }
 function checkWP(n) {
-  const fb = document.getElementById("bf");
-  document.querySelectorAll(".wp-choice").forEach(b=>b.onclick=null);
-  if (n===currentGameState.p.answer) {
-    document.querySelectorAll(".wp-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("correct"); });
+  const fb=document.getElementById("bf"); document.querySelectorAll(".wp-choice").forEach(b=>b.onclick=null);
+  if(n===currentGameState.p.answer){
+    document.querySelectorAll(".wp-choice").forEach(b=>{if(+b.textContent===n)b.classList.add("correct");});
     fb.className="feedback good"; fb.textContent="🎉 Correct! The answer is "+n+"!";
     awardStars(currentGame,3); setTimeout(buildWordProbs,1200);
   } else {
-    document.querySelectorAll(".wp-choice").forEach(b=>{ if(+b.textContent===n) b.classList.add("wrong"); });
+    document.querySelectorAll(".wp-choice").forEach(b=>{if(+b.textContent===n)b.classList.add("wrong");});
     fb.className="feedback bad"; fb.textContent="Try again! Read the story carefully! 📖";
     setTimeout(()=>{document.querySelectorAll(".wp-choice").forEach(b=>{b.classList.remove("wrong");b.onclick=()=>checkWP(+b.textContent);});fb.textContent="";fb.className="feedback";},900);
   }
 }
 
-// ===========================
-// UTILS
-// ===========================
-function rnd(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
-function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-// Init
 updateStarsDisplay();
 </script>
 
