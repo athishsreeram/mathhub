@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>🧙‍♂️ Math Wizards Academy</title>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#FFF8EC;
+  --bg2:#D9E6F5;
+  --bg3:#C8E6D9;
+  --card:#fff;
+  --orange:#FFB347;--orange-d:#E8952A;
+  --blue:#6C91D9;--blue-d:#4A6FBB;
+  --green:#A8E6CF;--green-d:#5CB88A;
+  --pink:#FFB3BA;--purple:#C3A8E6;--purple-d:#8855CC;
+  --yellow:#FFE566;--red:#FF6B6B;--red-d:#CC3333;
+  --text:#2D3E50;--text-m:#5A7089;
+  --sh:0 6px 22px rgba(0,0,0,.13);
+  --sh-s:0 3px 10px rgba(0,0,0,.10);
+  --r:22px;--r-s:12px;
+}
+html,body{width:100%;min-height:100vh;overflow-x:hidden}
+body{font-family:'Segoe UI Rounded','Comic Sans MS',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);font-size:18px;line-height:1.45}
+button{font-family:inherit}
+
+/* ═══════════════════════════════════════════
+UTILITIES
+═══════════════════════════════════════════ */
+.hidden{display:none!important}
+.tc{text-align:center}.bold{font-weight:700}
+.flex{display:flex}.col{flex-direction:column}
+.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}
+.gap2{gap:8px}.gap3{gap:12px}.gap4{gap:16px}.gap5{gap:20px}
+.w100{width:100%}.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}
+
+/* ═══════════════════════════════════════════
+HEADER
+═══════════════════════════════════════════ */
+#hdr{
+background:linear-gradient(135deg,#6C91D9 0%,#A8E6CF 100%);
+padding:13px 18px;display:flex;align-items:center;gap:12px;
+position:sticky;top:0;z-index:200;box-shadow:var(–sh);
+}
+#hdr .msc{font-size:36px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+#hdr h1{font-size:22px;font-weight:900;color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.18);flex:1;line-height:1.1}
+#star-badge{background:var(–yellow);color:var(–text);font-weight:900;
+font-size:18px;padding:6px 14px;border-radius:50px;box-shadow:var(–sh-s);white-space:nowrap}
+#back-btn{background:rgba(255,255,255,.28);border:2px solid rgba(255,255,255,.55);
+color:#fff;font-size:16px;font-weight:900;padding:8px 15px;border-radius:50px;
+cursor:pointer;white-space:nowrap;display:none}
+#back-btn.on{display:block}
+
+/* ═══════════════════════════════════════════
+MAIN MENU
+═══════════════════════════════════════════ */
+#menu{padding:18px 14px 48px}
+.cat-hd{font-size:17px;font-weight:900;color:var(–blue-d);
+margin:22px 0 10px;padding-left:4px;letter-spacing:.4px}
+.cat-hd::before{content:’▸ ’;color:var(–orange)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:13px}
+.tbtn{
+background:var(–card);border:none;border-radius:var(–r);
+padding:17px 10px 14px;cursor:pointer;
+box-shadow:var(–sh-s);
+display:flex;flex-direction:column;align-items:center;gap:7px;
+min-height:108px;border:3px solid transparent;
+transition:transform .13s;
+}
+.tbtn:active{transform:scale(.93)}
+.tbtn .ic{font-size:38px}.tbtn .lb{font-size:12.5px;font-weight:800;color:var(–text);text-align:center;line-height:1.25}
+.tbtn.cn{border-color:var(–orange);background:linear-gradient(145deg,#fff 55%,#FFF3E0)}
+.tbtn.cl{border-color:var(–blue);background:linear-gradient(145deg,#fff 55%,#E8EEFF)}
+.tbtn.cg{border-color:var(–green-d);background:linear-gradient(145deg,#fff 55%,#E4F9F0)}
+.tbtn.cc{border-color:var(–purple);background:linear-gradient(145deg,#fff 55%,#F5EEFF)}
+
+/* ═══════════════════════════════════════════
+EXERCISE PANEL
+═══════════════════════════════════════════ */
+#expanel{display:none;padding:14px;max-width:720px;margin:0 auto}
+#expanel.on{display:block}
+.ex-card{background:var(–card);border-radius:var(–r);
+padding:22px 18px;box-shadow:var(–sh);margin-bottom:14px}
+.ex-title{font-size:21px;font-weight:900;color:var(–blue-d);text-align:center;margin-bottom:14px}
+.qtext{font-size:27px;font-weight:900;text-align:center;margin:10px 0 16px;line-height:1.35}
+.qsub{font-size:17px;color:var(–text-m);text-align:center;margin-bottom:12px}
+.emv{font-size:32px;text-align:center;margin:10px 0;word-break:break-word;line-height:1.65}
+
+/* ═══════════════════════════════════════════
+NUMPAD
+═══════════════════════════════════════════ */
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:11px}
+.nk{
+background:linear-gradient(135deg,var(–blue),var(–blue-d));
+color:#fff;border:none;border-radius:13px;
+font-size:24px;font-weight:900;font-family:inherit;
+padding:13px 0;cursor:pointer;
+box-shadow:0 4px 0 var(–blue-d);
+transition:transform .1s,box-shadow .1s;
+min-height:58px;
+}
+.nk:active{transform:translateY(3px);box-shadow:0 1px 0 var(–blue-d)}
+.nk.del{background:linear-gradient(135deg,var(–red),var(–red-d));box-shadow:0 4px 0 var(–red-d)}
+.nk.ok{background:linear-gradient(135deg,var(–green-d),#3a9a6a);box-shadow:0 4px 0 #2a7a4a;font-size:18px}
+.nk.neg{background:linear-gradient(135deg,var(–purple-d),#6633aa);box-shadow:0 4px 0 #441188}
+.adisp{
+background:#F4F0E8;border:3px solid var(–blue);border-radius:13px;
+font-size:34px;font-weight:900;text-align:center;
+padding:11px;min-height:62px;margin-bottom:9px;letter-spacing:3px;
+}
+
+/* ═══════════════════════════════════════════
+CHOICE BUTTONS
+═══════════════════════════════════════════ */
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:13px}
+.cbtn{
+background:linear-gradient(135deg,#F0EBFF,#E4D8FF);
+border:3px solid var(–purple);border-radius:15px;
+font-size:20px;font-weight:900;font-family:inherit;
+padding:15px 8px;cursor:pointer;
+transition:transform .1s;min-height:58px;
+}
+.cbtn:active{transform:scale(.93)}
+.cbtn.ck{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-color:var(–green-d);color:#145232}
+.cbtn.wr{background:linear-gradient(135deg,#FEE2E2,#FECACA);border-color:var(–red);color:#8B1C1C}
+
+/* ═══════════════════════════════════════════
+FEEDBACK
+═══════════════════════════════════════════ */
+#fb{border-radius:var(–r-s);padding:13px 16px;
+font-size:21px;font-weight:900;text-align:center;
+margin:10px 0;display:none;animation:pop .28s ease-out}
+#fb.on{display:block}
+#fb.ok{background:#D1FAE5;color:#145232;border:2px solid var(–green-d)}
+#fb.ng{background:#FEE2E2;color:#8B1C1C;border:2px solid var(–red)}
+@keyframes pop{0%{transform:scale(.82);opacity:0}100%{transform:scale(1);opacity:1}}
+#hint{background:#FFFBEB;border:2px dashed var(–orange);
+border-radius:var(–r-s);padding:11px;
+font-size:15px;color:#7A4900;margin-top:9px;display:none}
+#hint.on{display:block}
+
+/* ═══════════════════════════════════════════
+ACTION BUTTONS
+═══════════════════════════════════════════ */
+.arow{display:flex;gap:11px;margin-top:13px;flex-wrap:wrap}
+.abtn{
+flex:1;border:none;border-radius:50px;
+font-size:17px;font-weight:900;font-family:inherit;
+padding:14px 10px;cursor:pointer;
+transition:transform .1s;min-height:58px;
+}
+.abtn:active{transform:scale(.95)}
+.b-or{background:linear-gradient(135deg,var(–orange),var(–orange-d));color:#fff;box-shadow:0 4px 0 var(–orange-d)}
+.b-bl{background:linear-gradient(135deg,var(–blue),var(–blue-d));color:#fff;box-shadow:0 4px 0 var(–blue-d)}
+.b-gr{background:linear-gradient(135deg,var(–green-d),#3a9a6a);color:#fff;box-shadow:0 4px 0 #2a7a4a}
+.b-pu{background:linear-gradient(135deg,var(–purple-d),#6633aa);color:#fff;box-shadow:0 4px 0 #441188}
+
+/* ═══════════════════════════════════════════
+STAR PARTICLES
+═══════════════════════════════════════════ */
+#slayer{position:fixed;inset:0;pointer-events:none;z-index:9999}
+.sp{position:absolute;font-size:26px;animation:sf 1.1s ease-out forwards}
+@keyframes sf{0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:1}100%{transform:translate(var(–tx),var(–ty)) scale(1.4) rotate(360deg);opacity:0}}
+
+/* ═══════════════════════════════════════════
+TIMER BAR
+═══════════════════════════════════════════ */
+#tmrwrap{margin-bottom:11px;display:none}
+#tmrwrap.on{display:block}
+.tlbl{font-size:17px;font-weight:900;color:var(–blue-d);text-align:center;margin-bottom:5px}
+.tbg{background:#E5E7EB;border-radius:50px;height:19px;overflow:hidden}
+.tfill{height:100%;border-radius:50px;background:linear-gradient(90deg,#22C55E,#FACC15,#EF4444);transition:width .1s linear}
+
+/* ═══════════════════════════════════════════
+PROGRESS BAR
+═══════════════════════════════════════════ */
+.pbwrap{margin-bottom:13px}
+.pbg{background:#E5E7EB;border-radius:50px;height:13px;overflow:hidden}
+.pfill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(–purple),var(–blue));transition:width .4s}
+.plbl{font-size:15px;font-weight:800;color:var(–text-m);text-align:right;margin-top:3px}
+
+/* ═══════════════════════════════════════════
+TEN FRAME
+═══════════════════════════════════════════ */
+.tfr{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;
+max-width:290px;margin:11px auto;
+border:3px solid var(–blue);border-radius:11px;
+padding:7px;background:#F9FAFB}
+.tfc{width:46px;height:46px;border-radius:7px;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;border:2px solid #D1D5DB;background:#fff}
+.tfc.f{background:#FEF9C3;border-color:var(–orange)}
+
+/* ═══════════════════════════════════════════
+NUMBER LINE
+═══════════════════════════════════════════ */
+.nlwrap{overflow-x:auto;padding:8px 0 28px;margin:8px 0}
+.nl{display:flex;align-items:center}
+.nln{min-width:38px;text-align:center;font-size:15px;font-weight:800;position:relative;user-select:none}
+.nln.ng{color:var(–red)}.nln.zr{color:var(–blue-d);font-size:17px}
+.nln.mk::after{content:‘▲’;position:absolute;bottom:-21px;left:50%;
+transform:translateX(-50%);color:var(–orange);font-size:13px}
+.nltk{height:13px;width:2px;background:#9CA3AF;margin:0 auto 2px}
+.nll{flex:1;height:3px;background:#9CA3AF}
+
+/* ═══════════════════════════════════════════
+BASE-TEN BLOCKS
+═══════════════════════════════════════════ */
+.btb-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.btb-ten{display:grid;grid-template-columns:repeat(2,22px);gap:2px;
+background:#6C91D9;border-radius:5px;padding:3px}
+.btb-one{width:22px;height:22px;background:#FFB347;border-radius:4px}
+.btb-one-block{width:16px;height:16px;background:#FFB347;border-radius:3px}
+.btb-ten-block{width:16px;height:140px;background:#6C91D9;border-radius:3px;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center}
+
+/* ═══════════════════════════════════════════
+AREA MODEL (long mult)
+═══════════════════════════════════════════ */
+.area-model{display:grid;gap:3px;margin:12px auto;width:fit-content}
+.am-cell{padding:10px 14px;border:2px solid #D1D5DB;border-radius:8px;
+font-size:18px;font-weight:900;text-align:center;background:#F0F4FF;min-width:70px}
+.am-header{background:#6C91D9;color:#fff;border-color:var(–blue-d)}
+.am-result{background:#D1FAE5;border-color:var(–green-d);color:#145232}
+
+/* ═══════════════════════════════════════════
+CLOCK
+═══════════════════════════════════════════ */
+.clk{display:block;margin:10px auto}
+
+/* ═══════════════════════════════════════════
+VENN
+═══════════════════════════════════════════ */
+.vwrap{position:relative;height:200px;margin:8px auto;max-width:320px}
+.vc{position:absolute;width:170px;height:170px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:15px;font-weight:900;opacity:.72;top:15px}
+.vcl{background:#FFB3BA;left:0}.vcr{background:#A8E6CF;right:0}
+.vov{position:absolute;width:70px;height:170px;
+left:50%;top:15px;transform:translateX(-50%);
+background:#C3A8E6;opacity:.72;border-radius:50%}
+.vlbls{position:absolute;width:100%;top:80px;display:flex;justify-content:space-between;padding:0 8px}
+.vlbl{font-size:20px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.vcn{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);
+font-size:22px;font-weight:900;color:#4C1D95}
+
+/* ═══════════════════════════════════════════
+MAGIC SQUARE
+═══════════════════════════════════════════ */
+.msg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;max-width:270px;margin:14px auto}
+.msc{height:66px;border-radius:11px;border:3px solid var(–blue);
+display:flex;align-items:center;justify-content:center;
+font-size:26px;font-weight:900;background:#F0F4FF}
+.msc.emp{background:#FFF8EC;border-style:dashed}
+.msc.ck{background:#D1FAE5;border-color:var(–green-d)}
+
+/* ═══════════════════════════════════════════
+CARTESIAN GRID
+═══════════════════════════════════════════ */
+.cgtbl{border-collapse:collapse;margin:11px auto}
+.cgc{width:46px;height:46px;border:1px solid #CBD5E1;
+text-align:center;font-size:19px;cursor:pointer;
+background:#F0F9FF;transition:background .13s}
+.cgc:hover{background:#E0F2FE}.cgc.pt{background:#FEF9C3}.cgc.ck{background:#D1FAE5}
+.cgax{width:26px;height:26px;font-size:12px;font-weight:800;color:#6B7280;
+text-align:center;vertical-align:middle}
+
+/* ═══════════════════════════════════════════
+FRACTION PIE / BAR
+═══════════════════════════════════════════ */
+.fpie{display:inline-block;margin:6px}
+.fbar{display:flex;gap:2px;max-width:300px;margin:12px auto;height:56px}
+.fseg{flex:1;border:2px solid #9CA3AF;border-radius:4px;transition:background .2s}
+.fseg.shd{background:var(–orange)}
+
+/* ═══════════════════════════════════════════
+POLYOMINO
+═══════════════════════════════════════════ */
+.poly-grid{display:grid;gap:4px;width:fit-content;margin:12px auto}
+.poly-cell{width:48px;height:48px;border-radius:8px;border:2px solid #D1D5DB;background:#F3F4F6}
+.poly-cell.on{background:var(–blue);border-color:var(–blue-d)}
+
+/* ═══════════════════════════════════════════
+LOGIC TABLE
+═══════════════════════════════════════════ */
+.ltbl{border-collapse:collapse;margin:12px auto}
+.ltbl td,.ltbl th{border:2px solid #D1D5DB;padding:10px 14px;
+font-size:18px;font-weight:800;text-align:center;border-radius:0}
+.ltbl th{background:var(–blue);color:#fff}
+.ltbl td{cursor:pointer;background:#F9FAFB;min-width:60px}
+.ltbl td.sel{background:var(–yellow)}
+.ltbl td.ck{background:#D1FAE5}
+.ltbl td.wr{background:#FEE2E2}
+
+/* ═══════════════════════════════════════════
+WISE WIZARDS / SCORE
+═══════════════════════════════════════════ */
+.wiz-banner{background:linear-gradient(135deg,#4C1D95,#7C3AED);
+color:#fff;border-radius:var(–r);padding:16px;text-align:center;margin-bottom:13px}
+.wiz-banner .wi{font-size:54px}.wiz-dots{display:flex;justify-content:center;gap:12px;margin-top:9px}
+.wdot{width:28px;height:28px;border-radius:50%;
+background:rgba(255,255,255,.28);border:3px solid rgba(255,255,255,.55)}
+.wdot.dn{background:var(–yellow);border-color:var(–yellow)}
+.score-screen{text-align:center;padding:18px}
+.sc-big{font-size:68px;font-weight:900;color:var(–purple-d)}
+.sc-stars{font-size:44px;letter-spacing:5px;margin:8px 0}
+.sc-msg{font-size:20px;font-weight:800;color:var(–text-m);margin:8px 0}
+.cert{background:linear-gradient(135deg,#FFF8DC,#FFFACD);
+border:5px double var(–orange);border-radius:var(–r);
+padding:26px;text-align:center;margin-top:14px}
+.cert h2{font-size:26px;font-weight:900;color:var(–orange-d);margin-bottom:8px}
+.cert .cs{font-size:44px;letter-spacing:4px;margin:8px 0}
+
+/* ═══════════════════════════════════════════
+MATHEMATICIAN CARD
+═══════════════════════════════════════════ */
+.mcard{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;
+border-radius:var(–r);padding:18px;text-align:center;margin-bottom:13px}
+.mcard .port{font-size:68px;margin:6px 0}
+.mcard h3{font-size:21px;font-weight:900;margin:7px 0 3px}
+.mcard .yrs{font-size:14px;opacity:.8;margin-bottom:11px}
+.mcard .fact{font-size:15px;background:rgba(255,255,255,.18);
+border-radius:11px;padding:9px;line-height:1.5}
+
+/* ═══════════════════════════════════════════
+BAR CHART
+═══════════════════════════════════════════ */
+.bchart{display:flex;align-items:flex-end;gap:11px;
+height:170px;padding:8px;justify-content:center;
+border-bottom:3px solid var(–text);border-left:3px solid var(–text);
+margin:14px auto;max-width:380px}
+.bcol{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bbar{width:100%;border-radius:5px 5px 0 0;min-width:34px;
+display:flex;align-items:flex-end;justify-content:center;
+font-size:13px;font-weight:900;color:#fff;padding-bottom:3px}
+.blbl{font-size:12px;font-weight:800;color:var(–text-m)}
+
+/* ═══════════════════════════════════════════
+ELEVATOR (integers visual)
+═══════════════════════════════════════════ */
+.elev{display:flex;gap:0;align-items:stretch;max-width:220px;margin:12px auto;
+border:3px solid var(–text);border-radius:12px;overflow:hidden}
+.elev-floors{display:flex;flex-direction:column;background:#F0F4FF;flex:1}
+.elev-floor{padding:7px 10px;border-bottom:1px solid #D1D5DB;
+font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+.elev-floor.cur{background:var(–yellow);font-weight:900}
+.elev-floor.above{color:var(–green-d)}.elev-floor.below{color:var(–red)}
+.elev-car{background:var(–blue);color:#fff;padding:8px;
+font-size:28px;writing-mode:initial;border-left:2px solid var(–blue-d);
+display:flex;align-items:center}
+
+/* ═══════════════════════════════════════════
+POSTER TEMPLATE
+═══════════════════════════════════════════ */
+.poster{background:#F0F4FF;border:3px solid var(–blue);
+border-radius:var(–r-s);padding:18px;text-align:center;
+font-size:34px;font-weight:900;margin:14px 0;
+display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.pslot{display:inline-block;min-width:58px;height:58px;
+border-bottom:4px solid var(–blue);text-align:center;
+font-size:34px;font-weight:900;color:var(–blue-d);
+line-height:58px;cursor:pointer}
+
+/* ═══════════════════════════════════════════
+RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:400px){
+.tgrid{grid-template-columns:repeat(2,1fr)}
+.tbtn .ic{font-size:30px}
+.qtext{font-size:22px}
+.nk{font-size:20px;min-height:52px;padding:11px 0}
+.choices{grid-template-columns:1fr 1fr}
+.cbtn{font-size:17px;padding:13px 6px}
+}
+@media(min-width:600px){
+.tgrid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+
+</head>
+<body>
+
+<!-- SPARKLE LAYER -->
+
+<div id="slayer"></div>
+
+<!-- ═══ HEADER ═══ -->
+
+<header id="hdr">
+  <div class="msc">🧙‍♂️</div>
+  <h1>Math Wizards<br>Academy</h1>
+  <div id="star-badge">⭐ 0</div>
+  <button id="back-btn" onclick="goHome()" aria-label="Back to menu">🏠 Menu</button>
+</header>
+
+<!-- ═══ MAIN MENU ═══ -->
+
+<div id="menu">
+  <div class="cat-hd">🔢 Numbers &amp; Operations</div>
+  <div class="tgrid">
+    <button class="tbtn cn" onclick="go('regroup')"><span class="ic">🔢</span><span class="lb">Regrouping (Tens &amp; Ones)</span></button>
+    <button class="tbtn cn" onclick="go('shortadd')"><span class="ic">➕</span><span class="lb">Short Addition (2×1, 2×2)</span></button>
+    <button class="tbtn cn" onclick="go('shortmul')"><span class="ic">✖️</span><span class="lb">Short Multiplication</span></button>
+    <button class="tbtn cn" onclick="go('shortdiv')"><span class="ic">➗</span><span class="lb">Short Division</span></button>
+    <button class="tbtn cn" onclick="go('intadd')"><span class="ic">🌡️</span><span class="lb">Integer Addition</span></button>
+    <button class="tbtn cn" onclick="go('superspeed')"><span class="ic">⚡</span><span class="lb">Super Speed!</span></button>
+    <button class="tbtn cn" onclick="go('longmul')"><span class="ic">📐</span><span class="lb">Long Multiplication (2×2)</span></button>
+    <button class="tbtn cn" onclick="go('pages')"><span class="ic">📚</span><span class="lb">Pages &amp; Books</span></button>
+    <button class="tbtn cn" onclick="go('mul9ten')"><span class="ic">✋</span><span class="lb">×9 and ×10 Tricks</span></button>
+    <button class="tbtn cn" onclick="go('divrem')"><span class="ic">🧩</span><span class="lb">Division with Remainders</span></button>
+    <button class="tbtn cn" onclick="go('factors')"><span class="ic">🔗</span><span class="lb">Factors</span></button>
+    <button class="tbtn cn" onclick="go('primecomp')"><span class="ic">🔍</span><span class="lb">Prime &amp; Composite</span></button>
+    <button class="tbtn cn" onclick="go('perfsq')"><span class="ic">⬛</span><span class="lb">Perfect Squares</span></button>
+    <button class="tbtn cn" onclick="go('subgroup')"><span class="ic">🔄</span><span class="lb">Subtraction Regrouping</span></button>
+    <button class="tbtn cn" onclick="go('exponents')"><span class="ic">🔺</span><span class="lb">Exponents &amp; Bases</span></button>
+    <button class="tbtn cn" onclick="go('rationals')"><span class="ic">🍕</span><span class="lb">Rationals &amp; Fractions</span></button>
+  </div>
+
+  <div class="cat-hd">🧠 Logic &amp; Puzzles</div>
+  <div class="tgrid">
+    <button class="tbtn cl" onclick="go('time')"><span class="ic">🕐</span><span class="lb">Time &amp; Clocks</span></button>
+    <button class="tbtn cl" onclick="go('superseries')"><span class="ic">🌀</span><span class="lb">Super Series</span></button>
+    <button class="tbtn cl" onclick="go('venn')"><span class="ic">⭕</span><span class="lb">Venn Diagrams</span></button>
+    <button class="tbtn cl" onclick="go('headlegs')"><span class="ic">🐄</span><span class="lb">Heads &amp; Legs</span></button>
+    <button class="tbtn cl" onclick="go('chords')"><span class="ic">⭕</span><span class="lb">Chords &amp; Regions</span></button>
+    <button class="tbtn cl" onclick="go('date')"><span class="ic">📅</span><span class="lb">Date Problems</span></button>
+    <button class="tbtn cl" onclick="go('age')"><span class="ic">🎂</span><span class="lb">Age Problems</span></button>
+    <button class="tbtn cl" onclick="go('logictbl')"><span class="ic">🗂️</span><span class="lb">Logic Tables</span></button>
+    <button class="tbtn cl" onclick="go('alphamath')"><span class="ic">🔤</span><span class="lb">Alpha Math</span></button>
+    <button class="tbtn cl" onclick="go('integers')"><span class="ic">🛗</span><span class="lb">Integers (Elevator)</span></button>
+    <button class="tbtn cl" onclick="go('january')"><span class="ic">❄️</span><span class="lb">January Thaw</span></button>
+  </div>
+
+  <div class="cat-hd">📐 Geometry &amp; Data</div>
+  <div class="tgrid">
+    <button class="tbtn cg" onclick="go('data')"><span class="ic">📊</span><span class="lb">Data (Mean, Median, Mode)</span></button>
+    <button class="tbtn cg" onclick="go('polyomino')"><span class="ic">🧱</span><span class="lb">Polyominoes</span></button>
+  </div>
+
+  <div class="cat-hd">🏆 Challenges</div>
+  <div class="tgrid">
+    <button class="tbtn cc" onclick="go('somcontest')"><span class="ic">🌟</span><span class="lb">SoM Contest</span></button>
+    <button class="tbtn cc" onclick="go('regroupps')"><span class="ic">🍎</span><span class="lb">Regrouping Problems</span></button>
+    <button class="tbtn cc" onclick="go('aoty')"><span class="ic">📝</span><span class="lb">Assignment of the Year (30)</span></button>
+    <button class="tbtn cc" onclick="go('wisewiz')"><span class="ic">🪄</span><span class="lb">Wise Wizards</span></button>
+    <button class="tbtn cc" onclick="go('mightymaths')"><span class="ic">👩‍🔬</span><span class="lb">Mighty Mathematicians</span></button>
+    <button class="tbtn cc" onclick="go('poster')"><span class="ic">🎨</span><span class="lb">Problem Poster Project</span></button>
+  </div>
+</div>
+
+<!-- ═══ EXERCISE PANEL ═══ -->
+
+<div id="expanel">
+  <div id="tmrwrap" class="tmrwrap">
+    <div class="tlbl" id="tlbl">⏱️ 3 seconds!</div>
+    <div class="tbg"><div class="tfill" id="tfill" style="width:100%"></div></div>
+  </div>
+  <div class="ex-card">
+    <div class="ex-title" id="extitle"></div>
+    <div id="exbody"></div>
+  </div>
+  <div id="fb"></div>
+  <div id="hint"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   GLOBAL STATE
+═══════════════════════════════════════════ */
+let stars=0,curTopic=null,curAns=null,ansStr='',tmrInt=null,tmrLeft=0;
+// series / challenge state
+let seriesStep=0,seriesScore=0,seriesQs=[];
+let aotyList=[],aotyIdx=0,aotyScore=0;
+let wizStep=0,wizScore=0;
+let somIdx=0,somScore=0;
+let mathIdx=0;
+let posterSlot='A',posterTpl=null;
+let ssScore=0,ssTotal=0;
+// super series
+let superSeriesData=null,superSeriesStep=0;
+
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const P=a=>a[R(0,a.length-1)];
+const $=id=>document.getElementById(id);
+const MSGS_OK=['Amazing!','Brilliant! 🎊','You rock!','Perfect! ⭐','Magical! ✨','Wow! 🌟','Genius! 🏆'];
+const EMJS=['⭐','🌟','🎉','✨','💫','🎊','🏆','🌈','🦄','🎈','🍭','🎀'];
+
+/* ═══════════════════════════════════════════
+   CORE UI HELPERS
+═══════════════════════════════════════════ */
+function addStar(n=1){
+  stars+=n;
+  $('star-badge').textContent='⭐ '+stars;
+  shootStars();
+}
+function shootStars(){
+  const L=$('slayer');
+  for(let i=0;i<14;i++) setTimeout(()=>{
+    const s=document.createElement('div');s.className='sp';
+    s.textContent=P(EMJS);
+    const x=R(10,window.innerWidth-60),y=R(70,window.innerHeight-100);
+    const tx=R(-220,220),ty=R(-320,-60);
+    s.style.cssText=`left:${x}px;top:${y}px;--tx:${tx}px;--ty:${ty}px`;
+    L.appendChild(s);setTimeout(()=>s.remove(),1200);
+  },i*55);
+}
+function showFB(ok,msg,hint=''){
+  const fb=$('fb');
+  fb.textContent=(ok?'✅ ':'❌ ')+msg;
+  fb.className='on '+(ok?'ok':'ng');
+  const hb=$('hint');
+  if(!ok&&hint){hb.textContent='💡 '+hint;hb.className='on';}
+  else hb.className='';
+  if(ok)addStar();
+}
+function clrFB(){$('fb').className='';$('hint').className=''}
+function setTitle(t){$('extitle').textContent=t}
+function setBody(h){$('exbody').innerHTML=h}
+function hint(msg){$('hint').textContent='💡 '+msg;$('hint').className='on'}
+function newBtn(id){return`<div class="arow"><button class="abtn b-or" onclick="go('${id}')">🔄 New Problem</button></div>`}
+
+/* ═══════════════════════════════════════════
+   NUMPAD SYSTEM
+═══════════════════════════════════════════ */
+function numpad(neg=false){
+  const ns=neg?`<button class="nk neg" onclick="np('-')" aria-label="negative">±</button>`:'';
+  return`<div class="adisp" id="ad">_</div>
+  <div class="numpad">
+    ${[1,2,3,4,5,6,7,8,9,0].map(n=>`<button class="nk" onclick="np('${n}')" aria-label="${n}">${n}</button>`).join('')}
+    ${ns}
+    <button class="nk del" onclick="np('del')" aria-label="delete">⌫</button>
+    <button class="nk ok" onclick="npOK()" aria-label="submit">✔ OK</button>
+  </div>`;
+}
+function np(v){
+  if(v==='del')ansStr=ansStr.slice(0,-1);
+  else if(v==='-'){if(!ansStr)ansStr='-';}
+  else{if(ansStr.length<6)ansStr+=v;}
+  const d=$('ad');if(d)d.textContent=ansStr||'_';
+}
+function npOK(){
+  const v=parseInt(ansStr,10);
+  if(isNaN(v)){showFB(false,'Enter a number first!');return;}
+  ansStr='';const d=$('ad');if(d)d.textContent='_';
+  npRoute(v);
+}
+function npRoute(v){
+  const routes={
+    superspeed:ssCheck,
+    superseries:superSeriesCheck,
+    somcontest:somCheck,
+    aoty:aotyCheck,
+    wisewiz:wizCheck,
+    poster:posterNPOK,
+  };
+  if(routes[curTopic])routes[curTopic](v);
+  else numCheck(v);
+}
+function numCheck(v){
+  const ok=v===curAns;
+  showFB(ok,ok?P(MSGS_OK):`The answer is ${curAns}.`,ok?'':String(curAns));
+}
+
+/* choices helper */
+function mkChoices(opts,correct){
+  return`<div class="choices">${opts.map((o,i)=>`<button class="cbtn" onclick="choicePick(${i},${correct},'${o.toString().replace(/'/g,"\\'")}',this)">${o}</button>`).join('')}</div>`;
+}
+function choicePick(i,c,lbl,btn){
+  const ok=i===c;
+  showFB(ok,ok?P(MSGS_OK):'Not quite! Try again!');
+  document.querySelectorAll('.cbtn').forEach((b,j)=>{
+    if(j===c)b.classList.add('ck');
+    else if(j===i&&!ok)b.classList.add('wr');
+  });
+}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+function goHome(){
+  clearInterval(tmrInt);curTopic=null;
+  $('menu').classList.remove('hidden');
+  $('expanel').className='';$('expanel').style.display='none';
+  $('back-btn').className='';
+  clrFB();$('tmrwrap').className='tmrwrap';
+}
+function go(id){
+  curTopic=id;ansStr='';
+  $('menu').classList.add('hidden');
+  $('expanel').style.display='block';$('expanel').className='on';
+  $('back-btn').className='on';
+  clrFB();$('tmrwrap').className='tmrwrap';
+  clearInterval(tmrInt);
+  RENDER[id]?RENDER[id]():console.warn('No renderer for',id);
+}
+
+/* ═══════════════════════════════════════════
+   TOPIC RENDERERS
+═══════════════════════════════════════════ */
+const RENDER={};
+
+/* ─────────────────────────────────────────
+   1. REGROUPING (tens & ones up to 100)
+───────────────────────────────────────────*/
+RENDER.regroup=function(){
+  setTitle('🔢 Regrouping: Tens & Ones');
+  const total=R(11,99),tens=Math.floor(total/10),ones=total%10;
+  curAns=ones;
+  const em=P(['⭐','🍎','🍭','🔵','🌸','🐾']);
+  let groups='';
+  for(let t=0;t<tens;t++) groups+=`<span style="background:#D9E6F5;border-radius:8px;padding:3px 6px;margin:3px;display:inline-block">${em.repeat(10)}</span>`;
+  if(ones) groups+=`<span style="background:#FFF0D4;border-radius:8px;padding:3px 6px;margin:3px;display:inline-block">${em.repeat(ones)}</span>`;
+  setBody(`
+    <div class="qsub">Total: <b>${total}</b> ${em}</div>
+    <div class="emv" style="font-size:20px">${groups}</div>
+    <div class="qtext">${tens} ten${tens>1?'s':''} and <b>?</b> ones</div>
+    <div class="qsub">Blue = ten-groups | Orange = ones</div>
+    ${numpad()}
+    ${newBtn('regroup')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   2. SHORT ADDITION (2×1, 2×2)
+───────────────────────────────────────────*/
+RENDER.shortadd=function(){
+  setTitle('➕ Short Addition');
+  const mode=P(['2x1nr','2x1r','2x2']);
+  let a,b,hintMsg;
+  if(mode==='2x1nr'){a=R(10,90);b=R(1,9-(a%10));hintMsg='Add ones, then tens. No carrying needed!';}
+  else if(mode==='2x1r'){a=R(11,89);b=R(2,9);hintMsg='The ones add past 9 – carry 1 ten!';}
+  else{a=R(11,89);b=R(11,99-a);hintMsg='Add ones, then tens. Watch for carrying!';}
+  curAns=a+b;
+  // base-ten blocks visual (simple)
+  const tensA=Math.floor(a/10),onesA=a%10,tensB=Math.floor(b/10),onesB=b%10;
+  const blk=n=>'<span style="display:inline-block;width:18px;height:18px;background:var(--blue);border-radius:3px;margin:2px"></span>';
+  const oBlk=n=>'<span style="display:inline-block;width:14px;height:14px;background:var(--orange);border-radius:3px;margin:2px"></span>';
+  const blockVis=`<div style="text-align:center;margin:8px 0;font-size:13px;color:var(--text-m)">
+    <b>${a}</b>: ${blk().repeat(tensA)} ${oBlk().repeat(onesA)}
+    &nbsp;+&nbsp; <b>${b}</b>: ${blk().repeat(tensB)} ${oBlk().repeat(onesB)}
+  </div>`;
+  setBody(`
+    <div class="qtext">${a} + ${b} = ?</div>
+    ${blockVis}
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('${hintMsg}')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('shortadd')">🔄 New</button>
+    </div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   3. SHORT MULTIPLICATION (1×1, 2×1)
+───────────────────────────────────────────*/
+RENDER.shortmul=function(){
+  setTitle('✖️ Short Multiplication');
+  const mode=P(['1x1','2x1']);
+  let a,b;
+  if(mode==='1x1'){a=R(2,9);b=R(2,9);}
+  else{a=R(11,20);b=R(2,9);}
+  curAns=a*b;
+  const em=P(['⭐','🔵','🌸','🍎']);
+  const groups=b<=6?Array.from({length:b},()=>`<div class="array-group" style="background:#F3F0FF;border:2px dashed var(--purple);border-radius:9px;padding:5px;display:inline-flex;flex-wrap:wrap;gap:3px;margin:4px">${em.repeat(Math.min(a,10))}</div>`).join(''):'';
+  setBody(`
+    <div class="qtext">${a} × ${b} = ?</div>
+    ${b<=6&&a<=10?`<div class="emv" style="font-size:24px">${groups}</div><div class="qsub">${b} groups of ${a}</div>`:''}
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('${a}×${b} = add ${a} together ${b} times: ${Array.from({length:b},(_,i)=>(i+1)*a).join(', ')}')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('shortmul')">🔄 New</button>
+    </div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   4. SHORT DIVISION (1×1, 2×1)
+───────────────────────────────────────────*/
+RENDER.shortdiv=function(){
+  setTitle('➗ Short Division');
+  const mode=P(['1x1','2x1']);
+  let d,q,total;
+  if(mode==='1x1'){d=R(2,9);q=R(1,9);total=d*q;}
+  else{d=R(2,9);q=R(2,9);total=d*q;}
+  curAns=q;
+  const em=P(['🍭','🎈','⭐','🍎']);
+  const groups=d<=6&&q<=6?Array.from({length:d},()=>`<div style="background:#F3F0FF;border:2px dashed var(--purple);border-radius:9px;padding:5px;display:inline-flex;flex-wrap:wrap;gap:3px;margin:4px">${em.repeat(q)}</div>`).join(''):'';
+  setBody(`
+    <div class="qtext">${total} ÷ ${d} = ?</div>
+    ${d<=6&&q<=6?`<div class="emv" style="font-size:24px">${groups}</div><div class="qsub">Share ${total} ${em} equally into ${d} groups</div>`:''}
+    ${numpad()}
+    ${newBtn('shortdiv')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   5. INTEGER ADDITION (with number line)
+───────────────────────────────────────────*/
+RENDER.intadd=function(){
+  setTitle('🌡️ Integer Addition');
+  const a=R(-8,8),b=R(-8,8);
+  curAns=a+b;
+  const lo=Math.min(-10,a+b-2),hi=Math.max(10,a+b+2);
+  const nums=Array.from({length:hi-lo+1},(_,i)=>i+lo);
+  const nlHTML=`<div class="nlwrap"><div class="nl">
+    ${nums.map(n=>`<div class="nln${n<0?' ng':''}${n===0?' zr':''}${n===a?' mk':''}">
+      <div class="nltk"></div>${n}</div>${n<hi?'<div class="nll"></div>':''}`).join('')}
+  </div><div style="text-align:center;font-size:12px;color:var(--text-m);margin-top:22px">▲ = start (${a})</div></div>`;
+  setBody(`
+    <div class="qtext">(${a}) + (${b}) = ?</div>
+    <div class="qsub">${b<0?`Move ${Math.abs(b)} ⬅️ left`:`Move ${b} ➡️ right`} from ${a}</div>
+    ${nlHTML}
+    ${numpad(true)}
+    ${newBtn('intadd')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   6. SUPER SPEED
+───────────────────────────────────────────*/
+RENDER.superspeed=function(){
+  setTitle('⚡ Super Speed!');
+  $('tmrwrap').className='tmrwrap on';
+  clrFB();
+  ssTotal++;
+  let cd=3;
+  setBody(`<div class="qtext" id="scd" style="font-size:80px;color:var(--orange)">${cd}</div><div class="qsub">Get ready!</div>`);
+  const cdI=setInterval(()=>{
+    cd--;
+    const el=$('scd');if(!el){clearInterval(cdI);return;}
+    if(cd>0)el.textContent=cd;
+    else if(cd===0){el.textContent='GO! 🚀';el.style.color='var(--green-d)';}
+    else{
+      clearInterval(cdI);
+      const ops=P(['+','-','×']);
+      let a,b,q,ans;
+      if(ops==='+'){a=R(1,9);b=R(1,9);ans=a+b;q=`${a} + ${b}`;}
+      else if(ops==='-'){a=R(2,9);b=R(1,a);ans=a-b;q=`${a} − ${b}`;}
+      else{const f=P([1,2,5,10]);a=f;b=R(1,9);ans=a*b;q=`${a} × ${b}`;}
+      curAns=ans;
+      setBody(`<div class="qtext" style="font-size:64px">${q} = ?</div>${numpad()}`);
+      startSSTimer();
+    }
+  },700);
+};
+function startSSTimer(){
+  tmrLeft=3000;$('tfill').style.width='100%';
+  clearInterval(tmrInt);
+  tmrInt=setInterval(()=>{
+    tmrLeft-=100;
+    const p=Math.max(0,tmrLeft/3000*100);
+    const tf=$('tfill');if(tf)tf.style.width=p+'%';
+    if(tmrLeft<=0){clearInterval(tmrInt);showFB(false,`Too slow! Answer: ${curAns}`);setTimeout(()=>go('superspeed'),1500);}
+  },100);
+}
+function ssCheck(v){
+  clearInterval(tmrInt);
+  const ok=v===curAns;
+  if(ok)ssScore++;
+  showFB(ok,ok?'🚀 Lightning fast!':'Oops! Answer: '+curAns);
+  setTimeout(()=>go('superspeed'),1400);
+}
+
+/* ─────────────────────────────────────────
+   7. LONG MULTIPLICATION (2×2, area model)
+───────────────────────────────────────────*/
+RENDER.longmul=function(){
+  setTitle('📐 Long Multiplication (2×2)');
+  const a=R(11,29),b=R(11,29);
+  curAns=a*b;
+  const aT=Math.floor(a/10)*10,aO=a%10;
+  const bT=Math.floor(b/10)*10,bO=b%10;
+  const p1=aT*bT,p2=aT*bO,p3=aO*bT,p4=aO*bO;
+  setBody(`
+    <div class="qtext">${a} × ${b} = ?</div>
+    <div class="qsub">Area Model: break into parts!</div>
+    <table class="area-model" style="grid-template-columns:auto auto auto">
+      <tr><td class="am-cell am-header">×</td><td class="am-cell am-header">${aT}</td><td class="am-cell am-header">${aO}</td></tr>
+      <tr><td class="am-cell am-header">${bT}</td><td class="am-cell">${p1}</td><td class="am-cell">${p3}</td></tr>
+      <tr><td class="am-cell am-header">${bO}</td><td class="am-cell">${p2}</td><td class="am-cell">${p4}</td></tr>
+    </table>
+    <div class="qsub">${p1} + ${p3} + ${p2} + ${p4} = ${p1+p3+p2+p4}</div>
+    ${numpad()}
+    ${newBtn('longmul')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   8. PAGES
+───────────────────────────────────────────*/
+RENDER.pages=function(){
+  setTitle('📚 Pages & Books');
+  const probs=[
+    ()=>{const r=R(2,8),d=R(2,7);curAns=r*d;return`You read <b>${r} pages</b> each day 📖. How many pages after <b>${d} days</b>?`;},
+    ()=>{const t=R(12,40),r=P([2,3,4,5,6]);const q=Math.floor(t/r)*r;curAns=q/r;return`You have <b>${q} pages</b> left. You read <b>${r} pages</b> a day. How many days to finish? 📅`;},
+    ()=>{const ch=R(3,8),pp=R(4,10);curAns=ch*pp;return`A book has <b>${ch} chapters</b>. Each chapter has <b>${pp} pages</b>. How many pages total? 📗`;},
+  ];
+  const q=P(probs)();
+  setBody(`
+    <div class="qtext" style="font-size:22px"></div>
+    ${numpad()}
+    ${newBtn('pages')}
+  `);
+  $('exbody').querySelector('.qtext').innerHTML=q;
+};
+
+/* ─────────────────────────────────────────
+   9. TIME
+───────────────────────────────────────────*/
+RENDER.time=function(){
+  setTitle('🕐 Time & Clocks');
+  const h=R(1,12),m=P([0,5,10,15,20,25,30,35,40,45,50,55]);
+  const hA=((h%12)+(m/60))/12*360-90;
+  const mA=m/60*360-90;
+  const hx=100+44*Math.cos(hA*Math.PI/180),hy=100+44*Math.sin(hA*Math.PI/180);
+  const mx=100+68*Math.cos(mA*Math.PI/180),my=100+68*Math.sin(mA*Math.PI/180);
+  const tStr=`${h}:${String(m).padStart(2,'0')}`;
+  const mode=P(['read','elapsed']);
+  if(mode==='read'){
+    const opts=[tStr,`${h}:${String((m+5)%60).padStart(2,'0')}`,`${h===12?1:h+1}:${String(m).padStart(2,'0')}`,`${h===1?12:h-1}:${String(m).padStart(2,'0')}`].sort(()=>Math.random()-.5);
+    const ci=opts.indexOf(tStr);
+    setBody(`
+      <div class="qsub">What time does the clock show?</div>
+      ${clockSVG(hx,hy,mx,my)}
+      ${mkChoices(opts,ci)}
+      ${newBtn('time')}
+    `);
+  } else {
+    const add=P([15,30,45,60]);
+    const newM=(m+add)%60,newH=m+add>=60?(h===12?1:h+1):h;
+    const newStr=`${newH}:${String(newM).padStart(2,'0')}`;
+    const opts=[newStr,`${newH}:${String((newM+5)%60).padStart(2,'0')}`,`${newH===12?1:newH+1}:${String(newM).padStart(2,'0')}`,`${h}:${String(m).padStart(2,'0')}`].sort(()=>Math.random()-.5);
+    const ci=opts.indexOf(newStr);
+    setBody(`
+      <div class="qsub">Clock shows <b>${tStr}</b>. Add <b>${add} minutes</b>. New time?</div>
+      ${clockSVG(hx,hy,mx,my)}
+      ${mkChoices(opts,ci)}
+      ${newBtn('time')}
+    `);
+  }
+};
+function clockSVG(hx,hy,mx,my){
+  return`<svg class="clk" width="200" height="200" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="#FFF8EC" stroke="#FFB347" stroke-width="5"/>
+    ${[12,3,6,9].map((n,i)=>{const a=i*90-90;return`<text x="${100+76*Math.cos(a*Math.PI/180)}" y="${100+76*Math.sin(a*Math.PI/180)+6}" text-anchor="middle" font-size="17" font-weight="bold" fill="#2D3E50">${n}</text>`;}).join('')}
+    <line x1="100" y1="100" x2="${hx}" y2="${hy}" stroke="#2D3E50" stroke-width="7" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${mx}" y2="${my}" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="5" fill="#2D3E50"/>
+  </svg>`;
+}
+
+/* ─────────────────────────────────────────
+   10. SUPER SERIES
+───────────────────────────────────────────*/
+RENDER.superseries=function(){
+  setTitle('🌀 Super Series');
+  const patterns=[
+    {base:2,op:'add',qs:[2,4,8],fn:(v,i)=>v*2},
+    {base:3,op:'add',qs:[3,6,9],fn:(v,i)=>v+3},
+    {base:5,op:'add',qs:[5,10,15],fn:(v,i)=>v+5},
+    {base:10,op:'mul',qs:[10,20,40],fn:(v,i)=>v*2},
+    {base:1,op:'sq',qs:[1,4,9],fn:(v,i)=>[(1),(4),(9),(16)][i]},
+  ];
+  const pat=P(patterns);
+  superSeriesData=pat;superSeriesStep=0;
+  renderSuperSeries();
+};
+function renderSuperSeries(){
+  const pat=superSeriesData,i=superSeriesStep;
+  if(i>=3){
+    setBody(`<div class="score-screen">
+      <div style="font-size:64px">🌟</div>
+      <div class="sc-big">${superSeriesStep}/3</div>
+      <div class="sc-stars">⭐⭐⭐</div>
+      <div class="sc-msg">Super Series complete! You earned a <b>SUPER STAR!</b> 🌟</div>
+      <div class="arow"><button class="abtn b-or" onclick="go('superseries')">🔄 Play Again</button></div>
+    </div>`);
+    addStar(2);return;
+  }
+  const cur=pat.qs[i];
+  curAns=pat.fn(cur,i+1);
+  setBody(`
+    <div class="qsub">Question ${i+1} of 3 – find the pattern!</div>
+    <div class="qtext" style="font-size:32px">${pat.qs.slice(0,i+1).join(', ')}, <b>?</b></div>
+    ${numpad()}
+  `);
+  pat.qs[i+1]=curAns;// reveal for next
+}
+function superSeriesCheck(v){
+  const ok=v===curAns;
+  showFB(ok,ok?P(MSGS_OK):`The answer is ${curAns}.`);
+  if(ok){superSeriesStep++;setTimeout(()=>{clrFB();renderSuperSeries();},1100);}
+}
+
+/* ─────────────────────────────────────────
+   11. VENN DIAGRAMS
+───────────────────────────────────────────*/
+RENDER.venn=function(){
+  setTitle('⭕ Venn Diagrams');
+  const L=R(2,8),B=R(1,5),Ri=R(2,8);
+  const pairs=[
+    {probs:[
+      {q:`How many like <b>only 🍕</b>?`,ans:L},
+      {q:`How many like <b>both</b>? 🍕🍔`,ans:B},
+      {q:`How many like <b>only 🍔</b>?`,ans:Ri},
+      {q:`How many children <b>in total</b>?`,ans:L+B+Ri},
+    ]}
+  ];
+  const p=P(pairs[0].probs);curAns=p.ans;
+  setBody(`
+    <div class="vwrap">
+      <div class="vc vcl"></div><div class="vov"></div><div class="vc vcr"></div>
+      <div class="vlbls"><span class="vlbl">🍕 ${L}</span><span class="vlbl">🍔 ${Ri}</span></div>
+      <div class="vcn">${B}</div>
+    </div>
+    <div style="display:flex;justify-content:space-around;font-size:13px;color:var(--text-m);margin-bottom:8px">
+      <span>Only 🍕: ${L}</span><span>Both: ${B}</span><span>Only 🍔: ${Ri}</span>
+    </div>
+    <div class="qtext" style="font-size:22px"></div>
+    ${numpad()}
+    ${newBtn('venn')}
+  `);
+  $('exbody').querySelector('.qtext').innerHTML=p.q;
+};
+
+/* ─────────────────────────────────────────
+   12. HEADS & LEGS
+───────────────────────────────────────────*/
+RENDER.headlegs=function(){
+  setTitle('🐄 Heads & Legs');
+  const total=R(4,8);
+  const cows=R(1,total-1),ducks=total-cows;
+  const legs=cows*4+ducks*2;
+  curAns=cows;
+  setBody(`
+    <div class="qtext" style="font-size:22px">There are <b>${total}</b> animals 🐄🦆.<br>Total legs: <b>${legs}</b>.<br>How many are <b>cows</b>? 🐄</div>
+    <div class="qsub">Cows have 4 legs 🐄, ducks have 2 legs 🦆</div>
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('Try: if all were ducks → ${total*2} legs. Extra legs = ${legs-total*2}. Each cow adds 2 extra legs. So cows = ${legs-total*2}÷2 = ${(legs-total*2)/2}')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('headlegs')">🔄 New</button>
+    </div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   13. CHORDS & REGIONS
+───────────────────────────────────────────*/
+RENDER.chords=function(){
+  setTitle('⭕ Chords & Regions');
+  // Maximum regions: R(n) = 1 + C(n,2) + C(n,4) for n points
+  const data=[
+    {pts:1,chords:0,regions:1},
+    {pts:2,chords:1,regions:2},
+    {pts:3,chords:3,regions:4},
+    {pts:4,chords:6,regions:8},
+    {pts:5,chords:10,regions:16},
+  ];
+  const d=P(data);curAns=d.regions;
+  // Draw SVG circle with points and chords
+  const cx=100,cy=100,r=80,n=d.pts;
+  const pts=Array.from({length:n},(_,i)=>{const a=i/n*2*Math.PI-Math.PI/2;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];});
+  let chordsSVG='';
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++) chordsSVG+=`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}" stroke="var(--blue)" stroke-width="1.5" opacity="0.6"/>`;
+  const dotsSVG=pts.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6" fill="var(--orange)"/>`).join('');
+  setBody(`
+    <div class="qsub">Circle with <b>${n} point${n!==1?'s':''}</b>, all chords drawn:</div>
+    <svg width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:8px auto">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="#F0F4FF" stroke="var(--blue-d)" stroke-width="2.5"/>
+      ${chordsSVG}${dotsSVG}
+    </svg>
+    <div class="qtext">How many <b>regions</b> does this make?</div>
+    ${(()=>{const opts=[d.regions-1,d.regions,d.regions+1,d.regions+2].sort(()=>Math.random()-.5);return mkChoices(opts.map(String),opts.indexOf(d.regions));})()}
+    ${newBtn('chords')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   14. DATE PROBLEMS
+───────────────────────────────────────────*/
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+RENDER.date=function(){
+  setTitle('📅 Date Problems');
+  const probs=[
+    ()=>{const d=R(0,6),add=R(1,6);const ans=(d+add)%7;curAns=ans;
+      return{q:`Today is <b>${DAYS[d]}</b>. What day is <b>${add} days</b> later?`,
+        opts:DAYS,correct:ans,type:'choice'};},
+    ()=>{const day=R(1,24),add=R(1,6);curAns=day+add;
+      return{q:`Today is the <b>${day}th</b>. What date is <b>${add} days</b> later?`,type:'num',h:`${day}+${add}=?`};},
+    ()=>{curAns=14;return{q:`How many days in <b>2 weeks</b>? 📆`,type:'num',h:'1 week = 7 days'};},
+    ()=>{const w=R(2,5);curAns=w*7;return{q:`How many days in <b>${w} weeks</b>?`,type:'num',h:`${w}×7=?`};},
+  ];
+  const p=P(probs)();
+  if(p.type==='choice'){
+    const wrong=DAYS.filter((_,i)=>i!==p.correct).sort(()=>Math.random()-.5).slice(0,3);
+    const opts=[DAYS[p.correct],...wrong].sort(()=>Math.random()-.5);
+    const ci=opts.indexOf(DAYS[p.correct]);
+    setBody(`<div class="qtext" style="font-size:22px"></div>${mkChoices(opts,ci)}${newBtn('date')}`);
+    $('exbody').querySelector('.qtext').innerHTML=p.q;
+  } else {
+    setBody(`<div class="qtext" style="font-size:22px"></div>${numpad()}<div class="arow"><button class="abtn b-bl" onclick="hint('${p.h}')">💡 Hint</button><button class="abtn b-or" onclick="go('date')">🔄 New</button></div>`);
+    $('exbody').querySelector('.qtext').innerHTML=p.q;
+  }
+};
+
+/* ─────────────────────────────────────────
+   15. AGE PROBLEMS
+───────────────────────────────────────────*/
+RENDER.age=function(){
+  setTitle('🎂 Age Problems');
+  const probs=[
+    ()=>{const a=R(4,10),d=R(1,6);curAns=a+d;return`Tom is <b>${a}</b> years old. His sister is <b>${d} years older</b>. How old is she? 🎂`;},
+    ()=>{const a=R(4,10),y=R(1,5);curAns=a+y;return`Sam is <b>${a}</b>. In <b>${y} years</b>, how old will Sam be?`;},
+    ()=>{const a=R(6,14),b=R(2,5);curAns=a-b;return`Mom is <b>${a+b}</b>, daughter is <b>${b} years younger</b>. How old is the daughter?`;},
+    ()=>{const a=R(5,12),b=R(2,5);curAns=2*(a+b);return`Twins are each <b>${a}</b> years old. In <b>${b} years</b>, what will be their combined total age?`;},
+  ];
+  const q=P(probs)();
+  setBody(`
+    <div class="qtext" style="font-size:22px">${q}</div>
+    ${numpad()}
+    ${newBtn('age')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   16. SoM CONTEST
+───────────────────────────────────────────*/
+const SOM_QS=[
+  {q:'What is missing? 3, 6, 9, <b>?</b> (add 3 each time)',ans:12,h:'3+3+3+3=12'},
+  {q:'A square has perimeter 12. What is the <b>side length</b>?',ans:3,h:'Perimeter = 4×side. 12÷4=?'},
+  {q:'How many different ways can you arrange 3 books in a row?',ans:6,h:'3×2×1 = 6 ways'},
+  {q:'A rectangle is 3 wide and 5 tall. What is the <b>area</b>?',ans:15,h:'Area = 3×5 = ?'},
+  {q:'What is 2+4+6+8+10? (sum of first 5 even numbers)',ans:30,h:'Add: 2+4=6, +6=12, +8=20, +10=30'},
+];
+RENDER.somcontest=function(){
+  setTitle('🌟 SoM Contest');
+  somIdx=0;somScore=0;renderSoM();
+};
+function renderSoM(){
+  if(somIdx>=SOM_QS.length){
+    setBody(`<div class="score-screen">
+      <div style="font-size:64px">🏆</div>
+      <div class="sc-big">${somScore}/${SOM_QS.length}</div>
+      <div class="sc-stars">${'⭐'.repeat(somScore)}${'☆'.repeat(SOM_QS.length-somScore)}</div>
+      <div class="sc-msg">${somScore===SOM_QS.length?'Perfect! Math Champion! 🎉':somScore>=3?'Great job!':'Keep practicing!'}</div>
+      <div class="arow"><button class="abtn b-or" onclick="go('somcontest')">🔄 Play Again</button></div>
+    </div>`);return;
+  }
+  const q=SOM_QS[somIdx];curAns=q.ans;
+  setBody(`
+    <div class="qsub">Question ${somIdx+1} of ${SOM_QS.length}</div>
+    <div class="qtext" style="font-size:21px"></div>
+    ${numpad()}
+    <div class="arow"><button class="abtn b-bl" onclick="hint('${q.h}')">💡 Hint</button></div>
+  `);
+  $('exbody').querySelector('.qtext').innerHTML=q.q;
+}
+function somCheck(v){
+  const ok=v===curAns;
+  if(ok)somScore++;
+  showFB(ok,ok?P(MSGS_OK):`Answer: ${curAns}`);
+  somIdx++;setTimeout(()=>{clrFB();renderSoM();},1300);
+}
+
+/* ─────────────────────────────────────────
+   17. REGROUPING PROBLEM SOLVING
+───────────────────────────────────────────*/
+RENDER.regroupps=function(){
+  setTitle('🍎 Regrouping Problem Solving');
+  const probs=[
+    ()=>{const t=R(25,99);const b=Math.floor(t/10);const r=t%10;curAns=b;return`You have <b>${t} apples</b> 🍎. Put them into bags of 10. How many <b>full bags</b>?`;},
+    ()=>{const t=R(25,99);const r=t%10;curAns=r;return`You have <b>${t} apples</b> 🍎. Fill bags of 10. How many <b>loose apples</b> are left?`;},
+    ()=>{const a=R(30,80),b=R(5,a-10);curAns=a-b;return`You have <b>${a}</b> stickers ⭐ and give away <b>${b}</b>. How many left? (You may need to regroup!)`;},
+  ];
+  const q=P(probs)();
+  setBody(`
+    <div class="qtext" style="font-size:22px">${q}</div>
+    ${numpad()}
+    ${newBtn('regroupps')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   18. LOGIC TABLES
+───────────────────────────────────────────*/
+RENDER.logictbl=function(){
+  setTitle('🗂️ Logic Tables');
+  // Simple 3-animal, 3-food puzzle
+  const animals=['🐱 Cat','🐶 Dog','🐰 Bunny'];
+  const foods=['🐟 Fish','🥕 Carrot','🦴 Bone'];
+  // Random valid assignment
+  const assign=P([[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]);
+  const clues=[
+    `The ${animals[assign[0]].split(' ')[1]} eats ${foods[0].split(' ')[1]}.`,
+    `The ${animals[assign[2]].split(' ')[1]} does NOT eat ${foods[1].split(' ')[1]}.`,
+  ];
+  curAns=assign[1];// ask: what does the dog eat? index of food
+  let rows='';
+  animals.forEach((an,ai)=>{
+    rows+=`<tr><td>${an}</td>`;
+    foods.forEach((f,fi)=>{
+      rows+=`<td onclick="logicClick(${ai},${fi},${assign[ai]})" id="lc${ai}${fi}"> </td>`;
+    });
+    rows+='</tr>';
+  });
+  setBody(`
+    <div class="qsub">Use the clues to match animals to their food!</div>
+    <div class="qsub"><b>Clues:</b><br>${clues.map(c=>`• ${c}`).join('<br>')}</div>
+    <table class="ltbl">
+      <tr><th>Animal</th>${foods.map(f=>`<th>${f}</th>`).join('')}</tr>
+      ${rows}
+    </table>
+    <div class="qsub">Tap to mark ✓ or ✗</div>
+    ${newBtn('logictbl')}
+  `);
+};
+function logicClick(ai,fi,correct){
+  const cell=$(`lc${ai}${fi}`);
+  const isCorrect=fi===correct;
+  if(isCorrect){cell.textContent='✓';cell.classList.add('ck');}
+  else{cell.textContent='✗';cell.classList.add('wr');}
+  if(isCorrect)showFB(true,'Great logic! ✅');
+  else showFB(false,'Not quite – try again!');
+}
+
+/* ─────────────────────────────────────────
+   19. ALPHA MATH
+───────────────────────────────────────────*/
+RENDER.alphamath=function(){
+  setTitle('🔤 Alpha Math');
+  const probs=[
+    {q:'If A=1, B=2, C=3, what is <b>A+B+C</b>?',ans:6,h:'1+2+3=6'},
+    {q:'If A=2, B=3, what is <b>A×B</b>?',ans:6,h:'2×3=6'},
+    {q:'If SUN = 3 letters, MOON = 4, how many letters in STAR?',ans:4,h:'S-T-A-R = 4 letters'},
+    {q:'If A=5, B=3, what is <b>A+B+A</b>?',ans:13,h:'5+3+5=13'},
+    {q:'CAT = 3+1+2. What is CAT?',ans:6,h:'C=3,A=1,T=2. Add them: 3+1+2=6'},
+  ];
+  const p=P(probs);curAns=p.ans;
+  setBody(`
+    <div class="qtext" style="font-size:22px"></div>
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('${p.h}')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('alphamath')">🔄 New</button>
+    </div>
+  `);
+  $('exbody').querySelector('.qtext').innerHTML=p.q;
+};
+
+/* ─────────────────────────────────────────
+   20. DATA (mean, median, mode, bar chart)
+───────────────────────────────────────────*/
+RENDER.data=function(){
+  setTitle('📊 Data Analysis');
+  const mode=P(['mean','median','mode','chart']);
+  const data=[R(2,8),R(2,8),R(2,8),R(2,8),R(2,8)].sort((a,b)=>a-b);
+  // ensure mode exists
+  data[R(0,2)]=data[R(0,2)];data[2]=data[1];
+  const sorted=[...data].sort((a,b)=>a-b);
+  const sum=data.reduce((a,b)=>a+b,0);
+  const mean=Math.round(sum/data.length);
+  const median=sorted[Math.floor(sorted.length/2)];
+  const freq={};sorted.forEach(n=>freq[n]=(freq[n]||0)+1);
+  const modeVal=parseInt(Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0]);
+  if(mode==='mean'){
+    curAns=mean;
+    setBody(`<div class="qtext">Data: <b>${data.join(', ')}</b></div><div class="qsub">Sum = ${sum}. Mean = sum ÷ ${data.length} = <b>?</b></div>${numpad()}<div class="arow"><button class="abtn b-bl" onclick="hint('${sum}÷${data.length}=${mean}')">💡 Hint</button>${newBtn('data').replace('<div class="arow">','').replace('</div>','')}</div>`);
+  } else if(mode==='median'){
+    curAns=median;
+    setBody(`<div class="qtext">Data: <b>${sorted.join(', ')}</b> (sorted)</div><div class="qsub">Find the <b>middle value</b> (median).</div>${numpad()}${newBtn('data')}`);
+  } else if(mode==='mode'){
+    curAns=modeVal;
+    setBody(`<div class="qtext">Data: <b>${data.join(', ')}</b></div><div class="qsub">Find the value that appears <b>most often</b> (mode).</div>${numpad()}${newBtn('data')}`);
+  } else {
+    // bar chart
+    const fruits=[{n:'🍎',v:R(2,8)},{n:'🍌',v:R(2,8)},{n:'🍓',v:R(2,8)},{n:'🍇',v:R(2,8)}];
+    const mx=Math.max(...fruits.map(f=>f.v));
+    curAns=mx;
+    const clrs=['#FFB347','#FACC15','#F87171','#A78BFA'];
+    const bars=fruits.map((f,i)=>`<div class="bcol"><div class="bbar" style="height:${f.v/mx*140}px;background:${clrs[i]}">${f.v}</div><div class="blbl">${f.n}</div></div>`).join('');
+    const most=fruits.find(f=>f.v===mx);
+    setBody(`<div class="qsub">Favourite fruits survey:</div><div class="bchart">${bars}</div><div class="qtext" style="font-size:20px">What is the <b>highest</b> number of votes?</div>${numpad()}${newBtn('data')}`);
+  }
+};
+
+/* ─────────────────────────────────────────
+   21. POLYOMINOES
+───────────────────────────────────────────*/
+RENDER.polyomino=function(){
+  setTitle('🧱 Polyominoes');
+  // Various shapes defined as [row,col] grids
+  const shapes=[
+    {name:'L-tetromino',cells:[[0,0],[1,0],[2,0],[2,1]],total:4},
+    {name:'T-tetromino',cells:[[0,0],[0,1],[0,2],[1,1]],total:4},
+    {name:'S-tetromino',cells:[[0,1],[0,2],[1,0],[1,1]],total:4},
+    {name:'Straight tetromino',cells:[[0,0],[1,0],[2,0],[3,0]],total:4},
+    {name:'P-pentomino',cells:[[0,0],[0,1],[1,0],[1,1],[2,0]],total:5},
+  ];
+  const sh=P(shapes);curAns=sh.total;
+  const rows=Math.max(...sh.cells.map(c=>c[0]))+1;
+  const cols=Math.max(...sh.cells.map(c=>c[1]))+1;
+  let grid='';
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const filled=sh.cells.some(([cr,cc])=>cr===r&&cc===c);
+      grid+=`<div class="poly-cell${filled?' on':''}"></div>`;
+    }
+  }
+  setBody(`
+    <div class="qsub">${sh.name}</div>
+    <div class="poly-grid" style="grid-template-columns:repeat(${cols},48px)">${grid}</div>
+    <div class="qtext">How many squares? 🟦</div>
+    ${(()=>{const opts=[sh.total-1,sh.total,sh.total+1,sh.total+2].sort(()=>Math.random()-.5);return mkChoices(opts.map(String),opts.indexOf(sh.total));})()}
+    ${newBtn('polyomino')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   22. SUBTRACTION REGROUPING
+───────────────────────────────────────────*/
+RENDER.subgroup=function(){
+  setTitle('🔄 Subtraction Regrouping');
+  const a=R(21,99),b=R(a%10+1>0?a%10+1:2,Math.min(a-10,39));
+  curAns=a-b;
+  const blk=n=>'<span style="display:inline-block;width:16px;height:16px;background:var(--blue);border-radius:3px;margin:1px"></span>';
+  const oBlk=n=>'<span style="display:inline-block;width:12px;height:12px;background:var(--orange);border-radius:3px;margin:1px"></span>';
+  const tensA=Math.floor(a/10),onesA=a%10;
+  setBody(`
+    <div class="qtext">${a} − ${b} = ?</div>
+    <div class="qsub">You may need to <b>borrow</b> a ten!</div>
+    <div style="text-align:center;font-size:13px;color:var(--text-m);margin:8px 0">
+      ${a}: ${blk().repeat(tensA)} ${oBlk().repeat(onesA)}
+    </div>
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('${a}-${b}=${a-b}. Regroup: borrow 1 ten from the tens column.')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('subgroup')">🔄 New</button>
+    </div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   23. ×9 AND ×10 TRICKS
+───────────────────────────────────────────*/
+RENDER.mul9ten=function(){
+  setTitle('✋ ×9 and ×10 Tricks');
+  const mode=P(['x9','x10']);
+  const n=R(1,9);
+  if(mode==='x9'){
+    curAns=9*n;
+    setBody(`
+      <div class="qtext">9 × ${n} = ?</div>
+      <div class="qsub">✋ Finger trick: hold up ${n} fingers.<br>Fold down finger #${n}.<br>Left fingers = tens, right = ones!</div>
+      <div class="emv">✋ = ${9*n} = (${n-1}) tens + (${10-n}) ones</div>
+      ${numpad()}
+      ${newBtn('mul9ten')}
+    `);
+  } else {
+    curAns=10*n;
+    setBody(`
+      <div class="qtext">10 × ${n} = ?</div>
+      <div class="qsub">🔟 Trick: just add a 0 to the end!</div>
+      <div class="emv">${n} → <b>${n}0</b></div>
+      ${numpad()}
+      ${newBtn('mul9ten')}
+    `);
+  }
+};
+
+/* ─────────────────────────────────────────
+   24. DIVISION WITH REMAINDERS
+───────────────────────────────────────────*/
+RENDER.divrem=function(){
+  setTitle('🧩 Division with Remainders');
+  const d=R(2,9),q=R(1,9),r=R(0,d-1);
+  const total=d*q+r;curAns=q;// ask quotient
+  const em=P(['🍭','⭐','🎈','🍎']);
+  setBody(`
+    <div class="qtext">${total} ÷ ${d} = ? remainder ${r}</div>
+    <div class="emv" style="font-size:22px">${em.repeat(Math.min(total,18))}</div>
+    <div class="qsub">Share ${total} ${em} into ${d} groups equally.<br>${r} will be left over (remainder).</div>
+    <div class="qsub">Type the <b>quotient</b> (how many in each group):</div>
+    ${numpad()}
+    ${newBtn('divrem')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   25. FACTORS
+───────────────────────────────────────────*/
+RENDER.factors=function(){
+  setTitle('🔗 Factors');
+  const num=P([6,8,10,12,15,16,18,20,24,30]);
+  const allFactors=[];
+  for(let i=1;i<=num;i++)if(num%i===0)allFactors.push(i);
+  curAns=allFactors.length;
+  setBody(`
+    <div class="qtext">Number: <b>${num}</b></div>
+    <div class="qsub">How many <b>factors</b> does ${num} have?<br>(numbers that divide evenly into ${num})</div>
+    <div class="qsub">Hint: start from 1 and try each number!</div>
+    ${(()=>{const opts=[curAns-1,curAns,curAns+1,curAns+2].sort(()=>Math.random()-.5);return mkChoices(opts.map(String),opts.indexOf(curAns));})()}
+    <div class="arow"><button class="abtn b-bl" onclick="hint('Factors of ${num}: ${allFactors.join(', ')} → ${allFactors.length} factors')">💡 Show Factors</button><button class="abtn b-or" onclick="go('factors')">🔄 New</button></div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   26. PRIME & COMPOSITE
+───────────────────────────────────────────*/
+function isPrime(n){if(n<2)return false;for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0)return false;return true;}
+RENDER.primecomp=function(){
+  setTitle('🔍 Prime & Composite');
+  const n=R(2,30);
+  const prime=isPrime(n);
+  setBody(`
+    <div class="qtext">Is <b>${n}</b> prime or composite?</div>
+    <div class="qsub">Prime = exactly 2 factors (1 and itself).<br>Composite = more than 2 factors.</div>
+    ${mkChoices(['Prime ✨','Composite 🔗'],prime?0:1)}
+    <div class="arow"><button class="abtn b-bl" onclick="hint('${n} factors: ${Array.from({length:n},(_,i)=>i+1).filter(i=>n%i===0).join(', ')} → ${isPrime(n)?'2 factors = Prime':'more than 2 = Composite'}')">💡 Hint</button>${newBtn('primecomp').replace('<div class="arow">','').replace('</div>','')}</div>
+  `);
+};
+
+/* ─────────────────────────────────────────
+   27. PERFECT SQUARES
+───────────────────────────────────────────*/
+RENDER.perfsq=function(){
+  setTitle('⬛ Perfect Squares');
+  const mode=P(['is_square','find_sq','find_root']);
+  const sqrs=[1,4,9,16,25,36,49,64,81,100];
+  if(mode==='is_square'){
+    const n=P([4,6,9,10,16,18,25,27,36,49,50,64,81,100]);
+    const isSq=sqrs.includes(n);
+    setBody(`
+      <div class="qtext">Is <b>${n}</b> a perfect square?</div>
+      <div class="qsub">A perfect square = n×n for some whole number n.</div>
+      ${mkChoices(['Yes ✅','No ❌'],isSq?0:1)}
+      ${newBtn('perfsq')}
+    `);
+  } else if(mode==='find_sq'){
+    const n=R(2,10);curAns=n*n;
+    const grid=n<=6?`<div style="display:grid;grid-template-columns:repeat(${n},32px);gap:3px;margin:10px auto;width:fit-content">${Array(n*n).fill('<div style="width:32px;height:32px;background:var(--blue);border-radius:5px"></div>').join('')}</div>`:'';
+    setBody(`<div class="qtext">${n}² = ${n} × ${n} = ?</div><div class="qsub">A ${n}×${n} square:</div>${grid}${numpad()}${newBtn('perfsq')}`);
+  } else {
+    const n=R(2,10);curAns=n;
+    setBody(`<div class="qtext">√${n*n} = ?</div><div class="qsub">What number times itself gives ${n*n}?</div>${numpad()}${newBtn('perfsq')}`);
+  }
+};
+
+/* ─────────────────────────────────────────
+   28. INTEGERS (elevator)
+───────────────────────────────────────────*/
+RENDER.integers=function(){
+  setTitle('🛗 Integers – Elevator');
+  const start=R(-3,5),change=R(-5,5);
+  curAns=start+change;
+  const floors=Array.from({length:11},(_,i)=>5-i);// 5 down to -5
+  const elevHTML=`<div class="elev">
+    <div class="elev-floors">
+      ${floors.map(f=>`<div class="elev-floor${f===start?' cur':''}${f>0?' above':f<0?' below':''}">
+        ${f===start?'🛗 ':''}<span>${f>0?'▲ Floor +'+f:f===0?'Ground 0':'▼ Floor '+f}</span>
+      </div>`).join('')}
+    </div>
+    <div class="elev-car">🏢</div>
+  </div>`;
+  setBody(`
+    <div class="qtext">Start: Floor <b>${start}</b><br>${change>0?`Go up ${change}`:`Go down ${Math.abs(change)}`} floors.<br>Which floor?</div>
+    ${elevHTML}
+    ${numpad(true)}
+    ${newBtn('integers')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   29. EXPONENTS & NUMBER BASES
+───────────────────────────────────────────*/
+RENDER.exponents=function(){
+  setTitle('🔺 Exponents & Number Bases');
+  const mode=P(['sq','cube','base2','base5']);
+  if(mode==='sq'){
+    const n=R(2,9);curAns=n*n;
+    setBody(`<div class="qtext">${n}² = ?</div><div class="qsub">${n} squared = ${n}×${n}</div>${numpad()}${newBtn('exponents')}`);
+  } else if(mode==='cube'){
+    const n=P([2,3,4]);curAns=n*n*n;
+    setBody(`<div class="qtext">${n}³ = ?</div><div class="qsub">${n} cubed = ${n}×${n}×${n}</div><div class="emv">${'🧊'.repeat(n*n*n>8?8:n*n*n)}</div>${numpad()}${newBtn('exponents')}`);
+  } else if(mode==='base2'){
+    const nums=[[3,'11'],[5,'101'],[6,'110'],[7,'111'],[4,'100'],[2,'10']];
+    const [dec,bin]=P(nums);curAns=dec;
+    setBody(`<div class="qtext"><b>${bin}</b> in base 2 = ?</div><div class="qsub">Binary: each position is 4-2-1.<br>Example: 101 = 4+0+1 = 5</div>${numpad()}${newBtn('exponents')}`);
+  } else {
+    // base 5: show a base-10 number, ask what it is in base 5 equiv
+    const pairs=[[3,'11₂'],[5,'101₂'],[6,'110₂'],[7,'111₂'],[4,'100₂']];
+    const [dec,bin]=P(pairs);curAns=dec;
+    setBody(`<div class="qtext"><b>${bin}</b> = ? (base 10)</div><div class="qsub">Binary place values: 4 · 2 · 1<br>Each digit is 0 or 1. Add the values!</div>${numpad()}${newBtn('exponents')}`);
+  }
+};
+
+/* ─────────────────────────────────────────
+   30. RATIONALS & FRACTIONS
+───────────────────────────────────────────*/
+RENDER.rationals=function(){
+  setTitle('🍕 Rationals & Fractions');
+  const mode=P(['label','add','mixed','compare','numline']);
+  if(mode==='label'){
+    const d=P([2,3,4,8]),n=R(1,d-1);curAns=n;
+    const segs=Array.from({length:d},(_,i)=>`<div class="fseg${i<n?' shd':''}"></div>`).join('');
+    setBody(`<div class="qsub">Shaded fraction = ?/${d}</div><div class="fbar">${segs}</div><div class="qsub">Type the top number (numerator):</div>${numpad()}${newBtn('rationals')}`);
+  } else if(mode==='add'){
+    const d=P([3,4,8]),n1=R(1,d-2),n2=R(1,d-n1-1);curAns=n1+n2;
+    setBody(`<div class="qtext">${n1}/${d} + ${n2}/${d} = ?/${d}</div><div class="qsub">Same bottom → just add tops!</div><div class="emv">🍕 ${'🟠'.repeat(n1)} + 🍕 ${'🟠'.repeat(n2)}</div><div class="qsub">Type the top number:</div>${numpad()}${newBtn('rationals')}`);
+  } else if(mode==='mixed'){
+    const whole=R(1,3),d=P([2,3,4]),n=R(1,d-1);
+    curAns=whole*d+n;
+    setBody(`<div class="qtext">Convert: <b>${whole} ${n}/${d}</b> to improper fraction</div><div class="qsub">Mixed to improper: (whole×bottom)+top<br>${whole}×${d}+${n} = ?</div><div class="qsub">Type the top number:</div>${numpad()}${newBtn('rationals')}`);
+  } else if(mode==='compare'){
+    const fracs=[[1,2],[1,3],[1,4],[3,4],[2,3]];
+    const [f1,f2]=[P(fracs),P(fracs)];
+    const v1=f1[0]/f1[1],v2=f2[0]/f2[1];
+    const c=v1>v2?0:v1<v2?1:2;
+    const opts=[`${f1[0]}/${f1[1]} is bigger`,`${f2[0]}/${f2[1]} is bigger`,'They are equal!'];
+    setBody(`<div class="qtext">Which is bigger?<br><b>${f1[0]}/${f1[1]}</b> or <b>${f2[0]}/${f2[1]}</b>?</div><div class="emv">🍕 ${'🟠'.repeat(Math.round(f1[0]/f1[1]*8))} vs 🍕 ${'🟠'.repeat(Math.round(f2[0]/f2[1]*8))}</div>${mkChoices(opts,c)}${newBtn('rationals')}`);
+  } else {
+    const d=P([2,4]),n=R(0,d*2);curAns=n;// position as n/d
+    setBody(`<div class="qtext">Where is <b>${n}/${d}</b> on the number line?</div><div class="qsub">0 to 2, with ${d} equal parts each.<br>Type the numerator position: ${n}</div>${numpad()}${newBtn('rationals')}`);
+    curAns=n;
+  }
+};
+
+/* ─────────────────────────────────────────
+   31. ASSIGNMENT OF THE YEAR (30 eqs)
+───────────────────────────────────────────*/
+RENDER.aoty=function(){
+  setTitle('📝 Assignment of the Year!');
+  aotyIdx=0;aotyScore=0;
+  aotyList=genAOTY();
+  renderAOTY();
+};
+function genAOTY(){
+  const types=['add','sub','mul2','mul5','mul10','div','intadd','fracsame','sq','mixed'];
+  const list=[];
+  for(let i=0;i<30;i++){
+    const t=types[i%types.length];
+    list.push(genEq(t));
+  }
+  return list.sort(()=>Math.random()-.5);
+}
+function genEq(t){
+  if(t==='add'){const a=R(1,25),b=R(1,25);return{q:`${a} + ${b}`,ans:a+b};}
+  if(t==='sub'){const a=R(5,30),b=R(1,a);return{q:`${a} − ${b}`,ans:a-b};}
+  if(t==='mul2'){const n=R(1,9);return{q:`2 × ${n}`,ans:2*n};}
+  if(t==='mul5'){const n=R(1,9);return{q:`5 × ${n}`,ans:5*n};}
+  if(t==='mul10'){const n=R(1,9);return{q:`10 × ${n}`,ans:10*n};}
+  if(t==='div'){const d=P([2,3,4,5]);const q=R(1,6);return{q:`${d*q} ÷ ${d}`,ans:q};}
+  if(t==='intadd'){const a=R(-5,5),b=R(-5,5);return{q:`(${a}) + (${b})`,ans:a+b};}
+  if(t==='fracsame'){const d=P([3,4,8]);const n1=R(1,d-2),n2=R(1,d-n1-1);return{q:`${n1}/${d} + ${n2}/${d} (top only)`,ans:n1+n2};}
+  if(t==='sq'){const n=R(2,9);return{q:`${n}²`,ans:n*n};}
+  if(t==='mixed'){const a=R(10,30),b=R(2,9);return{q:`${a} + ${b}`,ans:a+b};}
+  return{q:'5+5',ans:10};
+}
+function renderAOTY(){
+  clrFB();ansStr='';
+  if(aotyIdx>=30){showAOTYScore();return;}
+  const eq=aotyList[aotyIdx];
+  curAns=eq.ans;
+  const pct=(aotyIdx/30)*100;
+  setBody(`
+    <div class="pbwrap">
+      <div class="pbg"><div class="pfill" style="width:${pct}%"></div></div>
+      <div class="plbl">${aotyIdx}/30</div>
+    </div>
+    <div class="qtext" style="font-size:44px">${eq.q} = ?</div>
+    ${numpad(true)}
+  `);
+}
+function aotyCheck(v){
+  const ok=v===curAns;
+  if(ok)aotyScore++;
+  showFB(ok,ok?P(MSGS_OK):`Answer: ${curAns}.`);
+  aotyIdx++;setTimeout(()=>{clrFB();renderAOTY();},950);
+}
+function showAOTYScore(){
+  const s=aotyScore>=28?3:aotyScore>=22?2:1;
+  try{const prev=parseInt(localStorage.getItem('mwa_hs')||'0');if(aotyScore>prev)localStorage.setItem('mwa_hs',aotyScore);}catch(e){}
+  setBody(`
+    <div class="cert">
+      <h2>🏆 Certificate of Achievement</h2>
+      <div style="font-size:56px">🧙‍♂️</div>
+      <p style="font-size:20px;font-weight:800">You answered <b>${aotyScore}/30</b> correctly!</p>
+      <div class="cs">${'⭐'.repeat(s)}${'☆'.repeat(3-s)}</div>
+      <p style="font-size:17px;color:var(--text-m)">${aotyScore===30?'PERFECT! True Math Wizard! 🎉':aotyScore>=24?'Fantastic! Almost perfect!':aotyScore>=18?'Great job! Keep going!':'Keep practicing, wizard!'}</p>
+    </div>
+    <div class="arow"><button class="abtn b-or" onclick="go('aoty')">🔄 Play Again</button></div>
+  `);
+}
+
+/* ─────────────────────────────────────────
+   32. WISE WIZARDS (5 story problems)
+───────────────────────────────────────────*/
+const WIZ_QS=[
+  {q:'Wizard has <b>9 wands</b> 🪄. He gives <b>4</b> to his apprentice. How many left?',ans:5,h:'9−4=?'},
+  {q:'A dragon 🐉 has <b>4 legs</b>. How many legs on <b>5 dragons</b>?',ans:20,h:'4×5=?'},
+  {q:'Magic potion needs <b>3 drops</b>. Wizard has <b>18 drops</b>. How many potions? 🧪',ans:6,h:'18÷3=?'},
+  {q:'Wizard collects <b>7 gems</b> on Monday and <b>8 gems</b> on Tuesday. Total gems? 💎',ans:15,h:'7+8=15'},
+  {q:'A spell lasts <b>5 minutes</b>. How many minutes for <b>6 spells</b> in a row? ⏱️',ans:30,h:'5×6=30'},
+];
+RENDER.wisewiz=function(){
+  setTitle('🪄 Wise Wizards');
+  wizStep=0;wizScore=0;renderWiz();
+};
+function renderWiz(){
+  if(wizStep>=WIZ_QS.length){
+    setBody(`
+      <div class="wiz-banner"><div class="wi">🧙‍♂️</div><div style="font-size:20px;margin-top:6px">Quest Complete!</div></div>
+      <div class="score-screen">
+        <div class="sc-big">${wizScore}/${WIZ_QS.length}</div>
+        <div class="sc-stars">${'💎'.repeat(wizScore)}${'⬛'.repeat(WIZ_QS.length-wizScore)}</div>
+        <div class="sc-msg">${wizScore===5?'🏆 Wise Wizard Badge Earned! You are LEGENDARY!':wizScore>=3?'Great magic! Keep casting spells!':'The academy needs more practice!'}</div>
+      </div>
+      <div class="arow"><button class="abtn b-or" onclick="go('wisewiz')">🔄 Play Again</button></div>
+    `);return;
+  }
+  const q=WIZ_QS[wizStep];curAns=q.ans;
+  const dots=Array.from({length:WIZ_QS.length},(_,i)=>`<div class="wdot${i<wizScore?' dn':''}"></div>`).join('');
+  setBody(`
+    <div class="wiz-banner">
+      <div class="wi">🧙‍♂️</div>
+      <div style="font-size:17px;margin-top:6px">Spell ${wizStep+1} of ${WIZ_QS.length}</div>
+      <div class="wiz-dots">${dots}</div>
+    </div>
+    <div class="qtext" style="font-size:21px"></div>
+    ${numpad()}
+    <div class="arow"><button class="abtn b-bl" onclick="hint('${q.h}')">💡 Hint</button></div>
+  `);
+  $('exbody').querySelector('.qtext').innerHTML=q.q;
+}
+function wizCheck(v){
+  const ok=v===curAns;
+  if(ok){wizScore++;showFB(ok,'💎 You earned a magic gem!');}
+  else showFB(ok,`Answer: ${curAns}. Keep going!`);
+  wizStep++;setTimeout(()=>{clrFB();renderWiz();},1200);
+}
+
+/* ─────────────────────────────────────────
+   33. MIGHTY MATHEMATICIANS
+───────────────────────────────────────────*/
+const MATHS=[
+  {name:'Ada Lovelace',years:'1815–1852',port:'👩‍💻',
+   fact:'Ada wrote the world\'s first computer program — for a machine not yet built! She loved maths AND poetry.',
+   q:'Ada worked with Charles Babbage. "Babbage" has how many letters?',ans:7,h:'B-A-B-B-A-G-E = 7'},
+  {name:'Pythagoras',years:'~570–495 BC',port:'🧔',
+   fact:'Pythagoras discovered a²+b²=c² in right triangles. He started a secret maths society!',
+   q:'In a right triangle: 3²+4²=?',ans:25,h:'9+16=25'},
+  {name:'Katherine Johnson',years:'1918–2020',port:'👩‍🚀',
+   fact:'Katherine calculated rocket trajectories for NASA! Astronaut John Glenn only trusted her calculations.',
+   q:'If a rocket travels 8 km/s for 5 seconds, how far? (km)',ans:40,h:'8×5=40'},
+  {name:'Euclid',years:'~300 BC',port:'📐',
+   fact:'Euclid wrote "Elements" – the most famous maths book ever, with 13 chapters about geometry!',
+   q:'A triangle has 3 sides. A square has 4. How many sides total?',ans:7,h:'3+4=7'},
+];
+RENDER.mightymaths=function(){
+  setTitle('👩‍🔬 Mighty Mathematicians');
+  renderMath();
+};
+function renderMath(){
+  const m=MATHS[mathIdx%MATHS.length];curAns=m.ans;
+  setBody(`
+    <div class="mcard">
+      <div class="port">${m.port}</div>
+      <h3>${m.name}</h3>
+      <div class="yrs">${m.years}</div>
+      <div class="fact">📖 ${m.fact}</div>
+    </div>
+    <div class="qtext" style="font-size:20px">Mini Quiz: ${m.q}</div>
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-bl" onclick="hint('${m.h}')">💡 Hint</button>
+      <button class="abtn b-pu" onclick="mathIdx++;clrFB();renderMath()">👤 Next Mathematician</button>
+    </div>
+  `);
+}
+
+/* ─────────────────────────────────────────
+   34. JANUARY THAW
+───────────────────────────────────────────*/
+RENDER.january=function(){
+  setTitle('❄️ January Thaw');
+  const probs=[
+    ()=>{const rate=R(2,4),snow=P([6,8,10,12,15]);const h=snow/rate;curAns=h;return`Snow melts at <b>${rate} cm</b> per hour ❄️. There are <b>${snow} cm</b> of snow. How many hours to melt?`;},
+    ()=>{const temp=R(-5,-1),rise=R(3,8);curAns=temp+rise;return`Temperature is <b>${temp}°C</b> ❄️. It rises <b>${rise}°</b>. New temperature?`;},
+    ()=>{const days=R(3,7),melt=R(2,4);curAns=days*melt;return`Ice melts <b>${melt} cm</b> per day 🌡️. After <b>${days} days</b>, how many cm have melted?`;},
+  ];
+  const q=P(probs)();
+  setBody(`
+    <div class="emv">❄️ 🌡️ ❄️</div>
+    <div class="qtext" style="font-size:22px">${q}</div>
+    ${numpad(true)}
+    ${newBtn('january')}
+  `);
+};
+
+/* ─────────────────────────────────────────
+   35. PROBLEM POSTER PROJECT
+───────────────────────────────────────────*/
+const POSTER_TPLS=[
+  {label:'__ + __ = 10',check:(a,b)=>a+b===10,h:'Two numbers that add to 10'},
+  {label:'__ × __ = 12',check:(a,b)=>a*b===12,h:'Two numbers that multiply to 12'},
+  {label:'__ + __ = 20',check:(a,b)=>a+b===20,h:'Two numbers that add to 20'},
+  {label:'__ − __ = 5',check:(a,b)=>a-b===5,h:'a minus b = 5'},
+  {label:'__ × __ = 6',check:(a,b)=>a*b===6,h:'Two numbers that multiply to 6'},
+];
+let _pSlot='A',_pTpl=null;
+RENDER.poster=function(){
+  setTitle('🎨 Problem Poster Project');
+  const tpl=P(POSTER_TPLS);_pTpl=tpl;_pSlot='A';
+  setBody(`
+    <div class="qsub">Fill in the blanks to make a true equation!</div>
+    <div class="poster">
+      ${tpl.label.replace(/__/g,(_,off,str)=>{
+        const slot=off<str.indexOf('=')?'A':'B';
+        return`<span class="pslot" id="pslot${slot}" onclick="selectPSlot('${slot}')">?</span>`;
+      })}
+    </div>
+    <div id="psel" class="qsub" style="color:var(--blue-d)">👆 Tap a blank, then use the numpad!</div>
+    ${numpad()}
+    <div class="arow">
+      <button class="abtn b-gr" onclick="checkPoster()">✅ Check My Poster!</button>
+      <button class="abtn b-bl" onclick="hint('${tpl.h}')">💡 Hint</button>
+      <button class="abtn b-or" onclick="go('poster')">🔄 New Template</button>
+    </div>
+  `);
+};
+function selectPSlot(s){
+  _pSlot=s;ansStr='';
+  const d=$('ad');if(d)d.textContent='_';
+  const el=$('psel');if(el)el.textContent=`Filling blank ${s} — type your number!`;
+}
+function posterNPOK(v){
+  const slot=$(`pslot${_pSlot}`);
+  if(slot){slot.textContent=v;slot.style.color='var(--text)';}
+  const d=$('ad');if(d)d.textContent='_';ansStr='';
+}
+function checkPoster(){
+  const aEl=$('pslotA'),bEl=$('pslotB');
+  const a=parseInt(aEl?.textContent||'',10);
+  const b=parseInt(bEl?.textContent||'',10);
+  if(isNaN(a)||isNaN(b)){showFB(false,'Fill in both blanks first!');return;}
+  if(!_pTpl){return;}
+  const ok=_pTpl.check(a,b);
+  if(ok){showFB(true,'🎉 Your poster is correct! Great problem!');addStar(2);}
+  else showFB(false,'Not quite! Try different numbers. '+_pTpl.h);
+}
+
+/* ─────────────────────────────────────────
+   MUL9TEN (already defined above)
+   Need RENDER aliases that match btn IDs
+───────────────────────────────────────────*/
+// All topics mapped — double-check aliases
+RENDER.regroup=RENDER.regroup; // already set
+
+/* ═══════════════════════════════════════════
+   SUPER SPEED npRoute override
+═══════════════════════════════════════════ */
+// npRoute handles superspeed already via ssCheck
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+$('menu').classList.remove('hidden');
+$('expanel').style.display='none';
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🧙‍♂️ Math Wizards Academy</title>
+<style>
+/* ============================================================
+   GLOBAL RESET & VARIABLES
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#FFF8EC;
+  --card:#FFFFFF;
+  --orange:#FFB347;
+  --orange-d:#E8972A;
+  --blue:#6C91D9;
+  --blue-d:#4A70C0;
+  --green:#A8E6CF;
+  --green-d:#6BBF99;
+  --pink:#FFB3BA;
+  --purple:#C3A8E6;
+  --yellow:#FFE566;
+  --red:#FF6B6B;
+  --text:#3D2B1F;
+  --text-light:#7A5C47;
+  --shadow:0 6px 20px rgba(0,0,0,0.12);
+  --shadow-sm:0 3px 10px rgba(0,0,0,0.10);
+  --radius:20px;
+  --radius-sm:12px;
+}
+html,body{width:100%;min-height:100vh;overflow-x:hidden}
+body{
+  font-family:'Segoe UI Rounded','Comic Sans MS',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:18px;
+  line-height:1.4;
+}
+
+/* ============================================================
+UTILITY
+============================================================ */
+.hidden{display:none!important}
+.flex{display:flex}
+.flex-col{flex-direction:column}
+.items-center{align-items:center}
+.justify-center{justify-content:center}
+.gap-2{gap:8px}
+.gap-3{gap:12px}
+.gap-4{gap:16px}
+.text-center{text-align:center}
+.bold{font-weight:700}
+.w-full{width:100%}
+
+/* ============================================================
+HEADER
+============================================================ */
+#app-header{
+background:linear-gradient(135deg,#6C91D9,#A8E6CF);
+padding:14px 20px;
+display:flex;align-items:center;gap:12px;
+position:sticky;top:0;z-index:100;
+box-shadow:var(–shadow);
+}
+#app-header .mascot{font-size:38px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#app-header h1{font-size:24px;font-weight:900;color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,0.15);flex:1}
+#star-count{background:var(–yellow);color:var(–text);font-weight:900;font-size:20px;
+padding:6px 14px;border-radius:50px;box-shadow:var(–shadow-sm)}
+#back-btn{background:rgba(255,255,255,0.3);border:2px solid rgba(255,255,255,0.6);
+color:#fff;font-size:18px;font-weight:900;padding:8px 16px;border-radius:50px;
+cursor:pointer;display:none}
+#back-btn.visible{display:block}
+
+/* ============================================================
+MAIN MENU
+============================================================ */
+#main-menu{padding:20px 16px 40px}
+.menu-heading{font-size:20px;font-weight:900;color:var(–blue-d);
+margin:20px 0 10px;padding-left:4px;letter-spacing:.5px}
+.menu-heading::before{content:‘▸ ‘;color:var(–orange)}
+.topic-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+gap:14px;margin-bottom:10px;
+}
+.topic-btn{
+background:var(–card);border:none;border-radius:var(–radius);
+padding:18px 10px;cursor:pointer;
+box-shadow:var(–shadow-sm);
+display:flex;flex-direction:column;align-items:center;gap:8px;
+transition:transform .15s,box-shadow .15s;
+min-height:110px;border:3px solid transparent;
+position:relative;overflow:hidden;
+}
+.topic-btn:active{transform:scale(0.94)}
+.topic-btn::after{content:’’;position:absolute;inset:0;
+background:rgba(255,255,255,0);transition:background .15s}
+.topic-btn .icon{font-size:40px}
+.topic-btn .label{font-size:13px;font-weight:800;color:var(–text);text-align:center;line-height:1.2}
+.topic-btn.cat-numbers{border-color:var(–orange);background:linear-gradient(135deg,#fff 50%,#FFF4E3)}
+.topic-btn.cat-logic{border-color:var(–blue);background:linear-gradient(135deg,#fff 50%,#EDF2FF)}
+.topic-btn.cat-geometry{border-color:var(–green-d);background:linear-gradient(135deg,#fff 50%,#E8FAF4)}
+.topic-btn.cat-challenge{border-color:var(–purple);background:linear-gradient(135deg,#fff 50%,#F4EEFF)}
+
+/* ============================================================
+EXERCISE PANEL
+============================================================ */
+#exercise-panel{display:none;padding:16px;max-width:700px;margin:0 auto}
+#exercise-panel.visible{display:block}
+.ex-card{
+background:var(–card);border-radius:var(–radius);
+padding:24px 20px;box-shadow:var(–shadow);margin-bottom:16px;
+}
+.ex-title{font-size:22px;font-weight:900;color:var(–blue-d);text-align:center;margin-bottom:16px}
+.question-text{font-size:28px;font-weight:900;text-align:center;margin:10px 0 18px;line-height:1.3}
+.sub-text{font-size:18px;color:var(–text-light);text-align:center;margin-bottom:12px}
+.emoji-visual{font-size:36px;text-align:center;margin:10px 0;word-break:break-word;line-height:1.6}
+
+/* ============================================================
+NUMPAD
+============================================================ */
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+.numpad .nk{
+background:linear-gradient(135deg,var(–blue),var(–blue-d));
+color:#fff;border:none;border-radius:14px;
+font-size:26px;font-weight:900;font-family:inherit;
+padding:14px 0;cursor:pointer;
+box-shadow:0 4px 0 var(–blue-d);
+transition:transform .1s,box-shadow .1s;
+min-height:60px;
+}
+.numpad .nk:active{transform:translateY(3px);box-shadow:0 1px 0 var(–blue-d)}
+.nk.del{background:linear-gradient(135deg,var(–red),#cc4444);box-shadow:0 4px 0 #aa2222}
+.nk.ok{background:linear-gradient(135deg,var(–green-d),#4a9a74);box-shadow:0 4px 0 #2a7a54;font-size:20px}
+.nk.neg{background:linear-gradient(135deg,#9966cc,#6633aa);box-shadow:0 4px 0 #442288}
+.answer-display{
+background:#F5F0E8;border:3px solid var(–blue);border-radius:14px;
+font-size:36px;font-weight:900;text-align:center;
+padding:12px;min-height:64px;margin-bottom:10px;letter-spacing:4px;
+}
+
+/* ============================================================
+CHOICE BUTTONS (multiple choice)
+============================================================ */
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.choice-btn{
+background:linear-gradient(135deg,#F0EBFF,#E4D8FF);
+border:3px solid var(–purple);border-radius:16px;
+font-size:22px;font-weight:900;font-family:inherit;
+padding:16px 10px;cursor:pointer;
+transition:transform .12s;min-height:60px;
+}
+.choice-btn:active{transform:scale(0.94)}
+.choice-btn.correct{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-color:var(–green-d);color:#166534}
+.choice-btn.wrong{background:linear-gradient(135deg,#FEE2E2,#FECACA);border-color:var(–red);color:#991B1B}
+
+/* ============================================================
+FEEDBACK
+============================================================ */
+#feedback-bar{
+border-radius:var(–radius-sm);padding:14px 18px;
+font-size:22px;font-weight:900;text-align:center;
+margin:10px 0;display:none;animation:popIn .3s ease-out;
+}
+#feedback-bar.show{display:block}
+#feedback-bar.correct{background:#D1FAE5;color:#166534;border:2px solid var(–green-d)}
+#feedback-bar.wrong{background:#FEE2E2;color:#991B1B;border:2px solid var(–red)}
+@keyframes popIn{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
+.hint-box{
+background:#FFFBEB;border:2px dashed var(–orange);
+border-radius:var(–radius-sm);padding:12px;
+font-size:16px;color:#854D0E;margin-top:10px;display:none;
+}
+.hint-box.show{display:block}
+
+/* ============================================================
+ACTION BUTTONS
+============================================================ */
+.action-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.act-btn{
+flex:1;border:none;border-radius:50px;
+font-size:18px;font-weight:900;font-family:inherit;
+padding:15px 10px;cursor:pointer;
+transition:transform .12s;min-height:60px;
+}
+.act-btn:active{transform:scale(0.96)}
+.btn-orange{background:linear-gradient(135deg,var(–orange),var(–orange-d));color:#fff;box-shadow:0 4px 0 var(–orange-d)}
+.btn-blue{background:linear-gradient(135deg,var(–blue),var(–blue-d));color:#fff;box-shadow:0 4px 0 var(–blue-d)}
+.btn-green{background:linear-gradient(135deg,var(–green-d),#4a9a74);color:#fff;box-shadow:0 4px 0 #2a7a54}
+
+/* ============================================================
+STAR PARTICLES
+============================================================ */
+#star-layer{position:fixed;inset:0;pointer-events:none;z-index:9999}
+.sparkle{position:absolute;font-size:28px;animation:sparkleAnim 1.1s ease-out forwards}
+@keyframes sparkleAnim{
+0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:1}
+100%{transform:translate(var(–tx),var(–ty)) scale(1.4) rotate(360deg);opacity:0}
+}
+
+/* ============================================================
+TIMER BAR
+============================================================ */
+.timer-wrap{margin-bottom:12px;display:none}
+.timer-wrap.show{display:block}
+.timer-label{font-size:18px;font-weight:900;color:var(–blue-d);text-align:center;margin-bottom:6px}
+.timer-bg{background:#E5E7EB;border-radius:50px;height:20px;overflow:hidden}
+.timer-fill{height:100%;border-radius:50px;
+background:linear-gradient(90deg,#22C55E,#FACC15,#EF4444);
+transition:width .1s linear}
+
+/* ============================================================
+PROGRESS BAR
+============================================================ */
+.progress-wrap{margin-bottom:14px}
+.progress-bg{background:#E5E7EB;border-radius:50px;height:14px;overflow:hidden}
+.progress-fill{height:100%;border-radius:50px;
+background:linear-gradient(90deg,var(–purple),var(–blue));transition:width .4s}
+.progress-label{font-size:16px;font-weight:800;color:var(–text-light);
+text-align:right;margin-top:4px}
+
+/* ============================================================
+TEN FRAME
+============================================================ */
+.ten-frame{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
+max-width:300px;margin:12px auto;background:#F9FAFB;
+border:3px solid var(–blue);border-radius:12px;padding:8px}
+.tf-cell{
+width:48px;height:48px;border-radius:8px;
+display:flex;align-items:center;justify-content:center;
+font-size:28px;border:2px solid #D1D5DB;background:#fff;
+}
+.tf-cell.filled{background:#FEF9C3;border-color:var(–orange)}
+
+/* ============================================================
+NUMBER LINE
+============================================================ */
+.number-line-wrap{overflow-x:auto;padding:10px 0 30px;margin:10px 0}
+.number-line{display:flex;align-items:center}
+.nl-num{min-width:40px;text-align:center;font-size:16px;font-weight:800;position:relative;user-select:none}
+.nl-num.neg{color:var(–red)}
+.nl-num.zero{color:var(–blue-d);font-size:18px}
+.nl-num.marker::after{content:‘▲’;position:absolute;bottom:-22px;left:50%;
+transform:translateX(-50%);color:var(–orange);font-size:14px}
+.nl-tick{height:14px;width:2px;background:#9CA3AF;margin:0 auto 2px}
+.nl-line{flex:1;height:3px;background:#9CA3AF}
+
+/* ============================================================
+GRIDS (magic square, venn, cartesian)
+============================================================ */
+.ms-grid{display:grid;grid-template-columns:repeat(3,1fr);
+gap:8px;max-width:280px;margin:16px auto}
+.ms-cell{
+height:70px;border-radius:12px;border:3px solid var(–blue);
+display:flex;align-items:center;justify-content:center;
+font-size:28px;font-weight:900;background:#F0F4FF;
+cursor:pointer;transition:background .15s;
+}
+.ms-cell.empty{background:#FFF8EC;border-style:dashed;cursor:default}
+.ms-cell.correct{background:#D1FAE5;border-color:var(–green-d)}
+
+/* VENN */
+.venn-wrap{position:relative;height:220px;margin:10px auto;max-width:340px}
+.venn-circle{
+position:absolute;width:180px;height:180px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:16px;font-weight:900;opacity:.7;top:20px;
+}
+.vc-left{background:#FFB3BA;left:0}
+.vc-right{background:#A8E6CF;right:0}
+.venn-overlap{position:absolute;width:80px;height:180px;
+left:50%;top:20px;transform:translateX(-50%);
+background:#C3A8E6;opacity:.7;border-radius:50%;}
+.venn-labels{position:absolute;width:100%;top:90px;display:flex;justify-content:space-between;padding:0 10px}
+.venn-label{font-size:22px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.4)}
+.venn-center-num{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+font-size:24px;font-weight:900;color:#4C1D95}
+
+/* CARTESIAN */
+.cart-table{border-collapse:collapse;margin:12px auto}
+.cart-cell{width:48px;height:48px;border:1px solid #CBD5E1;
+text-align:center;font-size:20px;cursor:pointer;
+background:#F0F9FF;transition:background .15s;position:relative}
+.cart-cell:hover{background:#E0F2FE}
+.cart-cell.plotted{background:#FEF9C3}
+.cart-cell.correct{background:#D1FAE5}
+.cart-axis{width:28px;height:28px;font-size:13px;font-weight:800;
+color:#6B7280;text-align:center;vertical-align:middle}
+
+/* ============================================================
+FRACTION VISUAL
+============================================================ */
+.fraction-pie{display:inline-block;margin:8px}
+.frac-display{font-size:36px;font-weight:900;text-align:center;
+display:flex;align-items:center;justify-content:center;gap:6px}
+.frac-display .frac{display:inline-flex;flex-direction:column;align-items:center}
+.frac-display .frac hr{width:100%;border:2px solid var(–text);margin:2px 0}
+
+/* ============================================================
+COIN STYLES
+============================================================ */
+.coin{display:inline-flex;align-items:center;justify-content:center;
+border-radius:50%;font-size:12px;font-weight:900;
+margin:4px;border:3px solid;cursor:default;user-select:none;}
+.coin.penny{width:44px;height:44px;background:#CD7F32;border-color:#8B4513;color:#fff}
+.coin.nickel{width:44px;height:44px;background:#C0C0C0;border-color:#808080;color:#333}
+.coin.dime{width:38px;height:38px;background:#B8860B;border-color:#8B6914;color:#fff;font-size:10px}
+.coin.quarter{width:52px;height:52px;background:#C0C0C0;border-color:#708090;color:#333}
+
+/* ============================================================
+CLOCK
+============================================================ */
+.clock-svg{display:block;margin:10px auto}
+
+/* ============================================================
+SCORE SCREEN
+============================================================ */
+.score-screen{text-align:center;padding:20px}
+.score-big{font-size:72px;font-weight:900;color:var(–purple);font-family:inherit}
+.star-row-big{font-size:48px;letter-spacing:6px;margin:10px 0}
+.score-msg{font-size:22px;font-weight:800;color:var(–text-light);margin:10px 0}
+
+/* WIZARD BANNER */
+.wizard-banner{
+background:linear-gradient(135deg,#4C1D95,#7C3AED);
+color:#fff;border-radius:var(–radius);padding:18px;
+text-align:center;margin-bottom:14px;
+}
+.wizard-banner .wi{font-size:56px}
+.wiz-dots{display:flex;justify-content:center;gap:14px;margin-top:10px}
+.wdot{width:30px;height:30px;border-radius:50%;
+background:rgba(255,255,255,.3);border:3px solid rgba(255,255,255,.6)}
+.wdot.done{background:var(–yellow);border-color:var(–yellow)}
+
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:12px;
+height:180px;padding:10px;justify-content:center;
+border-bottom:3px solid var(–text);border-left:3px solid var(–text);
+margin:16px auto;max-width:400px;position:relative}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bar-bar{width:100%;border-radius:6px 6px 0 0;min-width:36px;
+display:flex;align-items:flex-end;justify-content:center;
+font-size:14px;font-weight:900;color:#fff;padding-bottom:4px}
+.bar-label{font-size:13px;font-weight:800;color:var(–text-light)}
+
+/* PATH GRID */
+.path-grid{display:grid;gap:4px;margin:14px auto;width:fit-content}
+.path-cell{
+width:52px;height:52px;border-radius:10px;
+display:flex;align-items:center;justify-content:center;
+font-size:22px;cursor:pointer;border:2px solid #D1D5DB;
+background:#fff;transition:background .15s;
+}
+.path-cell.start{background:#D1FAE5;border-color:var(–green-d)}
+.path-cell.end{background:#FEE2E2;border-color:var(–red)}
+.path-cell.blocked{background:#F3F4F6;cursor:not-allowed}
+.path-cell.selected{background:#FEF9C3;border-color:var(–orange)}
+.path-cell.correct-path{background:#A7F3D0;border-color:var(–green-d)}
+
+/* ARRAY VISUAL */
+.array-vis{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:14px 0}
+.array-group{display:flex;flex-wrap:wrap;gap:3px;
+background:#F3F0FF;border:2px dashed var(–purple);
+border-radius:10px;padding:6px;max-width:180px}
+
+/* MATHEMATICIAN CARD */
+.math-card{
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:#fff;border-radius:var(–radius);padding:20px;
+text-align:center;margin-bottom:14px;
+}
+.math-card .portrait{font-size:72px;margin:8px 0}
+.math-card h3{font-size:22px;font-weight:900;margin:8px 0 4px}
+.math-card .years{font-size:15px;opacity:.8;margin-bottom:12px}
+.math-card .fact{font-size:16px;background:rgba(255,255,255,.2);
+border-radius:12px;padding:10px;line-height:1.5}
+
+/* CERTIFICATE */
+.certificate{
+background:linear-gradient(135deg,#FFF8DC,#FFFACD);
+border:6px double var(–orange);border-radius:var(–radius);
+padding:30px;text-align:center;margin-top:16px;
+}
+.cert-title{font-size:28px;font-weight:900;color:var(–orange-d);margin-bottom:10px}
+.cert-name{font-size:22px;color:var(–blue-d);margin:8px 0}
+.cert-stars{font-size:48px;letter-spacing:4px;margin:10px 0}
+
+/* PROBLEM POSTER */
+.poster-template{
+background:#F0F4FF;border:3px solid var(–blue);
+border-radius:var(–radius-sm);padding:20px;text-align:center;
+font-size:36px;font-weight:900;margin:16px 0;
+display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+}
+.poster-slot{
+display:inline-block;width:60px;height:60px;
+border-bottom:4px solid var(–blue);text-align:center;
+font-size:36px;font-weight:900;color:var(–blue-d);
+cursor:pointer;
+}
+
+/* ALPHAMETRIC */
+.alpha-word{display:flex;gap:8px;justify-content:center;margin:8px 0;flex-wrap:wrap}
+.alpha-letter{
+width:52px;height:52px;border-radius:10px;
+border:3px solid var(–purple);background:#F4EEFF;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;font-weight:900;color:var(–blue-d);
+}
+
+/* ============================================================
+RESPONSIVE
+============================================================ */
+@media(max-width:400px){
+.topic-grid{grid-template-columns:repeat(2,1fr)}
+.topic-btn .icon{font-size:32px}
+.numpad .nk{font-size:22px;padding:12px 0;min-height:52px}
+.question-text{font-size:24px}
+.choices{grid-template-columns:1fr 1fr}
+.choice-btn{font-size:18px;padding:13px 8px}
+}
+@media(min-width:600px){
+.topic-grid{grid-template-columns:repeat(3,1fr)}
+.numpad{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ===================== STAR LAYER ===================== -->
+
+<div id="star-layer"></div>
+
+<!-- ===================== HEADER ===================== -->
+
+<header id="app-header">
+  <div class="mascot">🧙‍♂️</div>
+  <h1>Math Wizards!</h1>
+  <div id="star-count">⭐ 0</div>
+  <button id="back-btn" onclick="goHome()" aria-label="Back to menu">🏠 Menu</button>
+</header>
+
+<!-- ===================== MAIN MENU ===================== -->
+
+<div id="main-menu">
+  <div class="menu-heading">🔢 Numbers & Operations</div>
+  <div class="topic-grid">
+    <button class="topic-btn cat-numbers" onclick="startTopic('grouping')">
+      <span class="icon">🔢</span><span class="label">Grouping Tens</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('addition')">
+      <span class="icon">➕</span><span class="label">Addition 1×1 & 2×1</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('superspeed')">
+      <span class="icon">⚡</span><span class="label">Super Speed Add!</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('intadd')">
+      <span class="icon">🌡️</span><span class="label">Integer Addition</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('doublehalf')">
+      <span class="icon">✌️</span><span class="label">Double & Half</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('multiply')">
+      <span class="icon">✖️</span><span class="label">Multiplication</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('division')">
+      <span class="icon">➗</span><span class="label">Division</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('maketen')">
+      <span class="icon">🔟</span><span class="label">Making Tens</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('regroup_multi')">
+      <span class="icon">🧮</span><span class="label">Regroup Many</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('integers')">
+      <span class="icon">📏</span><span class="label">Integers</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('mult_patterns')">
+      <span class="icon">🔀</span><span class="label">Multiply Patterns</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('exponents')">
+      <span class="icon">🔺</span><span class="label">Exponents</span>
+    </button>
+    <button class="topic-btn cat-numbers" onclick="startTopic('fractions')">
+      <span class="icon">🍕</span><span class="label">Fractions</span>
+    </button>
+  </div>
+
+  <div class="menu-heading">🧠 Logic & Thinking</div>
+  <div class="topic-grid">
+    <button class="topic-btn cat-logic" onclick="startTopic('otherone')">
+      <span class="icon">🍎</span><span class="label">"Other One" Problems</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('allbut')">
+      <span class="icon">🍪</span><span class="label">"All But" Problems</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('cuts')">
+      <span class="icon">✂️</span><span class="label">Cuts & Pieces</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('date')">
+      <span class="icon">📅</span><span class="label">Date Problems</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('magic_sq')">
+      <span class="icon">🔮</span><span class="label">Magic Squares</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('venn')">
+      <span class="icon">⭕</span><span class="label">Venn Diagrams</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('pathways')">
+      <span class="icon">🗺️</span><span class="label">Pathways</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('alphametric')">
+      <span class="icon">🔤</span><span class="label">Alphametrics</span>
+    </button>
+    <button class="topic-btn cat-logic" onclick="startTopic('logic')">
+      <span class="icon">🤔</span><span class="label">Logic Problems</span>
+    </button>
+  </div>
+
+  <div class="menu-heading">📐 Geometry & Measurement</div>
+  <div class="topic-grid">
+    <button class="topic-btn cat-geometry" onclick="startTopic('shapes_count')">
+      <span class="icon">🔷</span><span class="label">Counting Shapes</span>
+    </button>
+    <button class="topic-btn cat-geometry" onclick="startTopic('polygons')">
+      <span class="icon">🔵</span><span class="label">Polygons</span>
+    </button>
+    <button class="topic-btn cat-geometry" onclick="startTopic('time')">
+      <span class="icon">🕐</span><span class="label">Time</span>
+    </button>
+    <button class="topic-btn cat-geometry" onclick="startTopic('money')">
+      <span class="icon">💰</span><span class="label">Money</span>
+    </button>
+    <button class="topic-btn cat-geometry" onclick="startTopic('cartesian')">
+      <span class="icon">📍</span><span class="label">Cartesian Grid</span>
+    </button>
+    <button class="topic-btn cat-geometry" onclick="startTopic('data')">
+      <span class="icon">📊</span><span class="label">Data Analysis</span>
+    </button>
+  </div>
+
+  <div class="menu-heading">🏆 Mixed Challenges</div>
+  <div class="topic-grid">
+    <button class="topic-btn cat-challenge" onclick="startTopic('spirit')">
+      <span class="icon">🌟</span><span class="label">Spirit of Math Contest</span>
+    </button>
+    <button class="topic-btn cat-challenge" onclick="startTopic('twenty5')">
+      <span class="icon">📝</span><span class="label">25 Equations!</span>
+    </button>
+    <button class="topic-btn cat-challenge" onclick="startTopic('wee_wizards')">
+      <span class="icon">🪄</span><span class="label">Wee Wizards</span>
+    </button>
+    <button class="topic-btn cat-challenge" onclick="startTopic('poster')">
+      <span class="icon">🎨</span><span class="label">Problem Poster</span>
+    </button>
+    <button class="topic-btn cat-challenge" onclick="startTopic('mathematicians')">
+      <span class="icon">👩‍🔬</span><span class="label">Mighty Mathematicians</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===================== EXERCISE PANEL ===================== -->
+
+<div id="exercise-panel">
+  <div id="timer-wrap" class="timer-wrap">
+    <div class="timer-label" id="timer-label">⏱️ 3 seconds!</div>
+    <div class="timer-bg"><div id="timer-fill" class="timer-fill" style="width:100%"></div></div>
+  </div>
+  <div class="ex-card">
+    <div class="ex-title" id="ex-title"></div>
+    <div id="ex-body"></div>
+  </div>
+  <div id="feedback-bar" class="feedback-bar"></div>
+  <div id="hint-box" class="hint-box"></div>
+</div>
+
+<script>
+/* ============================================================
+   GLOBAL STATE
+   ============================================================ */
+let totalStars = 0;
+let currentTopic = null;
+let currentAnswer = null;
+let answerStr = '';
+let timerInterval = null;
+let timerLeft = 0;
+
+// 25-equations state
+let eq25List=[], eq25Idx=0, eq25Score=0;
+// Wee Wizards state
+let wizStep=0, wizScore=0;
+// Spirit contest
+let spiritIdx=0, spiritScore=0;
+// Magic square
+let msAnswer=null, msMissing=null;
+// Poster
+let posterA=null, posterB=null, posterTarget=null;
+// Mathematician
+let mathIdx=0;
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=arr=>arr[rand(0,arr.length-1)];
+const $=id=>document.getElementById(id);
+const EMS=['⭐','🌟','🎉','✨','💫','🎊','🏆','🌈','🦄','🎈'];
+
+function addStars(n){
+  totalStars+=n;
+  $('star-count').textContent='⭐ '+totalStars;
+  shootStars();
+}
+function shootStars(){
+  const layer=$('star-layer');
+  for(let i=0;i<14;i++){
+    setTimeout(()=>{
+      const s=document.createElement('div');
+      s.className='sparkle';
+      s.textContent=pick(EMS);
+      const x=rand(10,window.innerWidth-60);
+      const y=rand(80,window.innerHeight-100);
+      const tx=rand(-200,200);
+      const ty=rand(-300,-60);
+      s.style.cssText=`left:${x}px;top:${y}px;--tx:${tx}px;--ty:${ty}px`;
+      layer.appendChild(s);
+      setTimeout(()=>s.remove(),1200);
+    },i*60);
+  }
+}
+
+function showFeedback(ok,msg,hint=''){
+  const fb=$('feedback-bar');
+  fb.textContent=(ok?'✅ ':'❌ ')+msg;
+  fb.className='feedback-bar show '+(ok?'correct':'wrong');
+  const hb=$('hint-box');
+  if(!ok&&hint){hb.textContent='💡 '+hint;hb.className='hint-box show';}
+  else hb.className='hint-box';
+  if(ok)addStars(1);
+}
+function clearFeedback(){
+  $('feedback-bar').className='feedback-bar';
+  $('hint-box').className='hint-box';
+}
+
+/* NUMPAD */
+function buildNumpad(negBtn=false){
+  const rows=[
+    [1,2,3,4,5],
+    [6,7,8,9,0]
+  ];
+  const negHTML=negBtn?`<button class="nk neg" onclick="npPress('-')" aria-label="negative">±</button>`:'';
+  return `
+  <div class="answer-display" id="ans-disp">_</div>
+  <div class="numpad">
+    ${rows.flat().map(n=>`<button class="nk" onclick="npPress('${n}')" aria-label="${n}">${n}</button>`).join('')}
+    ${negHTML}
+    <button class="nk del" onclick="npPress('del')" aria-label="delete">⌫</button>
+    <button class="nk ok" onclick="npSubmit()" aria-label="check answer">✔ OK</button>
+  </div>`;
+}
+function npPress(v){
+  if(v==='del'){answerStr=answerStr.slice(0,-1);}
+  else if(v==='-'){if(!answerStr)answerStr='-';}
+  else{if(answerStr.length<5)answerStr+=v;}
+  const d=$('ans-disp');
+  if(d)d.textContent=answerStr||'_';
+}
+function npSubmit(){
+  const val=parseInt(answerStr,10);
+  if(isNaN(val)){showFeedback(false,'Enter a number first!');return;}
+  checkNumericAnswer(val);
+}
+function checkNumericAnswer(val){
+  const ok=val===currentAnswer;
+  showFeedback(ok,
+    ok?pick(['Amazing!','Brilliant!','You rock!','Perfect! 🎊','Magical!']):`The answer is ${currentAnswer}. Try the next one!`,
+    ok?'':`The answer was ${currentAnswer}`);
+  answerStr='';
+  const d=$('ans-disp');if(d)d.textContent='_';
+}
+
+/* CHOICE BUTTONS */
+function makeChoices(opts,correct,onPick){
+  return `<div class="choices">${opts.map((o,i)=>`
+    <button class="choice-btn" onclick="choicePick(${i},${correct},this)">${o}</button>
+  `).join('')}</div>`;
+}
+function choicePick(idx,correct,btn){
+  const ok=idx===correct;
+  showFeedback(ok,ok?pick(['Great!','Correct!','You got it!','Awesome!']):'Not quite! Try again!');
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===correct)b.classList.add('correct');
+    else if(i===idx&&!ok)b.classList.add('wrong');
+  });
+}
+
+/* ============================================================
+   HOME / NAV
+   ============================================================ */
+function goHome(){
+  clearInterval(timerInterval);
+  currentTopic=null;
+  $('main-menu').classList.remove('hidden');
+  $('exercise-panel').classList.add('hidden');
+  $('exercise-panel').className='hidden';
+  $('back-btn').className='';
+  clearFeedback();
+}
+function startTopic(id){
+  currentTopic=id;
+  answerStr='';
+  $('main-menu').classList.add('hidden');
+  $('exercise-panel').className='visible';
+  $('back-btn').className='visible';
+  clearFeedback();
+  render(id);
+}
+function render(id){
+  clearInterval(timerInterval);
+  clearFeedback();
+  answerStr='';
+  $('timer-wrap').className='timer-wrap';
+  const map={
+    grouping:renderGrouping, addition:renderAddition,
+    superspeed:renderSuperSpeed, intadd:renderIntAdd,
+    doublehalf:renderDoubleHalf, multiply:renderMultiply,
+    division:renderDivision, maketen:renderMakeTen,
+    regroup_multi:renderRegroupMulti, integers:renderIntegers,
+    mult_patterns:renderMultPatterns, exponents:renderExponents,
+    fractions:renderFractions,
+    otherone:renderOtherOne, allbut:renderAllBut,
+    cuts:renderCuts, date:renderDate,
+    magic_sq:renderMagicSq, venn:renderVenn,
+    pathways:renderPathways, alphametric:renderAlphametric,
+    logic:renderLogic,
+    shapes_count:renderShapesCount, polygons:renderPolygons,
+    time:renderTime, money:renderMoney,
+    cartesian:renderCartesian, data:renderData,
+    spirit:renderSpirit, twenty5:renderTwenty5,
+    wee_wizards:renderWeeWizards, poster:renderPoster,
+    mathematicians:renderMathematicians,
+  };
+  if(map[id])map[id]();
+}
+
+function setTitle(t){$('ex-title').textContent=t}
+function setBody(h){$('ex-body').innerHTML=h}
+function newBtn(id){return`<div class="action-row"><button class="act-btn btn-orange" onclick="render('${id}')">🔄 New Problem</button></div>`}
+function checkBtn(){return`<div class="action-row"><button class="act-btn btn-green" onclick="npSubmit()">✅ Check Answer</button></div>`}
+
+/* ============================================================
+   1. GROUPING TENS (up to 100)
+   ============================================================ */
+function renderGrouping(){
+  setTitle('🔢 Grouping Tens');
+  const total=rand(11,99);
+  const tens=Math.floor(total/10);
+  const ones=total%10;
+  const emoji=pick(['⭐','🍎','🍭','🔵','🌸','🐾','🦋']);
+  currentAnswer=ones;
+  // Show groups
+  let groups='';
+  for(let t=0;t<tens;t++){
+    groups+=`<span style="background:#E9D5FF;border-radius:8px;padding:3px 5px;margin:3px;display:inline-block">${emoji.repeat(10)}</span>`;
+  }
+  if(ones>0)groups+=`<span style="background:#FEF9C3;border-radius:8px;padding:3px 5px;margin:3px;display:inline-block">${emoji.repeat(ones)}</span>`;
+  setBody(`
+    <div class="sub-text">Total: <b>${total}</b> objects</div>
+    <div class="emoji-visual" style="font-size:22px">${groups}</div>
+    <div class="question-text">${tens} ten${tens!==1?'s':''} and how many <b>ones</b>?</div>
+    <div style="font-size:14px;color:var(--text-light);text-align:center;margin-bottom:8px">
+      Purple = tens groups | Yellow = leftover ones
+    </div>
+    ${buildNumpad()}
+    ${newBtn('grouping')}
+  `);
+}
+
+/* ============================================================
+   2. ADDITION (1×1 and 2×1)
+   ============================================================ */
+function renderAddition(){
+  setTitle('➕ Addition');
+  const mode=pick(['1x1','2x1_no','2x1_reg']);
+  let a,b,hint;
+  if(mode==='1x1'){a=rand(1,9);b=rand(1,9-a);hint='Count all the emojis!';}
+  else if(mode==='2x1_no'){a=rand(10,89);b=rand(1,9-a%10);hint='Add the ones first, then the tens.';}
+  else{a=rand(11,89);b=rand(2,9);hint='The ones add up past 9 – carry the ten!';}
+  currentAnswer=a+b;
+  const emoji=pick(['⭐','🍎','🔵','🌸']);
+  const vis=a<=20?`<div class="emoji-visual">${emoji.repeat(a)} + ${emoji.repeat(b)}</div>`:'';
+  setBody(`
+    <div class="question-text">${a} + ${b} = ?</div>
+    ${vis}
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${hint}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('addition')">🔄 New</button>
+    </div>
+  `);
+}
+function showHint(msg){
+  $('hint-box').textContent='💡 '+msg;
+  $('hint-box').className='hint-box show';
+}
+
+/* ============================================================
+   3. SUPER SPEED ADDITION
+   ============================================================ */
+function renderSuperSpeed(){
+  setTitle('⚡ Super Speed Addition!');
+  $('timer-wrap').className='timer-wrap show';
+  clearFeedback();
+  // Countdown first
+  let cd=3;
+  setBody(`<div class="question-text" id="ss-countdown" style="font-size:80px;color:var(--orange)">3</div><div class="sub-text">Get ready!</div>`);
+  const cdInt=setInterval(()=>{
+    cd--;
+    const el=$('ss-countdown');
+    if(!el){clearInterval(cdInt);return;}
+    if(cd>0)el.textContent=cd;
+    else if(cd===0){el.textContent='GO! 🚀';el.style.color='var(--green-d)';}
+    else{
+      clearInterval(cdInt);
+      const a=rand(1,9),b=rand(1,9);
+      currentAnswer=a+b;
+      setBody(`
+        <div class="question-text" style="font-size:64px">${a} + ${b} = ?</div>
+        ${buildNumpad()}
+      `);
+      startSSTimer();
+    }
+  },700);
+}
+function startSSTimer(){
+  timerLeft=3000;
+  $('timer-fill').style.width='100%';
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    timerLeft-=100;
+    const pct=Math.max(0,timerLeft/3000*100);
+    const tf=$('timer-fill');if(tf)tf.style.width=pct+'%';
+    if(timerLeft<=0){
+      clearInterval(timerInterval);
+      showFeedback(false,`Too slow! Answer was ${currentAnswer}. 😅`);
+      setTimeout(()=>render('superspeed'),1500);
+    }
+  },100);
+}
+// Override npSubmit for superspeed
+const _origNpSubmit=window.npSubmit;
+window.npSubmit=function(){
+  if(currentTopic==='superspeed'){
+    clearInterval(timerInterval);
+    const val=parseInt(answerStr,10);
+    if(isNaN(val)){showFeedback(false,'Enter a number!');return;}
+    const ok=val===currentAnswer;
+    showFeedback(ok,ok?'🚀 Lightning fast! Correct!':'Oops! The answer was '+currentAnswer);
+    answerStr='';const d=$('ans-disp');if(d)d.textContent='_';
+    if(ok){addStars(2);}
+    setTimeout(()=>render('superspeed'),1500);
+  } else if(currentTopic==='twenty5'){eq25Check();
+  } else if(currentTopic==='wee_wizards'){wizCheck();
+  } else{checkNumericAnswer(parseInt(answerStr,10));}
+};
+
+/* ============================================================
+   4. INTEGER ADDITION (number line –10 to 10)
+   ============================================================ */
+function renderIntAdd(){
+  setTitle('🌡️ Integer Addition');
+  const a=rand(-5,5), b=rand(-5,5);
+  currentAnswer=a+b;
+  const nlNums=Array.from({length:21},(_,i)=>i-10);
+  const nlHTML=`<div class="number-line-wrap"><div class="number-line">
+    ${nlNums.map(n=>`<div class="nl-num${n<0?' neg':''}${n===0?' zero':''}${n===a?' marker':''}" title="${n}">
+      <div class="nl-tick"></div>${n}</div>${n<10?'<div class="nl-line"></div>':''}
+    `).join('')}
+  </div><div style="text-align:center;font-size:13px;color:var(--text-light);margin-top:24px">▲ = start (${a})</div></div>`;
+  setBody(`
+    <div class="question-text">${a} + (${b}) = ?</div>
+    <div class="sub-text">${b<0?`Move ${Math.abs(b)} steps ⬅️ left`:`Move ${b} steps ➡️ right`} on the number line</div>
+    ${nlHTML}
+    ${buildNumpad(true)}
+    ${newBtn('intadd')}
+  `);
+}
+
+/* ============================================================
+   5. DOUBLE & HALF
+   ============================================================ */
+function renderDoubleHalf(){
+  setTitle('✌️ Double & Half');
+  const mode=pick(['double','half']);
+  if(mode==='double'){
+    const n=rand(1,20);
+    currentAnswer=n*2;
+    const emoji=pick(['🍎','⭐','🔵','🐾']);
+    const vis=n<=10?`<div class="emoji-visual">${emoji.repeat(n)} | ${emoji.repeat(n)}</div>`:'';
+    setBody(`
+      <div class="sub-text">Double means 2 equal groups!</div>
+      ${vis}
+      <div class="question-text">Double of <b>${n}</b> = ?</div>
+      ${buildNumpad()}
+      ${newBtn('doublehalf')}
+    `);
+  } else {
+    const n=rand(1,10)*2;
+    currentAnswer=n/2;
+    const emoji=pick(['🍕','🎈','🍭']);
+    setBody(`
+      <div class="sub-text">Half means split into 2 equal groups!</div>
+      <div class="emoji-visual">${emoji.repeat(n)}</div>
+      <div class="question-text">Half of <b>${n}</b> = ?</div>
+      ${buildNumpad()}
+      ${newBtn('doublehalf')}
+    `);
+  }
+}
+
+/* ============================================================
+   6. MULTIPLICATION
+   ============================================================ */
+function renderMultiply(){
+  setTitle('✖️ Multiplication');
+  const factors=[2,3,4,5,10];
+  const a=pick(factors), b=rand(1,9);
+  currentAnswer=a*b;
+  const emoji=pick(['⭐','🔵','🌸','🍎']);
+  const groups=Array.from({length:b},(_,i)=>`<div class="array-group">${emoji.repeat(a)}</div>`).join('');
+  setBody(`
+    <div class="question-text">${a} × ${b} = ?</div>
+    <div class="sub-text">${b} group${b!==1?'s':''} of ${a}:</div>
+    <div class="array-vis">${groups}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('Count by ${a}s: ${Array.from({length:b},(_,i)=>(i+1)*a).join(', ')}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('multiply')">🔄 New</button>
+    </div>
+  `);
+}
+
+/* ============================================================
+   7. DIVISION
+   ============================================================ */
+function renderDivision(){
+  setTitle('➗ Division (Sharing Equally)');
+  const divisors=[2,3,4,5];
+  const d=pick(divisors);
+  const q=rand(1,5);
+  const total=d*q;
+  const emoji=pick(['🍭','🎈','⭐','🍎']);
+  currentAnswer=q;
+  const groups=Array.from({length:d},(_,i)=>`<div class="array-group">${emoji.repeat(q)}</div>`).join('');
+  setBody(`
+    <div class="question-text">${total} ÷ ${d} = ?</div>
+    <div class="sub-text">Share ${total} ${emoji} equally among ${d} groups:</div>
+    <div class="array-vis">${groups}</div>
+    ${buildNumpad()}
+    ${newBtn('division')}
+  `);
+}
+
+/* ============================================================
+   8. "OTHER ONE" PROBLEMS
+   ============================================================ */
+function renderOtherOne(){
+  setTitle('🍎 "Other One" Problems');
+  const problems=[
+    ()=>{const a=rand(2,8),more=rand(1,5);currentAnswer=a+more;return{q:`I have <b>${a}</b> apples 🍎. You have <b>${more} more</b> than me. How many do you have?`,h:`${a} + ${more} = ?`};},
+    ()=>{const cost=rand(2,5),toys=rand(2,5);currentAnswer=cost*toys;return{q:`One toy 🧸 costs <b>${cost}</b> coins. How many coins for <b>${toys}</b> toys?`,h:`${cost} × ${toys} = ?`};},
+    ()=>{const a=rand(3,9),less=rand(1,a-1);currentAnswer=a-less;return{q:`My friend has <b>${a}</b> stickers ⭐. I have <b>${less} fewer</b>. How many do I have?`,h:`${a} - ${less} = ?`};},
+    ()=>{const bags=rand(2,5),each=rand(2,6);currentAnswer=bags*each;return{q:`${bags} bags 🛍️ each have <b>${each}</b> sweets 🍬. How many sweets total?`,h:`${bags} × ${each} = ?`};},
+  ];
+  const p=pick(problems)();
+  setBody(`
+    <div class="question-text" style="font-size:22px" innerHTML="">${p.q}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${p.h}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('otherone')">🔄 New</button>
+    </div>
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=p.q;
+}
+
+/* ============================================================
+   9. "ALL BUT" PROBLEMS
+   ============================================================ */
+function renderAllBut(){
+  setTitle('🍪 "All But" Problems');
+  const total=rand(8,20);
+  const allbut=rand(2,total-2);
+  const ans=total-allbut;
+  currentAnswer=ans;
+  const scenarios=[
+    `All but <b>${allbut}</b> of the cookies 🍪 are chocolate. There are <b>${total}</b> cookies. How many are chocolate?`,
+    `All but <b>${allbut}</b> students 👩‍🎓 like math. There are <b>${total}</b> students. How many like math?`,
+    `All but <b>${allbut}</b> birds 🐦 flew away. There were <b>${total}</b> birds. How many flew away? Wait – how many are LEFT?`,
+  ];
+  const q=pick(scenarios);
+  setBody(`
+    <div class="question-text" style="font-size:22px"></div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${total} - ${allbut} = ?')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('allbut')">🔄 New</button>
+    </div>
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=q;
+}
+
+/* ============================================================
+   10. CUTS & PIECES
+   ============================================================ */
+function renderCuts(){
+  setTitle('✂️ Cuts & Pieces');
+  const problems=[
+    ()=>{const p=rand(2,7);const c=p-1;currentAnswer=c;return`Cut a ribbon into <b>${p} pieces</b>. How many <b>cuts</b> do you need? ✂️`;},
+    ()=>{const p=rand(3,6);const mins=rand(2,5);currentAnswer=(p-1)*mins;return`A log is cut into <b>${p} pieces</b>. Each cut takes <b>${mins} minutes</b>. Total time? ⏱️`;},
+    ()=>{const pages=rand(5,20);const perday=rand(2,4);currentAnswer=Math.ceil(pages/perday);return`A book has <b>${pages} pages</b>. You read <b>${perday} pages</b> a day. How many days to finish? 📚`;},
+  ];
+  const q=pick(problems)();
+  setBody(`
+    <div class="question-text" style="font-size:22px"></div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('Pieces = cuts + 1. So cuts = pieces - 1')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('cuts')">🔄 New</button>
+    </div>
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=q;
+}
+
+/* ============================================================
+   11. COUNTING SHAPES
+   ============================================================ */
+function renderShapesCount(){
+  setTitle('🔷 Counting Shapes');
+  const shapes=[
+    {sym:'🔺',name:'triangle'},
+    {sym:'🔵',name:'circle'},
+    {sym:'🟦',name:'square'},
+    {sym:'🔶',name:'diamond'},
+  ];
+  const target=pick(shapes);
+  const mix=Array.from({length:rand(6,14)},()=>pick(shapes));
+  const count=mix.filter(s=>s.sym===target.sym).length;
+  currentAnswer=count;
+  setBody(`
+    <div class="emoji-visual" style="font-size:36px;letter-spacing:4px">${mix.map(s=>s.sym).join(' ')}</div>
+    <div class="question-text">How many <b>${target.name}s</b> ${target.sym}?</div>
+    ${buildNumpad()}
+    ${newBtn('shapes_count')}
+  `);
+}
+
+/* ============================================================
+   12. DATE PROBLEMS
+   ============================================================ */
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function renderDate(){
+  setTitle('📅 Date Problems');
+  const probs=[
+    ()=>{const d=rand(0,6),add=rand(1,6);const ans=(d+add)%7;currentAnswer=ans;
+      return{q:`Today is <b>${DAYS[d]}</b>. What day is <b>${add} days later</b>?`,
+        opts:DAYS.slice(0,7),correct:ans,type:'choice',
+        h:`Count ${add} days forward from ${DAYS[d]}`};},
+    ()=>{const weeks=rand(1,4);currentAnswer=weeks*7;
+      return{q:`How many days are in <b>${weeks} week${weeks>1?'s':''}?</b>`,type:'num',h:`1 week = 7 days. ${weeks} × 7 = ?`};},
+    ()=>{const day=rand(1,25),add=rand(1,5);currentAnswer=day+add;
+      return{q:`Today is the <b>${day}th</b>. What date is <b>${add} days later</b>?`,type:'num',h:`${day} + ${add} = ?`};},
+    ()=>{currentAnswer=12;return{q:`How many months are in a <b>year</b>? 📆`,type:'num',h:'January through December'};},
+  ];
+  const p=pick(probs)();
+  if(p.type==='choice'){
+    const wrong=DAYS.filter((_,i)=>i!==p.correct).sort(()=>Math.random()-.5).slice(0,3);
+    const opts=[DAYS[p.correct],...wrong].sort(()=>Math.random()-.5);
+    const ci=opts.indexOf(DAYS[p.correct]);
+    setBody(`
+      <div class="question-text" style="font-size:22px"></div>
+      ${makeChoices(opts,ci,null)}
+      <div class="action-row"><button class="act-btn btn-orange" onclick="render('date')">🔄 New</button></div>
+    `);
+    $('ex-body').querySelector('.question-text').innerHTML=p.q;
+  } else {
+    setBody(`
+      <div class="question-text" style="font-size:22px"></div>
+      ${buildNumpad()}
+      <div class="action-row">
+        <button class="act-btn btn-blue" onclick="showHint('${p.h}')">💡 Hint</button>
+        <button class="act-btn btn-orange" onclick="render('date')">🔄 New</button>
+      </div>
+    `);
+    $('ex-body').querySelector('.question-text').innerHTML=p.q;
+  }
+}
+
+/* ============================================================
+   13. MAGIC SQUARES
+   ============================================================ */
+const MAGIC_SQUARES=[
+  {grid:[2,7,6,9,5,1,4,3,8],missing:4,pos:6,sum:15},
+  {grid:[6,1,8,7,5,3,2,9,4],missing:2,pos:6,sum:15},
+  {grid:[8,1,6,3,5,7,4,9,2],missing:4,pos:6,sum:15},
+  {grid:[4,9,2,3,5,7,8,1,6],missing:6,pos:8,sum:15},
+];
+function renderMagicSq(){
+  setTitle('🔮 Magic Square');
+  const ms=pick(MAGIC_SQUARES);
+  msMissing=ms.missing; msAnswer=ms.missing;
+  currentAnswer=ms.missing;
+  const cells=ms.grid.map((v,i)=>{
+    if(i===ms.pos) return`<div class="ms-cell empty" id="ms-missing">?</div>`;
+    return`<div class="ms-cell">${v}</div>`;
+  });
+  setBody(`
+    <div class="sub-text">Each row, column, and diagonal adds to <b>${ms.sum}</b>.</div>
+    <div class="sub-text">Find the missing number!</div>
+    <div class="ms-grid">${cells.join('')}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('Look at the row or column with the ?')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('magic_sq')">🔄 New</button>
+    </div>
+  `);
+}
+
+/* ============================================================
+   14. VENN DIAGRAMS
+   ============================================================ */
+function renderVenn(){
+  setTitle('⭕ Venn Diagrams');
+  const leftOnly=rand(2,8), both=rand(1,5), rightOnly=rand(2,8);
+  const total=leftOnly+both+rightOnly;
+  const probs=[
+    {q:`How many like <b>only cats</b>? 🐱`,ans:leftOnly},
+    {q:`How many like <b>both</b> cats and dogs? 🐱🐶`,ans:both},
+    {q:`How many like <b>only dogs</b>? 🐶`,ans:rightOnly},
+    {q:`How many children <b>in total</b>?`,ans:total},
+  ];
+  const p=pick(probs);
+  currentAnswer=p.ans;
+  setBody(`
+    <div class="venn-wrap">
+      <div class="vc-left venn-circle"></div>
+      <div class="venn-overlap"></div>
+      <div class="vc-right venn-circle"></div>
+      <div class="venn-labels">
+        <span class="venn-label">🐱<br>${leftOnly}</span>
+        <span class="venn-label">🐶<br>${rightOnly}</span>
+      </div>
+      <div class="venn-center-num">${both}</div>
+    </div>
+    <div style="display:flex;justify-content:space-around;font-size:14px;color:var(--text-light);margin-bottom:10px">
+      <span>🐱 Only cats: ${leftOnly}</span>
+      <span>Both: ${both}</span>
+      <span>🐶 Only dogs: ${rightOnly}</span>
+    </div>
+    <div class="question-text" style="font-size:22px"></div>
+    ${buildNumpad()}
+    ${newBtn('venn')}
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=p.q;
+}
+
+/* ============================================================
+   15. PATHWAYS
+   ============================================================ */
+function renderPathways(){
+  setTitle('🗺️ Pathways – Count the Routes');
+  const rows=3, cols=3;
+  // Pascal's triangle approach: dp[i][j] = routes from (0,0) to (i,j)
+  const dp=Array.from({length:rows},()=>Array(cols).fill(0));
+  for(let i=0;i<rows;i++) for(let j=0;j<cols;j++){
+    if(i===0||j===0)dp[i][j]=1;
+    else dp[i][j]=dp[i-1][j]+dp[i][j-1];
+  }
+  currentAnswer=dp[rows-1][cols-1];
+  // Build grid
+  let gridHTML='<table class="path-grid" style="display:block;border-collapse:separate;border-spacing:4px"><tbody>';
+  for(let i=0;i<rows;i++){
+    gridHTML+='<tr>';
+    for(let j=0;j<cols;j++){
+      const cls=i===0&&j===0?'path-cell start':i===rows-1&&j===cols-1?'path-cell end':'path-cell';
+      const lbl=i===0&&j===0?'🚀':i===rows-1&&j===cols-1?'🏁':'';
+      gridHTML+=`<td class="${cls}">${lbl}</td>`;
+    }
+    gridHTML+='</tr>';
+  }
+  gridHTML+='</tbody></table>';
+  setBody(`
+    <div class="sub-text">From 🚀 to 🏁, moving only ➡️ right or ⬇️ down.</div>
+    <div class="sub-text">How many different paths are there?</div>
+    ${gridHTML}
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('Try tracing each path with your finger!')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('pathways')">🔄 New</button>
+    </div>
+  `);
+}
+
+/* ============================================================
+   16. POLYGONS
+   ============================================================ */
+function renderPolygons(){
+  setTitle('🔵 Polygons');
+  const polys=[
+    {name:'Triangle',sides:3,emoji:'🔺'},
+    {name:'Quadrilateral (Square)',sides:4,emoji:'⬛'},
+    {name:'Pentagon',sides:5,emoji:'⭐'},
+    {name:'Hexagon',sides:6,emoji:'🔷'},
+    {name:'Heptagon',sides:7,emoji:'🌀'},
+    {name:'Octagon',sides:8,emoji:'🛑'},
+  ];
+  const mode=pick(['name2sides','sides2name','emoji2name']);
+  if(mode==='sides2name'){
+    const p=pick(polys);
+    const wrong=polys.filter(x=>x.name!==p.name).sort(()=>Math.random()-.5).slice(0,3);
+    const opts=[p,...wrong].sort(()=>Math.random()-.5);
+    const ci=opts.findIndex(x=>x.name===p.name);
+    setBody(`
+      <div class="question-text">Which polygon has <b>${p.sides} sides</b>?</div>
+      ${makeChoices(opts.map(o=>o.emoji+' '+o.name),ci,null)}
+      ${newBtn('polygons')}
+    `);
+  } else {
+    const p=pick(polys);
+    currentAnswer=p.sides;
+    setBody(`
+      <div class="question-text" style="font-size:80px">${p.emoji}</div>
+      <div class="sub-text">A <b>${p.name}</b></div>
+      <div class="question-text">How many sides?</div>
+      ${buildNumpad()}
+      ${newBtn('polygons')}
+    `);
+  }
+}
+
+/* ============================================================
+   17. ALPHAMETRICS
+   ============================================================ */
+function renderAlphametric(){
+  setTitle('🔤 Alphametrics');
+  const puzzles=[
+    {problem:'If A=1, B=2, C=3, what is A+B+C?',ans:6,h:'1+2+3=?'},
+    {problem:'If A=2, B=3, what is A×B?',ans:6,h:'2×3=?'},
+    {problem:'If CAT = 3+1+2, what is CAT?',ans:6,h:'C=3,A=1,T=2. Add them!'},
+    {problem:'If A=5, B=3, what is AB as a 2-digit number?',ans:53,h:'Tens=A=5, Ones=B=3, so 53'},
+    {problem:'If SUN=3 letters, MOON=4, how many letters in STAR?',ans:4,h:'Count: S-T-A-R'},
+  ];
+  const p=pick(puzzles);
+  currentAnswer=p.ans;
+  setBody(`
+    <div class="question-text" style="font-size:22px">${p.problem}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${p.h}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('alphametric')">🔄 New</button>
+    </div>
+  `);
+}
+
+/* ============================================================
+   18. TIME
+   ============================================================ */
+function renderTime(){
+  setTitle('🕐 Telling Time');
+  const hour=rand(1,12), half=pick([0,30]);
+  const nextHour=hour===12?1:hour+1;
+  const mode=pick(['read','in1hour']);
+  const hAngle=((hour%12)+(half/60))/12*360-90;
+  const mAngle=half/60*360-90;
+  const hx=100+45*Math.cos(hAngle*Math.PI/180);
+  const hy=100+45*Math.sin(hAngle*Math.PI/180);
+  const mx=100+70*Math.cos(mAngle*Math.PI/180);
+  const my=100+70*Math.sin(mAngle*Math.PI/180);
+  const timeStr=`${hour}:${half===0?'00':'30'}`;
+  const nextStr=`${nextHour}:${half===0?'00':'30'}`;
+
+  const clockSVG=`<svg class="clock-svg" width="200" height="200" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="#FFF8EC" stroke="#FFB347" stroke-width="6"/>
+    ${[12,3,6,9].map((n,i)=>{
+      const a=i*90-90;
+      return`<text x="${100+78*Math.cos(a*Math.PI/180)}" y="${100+78*Math.sin(a*Math.PI/180)+6}" text-anchor="middle" font-size="18" font-weight="bold" fill="#3D2B1F">${n}</text>`;
+    }).join('')}
+    <line x1="100" y1="100" x2="${hx}" y2="${hy}" stroke="#3D2B1F" stroke-width="7" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${mx}" y2="${my}" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="6" fill="#3D2B1F"/>
+  </svg>`;
+
+  if(mode==='read'){
+    const correctStr=timeStr;
+    const options=[timeStr,
+      `${hour}:${half===0?'30':'00'}`,
+      `${nextHour===12?1:nextHour+1}:${half===0?'00':'30'}`,
+      `${hour===1?12:hour-1}:${half===0?'00':'30'}`
+    ].sort(()=>Math.random()-.5);
+    const ci=options.indexOf(timeStr);
+    setBody(`
+      <div class="sub-text">What time does the clock show?</div>
+      ${clockSVG}
+      ${makeChoices(options,ci,null)}
+      ${newBtn('time')}
+    `);
+  } else {
+    const options=[nextStr,timeStr,`${nextHour===12?1:nextHour+1}:${half===0?'00':'30'}`,`${hour}:${half===0?'30':'00'}`].sort(()=>Math.random()-.5);
+    const ci=options.indexOf(nextStr);
+    setBody(`
+      <div class="sub-text">The clock shows <b>${timeStr}</b>. What time will it be in 1 hour?</div>
+      ${clockSVG}
+      ${makeChoices(options,ci,null)}
+      ${newBtn('time')}
+    `);
+  }
+}
+
+/* ============================================================
+   19. MONEY
+   ============================================================ */
+function renderMoney(){
+  setTitle('💰 Money & Coins');
+  const coins=[
+    {name:'penny',val:1,cls:'penny',label:'1¢'},
+    {name:'nickel',val:5,cls:'nickel',label:'5¢'},
+    {name:'dime',val:10,cls:'dime',label:'10¢'},
+    {name:'quarter',val:25,cls:'quarter',label:'25¢'},
+  ];
+  const mode=pick(['count','make']);
+  if(mode==='count'){
+    const picked=Array.from({length:rand(3,7)},()=>pick(coins));
+    const total=picked.reduce((s,c)=>s+c.val,0);
+    currentAnswer=total;
+    setBody(`
+      <div class="sub-text">Count the coins! Total = ? cents</div>
+      <div style="text-align:center;margin:14px 0">${picked.map(c=>`<span class="coin ${c.cls}">${c.label}</span>`).join('')}</div>
+      <div class="question-text">Total = ? ¢</div>
+      ${buildNumpad()}
+      ${newBtn('money')}
+    `);
+  } else {
+    const amounts=[10,15,20,25,30,35,50];
+    const target=pick(amounts);
+    currentAnswer=target;
+    // Show fewest coins
+    let rem=target,hint='';
+    [25,10,5,1].forEach(v=>{const cnt=Math.floor(rem/v);if(cnt>0){hint+=cnt+' '+coins.find(c=>c.val===v).name+(cnt>1?'s':'')+' ';rem-=cnt*v;}});
+    setBody(`
+      <div class="question-text">Make <b>${target}¢</b></div>
+      <div style="text-align:center;margin:14px 0">
+        <span class="coin penny">1¢</span>
+        <span class="coin nickel">5¢</span>
+        <span class="coin dime">10¢</span>
+        <span class="coin quarter">25¢</span>
+      </div>
+      <div class="sub-text">What is the total in cents? (Just type ${target})</div>
+      ${buildNumpad()}
+      <div class="action-row">
+        <button class="act-btn btn-blue" onclick="showHint('Fewest coins: ${hint.trim()}')">💡 Fewest Coins</button>
+        <button class="act-btn btn-orange" onclick="render('money')">🔄 New</button>
+      </div>
+    `);
+  }
+}
+
+/* ============================================================
+   20. LOGIC PROBLEMS
+   ============================================================ */
+function renderLogic(){
+  setTitle('🤔 Logic Problems');
+  const problems=[
+    {q:'Sarah is taller than Tom. Tom is taller than Ben. Who is <b>tallest</b>?',
+      opts:['Sarah','Tom','Ben','All same'],correct:0},
+    {q:'There are 5 cats. Each cat has 4 legs. How many legs total?',ans:20,type:'num',h:'5 × 4 = ?'},
+    {q:'I am thinking of a number. It is even, less than 10, and greater than 6. What is it?',ans:8,type:'num',h:'Even numbers: 2,4,6,8,10. Greater than 6 and less than 10?'},
+    {q:'A snail climbs 3m up and slides 1m down each day. Starting at 0, where is it after 3 days?',ans:6,type:'num',h:'Day 1: +3-1=2. Day 2: +3-1=4. Day 3: +3-1=6'},
+    {q:'Red is to stop as Green is to...?',opts:['Wait','Go','Slow','Turn'],correct:1},
+    {q:'Which number comes next? 2, 4, 6, 8, <b>?</b>',ans:10,type:'num',h:'Add 2 each time!'},
+  ];
+  const p=pick(problems);
+  if(p.type==='num'){
+    currentAnswer=p.ans;
+    setBody(`
+      <div class="question-text" style="font-size:22px"></div>
+      ${buildNumpad()}
+      <div class="action-row">
+        <button class="act-btn btn-blue" onclick="showHint('${p.h}')">💡 Hint</button>
+        <button class="act-btn btn-orange" onclick="render('logic')">🔄 New</button>
+      </div>
+    `);
+    $('ex-body').querySelector('.question-text').innerHTML=p.q;
+  } else {
+    const ci=p.correct;
+    setBody(`
+      <div class="question-text" style="font-size:22px"></div>
+      ${makeChoices(p.opts,ci,null)}
+      ${newBtn('logic')}
+    `);
+    $('ex-body').querySelector('.question-text').innerHTML=p.q;
+  }
+}
+
+/* ============================================================
+   21. SPIRIT OF MATH CONTEST
+   ============================================================ */
+const SPIRIT_QS=[
+  {q:'What is next? 2, 4, 8, 16, <b>?</b>',ans:32,h:'Each number doubles!'},
+  {q:'A frog jumps 3 forward, 1 back. After 4 jumps, where is it? (Start at 0)',ans:8,h:'Each round: +3-1=+2. 4 rounds: 2×4=?'},
+  {q:'How many squares in a 3×3 grid (count all sizes: 1×1, 2×2, 3×3)?',ans:14,h:'Nine 1×1, four 2×2, one 3×3 = 14'},
+  {q:'If you have 3 coins and each is worth 5¢, and 2 coins each worth 10¢, how many cents total?',ans:35,h:'3×5 + 2×10 = 15+20 = 35'},
+  {q:'A shape has 3 more sides than a triangle. What is it?',ans:6,h:'Triangle=3 sides. 3+3=6 → Hexagon (type 6)'},
+];
+function renderSpirit(){
+  setTitle('🌟 Spirit of Math Contest');
+  spiritIdx=0;spiritScore=0;
+  renderSpiritQ();
+}
+function renderSpiritQ(){
+  if(spiritIdx>=SPIRIT_QS.length){
+    setBody(`<div class="score-screen">
+      <div style="font-size:64px">🏆</div>
+      <div class="score-big">${spiritScore}/${SPIRIT_QS.length}</div>
+      <div class="star-row-big">${'⭐'.repeat(spiritScore)}${'☆'.repeat(SPIRIT_QS.length-spiritScore)}</div>
+      <div class="score-msg">${spiritScore===SPIRIT_QS.length?'Perfect! You are a Math Champion! 🎉':spiritScore>=3?'Awesome effort! Keep going!':'Keep practicing, wizard!'}</div>
+      <div class="action-row"><button class="act-btn btn-orange" onclick="render('spirit')">🔄 Play Again</button></div>
+    </div>`);return;
+  }
+  const q=SPIRIT_QS[spiritIdx];
+  currentAnswer=q.ans;
+  setBody(`
+    <div class="sub-text">Question ${spiritIdx+1} of ${SPIRIT_QS.length}</div>
+    <div class="question-text" style="font-size:22px"></div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${q.h}')">💡 Hint</button>
+    </div>
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=q.q;
+  // Override check for spirit
+  window._spiritCheck=true;
+}
+
+/* ============================================================
+   22. MAKING TENS (ten-frame)
+   ============================================================ */
+function renderMakeTen(){
+  setTitle('🔟 Making Tens Strategy');
+  const a=rand(6,9), b=rand(2,9);
+  const toTen=10-a;
+  const leftover=b-toTen;
+  currentAnswer=a+b;
+  // Ten frame: first 10 cells, a filled, then fill to 10 from b
+  let tf1='',tf2='';
+  for(let i=0;i<10;i++) tf1+=`<div class="tf-cell${i<a?' filled':''}">` +(i<a?'⭐':'')+'</div>';
+  for(let i=0;i<10;i++) tf2+=`<div class="tf-cell${i<leftover?' filled':''}">` +(i<leftover?'⭐':'')+'</div>';
+  setBody(`
+    <div class="question-text">${a} + ${b} = ?</div>
+    <div class="sub-text">Step 1: Fill to 10 → take ${toTen} from ${b}</div>
+    <div class="ten-frame">${tf1}</div>
+    <div class="sub-text">Step 2: Leftover = ${leftover}. So: 10 + ${leftover} = ?</div>
+    <div class="ten-frame">${tf2}</div>
+    ${buildNumpad()}
+    ${newBtn('maketen')}
+  `);
+}
+
+/* ============================================================
+   23. REGROUP MANY NUMBERS
+   ============================================================ */
+function renderRegroupMulti(){
+  setTitle('🧮 Adding Many Numbers');
+  const count=rand(4,6);
+  const nums=Array.from({length:count},()=>rand(1,9));
+  currentAnswer=nums.reduce((a,b)=>a+b,0);
+  // Find pairs that make 10
+  setBody(`
+    <div class="question-text" style="font-size:28px">${nums.join(' + ')} = ?</div>
+    <div class="sub-text">Tip: Look for pairs that add to 10! 🔟</div>
+    <div class="emoji-visual" style="font-size:22px">${nums.map(n=>`(${n})`).join(' + ')}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('Try adding from left to right: ${nums.reduce((acc,n,i)=>acc+(i===0?n+'':` + ${n} = ${nums.slice(0,i+1).reduce((a,b)=>a+b,0)}`),'')}'  )">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('regroup_multi')">🔄 New</button>
+    </div>
+  `);
+}
+
+/* ============================================================
+   24. INTEGERS (ordering & subtraction)
+   ============================================================ */
+function renderIntegers(){
+  setTitle('📏 Integer Practice');
+  const mode=pick(['subtract','order']);
+  if(mode==='subtract'){
+    const a=rand(1,8), b=rand(a+1,10);
+    currentAnswer=a-b;
+    const nlNums=Array.from({length:21},(_,i)=>i-10);
+    const nlHTML=`<div class="number-line-wrap"><div class="number-line">
+      ${nlNums.map(n=>`<div class="nl-num${n<0?' neg':''}${n===0?' zero':''}${n===a?' marker':''}">
+        <div class="nl-tick"></div>${n}</div>${n<10?'<div class="nl-line"></div>':''}
+      `).join('')}
+    </div><div style="text-align:center;font-size:12px;color:var(--text-light);margin-top:24px">▲ = ${a}</div></div>`;
+    setBody(`
+      <div class="question-text">${a} − ${b} = ?</div>
+      <div class="sub-text">Move ${b} steps ⬅️ left from ${a}</div>
+      ${nlHTML}
+      ${buildNumpad(true)}
+      ${newBtn('integers')}
+    `);
+  } else {
+    const nums=Array.from({length:5},()=>rand(-5,5));
+    const sorted=[...nums].sort((a,b)=>a-b);
+    currentAnswer=sorted[0];
+    setBody(`
+      <div class="question-text" style="font-size:26px">${nums.join(', ')}</div>
+      <div class="sub-text">What is the <b>smallest</b> number above?</div>
+      ${buildNumpad(true)}
+      ${newBtn('integers')}
+    `);
+  }
+}
+
+/* ============================================================
+   25. MULTIPLICATION PATTERNS
+   ============================================================ */
+function renderMultPatterns(){
+  setTitle('🔀 Patterns in Multiplication');
+  const tables=[2,5,10];
+  const t=pick(tables);
+  const len=rand(4,9);
+  const start=rand(1,len);
+  const seq=Array.from({length:len},(_,i)=>(i+1)*t);
+  const blankIdx=rand(0,len-1);
+  currentAnswer=seq[blankIdx];
+  const display=seq.map((n,i)=>i===blankIdx?'<b style="color:var(--orange)">?</b>':n).join(' , ');
+  setBody(`
+    <div class="sub-text">The <b>${t}× table</b>:</div>
+    <div class="question-text" style="font-size:26px">${display}</div>
+    <div class="sub-text">Pattern: ends in ${t===2?'0,2,4,6,8':t===5?'0 or 5':'0 always'}!</div>
+    ${buildNumpad()}
+    ${newBtn('mult_patterns')}
+  `);
+}
+
+/* ============================================================
+   26. EXPONENTS
+   ============================================================ */
+function renderExponents(){
+  setTitle('🔺 Exponents (Powers)');
+  const mode=pick(['square','cube']);
+  if(mode==='square'){
+    const n=rand(2,9);
+    currentAnswer=n*n;
+    // Draw grid
+    let grid='<div style="display:grid;grid-template-columns:repeat('+n+',36px);gap:3px;margin:10px auto;width:fit-content">';
+    for(let i=0;i<n*n;i++) grid+='<div style="width:36px;height:36px;background:#FFB347;border-radius:6px;"></div>';
+    grid+='</div>';
+    setBody(`
+      <div class="question-text">${n}² = ${n} × ${n} = ?</div>
+      <div class="sub-text">A ${n}×${n} square grid:</div>
+      ${grid}
+      ${buildNumpad()}
+      ${newBtn('exponents')}
+    `);
+  } else {
+    const n=pick([2,3]);
+    currentAnswer=n*n*n;
+    setBody(`
+      <div class="question-text">${n}³ = ${n} × ${n} × ${n} = ?</div>
+      <div class="sub-text">${n} cubed = ${n}×${n}×${n}</div>
+      <div class="emoji-visual" style="font-size:40px">${'🧊'.repeat(n*n*n>10?10:n*n*n)}</div>
+      ${buildNumpad()}
+      ${newBtn('exponents')}
+    `);
+  }
+}
+
+/* ============================================================
+   27. FRACTIONS
+   ============================================================ */
+function renderFractions(){
+  setTitle('🍕 Fractions');
+  const mode=pick(['label','add','compare']);
+  if(mode==='label'){
+    const denoms=[2,4,3,8];
+    const d=pick(denoms);
+    const n=rand(1,d-1);
+    currentAnswer=n; // numerator
+    const slices=Array.from({length:d},(_,i)=>`
+      <div style="width:${200/d}px;height:60px;background:${i<n?'#FFB347':'#E5E7EB'};
+        border:2px solid #fff;display:inline-block;"></div>`).join('');
+    setBody(`
+      <div class="sub-text">The shaded part shows a fraction.</div>
+      <div style="text-align:center;margin:14px 0;border:2px solid #ccc;border-radius:8px;overflow:hidden;display:inline-block">${slices}</div>
+      <div class="question-text">Fraction = <span style="font-size:28px">?/${d}</span></div>
+      <div class="sub-text">How many parts are shaded? (That's the top number)</div>
+      ${buildNumpad()}
+      ${newBtn('fractions')}
+    `);
+  } else if(mode==='add'){
+    const d=pick([4,3,8]);
+    const n1=rand(1,d-2), n2=rand(1,d-n1-1);
+    currentAnswer=n1+n2;
+    setBody(`
+      <div class="question-text">${n1}/${d} + ${n2}/${d} = ?/${d}</div>
+      <div class="sub-text">Same bottom number → just add the tops!</div>
+      <div class="emoji-visual">🍕 ${'🟠'.repeat(n1)} + 🍕 ${'🟠'.repeat(n2)}</div>
+      <div class="sub-text">Type the <b>top number</b> of the answer:</div>
+      ${buildNumpad()}
+      ${newBtn('fractions')}
+    `);
+  } else {
+    // Compare
+    const fracs=[[1,2],[1,3],[1,4],[3,4],[2,3]];
+    const [f1,f2]=[pick(fracs),pick(fracs)];
+    const v1=f1[0]/f1[1], v2=f2[0]/f2[1];
+    const correct=v1>v2?0:v1<v2?1:2;
+    const opts=[`${f1[0]}/${f1[1]} is bigger`,`${f2[0]}/${f2[1]} is bigger`,'They are equal!'];
+    setBody(`
+      <div class="question-text">Which is bigger?<br><b>${f1[0]}/${f1[1]}</b> or <b>${f2[0]}/${f2[1]}</b>?</div>
+      <div class="emoji-visual">🍕 ${'🟠'.repeat(Math.round(f1[0]/f1[1]*8))} vs 🍕 ${'🟠'.repeat(Math.round(f2[0]/f2[1]*8))}</div>
+      ${makeChoices(opts,correct,null)}
+      ${newBtn('fractions')}
+    `);
+  }
+}
+
+/* ============================================================
+   28. CARTESIAN COORDINATES
+   ============================================================ */
+function renderCartesian(){
+  setTitle('📍 Cartesian Grid');
+  const mode=pick(['plot','read','move']);
+  const size=5;
+  function buildGrid(markedX,markedY,clickable=false,targetX=-1,targetY=-1){
+    let html='<table class="cart-table"><tbody>';
+    for(let y=size;y>=0;y--){
+      html+='<tr>';
+      html+=`<td class="cart-axis">${y>0?y:''}</td>`;
+      for(let x=0;x<=size;x++){
+        if(y===0){html+=`<td class="cart-axis">${x}</td>`;continue;}
+        const isMarked=x===markedX&&y===markedY;
+        const isTarget=x===targetX&&y===targetY;
+        const cls='cart-cell'+(isMarked?' plotted':'')+(isTarget?' correct':'');
+        const clickAttr=clickable?`onclick="cartClick(${x},${y},${targetX},${targetY})"`:'' ;
+        html+=`<td class="${cls}" ${clickAttr}>${isMarked?'⭐':''}</td>`;
+      }
+      html+='</tr>';
+    }
+    html+='</tbody></table>';
+    return html;
+  }
+  if(mode==='read'){
+    const px=rand(1,5),py=rand(1,5);
+    const opts=[[px,py],[rand(1,5),rand(1,5)],[rand(1,5),rand(1,5)],[rand(1,5),rand(1,5)]].map(p=>`(${p[0]},${p[1]})`);
+    const deduped=[...new Set(opts)];while(deduped.length<4)deduped.push(`(${rand(1,5)},${rand(1,5)})`);
+    const correct=deduped.indexOf(`(${px},${py})`);
+    setBody(`
+      <div class="sub-text">What are the coordinates of ⭐?</div>
+      ${buildGrid(px,py)}
+      ${makeChoices(deduped,correct,null)}
+      ${newBtn('cartesian')}
+    `);
+  } else if(mode==='plot'){
+    const tx=rand(1,5),ty=rand(1,5);
+    setBody(`
+      <div class="sub-text">Tap to plot the point <b>(${tx}, ${ty})</b>!</div>
+      ${buildGrid(-1,-1,true,tx,ty)}
+      ${newBtn('cartesian')}
+    `);
+    currentAnswer=`${tx},${ty}`;
+  } else {
+    // Move
+    const sx=rand(1,3),sy=rand(1,3),dx=rand(1,2),dy=rand(1,2);
+    const ex=sx+dx,ey=sy+dy;
+    if(ex>5||ey>5){render('cartesian');return;}
+    const opts=[[ex,ey],[sx+dy,sy+dx],[ex-1,ey],[ex,ey-1]].map(p=>`(${p[0]},${p[1]})`);
+    const deduped=[...new Set(opts)];
+    const correct=deduped.indexOf(`(${ex},${ey})`);
+    setBody(`
+      <div class="sub-text">Start at <b>(${sx},${sy})</b>. Move <b>${dx} right</b> and <b>${dy} up</b>. Where do you end?</div>
+      ${buildGrid(sx,sy)}
+      ${makeChoices(deduped,correct,null)}
+      ${newBtn('cartesian')}
+    `);
+  }
+}
+function cartClick(x,y,tx,ty){
+  const ok=x===tx&&y===ty;
+  showFeedback(ok,ok?`🎉 Yes! (${x},${y}) is correct!`:`That's (${x},${y}). Try (${tx},${ty})!`);
+  if(ok)document.querySelectorAll('.cart-cell').forEach(c=>c.onclick=null);
+}
+
+/* ============================================================
+   29. DATA ANALYSIS
+   ============================================================ */
+function renderData(){
+  setTitle('📊 Data Analysis');
+  const fruits=[
+    {name:'🍎 Apples',val:rand(2,8)},
+    {name:'🍌 Bananas',val:rand(2,8)},
+    {name:'🍓 Strawberries',val:rand(2,8)},
+    {name:'🍇 Grapes',val:rand(2,8)},
+  ];
+  const maxVal=Math.max(...fruits.map(f=>f.val));
+  const favIdx=fruits.findIndex(f=>f.val===maxVal);
+  const colors=['#FFB347','#FACC15','#F87171','#A78BFA'];
+
+  const bars=fruits.map((f,i)=>`
+    <div class="bar-col">
+      <div class="bar-bar" style="height:${f.val/maxVal*140}px;background:${colors[i]}">${f.val}</div>
+      <div class="bar-label">${f.name}</div>
+    </div>
+  `).join('');
+
+  const probs=[
+    {q:`How many children like <b>${fruits[0].name}</b>?`,ans:fruits[0].val},
+    {q:`Which fruit is <b>most popular</b>? (type its number of votes)`,ans:maxVal},
+    {q:`How many children were asked <b>in total</b>?`,ans:fruits.reduce((a,f)=>a+f.val,0)},
+  ];
+  const p=pick(probs);
+  currentAnswer=p.ans;
+
+  setBody(`
+    <div class="sub-text">Favourite fruits survey:</div>
+    <div class="bar-chart">${bars}</div>
+    <div class="question-text" style="font-size:20px"></div>
+    ${buildNumpad()}
+    ${newBtn('data')}
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=p.q;
+}
+
+/* ============================================================
+   30. 25 EQUATIONS
+   ============================================================ */
+function renderTwenty5(){
+  setTitle('📝 25 Equations Challenge!');
+  eq25Idx=0; eq25Score=0;
+  eq25List=generate25Eqs();
+  renderEq25Current();
+}
+function generate25Eqs(){
+  const list=[];
+  const types=['add','sub','mul2','mul5','mul10','div','int_add','frac_add'];
+  for(let i=0;i<25;i++){
+    const t=types[i%types.length];
+    list.push(genEq(t));
+  }
+  return list.sort(()=>Math.random()-.5);
+}
+function genEq(type){
+  if(type==='add'){const a=rand(1,20),b=rand(1,20);return{q:`${a} + ${b}`,ans:a+b};}
+  if(type==='sub'){const a=rand(5,25),b=rand(1,a);return{q:`${a} − ${b}`,ans:a-b};}
+  if(type==='mul2'){const n=rand(1,9);return{q:`2 × ${n}`,ans:2*n};}
+  if(type==='mul5'){const n=rand(1,9);return{q:`5 × ${n}`,ans:5*n};}
+  if(type==='mul10'){const n=rand(1,9);return{q:`10 × ${n}`,ans:10*n};}
+  if(type==='div'){const d=[2,3,4,5];const dv=pick(d),q=rand(1,5);return{q:`${dv*q} ÷ ${dv}`,ans:q};}
+  if(type==='int_add'){const a=rand(-5,5),b=rand(-5,5);return{q:`${a} + (${b})`,ans:a+b};}
+  if(type==='frac_add'){const d=pick([4,3,8]);const n1=rand(1,d-2),n2=rand(1,d-n1-1);return{q:`${n1}/${d} + ${n2}/${d} = ?/${d} (type top)`,ans:n1+n2};}
+  return{q:`5 + 5`,ans:10};
+}
+function renderEq25Current(){
+  clearFeedback();
+  answerStr='';
+  if(eq25Idx>=25){showEq25Score();return;}
+  const eq=eq25List[eq25Idx];
+  currentAnswer=eq.ans;
+  const pct=(eq25Idx/25)*100;
+  setBody(`
+    <div class="progress-wrap">
+      <div class="progress-bg"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${eq25Idx}/25</div>
+    </div>
+    <div class="question-text" style="font-size:44px">${eq.q} = ?</div>
+    ${buildNumpad(true)}
+  `);
+}
+function eq25Check(){
+  const val=parseInt(answerStr,10);
+  if(isNaN(val)){showFeedback(false,'Enter a number!');return;}
+  const ok=val===currentAnswer;
+  if(ok)eq25Score++;
+  showFeedback(ok,ok?pick(['Correct! ✅','Amazing!','Brilliant!']):`The answer is ${currentAnswer}.`);
+  answerStr='';const d=$('ans-disp');if(d)d.textContent='_';
+  eq25Idx++;
+  setTimeout(()=>renderEq25Current(),1000);
+}
+function showEq25Score(){
+  const stars=eq25Score>=23?3:eq25Score>=18?2:1;
+  try{const prev=parseInt(localStorage.getItem('mw_hs')||'0');if(eq25Score>prev)localStorage.setItem('mw_hs',eq25Score);}catch(e){}
+  setBody(`
+    <div class="certificate">
+      <div class="cert-title">🏆 Certificate of Achievement</div>
+      <div style="font-size:48px">🧙‍♂️</div>
+      <div class="cert-name">You answered <b>${eq25Score}/25</b> correctly!</div>
+      <div class="cert-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+      <div class="score-msg">${eq25Score===25?'PERFECT! You\'re a true Math Wizard! 🎉':eq25Score>=20?'Fantastic work! Almost perfect!':eq25Score>=15?'Good job! Keep practicing!':'Keep trying, young wizard!'}</div>
+    </div>
+    <div class="action-row"><button class="act-btn btn-orange" onclick="render('twenty5')">🔄 Play Again</button></div>
+  `);
+}
+
+/* ============================================================
+   31. WEE WIZARDS
+   ============================================================ */
+const WEE_WIZ=[
+  {q:'Wizard has <b>7 wands</b> 🪄. He gives <b>2</b> to his friend. How many left?',ans:5,h:'7 - 2 = ?'},
+  {q:'A dragon has <b>4 legs</b>. How many legs on <b>3 dragons</b>? 🐉',ans:12,h:'4 × 3 = ?'},
+  {q:'A potion needs <b>3 drops</b>. Wizard has <b>15 drops</b>. How many potions can he make? 🧪',ans:5,h:'15 ÷ 3 = ?'},
+  {q:'Magic hat 🎩 has <b>6 rabbits</b>. Wizard pulls out <b>4</b>. How many left?',ans:2,h:'6 - 4 = ?'},
+  {q:'Spell costs <b>5 stars ⭐</b>. Wizard has <b>20 stars</b>. How many spells can he cast?',ans:4,h:'20 ÷ 5 = ?'},
+];
+function renderWeeWizards(){
+  setTitle('🪄 Wee Wizards');
+  wizStep=0;wizScore=0;
+  renderWizQ();
+}
+function renderWizQ(){
+  if(wizStep>=WEE_WIZ.length){
+    setBody(`
+      <div class="wizard-banner">
+        <div class="wi">🧙‍♂️</div>
+        <div style="font-family:inherit;font-size:22px;margin-top:8px">Quest Complete!</div>
+      </div>
+      <div class="score-screen">
+        <div class="score-big">${wizScore}/${WEE_WIZ.length}</div>
+        <div class="star-row-big">${'🎩'.repeat(wizScore)}${'⬛'.repeat(WEE_WIZ.length-wizScore)}</div>
+        <div class="score-msg">${wizScore===5?'All 5 wizard hats! You are the Grand Wizard! 🏆':wizScore>=3?'Great magic skills! Keep casting!':'The academy needs more practice!'}</div>
+      </div>
+      <div class="action-row"><button class="act-btn btn-orange" onclick="render('wee_wizards')">🔄 Play Again</button></div>
+    `);return;
+  }
+  const q=WEE_WIZ[wizStep];
+  currentAnswer=q.ans;
+  const dots=Array.from({length:WEE_WIZ.length},(_,i)=>`<div class="wdot${i<wizScore?' done':''}"></div>`).join('');
+  setBody(`
+    <div class="wizard-banner">
+      <div class="wi">🧙‍♂️</div>
+      <div style="font-size:18px;margin-top:8px">Spell ${wizStep+1} of ${WEE_WIZ.length}</div>
+      <div class="wiz-dots">${dots}</div>
+    </div>
+    <div class="question-text" style="font-size:22px"></div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${q.h}')">💡 Hint</button>
+    </div>
+  `);
+  $('ex-body').querySelector('.question-text').innerHTML=q.q;
+}
+function wizCheck(){
+  const val=parseInt(answerStr,10);
+  if(isNaN(val)){showFeedback(false,'Enter a number!');return;}
+  const ok=val===currentAnswer;
+  if(ok){wizScore++;showFeedback(ok,'🎩 You earned a wizard hat!');}
+  else showFeedback(ok,`The answer was ${currentAnswer}. Keep going!`);
+  answerStr='';const d=$('ans-disp');if(d)d.textContent='_';
+  wizStep++;
+  setTimeout(()=>{clearFeedback();renderWizQ();},1300);
+}
+
+/* ============================================================
+   32. PROBLEM POSTER
+   ============================================================ */
+const TEMPLATES=[
+  {label:'__ + __ = 10',check:(a,b)=>a+b===10,hint:'Find two numbers that add to 10'},
+  {label:'__ × 2 = __',check:(a,b)=>a*2===b,hint:'The second number is double the first'},
+  {label:'__ + __ = 20',check:(a,b)=>a+b===20,hint:'Find two numbers that add to 20'},
+  {label:'10 − __ = __',check:(a,b)=>10-a===b,hint:'The second number is 10 minus the first'},
+];
+function renderPoster(){
+  setTitle('🎨 Problem Poster');
+  const tmpl=pick(TEMPLATES);
+  posterA=null; posterB=null;
+  setBody(`
+    <div class="sub-text">Fill in the blanks to make this true!</div>
+    <div class="poster-template">
+      ${tmpl.label.replace(/__/g,(_,offset)=>{
+        const slot=offset<tmpl.label.indexOf('=')?'A':'B';
+        return`<span class="poster-slot" id="slot${slot}" onclick="selectSlot('${slot}')">?</span>`;
+      })}
+    </div>
+    <div id="poster-selected" class="sub-text" style="color:var(--blue-d)">Tap a blank, then type a number below.</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-green" onclick="checkPoster(${JSON.stringify(tmpl)})">✅ Check!</button>
+      <button class="act-btn btn-blue" onclick="showHint('${tmpl.hint}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="render('poster')">🔄 New Template</button>
+    </div>
+  `);
+  window._posterTmpl=tmpl;
+  window._posterSlot='A';
+}
+let _posterTmpl=null, _posterSlot='A';
+function selectSlot(s){
+  _posterSlot=s;
+  answerStr='';
+  const d=$('ans-disp');if(d)d.textContent='_';
+  $('poster-selected').textContent=`Filling blank ${s} — type your number!`;
+}
+function checkPoster(tmpl){
+  const aEl=$('slotA'), bEl=$('slotB');
+  const a=parseInt(aEl?aEl.textContent:'0'),b=parseInt(bEl?bEl.textContent:'0');
+  if(isNaN(a)||isNaN(b)){showFeedback(false,'Fill in both blanks first!');return;}
+  const ok=tmpl.check(a,b);
+  showFeedback(ok,ok?'🎉 Perfect equation! You made a great problem!':tmpl.hint);
+}
+// Override npPress for poster
+const _origNpPress=window.npPress;
+window.npPress=function(v){
+  if(currentTopic==='poster'){
+    if(v==='del'){answerStr=answerStr.slice(0,-1);}
+    else if(v!=='del'&&v!=='-'&&answerStr.length<3){answerStr+=v;}
+    const slot=$(`slot${_posterSlot||'A'}`);
+    if(slot)slot.textContent=answerStr||'?';
+    const d=$('ans-disp');if(d)d.textContent=answerStr||'_';
+  } else {
+    if(v==='del'){answerStr=answerStr.slice(0,-1);}
+    else if(v==='-'){if(!answerStr)answerStr='-';}
+    else{if(answerStr.length<5)answerStr+=v;}
+    const d=$('ans-disp');if(d)d.textContent=answerStr||'_';
+  }
+};
+
+/* ============================================================
+   33. MIGHTY MATHEMATICIANS
+   ============================================================ */
+const MATHEMATICIANS=[
+  {name:'Ada Lovelace',years:'1815–1852',portrait:'👩‍💻',
+   fact:'Ada wrote the world\'s first computer program — for a machine that wasn\'t even built yet! She loved mathematics and poetry.',
+   q:'Ada worked on "The Analytical Engine." How many digits does the word ENGINE have?',ans:6,h:'E-N-G-I-N-E = 6 letters'},
+  {name:'Pythagoras',years:'~570–495 BC',portrait:'🧔',
+   fact:'Pythagoras discovered that in a right triangle, a²+b²=c². He started a school where everyone loved numbers!',
+   q:'In a right triangle with sides 3 and 4, the longest side is 5. What is 3² + 4² ?',ans:25,h:'9 + 16 = ?'},
+  {name:'Emmy Noether',years:'1882–1935',portrait:'👩‍🔬',
+   fact:'Emmy was one of the greatest mathematicians ever! She invented ideas that Albert Einstein used in his physics.',
+   q:'Emmy\'s famous theorem had 2 parts. If each part has 3 equations, how many equations total?',ans:6,h:'2 × 3 = ?'},
+  {name:'Alan Turing',years:'1912–1954',portrait:'🧑‍💻',
+   fact:'Alan invented the first ideas for computers and helped win World War 2 by cracking secret codes!',
+   q:'If a code uses 4 symbols repeated 2 times, how many symbols total?',ans:8,h:'4 × 2 = ?'},
+  {name:'Archimedes',years:'~287–212 BC',portrait:'🧓',
+   fact:'Archimedes figured out the value of π (pi) and jumped out of his bath shouting "Eureka!" (I found it!)',
+   q:'If a circle\'s diameter is 6, its circumference is about 6 × 3 = ? (use 3 for π)',ans:18,h:'6 × 3 = 18'},
+];
+function renderMathematicians(){
+  setTitle('👩‍🔬 Mighty Mathematicians');
+  const m=MATHEMATICIANS[mathIdx%MATHEMATICIANS.length];
+  currentAnswer=m.ans;
+  setBody(`
+    <div class="math-card">
+      <div class="portrait">${m.portrait}</div>
+      <h3>${m.name}</h3>
+      <div class="years">${m.years}</div>
+      <div class="fact">📖 ${m.fact}</div>
+    </div>
+    <div class="question-text" style="font-size:20px">Mini Quiz: ${m.q}</div>
+    ${buildNumpad()}
+    <div class="action-row">
+      <button class="act-btn btn-blue" onclick="showHint('${m.h}')">💡 Hint</button>
+      <button class="act-btn btn-orange" onclick="nextMathematician()">👤 Meet Another!</button>
+    </div>
+  `);
+}
+function nextMathematician(){
+  mathIdx++;
+  render('mathematicians');
+}
+
+/* ============================================================
+   MASTER npSubmit override for topic routing
+   ============================================================ */
+window.npSubmit=function(){
+  const val=parseInt(answerStr,10);
+  if(isNaN(val)){showFeedback(false,'Enter a number first!');return;}
+  answerStr='';
+  const d=$('ans-disp');if(d)d.textContent='_';
+  if(currentTopic==='superspeed'){
+    clearInterval(timerInterval);
+    const ok=val===currentAnswer;
+    showFeedback(ok,ok?'🚀 Lightning fast! Correct!':'Oops! The answer was '+currentAnswer);
+    if(ok)addStars(2);
+    setTimeout(()=>render('superspeed'),1500);
+  } else if(currentTopic==='twenty5'){
+    const ok=val===currentAnswer;
+    if(ok)eq25Score++;
+    showFeedback(ok,ok?pick(['Correct! ✅','Amazing!','Brilliant!']):`The answer is ${currentAnswer}.`);
+    eq25Idx++;
+    setTimeout(()=>renderEq25Current(),1000);
+  } else if(currentTopic==='wee_wizards'){
+    const ok=val===currentAnswer;
+    if(ok){wizScore++;showFeedback(ok,'🎩 You earned a wizard hat!');}
+    else showFeedback(ok,`The answer was ${currentAnswer}. Keep going!`);
+    wizStep++;
+    setTimeout(()=>{clearFeedback();renderWizQ();},1300);
+  } else if(currentTopic==='spirit'){
+    const ok=val===currentAnswer;
+    if(ok){spiritScore++;showFeedback(ok,'⭐ Brilliant! Spirit point earned!');}
+    else showFeedback(ok,`The answer was ${currentAnswer}.`);
+    spiritIdx++;
+    setTimeout(()=>renderSpiritQ(),1400);
+  } else if(currentTopic==='magic_sq'){
+    const ok=val===currentAnswer;
+    showFeedback(ok,ok?'🔮 Magic! The square is complete!':'Not quite. Check the row/column sums.');
+    if(ok){const el=$('ms-missing');if(el){el.textContent=val;el.classList.add('correct');}}
+  } else {
+    checkNumericAnswer(val);
+  }
+};
+
+/* ============================================================
+   INIT
+   ============================================================ */
+$('main-menu').classList.remove('hidden');
+$('exercise-panel').classList.add('hidden');
+</script>
+
+</body>
+</html>
