@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🧙 Math Wizards!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap');
+
+  :root {
+    --pink:    #FF6B9D;
+    --purple:  #A855F7;
+    --blue:    #3B82F6;
+    --teal:    #14B8A6;
+    --green:   #22C55E;
+    --yellow:  #FACC15;
+    --orange:  #F97316;
+    --red:     #EF4444;
+    --bg:      #FFF8F0;
+    --card:    #FFFFFF;
+    --text:    #2D1B69;
+    --shadow:  0 6px 20px rgba(0,0,0,0.12);
+    --radius:  24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at 20% 20%, #FFE4F0 0%, transparent 40%),
+                      radial-gradient(circle at 80% 80%, #E0F2FE 0%, transparent 40%),
+                      radial-gradient(circle at 50% 50%, #F0FDF4 0%, transparent 60%);
+  }
+
+  /* ======= HEADER ======= */
+  #app-header {
+    background: linear-gradient(135deg, #7C3AED, #DB2777);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+  }
+  #mascot { font-size: 42px; animation: float 3s ease-in-out infinite; }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  #app-title { font-family:'Fredoka One',cursive; color:#fff; font-size:28px; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+  #back-btn {
+    margin-left: auto;
+    background: rgba(255,255,255,0.25);
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    font-family:'Nunito',sans-serif;
+    font-weight:800;
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: none;
+  }
+  #back-btn.visible { display: block; }
+
+  /* ======= HOME ======= */
+  #home { padding: 24px 16px 40px; }
+  #home h2 {
+    font-family:'Fredoka One',cursive;
+    font-size: 26px;
+    text-align: center;
+    color: var(--purple);
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.08);
+  }
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 16px;
+  }
+  .topic-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px 14px 18px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    border: 3px solid transparent;
+    transition: transform .15s, box-shadow .15s;
+    user-select: none;
+  }
+  .topic-card:active { transform: scale(0.94); }
+  .topic-card .icon { font-size: 48px; display: block; margin-bottom: 10px; }
+  .topic-card .label { font-weight: 900; font-size: 15px; line-height: 1.3; }
+
+  /* Color themes per card */
+  .c0  { border-color:#FF6B9D; background:linear-gradient(135deg,#fff 60%,#FFE4F0); }
+  .c1  { border-color:#A855F7; background:linear-gradient(135deg,#fff 60%,#F3E8FF); }
+  .c2  { border-color:#F97316; background:linear-gradient(135deg,#fff 60%,#FFF7ED); }
+  .c3  { border-color:#3B82F6; background:linear-gradient(135deg,#fff 60%,#EFF6FF); }
+  .c4  { border-color:#14B8A6; background:linear-gradient(135deg,#fff 60%,#F0FDFA); }
+  .c5  { border-color:#22C55E; background:linear-gradient(135deg,#fff 60%,#F0FDF4); }
+  .c6  { border-color:#FACC15; background:linear-gradient(135deg,#fff 60%,#FEFCE8); }
+  .c7  { border-color:#EF4444; background:linear-gradient(135deg,#fff 60%,#FEF2F2); }
+  .c8  { border-color:#6366F1; background:linear-gradient(135deg,#fff 60%,#EEF2FF); }
+  .c9  { border-color:#EC4899; background:linear-gradient(135deg,#fff 60%,#FDF2F8); }
+  .c10 { border-color:#0EA5E9; background:linear-gradient(135deg,#fff 60%,#F0F9FF); }
+  .c11 { border-color:#D97706; background:linear-gradient(135deg,#fff 60%,#FFFBEB); }
+  .c12 { border-color:#7C3AED; background:linear-gradient(135deg,#fff 60%,#F5F3FF); }
+
+  /* ======= EXERCISE PANEL ======= */
+  #exercise-panel {
+    display: none;
+    padding: 20px 16px 60px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  #exercise-panel.visible { display: block; }
+
+  .ex-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+  }
+  .ex-title {
+    font-family:'Fredoka One',cursive;
+    font-size: 22px;
+    color: var(--purple);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .question-area {
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    margin: 10px 0 20px;
+    line-height: 1.4;
+  }
+  .emoji-display {
+    font-size: 32px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 10px 0 16px;
+    word-break: break-word;
+  }
+
+  /* ======= NUMPAD ======= */
+  .numpad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .numpad button {
+    background: linear-gradient(135deg, #7C3AED, #A855F7);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    font-size: 28px;
+    font-weight: 900;
+    font-family:'Nunito',sans-serif;
+    padding: 16px 0;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #5B21B6;
+    transition: transform .1s, box-shadow .1s;
+    user-select: none;
+  }
+  .numpad button:active { transform: translateY(3px); box-shadow: 0 1px 0 #5B21B6; }
+  .numpad .del-btn { background: linear-gradient(135deg,#EF4444,#F87171); box-shadow: 0 4px 0 #B91C1C; }
+  .numpad .chk-btn { background: linear-gradient(135deg,#22C55E,#4ADE80); box-shadow: 0 4px 0 #15803D; font-size:22px; }
+  #answer-display {
+    background: #F3F0FF;
+    border: 3px solid #A855F7;
+    border-radius: 16px;
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    min-height: 66px;
+    letter-spacing: 4px;
+  }
+
+  /* ======= CHOICE BUTTONS ======= */
+  .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .choice-btn {
+    background: linear-gradient(135deg,#F3E8FF,#EDE9FE);
+    border: 3px solid #A855F7;
+    border-radius: 18px;
+    font-size: 24px;
+    font-weight: 900;
+    padding: 18px 10px;
+    cursor: pointer;
+    transition: transform .1s;
+    user-select: none;
+  }
+  .choice-btn:active { transform: scale(0.95); }
+  .choice-btn.correct { background: linear-gradient(135deg,#D1FAE5,#A7F3D0); border-color:#22C55E; color:#166534; }
+  .choice-btn.wrong   { background: linear-gradient(135deg,#FEE2E2,#FECACA); border-color:#EF4444; color:#991B1B; }
+
+  /* ======= FEEDBACK ======= */
+  #feedback {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 900;
+    padding: 16px;
+    border-radius: 18px;
+    margin: 12px 0;
+    display: none;
+  }
+  #feedback.show { display: block; }
+  #feedback.correct { background: #D1FAE5; color: #166534; }
+  #feedback.wrong   { background: #FEE2E2; color: #991B1B; }
+
+  /* ======= ACTION BUTTONS ======= */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    flex: 1;
+    border: none;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 900;
+    font-family:'Nunito',sans-serif;
+    padding: 16px 10px;
+    cursor: pointer;
+    transition: transform .1s;
+    user-select: none;
+  }
+  .action-btn:active { transform: scale(0.96); }
+  .btn-next { background: linear-gradient(135deg,#F97316,#FACC15); color:#fff; box-shadow: 0 4px 0 #C2410C; }
+  .btn-check { background: linear-gradient(135deg,#22C55E,#4ADE80); color:#fff; box-shadow: 0 4px 0 #15803D; }
+  .btn-hint  { background: linear-gradient(135deg,#3B82F6,#93C5FD); color:#fff; box-shadow: 0 4px 0 #1D4ED8; }
+
+  /* ======= STARS ANIMATION ======= */
+  .stars-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  }
+  .star-particle {
+    position: absolute;
+    font-size: 30px;
+    animation: starfly 1.2s ease-out forwards;
+  }
+  @keyframes starfly {
+    0%   { transform: translate(0,0) scale(0) rotate(0deg); opacity:1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg); opacity:0; }
+  }
+
+  /* ======= TIMER BAR ======= */
+  #timer-wrap { margin-bottom: 12px; display:none; }
+  #timer-wrap.visible { display: block; }
+  #timer-bar-bg {
+    background: #E5E7EB;
+    border-radius: 50px;
+    height: 18px;
+    overflow: hidden;
+  }
+  #timer-bar {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg,#22C55E,#FACC15,#EF4444);
+    transition: width .1s linear;
+  }
+  #timer-label { text-align:center; font-size:20px; font-weight:900; color:#7C3AED; margin-bottom:6px; }
+
+  /* ======= PROGRESS (20-EQ) ======= */
+  #progress-wrap { margin-bottom: 14px; }
+  #progress-bar-bg { background:#E5E7EB; border-radius:50px; height:14px; overflow:hidden; }
+  #progress-bar    { height:100%; border-radius:50px; background:linear-gradient(90deg,#A855F7,#EC4899); transition:width .3s; }
+  #progress-label  { font-size:18px; font-weight:800; color:#7C3AED; text-align:right; margin-top:4px; }
+
+  /* ======= GRIDS / VISUALS ======= */
+  .grid-visual {
+    display: grid;
+    justify-content: center;
+    gap: 6px;
+    margin: 14px auto;
+  }
+  .grid-cell {
+    width: 46px; height: 46px;
+    border: 2px solid #D1D5DB;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: #F9FAFB;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .grid-cell.highlight { background: #FEF9C3; border-color: #FACC15; }
+  .grid-cell.answer    { background: #D1FAE5; border-color: #22C55E; }
+  .grid-cell.target    { background: #EDE9FE; border-color: #7C3AED; font-weight:900; }
+
+  /* Number line */
+  .number-line {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 0;
+    margin: 16px 0;
+    padding: 4px;
+  }
+  .nl-num {
+    min-width: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    position: relative;
+  }
+  .nl-num.zero { color: var(--blue); }
+  .nl-num.negative { color: var(--red); }
+  .nl-num.marker::after {
+    content: '▲';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--orange);
+    font-size: 16px;
+  }
+  .nl-line { height: 3px; background: #9CA3AF; flex: 1; min-width: 20px; }
+
+  /* Cartesian grid */
+  .cart-grid {
+    display: inline-grid;
+    border: 2px solid #6B7280;
+    margin: 10px auto;
+    background: #F0F9FF;
+  }
+  .cart-cell {
+    width: 48px; height: 48px;
+    border: 1px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background .15s;
+    position: relative;
+  }
+  .cart-cell:hover { background: #E0F2FE; }
+  .cart-cell.plotted { background: #FEF9C3; }
+  .cart-cell.correct-point { background: #D1FAE5; }
+
+  .axis-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #6B7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Clock */
+  .clock-svg { display: block; margin: 10px auto; }
+
+  /* Array visual */
+  .array-visual {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .array-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    background: #F3F0FF;
+    border: 2px dashed #A855F7;
+    border-radius: 12px;
+    padding: 8px;
+    max-width: 200px;
+  }
+
+  /* Wizard mode */
+  .wizard-banner {
+    background: linear-gradient(135deg,#4C1D95,#7C3AED);
+    color: #fff;
+    border-radius: 20px;
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .wizard-banner .wiz-icon { font-size: 56px; }
+  .wizard-progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 10px;
+  }
+  .wdot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: 3px solid rgba(255,255,255,0.6);
+    transition: background .3s;
+  }
+  .wdot.done { background: #FACC15; border-color: #FACC15; }
+
+  /* Coins */
+  .coin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 900;
+    margin: 4px;
+    border: 3px solid;
+    width: 46px; height: 46px;
+    cursor: default;
+    user-select: none;
+  }
+  .coin.penny  { background:#CD7F32; border-color:#8B4513; color:#fff; }
+  .coin.nickel { background:#C0C0C0; border-color:#808080; color:#333; }
+  .coin.dime   { background:#B8860B; border-color:#8B6914; color:#fff; width:38px; height:38px; font-size:11px; }
+  .coin.quarter{ background:#C0C0C0; border-color:#708090; color:#333; width:54px; height:54px; font-size:12px; }
+
+  /* Unit squares */
+  .unit-square-grid {
+    display: inline-grid;
+    gap: 3px;
+    margin: 12px auto;
+    border: 2px solid #6B7280;
+    padding: 3px;
+    background: #F0FDF4;
+  }
+  .usq {
+    width: 44px; height: 44px;
+    background: #BBF7D0;
+    border: 2px solid #22C55E;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 400px) {
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+    .topic-card .icon { font-size: 38px; }
+    .choice-btn { font-size: 20px; padding: 14px 8px; }
+    .question-area { font-size: 24px; }
+    .numpad button { font-size: 22px; padding: 13px 0; }
+  }
+
+  /* Score screen */
+  .score-screen {
+    text-align: center;
+    padding: 20px;
+  }
+  .score-screen .big-score { font-family:'Fredoka One',cursive; font-size: 72px; color: var(--purple); }
+  .score-screen .star-row  { font-size: 48px; letter-spacing: 6px; margin: 10px 0; }
+  .score-screen p { font-size: 22px; font-weight: 800; color: #4B5563; margin: 8px 0; }
+
+  /* Hint box */
+  .hint-box {
+    background: #FEF9C3;
+    border: 2px dashed #FACC15;
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #854D0E;
+    margin-top: 12px;
+    display: none;
+  }
+  .hint-box.show { display: block; }
+
+  /* Blank input in skip */
+  .blank-slot {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 4px solid #7C3AED;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #7C3AED;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<!-- STARS OVERLAY -->
+<div class="stars-overlay" id="stars-overlay"></div>
+
+<!-- HEADER -->
+<header id="app-header">
+  <div id="mascot">🧙</div>
+  <div id="app-title">Math Wizards!</div>
+  <button id="back-btn" onclick="goHome()">🏠 Home</button>
+</header>
+
+<!-- HOME -->
+<div id="home">
+  <h2>✨ Choose Your Magic Topic! ✨</h2>
+  <div class="topic-grid" id="topic-grid"></div>
+</div>
+
+<!-- EXERCISE PANEL -->
+<div id="exercise-panel">
+  <div class="ex-card" id="ex-main">
+    <div class="ex-title" id="ex-title"></div>
+    <div id="ex-content"></div>
+  </div>
+  <div id="feedback" class="feedback"></div>
+  <div class="hint-box" id="hint-box"></div>
+</div>
+
+<script>
+// ======================== DATA & CONFIG ========================
+const TOPICS = [
+  { id:'grouping',     icon:'🔢', label:'Grouping (Tens)',     color:'c0' },
+  { id:'skipcounting', icon:'🐸', label:'Skip Counting',       color:'c1' },
+  { id:'superspeed',   icon:'⚡', label:'Super Speed Add!',    color:'c2' },
+  { id:'addition',     icon:'➕', label:'Addition',            color:'c3' },
+  { id:'logic',        icon:'🧩', label:'Logic & Space',       color:'c4' },
+  { id:'regroup10',    icon:'🔟', label:'Make a Ten!',         color:'c5' },
+  { id:'strings',      icon:'🎯', label:'Number Strings',      color:'c6' },
+  { id:'multiply',     icon:'✖️', label:'Multiply 2, 5, 10',   color:'c7' },
+  { id:'integers',     icon:'🌡️', label:'Integers',            color:'c8' },
+  { id:'geometry',     icon:'📐', label:'Perimeter & Area',    color:'c9' },
+  { id:'wizard',       icon:'🪄', label:'Mini Wizards',        color:'c10' },
+  { id:'twenty',       icon:'📝', label:'20 Equations',        color:'c11' },
+  { id:'riddles',      icon:'🗺️', label:'Cartesian Riddles',   color:'c12' },
+];
+
+const EMOJIS = ['⭐','🌟','💫','🎉','🎊','🏆','🌈','🦄','🐶','🐱','🦊','🐸','🍕','🍭','🎈','🎀'];
+let currentTopic = null;
+let currentAnswer = null;
+let answerStr = '';
+let timerInterval = null;
+let timerLeft = 0;
+let wizardStep = 0;
+let wizardScore = 0;
+let eq20List = [];
+let eq20Index = 0;
+let eq20Score = 0;
+
+// ======================== HOME ========================
+function buildHome() {
+  const grid = document.getElementById('topic-grid');
+  grid.innerHTML = TOPICS.map((t,i) =>
+    `<div class="topic-card ${t.color}" onclick="startTopic('${t.id}')">
+       <span class="icon">${t.icon}</span>
+       <div class="label">${t.label}</div>
+     </div>`
+  ).join('');
+}
+
+function goHome() {
+  clearInterval(timerInterval);
+  currentTopic = null;
+  document.getElementById('home').style.display = '';
+  document.getElementById('exercise-panel').classList.remove('visible');
+  document.getElementById('back-btn').classList.remove('visible');
+  document.getElementById('feedback').classList.remove('show','correct','wrong');
+  document.getElementById('hint-box').classList.remove('show');
+}
+
+function startTopic(id) {
+  currentTopic = id;
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('exercise-panel').classList.add('visible');
+  document.getElementById('back-btn').classList.add('visible');
+  answerStr = '';
+  renderTopic(id);
+}
+
+// ======================== RENDER DISPATCHER ========================
+function renderTopic(id) {
+  clearInterval(timerInterval);
+  document.getElementById('feedback').classList.remove('show','correct','wrong');
+  document.getElementById('hint-box').classList.remove('show');
+  const titles = {
+    grouping:'🔢 Grouping Tens', skipcounting:'🐸 Skip Counting',
+    superspeed:'⚡ Super Speed!', addition:'➕ Addition',
+    logic:'🧩 Logic & Space', regroup10:'🔟 Make a Ten!',
+    strings:'🎯 Number Strings', multiply:'✖️ Multiplication',
+    integers:'🌡️ Integers', geometry:'📐 Perimeter & Area',
+    wizard:'🪄 Mini Wizards', twenty:'📝 20 Equations',
+    riddles:'🗺️ Cartesian Riddles'
+  };
+  document.getElementById('ex-title').textContent = titles[id] || id;
+
+  const renderers = {
+    grouping: renderGrouping, skipcounting: renderSkipCounting,
+    superspeed: renderSuperSpeed, addition: renderAddition,
+    logic: renderLogic, regroup10: renderRegroup10,
+    strings: renderStrings, multiply: renderMultiply,
+    integers: renderIntegers, geometry: renderGeometry,
+    wizard: renderWizard, twenty: renderTwenty,
+    riddles: renderRiddles
+  };
+  if (renderers[id]) renderers[id]();
+}
+
+// ======================== UTILS ========================
+const rand = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+const pick  = arr  => arr[rand(0,arr.length-1)];
+
+function showFeedback(correct, msg, hint='') {
+  const fb = document.getElementById('feedback');
+  fb.textContent = correct ? '✅ ' + msg : '❌ ' + msg;
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  const hb = document.getElementById('hint-box');
+  if (!correct && hint) { hb.textContent = '💡 Hint: ' + hint; hb.classList.add('show'); }
+  else hb.classList.remove('show');
+  if (correct) shootStars();
+}
+
+function shootStars() {
+  const overlay = document.getElementById('stars-overlay');
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'star-particle';
+      s.textContent = pick(['⭐','🌟','✨','💫','🎉']);
+      const x = rand(10, window.innerWidth - 50);
+      const y = rand(10, window.innerHeight - 50);
+      const tx = rand(-200, 200);
+      const ty = rand(-300, -50);
+      s.style.cssText = `left:${x}px;top:${y}px;--tx:${tx}px;--ty:${ty}px;`;
+      overlay.appendChild(s);
+      setTimeout(() => s.remove(), 1300);
+    }, i * 70);
+  }
+}
+
+// ======= NUMPAD HELPER =======
+function numpadHTML(negAllowed=false) {
+  return `
+  <div id="answer-display">_</div>
+  <div class="numpad">
+    ${[1,2,3,4,5,6,7,8,9,0].map(n=>`<button onclick="numpadPress('${n}')">${n}</button>`).join('')}
+    ${negAllowed?`<button onclick="numpadPress('-')">−</button>`:'<button class="del-btn" onclick="numpadPress(\'del\')">⌫</button>'}
+    <button class="del-btn" onclick="numpadPress('del')">⌫</button>
+    <button class="chk-btn" onclick="numpadCheck()">✔ OK</button>
+  </div>`;
+}
+function numpadPress(v) {
+  if (v === 'del') answerStr = answerStr.slice(0,-1);
+  else if (v === '-') { if (!answerStr) answerStr = '-'; }
+  else { if (answerStr.length < 4) answerStr += v; }
+  const disp = document.getElementById('answer-display');
+  if (disp) disp.textContent = answerStr || '_';
+}
+
+// ======= CHECK NUMERIC =======
+function numpadCheck() {
+  const val = parseInt(answerStr, 10);
+  if (isNaN(val)) { showFeedback(false, 'Enter a number first!'); return; }
+  checkAnswer(val);
+}
+function checkAnswer(val) {
+  const correct = (val === currentAnswer);
+  showFeedback(correct,
+    correct ? pick(['Amazing!','Brilliant!','You rock!','Correct! 🎊','Magic!']) : `The answer is ${currentAnswer}. Try the next one!`,
+    correct ? '' : `The answer was ${currentAnswer}`
+  );
+  answerStr = '';
+  const disp = document.getElementById('answer-display');
+  if (disp) disp.textContent = '_';
+}
+
+// ======================== 1. GROUPING ========================
+function renderGrouping() {
+  const total = rand(11, 20);
+  const tens  = Math.floor(total / 10);
+  const ones  = total % 10;
+  currentAnswer = ones; // ask: how many leftover?
+  const emoji = pick(['⭐','🍎','🍭','🔵','🌸']);
+  const emojis = emoji.repeat(total);
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area">Count the objects and group into tens!</div>
+    <div class="emoji-display">${Array.from({length:tens},()=>`<span style="background:#E9D5FF;border-radius:10px;padding:4px;margin:3px;display:inline-block">${emoji.repeat(10)}</span>`).join('')}
+    ${ones > 0 ? `<span style="background:#FEF9C3;border-radius:10px;padding:4px;margin:3px;display:inline-block">${emoji.repeat(ones)}</span>`:''}</div>
+    <div class="question-area" style="font-size:22px">There ${tens===1?'is':'are'} <b>${tens}</b> group${tens!==1?'s':''} of ten.<br>How many are <b>left over</b>?</div>
+    ${numpadHTML()}
+    <div class="action-row">
+      <button class="action-btn btn-next" onclick="renderGrouping()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 2. SKIP COUNTING ========================
+function renderSkipCounting() {
+  const type = pick([2,5,10]);
+  const start = rand(0,4) * type;
+  const seq = [0,1,2,3,4,5].map(i => start + i*type);
+  const blankIdx = rand(1,4);
+  currentAnswer = seq[blankIdx];
+
+  const display = seq.map((n,i) =>
+    i === blankIdx ? `<span class="blank-slot" id="sc-blank">?</span>` : `<span style="font-size:32px;font-weight:900;margin:0 8px">${n}</span>`
+  ).join('<span style="font-size:28px;margin:0 4px;color:#9CA3AF">,</span>');
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:20px">Skip count by <b>${type}s</b>! Fill in the missing number:</div>
+    <div style="text-align:center;margin:16px 0;flex-wrap:wrap;display:flex;align-items:center;justify-content:center">${display}</div>
+    ${numpadHTML()}
+    <div class="action-row">
+      <button class="action-btn btn-next" onclick="renderSkipCounting()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 3. SUPER SPEED ========================
+let ssRunning = false;
+function renderSuperSpeed() {
+  ssRunning = false;
+  const a = rand(0,10), b = rand(0, 10-a);
+  currentAnswer = a + b;
+  answerStr = '';
+
+  document.getElementById('ex-content').innerHTML = `
+    <div style="text-align:center;margin-bottom:10px">
+      <div id="countdown-display" style="font-family:'Fredoka One',cursive;font-size:64px;color:#7C3AED;min-height:80px"></div>
+    </div>
+    <div id="timer-wrap" class=""><div id="timer-label">⏱️ 3 seconds!</div><div id="timer-bar-bg"><div id="timer-bar" style="width:100%"></div></div></div>
+    <div class="question-area" id="ss-question" style="display:none">
+      ${a} + ${b} = ?
+    </div>
+    <div id="ss-numpad" style="display:none">
+      ${numpadHTML()}
+    </div>
+    <div class="action-row" id="ss-actions" style="display:none">
+      <button class="action-btn btn-next" onclick="renderSuperSpeed()">⚡ New Problem</button>
+    </div>`;
+
+  // Countdown 3,2,1,GO
+  let cd = 3;
+  const cdEl = document.getElementById('countdown-display');
+  cdEl.textContent = cd;
+  const cdInterval = setInterval(() => {
+    cd--;
+    if (cd === 0) { cdEl.textContent = 'GO! 🚀'; }
+    else if (cd < 0) {
+      clearInterval(cdInterval);
+      cdEl.textContent = '';
+      document.getElementById('ss-question').style.display = '';
+      document.getElementById('ss-numpad').style.display = '';
+      document.getElementById('ss-actions').style.display = '';
+      document.getElementById('timer-wrap').classList.add('visible');
+      startSSTimer();
+    } else { cdEl.textContent = cd; }
+  }, 700);
+}
+
+function startSSTimer() {
+  timerLeft = 3000;
+  const bar = document.getElementById('timer-bar');
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timerLeft -= 100;
+    const pct = Math.max(0, timerLeft / 3000 * 100);
+    if (bar) bar.style.width = pct + '%';
+    if (timerLeft <= 0) {
+      clearInterval(timerInterval);
+      showFeedback(false, `Time's up! The answer was ${currentAnswer}.`);
+      answerStr = '';
+    }
+  }, 100);
+}
+
+// Override numpadCheck for superspeed
+const _origCheck = numpadCheck;
+function numpadCheck() {
+  if (currentTopic === 'superspeed') {
+    clearInterval(timerInterval);
+    const val = parseInt(answerStr, 10);
+    if (isNaN(val)) { showFeedback(false,'Enter a number first!'); return; }
+    checkAnswer(val);
+  } else if (currentTopic === 'twenty') {
+    eq20Check();
+  } else if (currentTopic === 'wizard') {
+    wizardCheck();
+  } else {
+    const val = parseInt(answerStr, 10);
+    if (isNaN(val)) { showFeedback(false,'Enter a number first!'); return; }
+    checkAnswer(val);
+  }
+}
+
+// ======================== 4. ADDITION ========================
+function renderAddition() {
+  const max = pick([10,20]);
+  const a = rand(0, max), b = rand(0, max - a);
+  currentAnswer = a + b;
+  const emoji = pick(EMOJIS);
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area">${a} + ${b} = ?</div>
+    <div class="array-visual">
+      <div class="array-group">${emoji.repeat(a) || '(none)'}</div>
+      <span style="font-size:36px;align-self:center">+</span>
+      <div class="array-group">${emoji.repeat(b) || '(none)'}</div>
+    </div>
+    ${numpadHTML()}
+    <div class="action-row">
+      <button class="action-btn btn-next" onclick="renderAddition()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 5. LOGIC ========================
+const LOGIC_TYPES = [
+  'tangram','blocks3d','pattern','grid_position','lineups','money','clock','symmetry','cartesian_attr','shapes'
+];
+
+function renderLogic() {
+  const type = pick(LOGIC_TYPES);
+  const renderers = {
+    tangram: renderTangram,
+    blocks3d: renderBlocks3D,
+    pattern: renderPattern,
+    grid_position: renderGridPosition,
+    lineups: renderLineups,
+    money: renderMoney,
+    clock: renderClock,
+    symmetry: renderSymmetry,
+    cartesian_attr: renderCartesianAttr,
+    shapes: renderShapes
+  };
+  renderers[type]();
+}
+
+function renderTangram() {
+  // Choose a shape and 4 options
+  const shapes = [
+    {q:'Complete the house 🏠', opts:['🔺','⬛','🔷','⭕'], ans:0},
+    {q:'Complete the boat ⛵', opts:['🔺','🔵','⬛','🔶'], ans:0},
+    {q:'Complete the fish 🐟', opts:['🔷','🔴','🔺','⬛'], ans:2},
+    {q:'Complete the tree 🌲', opts:['🔶','🔺','⬛','🔵'], ans:1},
+  ];
+  const s = pick(shapes);
+  currentAnswer = s.ans;
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">${s.q}</div>
+    <div style="text-align:center;font-size:22px;margin:8px 0">Pick the correct piece to complete the picture:</div>
+    <div class="choice-grid">
+      ${s.opts.map((o,i)=>`<button class="choice-btn" onclick="logicChoice(${i},${s.ans})">${o} <span style="font-size:18px">${['A','B','C','D'][i]}</span></button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderBlocks3D() {
+  const count = rand(3,9);
+  currentAnswer = count;
+  // Build a simple L/stair pile display
+  const rows = [];
+  let rem = count;
+  let r = 0;
+  while (rem > 0) {
+    const n = Math.min(rand(1,4), rem);
+    rows.unshift(n);
+    rem -= n;
+    r++;
+    if (r > 4) break;
+  }
+  const visual = rows.map(n => `<div style="display:flex;gap:4px;justify-content:center">${'🟫'.repeat(n)}</div>`).join('');
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">🟫 Count the blocks!</div>
+    <div style="margin:16px 0">${visual}</div>
+    <div class="question-area">How many blocks?</div>
+    ${numpadHTML()}
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderPattern() {
+  const patterns = [
+    {seq:['🔴','🔵','🔴','🔵','❓'], ans:0, opts:['🔴','🔵','🟡','🟢']},
+    {seq:['🌟','🌙','🌟','🌙','❓'], ans:0, opts:['🌟','🌙','☀️','🌈']},
+    {seq:['🟡','🟡','🔴','🟡','🟡','❓'], ans:1, opts:['🟡','🔴','🟢','🔵']},
+    {seq:['🐶','🐱','🐶','🐱','🐶','❓'], ans:1, opts:['🐶','🐱','🐭','🐹']},
+    {seq:['⭐','⭐','💛','⭐','⭐','❓'], ans:1, opts:['⭐','💛','🌟','🔆']},
+  ];
+  const p = pick(patterns);
+  currentAnswer = p.ans;
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">🔁 What comes next?</div>
+    <div class="emoji-display" style="font-size:40px">${p.seq.join(' ')}</div>
+    <div class="choice-grid">
+      ${p.opts.map((o,i)=>`<button class="choice-btn" onclick="logicChoice(${i},${p.ans})" style="font-size:36px">${o}</button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderGridPosition() {
+  const rows = 4, cols = 4;
+  const r = rand(1,rows), c = rand(1,cols);
+  currentAnswer = -1; // special
+  const emojis2 = ['🐱','🐶','🐸','🐼','🦊','🐨','🐧','🦄'];
+  const itemEmoji = pick(emojis2);
+
+  // Build grid: row 1 = top
+  let grid = '';
+  for (let ri = 1; ri <= rows; ri++) {
+    for (let ci = 1; ci <= cols; ci++) {
+      const isTarget = (ri === r && ci === c);
+      grid += `<div class="grid-cell${isTarget?' target':''}" data-r="${ri}" data-c="${ci}" onclick="gridCellClick(${ri},${ci},${r},${c})">${isTarget ? itemEmoji : ''}</div>`;
+    }
+  }
+
+  const targetRow = rand(1,rows), targetCol = rand(1,cols);
+  currentAnswer = `${targetRow},${targetCol}`;
+
+  // Reset: place emoji at random, ask to find another
+  const qRow = rand(1,4), qCol = rand(1,4);
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:20px">📍 The ${itemEmoji} is at Row <b>${r}</b>, Col <b>${c}</b>.<br>Tap it!</div>
+    <div class="grid-visual" style="grid-template-columns:repeat(${cols},46px)">${grid}</div>
+    <div style="text-align:center;font-size:16px;color:#6B7280;margin-top:6px">Row 1 = top, Col 1 = left</div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function gridCellClick(ri, ci, tr, tc) {
+  if (ri === tr && ci === tc) {
+    showFeedback(true, `Yes! Row ${tr}, Col ${tc}! 🎉`);
+    document.querySelectorAll('.grid-cell').forEach(el => {
+      if (parseInt(el.dataset.r)===tr && parseInt(el.dataset.c)===tc) el.classList.add('answer');
+    });
+  } else {
+    showFeedback(false, `That's Row ${ri}, Col ${ci}. Try Row ${tr}, Col ${tc}!`);
+  }
+}
+
+function renderLineups() {
+  const animals = ['🐶','🐱','🐸','🦊','🐨','🐧','🦄','🐼'];
+  const count = rand(4,7);
+  const line = animals.slice(0,count);
+  const ordinals = ['1st','2nd','3rd','4th','5th','6th','7th'];
+  const pos = rand(0, count-1);
+  const q = ordinals[pos];
+  currentAnswer = pos; // index
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">🏁 Who is <b>${q}</b> in line?</div>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0">
+      ${line.map((a,i)=>`<div style="text-align:center"><div style="font-size:42px">${a}</div><div style="font-size:13px;color:#9CA3AF">${ordinals[i]}</div></div>`).join('')}
+    </div>
+    <div class="choice-grid">
+      ${line.map((a,i)=>`<button class="choice-btn" onclick="logicChoice(${i},${pos})" style="font-size:32px">${a}</button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderMoney() {
+  const coinTypes = [
+    {name:'penny', val:1, label:'1¢'},
+    {name:'nickel', val:5, label:'5¢'},
+    {name:'dime', val:10, label:'10¢'},
+  ];
+  const coins = [];
+  let total = 0;
+  const count = rand(3,7);
+  for (let i = 0; i < count; i++) {
+    const c = pick(coinTypes);
+    coins.push(c);
+    total += c.val;
+  }
+  currentAnswer = total;
+  const coinsHTML = coins.map(c=>`<span class="coin ${c.name}">${c.label}</span>`).join('');
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">💰 Count the coins! Total = ? ¢</div>
+    <div style="text-align:center;margin:14px 0">${coinsHTML}</div>
+    ${numpadHTML()}
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderClock() {
+  const hours = rand(1,12);
+  const half  = pick([0, 30]);
+  currentAnswer = half === 0 ? hours * 100 : hours * 100 + 30;
+
+  // Draw clock SVG
+  const hAngle = ((hours % 12) + half/60) / 12 * 360 - 90;
+  const mAngle = half / 60 * 360 - 90;
+  const hx = 100 + 45 * Math.cos(hAngle * Math.PI/180);
+  const hy = 100 + 45 * Math.sin(hAngle * Math.PI/180);
+  const mx = 100 + 70 * Math.cos(mAngle * Math.PI/180);
+  const my = 100 + 70 * Math.sin(mAngle * Math.PI/180);
+
+  const opts = [[hours*100+half,`${hours}:${half===0?'00':'30'}`]];
+  while (opts.length < 4) {
+    const fh = rand(1,12), fm = pick([0,30]);
+    const v = fh*100+fm;
+    if (!opts.find(o=>o[0]===v)) opts.push([v, `${fh}:${fm===0?'00':'30'}`]);
+  }
+  opts.sort(()=>Math.random()-0.5);
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">🕐 What time does the clock show?</div>
+    <svg class="clock-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="#FEF9C3" stroke="#FACC15" stroke-width="6"/>
+      ${[12,3,6,9].map((n,i)=>{
+        const a = i*90-90;
+        const nx = 100 + 78*Math.cos(a*Math.PI/180);
+        const ny = 100 + 78*Math.sin(a*Math.PI/180);
+        return `<text x="${nx}" y="${ny}" text-anchor="middle" dominant-baseline="middle" font-size="18" font-weight="bold" fill="#1F2937">${n}</text>`;
+      }).join('')}
+      <line x1="100" y1="100" x2="${hx}" y2="${hy}" stroke="#1F2937" stroke-width="7" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="${mx}" y2="${my}" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="6" fill="#1F2937"/>
+    </svg>
+    <div class="choice-grid">
+      ${opts.map(o=>`<button class="choice-btn" onclick="clockChoice(${o[0]},${currentAnswer})">${o[1]}</button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function clockChoice(val, ans) {
+  const correct = val === ans;
+  showFeedback(correct, correct ? 'Perfect! You read the clock!' : `That's not right. The answer is ${Math.floor(ans/100)}:${ans%100===0?'00':'30'}`);
+  document.querySelectorAll('.choice-btn').forEach(b => {
+    if (parseInt(b.onclick.toString().match(/\((\d+)/)[1]) === ans) b.classList.add('correct');
+  });
+}
+
+function renderSymmetry() {
+  const shapes = [
+    {label:'heart ❤️', left:'🔴', right:'🔴', opts:['🔴','🔵','🟡','🟢'], ans:0},
+    {label:'star ⭐', left:'🌟', right:'🌟', opts:['🌙','🌟','☀️','💫'], ans:1},
+    {label:'face 😊', left:'😊', right:'😊', opts:['😢','😐','😊','😴'], ans:2},
+  ];
+  const s = pick(shapes);
+  currentAnswer = s.ans;
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">🪞 Symmetry! The left half shows:<br><span style="font-size:48px">${s.left}</span><br>What is the right half?</div>
+    <div class="choice-grid">
+      ${s.opts.map((o,i)=>`<button class="choice-btn" onclick="logicChoice(${i},${s.ans})" style="font-size:36px">${o}</button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function renderCartesianAttr() {
+  // Simple: show a point, ask coordinates
+  const px = rand(1,5), py = rand(1,5);
+  currentAnswer = `${px},${py}`;
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:20px">📍 What are the coordinates of ⭐?</div>
+    ${buildCartGrid(px, py, false)}
+    <div class="choice-grid">
+      ${buildCoordChoices(px,py)}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function buildCartGrid(px, py, clickable=false, size=5) {
+  // y=5 top, x=1 left
+  let html = `<div style="display:flex;justify-content:center;margin:10px 0"><table style="border-collapse:collapse">`;
+  for (let y = size; y >= 0; y--) {
+    html += '<tr>';
+    html += `<td class="axis-label" style="width:28px">${y>0?y:''}</td>`;
+    for (let x = 0; x <= size; x++) {
+      if (y === 0) {
+        html += `<td class="axis-label" style="width:44px">${x>0?x:''}</td>`;
+      } else {
+        const isPoint = (x === px && y === py);
+        html += `<td style="width:44px;height:44px;border:1px solid #CBD5E1;background:${isPoint?'#FEF9C3':'#F0F9FF'};text-align:center;font-size:22px;cursor:${clickable?'pointer':'default'}" ${clickable?`onclick="cartClick(${x},${y})"`:''}>${isPoint?'⭐':''}</td>`;
+      }
+    }
+    html += '</tr>';
+  }
+  html += '</table></div>';
+  return html;
+}
+
+function buildCoordChoices(px, py) {
+  const opts = [[px,py]];
+  while (opts.length < 4) {
+    const ox = rand(1,5), oy = rand(1,5);
+    if (!opts.find(o=>o[0]===ox&&o[1]===oy)) opts.push([ox,oy]);
+  }
+  opts.sort(()=>Math.random()-0.5);
+  return opts.map(o=>`<button class="choice-btn" onclick="coordChoice('${o[0]},${o[1]}','${px},${py}')">(${o[0]}, ${o[1]})</button>`).join('');
+}
+
+function coordChoice(val, ans) {
+  const correct = val === ans;
+  showFeedback(correct, correct ? '🎉 Correct coordinates!' : `The star is at (${ans.split(',').join(', ')})`);
+}
+
+function renderShapes() {
+  const shapes = [
+    {q:'I have 3 sides and 3 corners. What am I?', opts:['Circle','Triangle','Square','Rectangle'], ans:1},
+    {q:'I am perfectly round with no corners. What am I?', opts:['Triangle','Square','Circle','Oval'], ans:2},
+    {q:'I have 4 equal sides. What am I?', opts:['Rectangle','Triangle','Circle','Square'], ans:3},
+    {q:'A pizza slice is shaped like a...', opts:['Square','Triangle','Circle','Hexagon'], ans:1},
+    {q:'A wheel is shaped like a...', opts:['Triangle','Circle','Rectangle','Diamond'], ans:1},
+  ];
+  const s = pick(shapes);
+  currentAnswer = s.ans;
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">${s.q}</div>
+    <div class="choice-grid">
+      ${s.opts.map((o,i)=>`<button class="choice-btn" onclick="logicChoice(${i},${s.ans})">${['🔺','⭕','⬛','🔷'][i]} ${o}</button>`).join('')}
+    </div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderLogic()">🔄 New Challenge</button></div>`;
+}
+
+function logicChoice(idx, ans) {
+  const correct = idx === ans;
+  showFeedback(correct, correct ? pick(['Amazing!','That\'s right!','You\'re so smart!']) : 'Not quite! Try again!');
+  document.querySelectorAll('.choice-btn').forEach((b,i) => {
+    if (i === ans) b.classList.add('correct');
+    else if (i === idx && !correct) b.classList.add('wrong');
+  });
+}
+
+// ======================== 6. REGROUP10 ========================
+function renderRegroup10() {
+  const types = [
+    () => { const a=rand(1,9),b=10-a; currentAnswer=10; return `${a} + ${b} = ?`; },
+    () => { const base=rand(1,9)*10,b=10-rand(1,9); const a=base+b; currentAnswer=base; return `${a} − ${b} = ?`; },
+    () => { const t=rand(1,9)*10, sub=rand(1,9); currentAnswer=t+sub; return `${t} + ${sub} = ?`; },
+  ];
+  const fn = pick(types);
+  const question = fn();
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area">Make a ten (or multiple of 10)!<br><span style="color:#7C3AED">${question}</span></div>
+    ${numpadHTML()}
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderRegroup10()">🔄 New Problem</button></div>`;
+}
+
+// ======================== 7. STRINGS ========================
+function renderStrings() {
+  const len = rand(3,5);
+  const nums = Array.from({length:len}, ()=>rand(1,9));
+  const ops  = Array.from({length:len-1}, ()=>pick(['+','-']));
+  let result = nums[0];
+  for (let i=0;i<ops.length;i++) {
+    result = ops[i]==='+' ? result+nums[i+1] : result-nums[i+1];
+  }
+  currentAnswer = result;
+  const expr = nums[0] + ops.map((op,i)=>` ${op} ${nums[i+1]}`).join('');
+
+  // Number line hint
+  let nlMin = Math.min(0,result)-1, nlMax = Math.max(nums[0],result)+1;
+  const nlNums = Array.from({length:nlMax-nlMin+1},(_,i)=>nlMin+i);
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area">${expr} = ?</div>
+    <div class="number-line" style="overflow-x:auto;padding:10px 0 30px">
+      ${nlNums.map(n=>`<div class="nl-num ${n===0?'zero':n<0?'negative':''}" style="min-width:36px">${n}</div>${n<nlMax?'<div class="nl-line"></div>':''}`).join('')}
+    </div>
+    ${numpadHTML(true)}
+    <div class="action-row">
+      <button class="action-btn btn-hint" onclick="showHintBox('Start at ${nums[0]}, then ${ops.map((op,i)=>`${op==='+'?'add':'subtract'} ${nums[i+1]}`).join(', ')}')">💡 Hint</button>
+      <button class="action-btn btn-next" onclick="renderStrings()">🔄 New Problem</button>
+    </div>`;
+}
+
+function showHintBox(msg) {
+  const hb = document.getElementById('hint-box');
+  hb.textContent = '💡 ' + msg;
+  hb.classList.add('show');
+}
+
+// ======================== 8. MULTIPLY ========================
+function renderMultiply() {
+  const factor = pick([2,5,10]);
+  const other  = rand(1,10);
+  currentAnswer = factor * other;
+  const emoji  = pick(EMOJIS);
+
+  const groups = Array.from({length:other},(_,gi)=>
+    `<div class="array-group">${emoji.repeat(factor)}</div>`
+  ).join('');
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area">${factor} × ${other} = ?</div>
+    <div style="font-size:18px;text-align:center;color:#6B7280;margin-bottom:10px">${other} groups of ${factor}:</div>
+    <div class="array-visual" style="justify-content:center">${groups}</div>
+    ${numpadHTML()}
+    <div class="action-row">
+      <button class="action-btn btn-hint" onclick="showHintBox('Count by ${factor}s, ${other} times: ${Array.from({length:other},(_,i)=>(i+1)*factor).join(', ')}')">💡 Hint</button>
+      <button class="action-btn btn-next" onclick="renderMultiply()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 9. INTEGERS ========================
+function renderIntegers() {
+  const start = rand(-2,5);
+  const step  = rand(-5,5);
+  const end   = start + step;
+  currentAnswer = end;
+
+  const nlMin = Math.min(start,end,-5)-1;
+  const nlMax = Math.max(start,end,10)+1;
+  const nlNums = Array.from({length:nlMax-nlMin+1},(_,i)=>nlMin+i);
+
+  const scenarios = [
+    `🌡️ The temperature is ${start}°. It goes ${step<0?'down':'up'} ${Math.abs(step)} degrees. What is it now?`,
+    `🏢 The elevator is on floor ${start}. It moves ${step<0?'down':'up'} ${Math.abs(step)} floors. Which floor now?`,
+    `🎮 You have ${start} points. You ${step<0?'lose':'gain'} ${Math.abs(step)} points. How many points?`
+  ];
+  const scenario = pick(scenarios);
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">${scenario}</div>
+    <div class="number-line" style="overflow-x:auto;padding:10px 0 40px;margin:10px 0">
+      ${nlNums.map(n=>`<div class="nl-num ${n===0?'zero':n<0?'negative':''} ${n===start?'marker':''}" style="min-width:36px">${n}</div>${n<nlMax?'<div class="nl-line"></div>':''}`).join('')}
+    </div>
+    <div style="font-size:16px;text-align:center;color:#6B7280;margin-bottom:10px">▲ = where you start (${start})</div>
+    ${numpadHTML(true)}
+    <div class="action-row">
+      <button class="action-btn btn-next" onclick="renderIntegers()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 10. GEOMETRY ========================
+function renderGeometry() {
+  const mode = pick(['area','perimeter']);
+  const rows = rand(2,5), cols = rand(2,6);
+  const area = rows * cols;
+  const perimeter = 2*(rows+cols);
+  currentAnswer = mode === 'area' ? area : perimeter;
+
+  let gridHTML = `<div class="unit-square-grid" style="grid-template-columns:repeat(${cols},44px)">`;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    gridHTML += `<div class="usq">${r===0&&c===0?'📐':''}</div>`;
+  }
+  gridHTML += '</div>';
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:22px">${mode==='area'?'📐 Count the unit squares to find the AREA!':'🔲 Add all the sides to find the PERIMETER!'}</div>
+    <div style="text-align:center">${gridHTML}</div>
+    <div style="text-align:center;font-size:18px;color:#6B7280;margin:8px 0">Grid: ${cols} wide × ${rows} tall</div>
+    ${mode==='perimeter'?`<div style="text-align:center;font-size:16px;color:#9CA3AF">Perimeter = top + bottom + left + right = ${cols} + ${cols} + ${rows} + ${rows}</div>`:''}
+    ${numpadHTML()}
+    <div class="action-row">
+      <button class="action-btn btn-hint" onclick="showHintBox('${mode==='area'?`Area = ${cols} × ${rows} = ${area}`:`Perimeter = ${cols}+${cols}+${rows}+${rows} = ${perimeter}`}')">💡 Hint</button>
+      <button class="action-btn btn-next" onclick="renderGeometry()">🔄 New Problem</button>
+    </div>`;
+}
+
+// ======================== 11. WIZARD ========================
+const WIZARD_POOL = ['grouping','skipcounting','addition','regroup10','multiply','strings','integers','geometry'];
+
+function renderWizard() {
+  wizardStep = 0;
+  wizardScore = 0;
+  const panel = document.getElementById('ex-content');
+  panel.innerHTML = `
+    <div class="wizard-banner">
+      <div class="wiz-icon">🧙‍♂️</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:22px;margin-top:8px">Help the Wizard cast 3 spells!</div>
+      <div class="wizard-progress-dots">
+        <div class="wdot" id="wdot0"></div>
+        <div class="wdot" id="wdot1"></div>
+        <div class="wdot" id="wdot2"></div>
+      </div>
+    </div>
+    <div id="wiz-problem"></div>
+    <div class="action-row" id="wiz-actions" style="display:none">
+      <button class="action-btn btn-next" onclick="wizardNext()">✨ Next Spell!</button>
+    </div>`;
+  wizardLoadProblem();
+}
+
+let wizardProblem = null;
+function wizardLoadProblem() {
+  answerStr = '';
+  document.getElementById('feedback').classList.remove('show','correct','wrong');
+  const type = pick(WIZARD_POOL);
+  wizardProblem = type;
+
+  const questions = generateSimpleQ(type);
+  currentAnswer = questions.answer;
+
+  document.getElementById('wiz-problem').innerHTML = `
+    <div class="question-area" style="font-size:22px">🔮 Spell ${wizardStep+1}: ${questions.q}</div>
+    ${numpadHTML()}`;
+  document.getElementById('wiz-actions').style.display = 'none';
+}
+
+function generateSimpleQ(type) {
+  if (type==='grouping')    { const a=rand(2,9),b=rand(1,9); return {q:`How many left over if you have ${a*10+b} objects?`, answer:b}; }
+  if (type==='skipcounting'){ const t=pick([2,5,10]),s=rand(0,3)*t; return {q:`Skip by ${t}s: ${s}, ${s+t}, ${s+2*t}, __?`, answer:s+3*t}; }
+  if (type==='addition')    { const a=rand(1,15),b=rand(1,15-a+5); return {q:`${a} + ${b} = ?`, answer:a+b}; }
+  if (type==='regroup10')   { const a=rand(1,9),b=10-a; return {q:`${a} + ${b} = ?`, answer:10}; }
+  if (type==='multiply')    { const f=pick([2,5,10]),o=rand(1,9); return {q:`${f} × ${o} = ?`, answer:f*o}; }
+  if (type==='strings')     { const a=rand(2,8),b=rand(1,5),c=rand(1,4); return {q:`${a} + ${b} + ${c} = ?`, answer:a+b+c}; }
+  if (type==='integers')    { const s=rand(0,5),d=rand(1,5); return {q:`Start at ${s}, go down ${d}. Where are you?`, answer:s-d}; }
+  if (type==='geometry')    { const r=rand(2,4),c=rand(2,4); return {q:`Area of ${c}×${r} rectangle?`, answer:r*c}; }
+  return {q:'5 + 3 = ?', answer:8};
+}
+
+function wizardCheck() {
+  const val = parseInt(answerStr, 10);
+  if (isNaN(val)) { showFeedback(false,'Enter a number!'); return; }
+  const correct = val === currentAnswer;
+  showFeedback(correct,
+    correct ? ['Magic! ✨','Spell cast! 🌟','Brilliant! 🎉'][wizardStep] : `The answer was ${currentAnswer}. Keep going!`
+  );
+  if (correct) {
+    wizardScore++;
+    document.getElementById(`wdot${wizardStep}`).classList.add('done');
+  }
+  wizardStep++;
+  answerStr='';
+  const disp = document.getElementById('answer-display');
+  if (disp) disp.textContent='_';
+
+  if (wizardStep >= 3) {
+    // Done
+    setTimeout(() => {
+      document.getElementById('wiz-problem').innerHTML = `
+        <div class="score-screen">
+          <div style="font-size:64px">${wizardScore===3?'🏆':wizardScore===2?'🌟':'⭐'}</div>
+          <div class="big-score" style="font-size:48px">${wizardScore}/3 Spells!</div>
+          <div class="star-row">${'⭐'.repeat(wizardScore)}${'☆'.repeat(3-wizardScore)}</div>
+          <p>${wizardScore===3?'PERFECT! The wizard is overjoyed! 🎉':wizardScore===2?'Great job! Almost a wizard master!':'Keep practicing your magic!'}</p>
+        </div>`;
+      document.getElementById('wiz-actions').style.display='';
+      document.getElementById('wiz-actions').innerHTML = `<button class="action-btn btn-next" onclick="renderWizard()">🔄 Play Again</button>`;
+    }, 1500);
+  } else {
+    document.getElementById('wiz-actions').style.display='';
+  }
+}
+
+function wizardNext() {
+  wizardLoadProblem();
+  document.getElementById('wiz-actions').style.display='none';
+  document.getElementById('feedback').classList.remove('show','correct','wrong');
+}
+
+// ======================== 12. TWENTY EQUATIONS ========================
+function renderTwenty() {
+  eq20List = [];
+  eq20Index = 0;
+  eq20Score = 0;
+
+  // Generate 20 mixed problems
+  const types = ['add','sub','mul2','mul5','mul10','regroup'];
+  for (let i=0;i<20;i++) {
+    const t = types[i%types.length];
+    eq20List.push(generateEq20Problem(t));
+  }
+  eq20List.sort(()=>Math.random()-0.5);
+  renderEq20Current();
+}
+
+function generateEq20Problem(type) {
+  if (type==='add')    { const a=rand(1,15),b=rand(1,15); return {q:`${a} + ${b}`, ans:a+b}; }
+  if (type==='sub')    { const a=rand(5,20),b=rand(1,a); return {q:`${a} − ${b}`, ans:a-b}; }
+  if (type==='mul2')   { const n=rand(1,10); return {q:`2 × ${n}`, ans:2*n}; }
+  if (type==='mul5')   { const n=rand(1,10); return {q:`5 × ${n}`, ans:5*n}; }
+  if (type==='mul10')  { const n=rand(1,10); return {q:`10 × ${n}`, ans:10*n}; }
+  if (type==='regroup'){ const a=rand(1,9),b=10-a; return {q:`${a} + ${b}`, ans:10}; }
+  return {q:'5 + 5', ans:10};
+}
+
+function renderEq20Current() {
+  answerStr='';
+  document.getElementById('feedback').classList.remove('show','correct','wrong');
+  document.getElementById('hint-box').classList.remove('show');
+
+  if (eq20Index >= 20) {
+    showEq20Score();
+    return;
+  }
+  const prob = eq20List[eq20Index];
+  const pct = (eq20Index/20)*100;
+
+  document.getElementById('ex-content').innerHTML = `
+    <div id="progress-wrap">
+      <div id="progress-bar-bg"><div id="progress-bar" style="width:${pct}%"></div></div>
+      <div id="progress-label">${eq20Index}/20 done</div>
+    </div>
+    <div class="question-area" style="font-size:44px">${prob.q} = ?</div>
+    ${numpadHTML()}`;
+}
+
+function eq20Check() {
+  const val = parseInt(answerStr,10);
+  if (isNaN(val)) { showFeedback(false,'Enter a number!'); return; }
+  const prob = eq20List[eq20Index];
+  const correct = val === prob.ans;
+  if (correct) eq20Score++;
+  showFeedback(correct, correct ? pick(['Correct! 🎉','Perfect!','You got it!']) : `The answer was ${prob.ans}.`);
+  eq20Index++;
+  answerStr='';
+  const disp = document.getElementById('answer-display');
+  if (disp) disp.textContent='_';
+
+  setTimeout(() => {
+    renderEq20Current();
+  }, 1200);
+}
+
+function showEq20Score() {
+  const stars = eq20Score >= 18 ? 3 : eq20Score >= 14 ? 2 : 1;
+  // Save high score
+  try {
+    const prev = parseInt(localStorage.getItem('mathwiz_highscore')||'0');
+    if (eq20Score > prev) localStorage.setItem('mathwiz_highscore', eq20Score);
+  } catch(e){}
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="score-screen">
+      <div style="font-size:80px">${stars===3?'🏆':stars===2?'🥈':'🥉'}</div>
+      <div class="big-score">${eq20Score}/20</div>
+      <div class="star-row">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+      <p>${eq20Score===20?'PERFECT SCORE! You\'re a Math Wizard! 🧙':eq20Score>=14?'Fantastic job! Keep it up!':'Good effort! Practice makes perfect!'}</p>
+      <div style="font-size:18px;color:#9CA3AF;margin-top:8px">High score: ${localStorage.getItem('mathwiz_highscore')||eq20Score}/20</div>
+    </div>
+    <div class="action-row">
+      <button class="action-btn btn-next" onclick="renderTwenty()">🔄 Try Again</button>
+    </div>`;
+}
+
+// ======================== 13. RIDDLES ========================
+function renderRiddles() {
+  const riddles = [
+    {
+      text: 'I am at (2, 3). I move 2 steps right and 1 step up. Where am I?',
+      start:[2,3], dx:2, dy:1,
+      get ans() { return [this.start[0]+this.dx, this.start[1]+this.dy]; }
+    },
+    {
+      text: 'I am at (1, 1). I move 3 steps right and 2 steps up. Where am I?',
+      start:[1,1], dx:3, dy:2,
+      get ans() { return [this.start[0]+this.dx, this.start[1]+this.dy]; }
+    },
+    {
+      text: 'I am at (4, 5). I move 1 step left and 2 steps down. Where am I?',
+      start:[4,5], dx:-1, dy:-2,
+      get ans() { return [this.start[0]+this.dx, this.start[1]+this.dy]; }
+    },
+    {
+      text: 'I am at (3, 2). I move 2 steps left and 1 step up. Where am I?',
+      start:[3,2], dx:-2, dy:1,
+      get ans() { return [this.start[0]+this.dx, this.start[1]+this.dy]; }
+    },
+    {
+      text: 'I am at (5, 1). I move 0 steps and 3 steps up. Where am I?',
+      start:[5,1], dx:0, dy:3,
+      get ans() { return [this.start[0]+this.dx, this.start[1]+this.dy]; }
+    },
+  ];
+  const r = pick(riddles);
+  const [ax,ay] = r.ans;
+  currentAnswer = `${ax},${ay}`;
+
+  document.getElementById('ex-content').innerHTML = `
+    <div class="question-area" style="font-size:20px">🗺️ ${r.text}</div>
+    <div style="text-align:center;font-size:16px;color:#7C3AED;margin:6px 0">⭐ = Start at (${r.start[0]}, ${r.start[1]})</div>
+    ${buildCartGrid(r.start[0], r.start[1], true)}
+    <div style="text-align:center;font-size:16px;color:#6B7280;margin:6px 0">Tap the cell where you end up!</div>
+    <div id="riddle-choice" style="text-align:center;margin-top:10px"></div>
+    <div class="action-row"><button class="action-btn btn-next" onclick="renderRiddles()">🔄 New Riddle</button></div>`;
+
+  // Replace grid cells to be clickable for answer
+  setTimeout(() => {
+    document.querySelectorAll('td[onclick]').forEach(td => {
+      const m = td.getAttribute('onclick').match(/cartClick\((\d+),(\d+)\)/);
+      if (m) {
+        td.setAttribute('onclick', `riddleClick(${m[1]},${m[2]},${ax},${ay})`);
+      }
+    });
+  }, 100);
+}
+
+function cartClick(x,y) {}
+function riddleClick(x,y,ax,ay) {
+  const correct = x===ax && y===ay;
+  showFeedback(correct,
+    correct ? `🎉 Yes! You're at (${ax}, ${ay})!` : `Not quite! The answer is (${ax}, ${ay})`
+  );
+  document.querySelectorAll('td').forEach(td => {
+    const m = td.getAttribute('onclick') && td.getAttribute('onclick').match(/riddleClick\((\d+),(\d+)/);
+    if (m && parseInt(m[1])===ax && parseInt(m[2])===ay) {
+      td.style.background='#D1FAE5';
+      td.textContent='✅';
+    }
+  });
+}
+
+// ======================== INIT ========================
+buildHome();
+</script>
+</body>
+</html>
